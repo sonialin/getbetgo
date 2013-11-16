@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="row">
+	<div class="col-lg-8">
+
+	  <!-- the actual blog post: title/author/date/content -->
+	  <h1><%= @post.title %></h1>
+	  <p class="lead">by <a href="index.php">Start Bootstrap</a></p>
+	  <% if current_user == @post.user %>
+			<%= link_to 'Edit', edit_post_path(@post) %> | 
+		<% end %>
+		<%= link_to 'Back', posts_path %>
+	  <hr>
+	  <p><span class="glyphicon glyphicon-time"></span>Created at<%= @post.created_at %></p>
+	  <hr>
+	  <%= image_tag @post.image_url, :class => "img-responsive" %>
+	  <hr>
+	  <p class="lead"><%= @post.description %></p>
+	  <p><strong>Placeholder text by:</strong></p>
+	  <ul>
+	    <li><a href="http://spaceipsum.com/">Space Ipsum</a></li>
+	    <li><a href="http://cupcakeipsum.com/">Cupcake Ipsum</a></li>
+	    <li><a href="http://tunaipsum.com/">Tuna Ipsum</a></li>
+	  </ul>
+
+	  <hr>
+
+	  <!-- the comment box -->
+	  <div class="well">
+	    <h4>Leave a Comment:</h4>
+	    <form role="form">
+	      <div class="form-group">
+	        <textarea class="form-control" rows="3"></textarea>
+	      </div>
+	      <button type="submit" class="btn btn-primary">Submit</button>
+	    </form>
+	  </div>
+	  
+	  <hr>
+
+	  <!-- the comments -->
+	  <h3>Start Bootstrap <small>9:41 PM on August 24, 2013</small></h3>
+	  <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+	  <h3>Start Bootstrap <small>9:47 PM on August 24, 2013</small></h3>
+	  <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p>
+
+	</div>
+
+	<div class="col-lg-4">
+	  <div class="well">
+	    <h4>Blog Search</h4>
+	    <div class="input-group">
+	      <input type="text" class="form-control">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+	      </span>
+	    </div><!-- /input-group -->
+	  </div><!-- /well -->
+	  <div class="well">
+	    <h4>Popular Blog Categories</h4>
+	      <div class="row">
+	        <div class="col-lg-6">
+	          <ul class="list-unstyled">
+	            <li><a href="#dinosaurs">Dinosaurs</a></li>
+	            <li><a href="#spaceships">Spaceships</a></li>
+	            <li><a href="#fried-foods">Fried Foods</a></li>
+	            <li><a href="#wild-animals">Wild Animals</a></li>
+	          </ul>
+	        </div>
+	        <div class="col-lg-6">
+	          <ul class="list-unstyled">
+	            <li><a href="#alien-abductions">Alien Abductions</a></li>
+	            <li><a href="#business-casual">Business Casual</a></li>
+	            <li><a href="#robots">Robots</a></li>
+	            <li><a href="#fireworks">Fireworks</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	  </div><!-- /well -->
+	  <div class="well">
+	    <h4>Side Widget Well</h4>
+	    <p><%= @post.price %></p>
+	    <p><%= @post.quantity %></p>
+	  </div><!-- /well -->
+	</div>
+</div>
+
+
+
+
+
+
