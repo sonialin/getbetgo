@@ -1,4 +1,6 @@
 Getbetgo::Application.routes.draw do
+  resources :bets
+
   devise_for :users
   resources :posts
 

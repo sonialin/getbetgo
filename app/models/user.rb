@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   has_many :posts, :dependent => :destroy
+  has_many :bets, :dependent => :destroy
 end

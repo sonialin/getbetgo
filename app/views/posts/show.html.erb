@@ -1,6 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-
 <div class="row">
 	<div class="col-lg-8">
 
@@ -12,7 +9,7 @@
 		<% end %>
 		<%= link_to 'Back', posts_path %>
 	  <hr>
-	  <p><span class="glyphicon glyphicon-time"></span>Created at<%= @post.created_at %></p>
+	  <p><span class="glyphicon glyphicon-time"></span>&nbsp;Created at<%= @post.created_at %>&nbsp;by&nbsp;<%= @post.user.name %></p>
 	  <hr>
 	  <%= image_tag @post.image_url, :class => "img-responsive" %>
 	  <hr>
@@ -83,6 +80,11 @@
 	    <h4>Side Widget Well</h4>
 	    <p><%= @post.price %></p>
 	    <p><%= @post.quantity %></p>
+	    <%= button_to 'Bet', bets_path(post_id: @post), :class => "btn btn-primary", :role => "button" %>
+	    <% @post.bets.each do |bet| %>
+	    	<p><%= bet.user.name %></p>
+	    <% end %>
+	    <p><%= @post.available_quantity %></p>
 	  </div><!-- /well -->
 	</div>
 </div>
