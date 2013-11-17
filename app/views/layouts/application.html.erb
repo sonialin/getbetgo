@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Start Bootstrap</a>
+          <%= link_to "Home", root_path, :class => "navbar-brand" %>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -62,10 +62,12 @@
     <div class="container">
 
       
-     
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-        
+    <% if notice %>
+    	<p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    	<p class="alert"><%= alert %></p>
+    <% end %>    
         
 			<%= yield %>
         

@@ -3,7 +3,11 @@ class Post < ActiveRecord::Base
 	has_many :bets
 
 	before_destroy :ensure_not_referenced_by_any_bet
-  # validates :user_id, presence: true
+  validates :user_id, presence: true
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :price, numericality: {greater_than_or_equal_to: 0.01}
+  validates :quantity, numericality: {:greater_than_or_equal_to => 1}
 
   attr_accessible :title, :description, :image_url, :price, :quantity
   attr_reader :available_quantity
