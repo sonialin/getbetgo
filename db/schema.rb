@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131116160513) do
+ActiveRecord::Schema.define(version: 20131117084457) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -31,6 +31,10 @@ ActiveRecord::Schema.define(version: 20131116160513) do
     t.integer  "user_id"
     t.decimal  "price"
     t.integer  "quantity"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

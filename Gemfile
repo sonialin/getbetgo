@@ -44,6 +44,12 @@ gem 'devise'
 # Protect attributes from mass-assignment in ActiveRecord models
 gem 'protected_attributes'
 
+# Use Paperclip for user image upload
+gem 'paperclip', '~> 3.0'
+
+# Use Amazon S3 for photo storage on production
+gem 'aws-sdk'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

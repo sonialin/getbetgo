@@ -46,17 +46,17 @@
   <% @posts.each do |post| %>
     <div class="col-lg-3 col-md-6 hero-feature">
       <div class="thumbnail">
-        <%= image_tag post.image_url %>
+        <%= link_to (image_tag post.image.url(:medium)), post %>
         <div class="caption">
           <h3><%= post.title %></h3>
           <p>This would be a great spot to feature some brand new products!</p>
           <p><a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a></p><%= link_to 'Show', post %>
-          <% if current_user == post.user %>
+          <!--<% if current_user == post.user %>
           <p>
             <%= link_to 'Edit', edit_post_path(post) %>
             <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
           </p>
-          <% end %>
+          <% end %>-->
       </tr>
         </div>
       </div>

@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
-	has_many :bets
+	has_many :bets, :dependent => :destroy
+
+	has_attached_file :image, :styles => { :big => '600', :medium => "300x200#", :thumb => "100x100#" }
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true
@@ -9,7 +11,7 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1}
 
-  attr_accessible :title, :description, :image_url, :price, :quantity
+  attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
 
   def available_quantity

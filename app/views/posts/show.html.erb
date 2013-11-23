@@ -12,6 +12,7 @@
 	  <p><span class="glyphicon glyphicon-time"></span>&nbsp;Created at<%= @post.created_at %>&nbsp;by&nbsp;<%= @post.user.name %></p>
 	  <hr>
 	  <%= image_tag @post.image_url, :class => "img-responsive" %>
+	  <%= image_tag @post.image.url(:big) %>
 	  <hr>
 	  <p class="lead"><%= @post.description %></p>
 	  <p><strong>Placeholder text by:</strong></p>
