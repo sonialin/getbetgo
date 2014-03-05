@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 1.5
+  card: 1
+  time: 2013-12-11 15:12:58
+  user_id: 1
+  result: MyString
+
+two:
+  amount: 1.5
+  card: 1
+  time: 2013-12-11 15:12:58
+  user_id: 1
+  result: MyString

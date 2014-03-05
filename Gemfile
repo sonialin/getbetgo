@@ -41,9 +41,6 @@ end
 # Use devise for authentication
 gem 'devise'
 
-# Protect attributes from mass-assignment in ActiveRecord models
-gem 'protected_attributes'
-
 # Use Paperclip for user image upload
 gem 'paperclip', '~> 3.0'
 
