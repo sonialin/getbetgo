@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
 
-	has_attached_file :image, :styles => { :big => '600', :medium => "300x200#", :thumb => "100x100#" }
+	has_attached_file :image, :styles => { :big => '600', :medium => "250x200#", :thumb => "100x100#" }
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true

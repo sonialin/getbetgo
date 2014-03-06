@@ -39,7 +39,7 @@ group :doc do
 end
 
 # Use devise for authentication
-gem 'devise'
+gem 'devise', '~> 3.1.0.rc'
 
 # Use Paperclip for user image upload
 gem 'paperclip', '~> 3.0'
