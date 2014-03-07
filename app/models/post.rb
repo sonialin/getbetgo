@@ -22,6 +22,14 @@ class Post < ActiveRecord::Base
     self.available_quantity <= 0
   end
 
+  def total
+    self.price * self.quantity
+  end
+
+  def paid?
+    # if the payment has been made to make the post show up
+  end
+
   private
  
     # ensure that there are no bets referencing this post

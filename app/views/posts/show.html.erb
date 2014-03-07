@@ -79,9 +79,10 @@
 	  </div><!-- /well -->
 	  <div class="well">
 	    <h4>Side Widget Well</h4>
-	    <p><%= @post.price %></p>
-	    <p><%= @post.quantity %></p>
-	    <%= button_to 'Bet', bets_path(post_id: @post), :class => "btn btn-primary", :role => "button" %>
+	    <p>Price: <%= @post.price %></p>
+	    <p>Quantity: <%= @post.quantity %></p>
+	    <p>Total: <%= @post.total %></p>
+	    <%= button_to 'Buy', bets_path(post_id: @post), :class => "btn btn-primary", :role => "button" %>
 	    <% @post.bets.each do |bet| %>
 	    	<p><%= bet.user.name %></p>
 	    <% end %>
