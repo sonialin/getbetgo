@@ -3,11 +3,14 @@
 
 	  <!-- the actual blog post: title/author/date/content -->
 	  <h1><%= @post.title %></h1>
-	  <p class="lead">by <a href="index.php">Start Bootstrap</a></p>
+	  <p class="lead">by <%= link_to @post.user.name, user_path(@post.user.id) %> </p>
+	  <% if !@post.paid? %>
+		  <%= link_to 'Pay now', {:controller => :posts, :action=> :payment, :id => @post}, :class => 'btn btn-primary' %>
+	  <% end %>
 	  <% if current_user == @post.user %>
-			<%= link_to 'Edit', edit_post_path(@post) %> | 
+	  	<br />
+			<%= link_to 'Edit', edit_post_path(@post) %>
 		<% end %>
-		<%= link_to 'Back', posts_path %>
 	  <hr>
 	  <p><span class="glyphicon glyphicon-time"></span>&nbsp;Created at<%= @post.created_at %>&nbsp;by&nbsp;<%= @post.user.name %></p>
 	  <hr>

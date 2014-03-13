@@ -15,3 +15,6 @@
 /log/*.log
 /tmp
 .DS_Store
+
+# Ignore all image files uploaded locally
+/public/system/posts/images

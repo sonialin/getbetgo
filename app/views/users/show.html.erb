@@ -1,0 +1,40 @@
+<br />
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr class="job-header">
+      <th>Post Title</th>
+      <th>Paid?</th>
+      <th>Description</th>
+      <% if user_signed_in? %>
+        <th colspan="2">Admin Only</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody data-link="row" class="rowlink">
+    <% @posts.each do |post| %>
+    	<!-- only have the post show up if paid or created by current user -->
+    	<% if !(post.user != current_user && !post.paid?) %>
+	      <tr>
+	        <td>
+	        <%= link_to post.title, post %>
+	        </td>
+	        <td>
+	        	<% if post.paid? %>
+	        		Paid
+	        	<% else %>
+	        		<%= link_to 'Pay', {:controller => :posts, :action=> :payment, :id => post.id}, :class => 'btn btn-success' %> 
+	        	<% end %>
+	        </td>
+	        <td><%= raw post.description.truncate(20) %>
+	          <% if current_user == post.user %>
+	            <td class="rowlink-skip"><%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-default' %></td>
+	            <td class="rowlink-skip"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
+	          <% end %>
+	        </td>    
+	      </tr>
+      <% end %>
+      <!-- end evaluation if whether the post should show up -->
+    <% end %>
+  </tbody>
+</table>

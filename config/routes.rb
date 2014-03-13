@@ -1,7 +1,10 @@
 Getbetgo::Application.routes.draw do
+  get "users/show"
   resources :bets
 
   devise_for :users
+  resources :users
+  
   resources :posts
   get 'posts/:id/payment' => 'posts#payment'
   get 'posts/:id/pay_process' => 'posts#pay_process'
