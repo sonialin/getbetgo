@@ -44,6 +44,7 @@
 
 <div class="row text-center">
   <% @posts.each do |post| %>
+    <% if !(post.user != current_user && !post.paid?) %><!-- only have the post show up if paid or created by current user -->
     <div class="col-lg-3 col-md-6 hero-feature">
       <div class="thumbnail">
         <%= link_to (image_tag post.image.url(:medium)), post %>
@@ -57,10 +58,10 @@
             <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
           </p>
           <% end %>-->
-      </tr>
         </div>
       </div>
     </div>
+    <% end %>
   <% end %>
 </div>
 

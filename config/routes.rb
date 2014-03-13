@@ -3,11 +3,16 @@ Getbetgo::Application.routes.draw do
 
   devise_for :users
   resources :posts
+  get 'posts/:id/payment' => 'posts#payment'
+  get 'posts/:id/pay_process' => 'posts#pay_process'
+  get 'transactions/:post_id/success' => 'transactions#success'
+  get 'transactions/:post_id/failed' => 'transactions#failed'
 
   root :to => 'posts#index'
 
-  get 'transactions/new' => 'transactions#new'
-  post 'transactions/create' => 'transactions#create'
+  # get 'transactions/new' => 'transactions#new'
+  # post 'transactions/create' => 'transactions#create'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

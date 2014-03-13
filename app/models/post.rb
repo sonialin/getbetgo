@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
+  has_one :order
 	has_many :bets, :dependent => :destroy
 
 	has_attached_file :image, :styles => { :big => '600', :medium => "250x200#", :thumb => "100x100#" }
@@ -28,6 +29,7 @@ class Post < ActiveRecord::Base
 
   def paid?
     # if the payment has been made to make the post show up
+    !self.order.nil?
   end
 
   private

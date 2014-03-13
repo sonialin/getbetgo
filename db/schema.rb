@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131211071258) do
+ActiveRecord::Schema.define(version: 20140313081940) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -30,7 +30,10 @@ ActiveRecord::Schema.define(version: 20131211071258) do
     t.string   "result"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "post_id"
   end
+
+  add_index "orders", ["post_id"], name: "index_orders_on_post_id"
 
   create_table "posts", force: true do |t|
     t.string   "title"

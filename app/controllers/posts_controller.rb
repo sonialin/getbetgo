@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
   # before_action :set_gateway
   before_filter :authenticate_user!, except: [:index, :show]
 
@@ -12,6 +12,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    redirect_to root_url if @post.user != current_user && !@post.paid?
   end
 
   # GET /posts/new
@@ -31,8 +32,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @post }
+        format.html { redirect_to :controller => :posts, :action=> :payment, :id => @post.id }
+        # format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        # format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -63,6 +65,17 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
+    end
+  end
+
+  def payment
+  end
+
+  def pay_process
+    if params[:gateway] != "paypal"
+      flash[:notice] = 'Please select payment gateway.'
+      redirect_to :controller=>:posts, :id=>@post.id, :action=>:payment
+      #redirect_to "posts/#{@post.id}/payment", notice: 'Please select payment gateway.'
     end
   end
 
