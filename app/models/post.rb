@@ -19,9 +19,9 @@ class Post < ActiveRecord::Base
   	quantity - bets.all.count
   end
 
-  def bets_limit_reached?
-    self.available_quantity <= 0
-  end
+  # def bets_limit_reached?
+  #   self.available_quantity <= 0 # make sure the quantity doesn't get below 0
+  # end
 
   def total
     self.price * self.quantity

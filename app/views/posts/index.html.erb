@@ -14,8 +14,8 @@
 
 <div class="row text-center">
   <% @posts.each do |post| %>
-    <!-- only have the post show up if paid or created by current user -->
-    <% if !(post.user != current_user && !post.paid?) %>
+    <!-- only have the post show up if paid -->
+    <% if post.paid? %>
       <div class="col-lg-3 col-md-6 hero-feature">
         <div class="thumbnail">
           <%= link_to (image_tag post.image.url(:medium)), post %>

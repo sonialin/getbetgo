@@ -25,22 +25,22 @@ class BetsController < ApplicationController
   # POST /bets.json
   def create
     @user = current_user
-    post = Post.find(params[:post_id])
-    if post.user == @user
-      redirect_to post, notice: "Cannot claim your own bets!"
+    @post = Post.find(params[:post_id])
+    if @post.user == @user
+      redirect_to @post, alert: "Cannot claim your own bets!"
       return
     end
     
-    @bet = @user.bets.build(post: post)
-    @bet.post = post
+    @bet = @user.bets.build(bet_params)
+    @bet.post = @post
 
     respond_to do |format|
       if @bet.save
-        format.html { redirect_to post, notice: 'Bet was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @bet }
+        format.html { redirect_to @post, notice: 'Bet was successfully created.' }
+        #format.json { render action: 'show', status: :created, location: @bet }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @bet.errors, status: :unprocessable_entity }
+        format.html { redirect_to @post, alert: 'Oops, something went wrong.' }
+        #format.json { render json: @bet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,6 +77,6 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:post_id, :user_id)
+      params.require(:bet).permit(:post_id, :user_id, :body)
     end
 end

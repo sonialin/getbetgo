@@ -5,13 +5,15 @@ class Bet < ActiveRecord::Base
 	validates :user_id, :uniqueness => { :scope => :post_id,
   :message => "Users may only make one bet per post." }
 
-	before_create :limit_check
+  validates :body, presence: true
 
-	def limit_check         
-    if post.bets_limit_reached?
-      errors.add :base, 'Bets limit reached.'           
-      return false
-    end       
-    return true
-  end 
+	# before_create :limit_check
+
+	# def limit_check         
+ #    if self.post.bets_limit_reached?
+ #      errors.add :base, 'Bets limit reached.'           
+ #      return false
+ #    end       
+ #    return true
+ #  end 
 end

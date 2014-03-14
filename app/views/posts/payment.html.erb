@@ -61,16 +61,5 @@
 	        </div>
 	      </div>
 	  </div><!-- /well -->
-	  <div class="well">
-	    <h4>Side Widget Well</h4>
-	    <p>Price: <%= @post.price %></p>
-	    <p>Quantity: <%= @post.quantity %></p>
-	    <p>Total: <%= @post.total %></p>
-	    <%= button_to 'Buy', bets_path(post_id: @post), :class => "btn btn-primary", :role => "button" %>
-	    <% @post.bets.each do |bet| %>
-	    	<p><%= bet.user.name %></p>
-	    <% end %>
-	    <p><%= @post.available_quantity %></p>
-	  </div><!-- /well -->
 	</div>
 </div>

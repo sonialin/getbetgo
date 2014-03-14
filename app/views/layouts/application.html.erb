@@ -57,17 +57,15 @@
       </div><!-- /.container -->
     </nav>
 
-
-
     <div class="container">
 
       
-    <% if notice %>
-    	<p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-    	<p class="alert"><%= alert %></p>
-    <% end %>    
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-warning"><%= alert %></p>
+      <% end %>   
         
 			<%= yield %>
         

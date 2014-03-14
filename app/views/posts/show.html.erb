@@ -24,29 +24,31 @@
 	    <li><a href="http://cupcakeipsum.com/">Cupcake Ipsum</a></li>
 	    <li><a href="http://tunaipsum.com/">Tuna Ipsum</a></li>
 	  </ul>
-
-	  <hr>
-
-	  <!-- the comment box -->
-	  <div class="well">
-	    <h4>Leave a Comment:</h4>
-	    <form role="form">
-	      <div class="form-group">
-	        <textarea class="form-control" rows="3"></textarea>
-	      </div>
-	      <button type="submit" class="btn btn-primary">Submit</button>
-	    </form>
-	  </div>
 	  
 	  <hr>
+	  <!-- Enable current user to claim a bet -->
+	  <div class="well">
+	    <% if user_signed_in? %>
+	      <h4>Submit Your Bet:</h4>
+	      	<%= form_for([@post, @bet]) do |f| %>
+	          <div class="form-group">
+	            <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+	            <%= f.submit :class => "btn btn-primary" %>
+	          </div>
+	        <% end %>
+	    <% else %>
+	      <div>
+	        <p>Please log in to create a bet</p>
+	      </div>
+    	<% end %>
+    <!-- End bet box -->
+    </div>
 
-	  <!-- the comments -->
-	  <h3>Start Bootstrap <small>9:41 PM on August 24, 2013</small></h3>
-	  <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
-
-	  <h3>Start Bootstrap <small>9:47 PM on August 24, 2013</small></h3>
-	  <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p>
-
+	  <!-- the bets -->
+	  <% @bets.each do |bet| %>
+	  <h3><%= bet.user.name %><small><%= bet.created_at %></small></h3>
+	  <p><%= bet.body %></p>
+	  <% end %>
 	</div>
 
 	<div class="col-lg-4">
@@ -84,13 +86,19 @@
 	    <h4>Side Widget Well</h4>
 	    <p>Price: <%= @post.price %></p>
 	    <p>Quantity: <%= @post.quantity %></p>
-	    <p>Total: <%= @post.total %></p>
-	    <%= button_to 'Buy', bets_path(post_id: @post), :class => "btn btn-primary", :role => "button" %>
-	    <% @post.bets.each do |bet| %>
-	    	<p><%= bet.user.name %></p>
+	    <p>Total fund: <%= @post.total %></p>
+	    <p>Total bets submitted: <%= @post.bets.size %></p>
+	    
+	    <p>Betters:</p>
+	    <% if @post.bets.any? %>
+		    <% @post.bets.each do |bet| %>
+		    	<p><%= bet.user.name %></p>
+		    <% end %>
+		  <% else %>
+		  	<p>There is no bet submitted yet.</p>
 	    <% end %>
-	    <p><%= @post.available_quantity %></p>
 	  </div><!-- /well -->
+
 	</div>
 </div>
 

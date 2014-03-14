@@ -13,6 +13,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     redirect_to root_url if @post.user != current_user && !@post.paid?
+    @bet = Bet.new
+    @bets = @post.bets
   end
 
   # GET /posts/new
