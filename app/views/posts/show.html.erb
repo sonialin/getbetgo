@@ -48,26 +48,28 @@
 	  <% @bets.each do |bet| %>
 	  	<h3><%= bet.user.name %><small><%= bet.created_at %></small></h3>
 	  	<p><%= bet.body %></p>
-	  	<% if !bet.selected? %>
+	  	<% if bet.open? %>
 	  		<% if @post.user == current_user %>
 	  			<%= button_to select_post_bet_path(@post, bet), :method => :post do %>
           	Select
           <% end %>
 	  		<% end %>
 	  	<% else %>
-	  		<p>selected</p>
-	  		<% if bet.update %>
-	  			<%= bet.update.body %>
-	  		<% else %>
-	  			<% if bet.user == current_user %>
-			  		<h4>Submit Your Update:</h4>
-			    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
-			        <div class="form-group">
-			          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-			          <%= f.submit :class => "btn btn-primary" %>
-			        </div>
-			      <% end %>
-	  			<% end %>
+	  		<% if bet.selected? %>
+		  		<p>selected</p>
+		  		<% if bet.update %>
+		  			<%= bet.update.body %>
+		  		<% else %>
+		  			<% if bet.user == current_user %>
+				  		<h4>Submit Your Update:</h4>
+				    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
+				        <div class="form-group">
+				          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+				          <%= f.submit :class => "btn btn-primary" %>
+				        </div>
+				      <% end %>
+		  			<% end %>
+		  		<% end %>
 	  		<% end %>
 	  	<% end %>
 	  <% end %>

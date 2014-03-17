@@ -9,6 +9,8 @@ class Bet < ActiveRecord::Base
 
   validates :body, presence: true
 
+  before_save :default_values
+
 	# before_create :limit_check
 
 	# def limit_check         
@@ -26,5 +28,13 @@ class Bet < ActiveRecord::Base
 
   def selected?
     self.status == "Selected"
+  end
+
+  def open?
+    self.status == "Open"
+  end
+
+  def default_values
+    self.status ||= 'Open'
   end
 end
