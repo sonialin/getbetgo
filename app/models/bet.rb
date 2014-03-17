@@ -19,10 +19,10 @@ class Bet < ActiveRecord::Base
 
   def select
     self.status = 'Selected'
-    save!
+    self.save!
   end
 
   def selected?
-    status == "Selected"
+    self.status == "Selected"
   end
 end
