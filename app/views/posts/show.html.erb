@@ -46,8 +46,17 @@
 
 	  <!-- the bets -->
 	  <% @bets.each do |bet| %>
-	  <h3><%= bet.user.name %><small><%= bet.created_at %></small></h3>
-	  <p><%= bet.body %></p>
+	  	<h3><%= bet.user.name %><small><%= bet.created_at %></small></h3>
+	  	<p><%= bet.body %></p>
+	  	<% if @post.user == current_user %>
+	  		<% unless bet.selected? %>
+	  			<%= button_to select_post_bet_path(@post, bet), :method => :post do %>
+          	Select
+          <% end %>
+        <% else %>
+        	have been selected
+        <% end %>
+	  	<% end %>
 	  <% end %>
 	</div>
 

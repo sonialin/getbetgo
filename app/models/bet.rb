@@ -16,4 +16,13 @@ class Bet < ActiveRecord::Base
  #    end       
  #    return true
  #  end 
+
+  def select
+    self.status = 'Selected'
+    save!
+  end
+
+  def selected?
+    status == "Selected"
+  end
 end

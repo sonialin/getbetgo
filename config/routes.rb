@@ -5,7 +5,9 @@ Getbetgo::Application.routes.draw do
   resources :users
   
   resources :posts do
-    resources :bets
+    resources :bets do
+      post 'select', on: :member
+    end
   end
   get 'posts/:id/payment' => 'posts#payment'
   get 'posts/:id/pay_process' => 'posts#pay_process'

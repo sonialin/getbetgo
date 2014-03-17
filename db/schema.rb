@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313182741) do
+ActiveRecord::Schema.define(version: 20140317140651) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140313182741) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "body"
+    t.string   "status"
   end
 
   add_index "bets", ["user_id", "post_id"], name: "udx_bets_on_user_and_post", unique: true

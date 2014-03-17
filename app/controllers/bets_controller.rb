@@ -69,6 +69,19 @@ class BetsController < ApplicationController
     end
   end
 
+  def select
+    params.permit!
+    @post = Post.find(params[:post_id])
+    @bet = @post.bets.find_by_id(params[:id])
+    @bet.select
+    if @bet.status == "Selected"
+      flash[:notice] = "The bet has been selected."
+    else 
+      flash[:notice] = "Oops, something went wrong."
+    end
+    redirect_to @post
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bet
@@ -77,6 +90,6 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:post_id, :user_id, :body)
+      params.require(:bet).permit(:post_id, :user_id, :body, :status)
     end
 end
