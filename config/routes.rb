@@ -1,12 +1,14 @@
 Getbetgo::Application.routes.draw do
   
 
+  #get "updates/create"
   devise_for :users
   resources :users
   
   resources :posts do
     resources :bets do
       post 'select', on: :member
+      resources :updates, :only => [:create]
     end
   end
   get 'posts/:id/payment' => 'posts#payment'

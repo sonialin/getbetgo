@@ -2,6 +2,8 @@ class Bet < ActiveRecord::Base
 	belongs_to :post
 	belongs_to :user
 
+  has_one :update
+
 	validates :user_id, :uniqueness => { :scope => :post_id,
   :message => "Users may only make one bet per post." }
 

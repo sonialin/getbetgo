@@ -15,6 +15,7 @@ class PostsController < ApplicationController
     redirect_to root_url if @post.user != current_user && !@post.paid?
     @bet = Bet.new
     @bets = @post.bets
+    @update = Update.new
   end
 
   # GET /posts/new

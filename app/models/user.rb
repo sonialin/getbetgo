@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :posts, :dependent => :destroy
   has_many :bets, :dependent => :destroy
   has_many :orders
+  has_many :updates
 
   validates :name, presence: true
 end
