@@ -34,6 +34,10 @@ class Bet < ActiveRecord::Base
     self.status == "Open"
   end
 
+  def submitted?
+    self.status == "Submitted"
+  end
+
   def default_values
     self.status ||= 'Open'
   end

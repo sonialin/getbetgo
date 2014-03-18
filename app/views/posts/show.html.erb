@@ -54,23 +54,20 @@
           	Select
           <% end %>
 	  		<% end %>
-	  	<% else %>
-	  		<% if bet.selected? %>
-		  		<p>selected</p>
-		  		<% if bet.update %>
-		  			<%= bet.update.body %>
-		  		<% else %>
-		  			<% if bet.user == current_user %>
-				  		<h4>Submit Your Update:</h4>
-				    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
-				        <div class="form-group">
-				          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-				          <%= f.submit :class => "btn btn-primary" %>
-				        </div>
-				      <% end %>
-		  			<% end %>
-		  		<% end %>
-	  		<% end %>
+	  	<% elsif bet.selected? %>
+	  		<p>selected</p>
+  			<% if bet.user == current_user %>
+		  		<h4>Submit Your Update:</h4>
+		    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
+		        <div class="form-group">
+		          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+		          <%= f.submit :class => "btn btn-primary" %>
+		        </div>
+		      <% end %>
+  			<% end %>
+	  	<% elsif bet.submitted? %>
+	  		<p>submitted</p>
+	  		<%= bet.update.body %>
 	  	<% end %>
 	  <% end %>
 	</div>
