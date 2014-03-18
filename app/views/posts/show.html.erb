@@ -67,7 +67,9 @@
   			<% end %>
 	  	<% elsif bet.submitted? %>
 	  		<p>submitted</p>
-	  		<%= bet.update.body %>
+	  		<% if bet.update %>
+	  			<%= bet.update.body %>
+	  		<% end %>
 	  	<% end %>
 	  <% end %>
 	</div>
