@@ -24,54 +24,94 @@
 	    <li><a href="http://cupcakeipsum.com/">Cupcake Ipsum</a></li>
 	    <li><a href="http://tunaipsum.com/">Tuna Ipsum</a></li>
 	  </ul>
-	  
-	  <hr>
-	  <!-- Enable current user to claim a bet -->
-	  <div class="well">
-	    <% if user_signed_in? %>
-	      <h4>Submit Your Bet:</h4>
-	      	<%= form_for([@post, @bet]) do |f| %>
-	          <div class="form-group">
-	            <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-	            <%= f.submit :class => "btn btn-primary" %>
-	          </div>
-	        <% end %>
-	    <% else %>
-	      <div>
-	        <p>Please log in to create a bet</p>
-	      </div>
-    	<% end %>
-    <!-- End bet box -->
-    </div>
 
-	  <!-- the bets -->
-	  <% @bets.each do |bet| %>
-	  	<h3><%= bet.user.name %><small><%= bet.created_at %></small></h3>
-	  	<p><%= bet.body %></p>
-	  	<% if bet.open? %>
-	  		<% if @post.user == current_user %>
-	  			<%= button_to select_post_bet_path(@post, bet), :method => :post do %>
-          	Select
-          <% end %>
-	  		<% end %>
-	  	<% elsif bet.selected? %>
-	  		<p>selected</p>
-  			<% if bet.user == current_user %>
-		  		<h4>Submit Your Update:</h4>
-		    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
-		        <div class="form-group">
-		          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-		          <%= f.submit :class => "btn btn-primary" %>
-		        </div>
-		      <% end %>
-  			<% end %>
-	  	<% elsif bet.submitted? %>
-	  		<p>submitted</p>
-	  		<% if bet.update %>
-	  			<%= bet.update.body %>
-	  		<% end %>
-	  	<% end %>
-	  <% end %>
+	  <!-- /.panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-clock-o fa-fw"></i>Current Bets
+      </div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <ul class="timeline">
+        	<li>
+            <div class="timeline-panel">
+              <% if user_signed_in? %>
+					      <h4>Submit Your Bet:</h4>
+					      	<%= form_for([@post, @bet]) do |f| %>
+					          <div class="form-group">
+					            <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+					            <%= f.submit :class => "btn btn-primary" %>
+					          </div>
+					        <% end %>
+					    <% else %>
+					      <div>
+					        <p>Please log in to create a bet</p>
+					      </div>
+				    	<% end %>
+            </div>
+            </li>
+        	<% @bets.each do |bet| %>
+          <li class="<%= cycle("timeline-inverted", "") %>" >
+          	<% if bet.open? %>
+	            <div class="timeline-badge">
+	            	<i class="fa fa-flag"></i>
+	            </div>
+            <% elsif bet.selected? %>
+            	<div class="timeline-badge info">
+            		<i class="fa fa-check"></i>
+               </div>
+            <% elsif bet.submitted? %>
+            	<div class="timeline-badge success">
+            		<i class="fa fa-thumbs-up"></i>
+               </div>
+            <% end %>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
+                <p>
+                  <small class="text-muted"><i class="fa fa-time"></i><%= bet.created_at %></small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p><%= bet.body %></p>
+                <% if bet.open? %>
+	  							<% if @post.user == current_user %>
+		                <hr>
+		                <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-success" do %>
+					          	Select
+					          <% end %>
+                	<% end %>
+                <% elsif bet.selected? %>
+					  			<% if bet.user == current_user %>
+					  				<hr>
+							  		<h4>Submit Your Update:</h4>
+							    	<%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
+							        <div class="form-group">
+							          <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+							          <%= f.submit :class => "btn btn-primary" %>
+							        </div>
+							      <% end %>
+					  			<% end %>
+					  		<% elsif bet.submitted? %>
+					  			<hr>
+						  		<% if bet.update %>
+						  			<p>
+						  				<small class="text-muted"><i class="fa fa-time"></i><%= bet.update.created_at %></small>
+						  			</p>
+						  			<p>
+						  				<%= bet.update.body %>
+						  			</p>
+						  		<% end %>
+						  	<% end %>
+              </div>
+            </div>
+          </li>
+          <% end %><!-- bet loop ends -->
+        </ul>
+      </div>
+      <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
 	</div>
 
 	<div class="col-lg-4">
