@@ -16,7 +16,9 @@ class PostsController < ApplicationController
     @bet = Bet.new
     @bets = @post.bets.order("updated_at desc")
     @update = Update.new
-    @current_user_bet = @post.bets.where(:user_id => current_user.id)
+    if current_user
+      @current_user_bet = @post.bets.where(:user_id => current_user.id)
+    end
   end
 
   # GET /posts/new

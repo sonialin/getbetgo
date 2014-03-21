@@ -37,7 +37,7 @@
         	<li>
             <div class="timeline-panel">
               <% if user_signed_in? %>
-              	<% if @current_user_bet %>
+              	<% if !@current_user_bet.empty? %>
               		You've already submitted your bet!
               	<% else %>
 						      <h4>Submit Your Bet:</h4>
