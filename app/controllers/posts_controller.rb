@@ -14,8 +14,9 @@ class PostsController < ApplicationController
   def show
     redirect_to root_url if @post.user != current_user && !@post.paid?
     @bet = Bet.new
-    @bets = @post.bets
+    @bets = @post.bets.order("updated_at desc")
     @update = Update.new
+    @current_user_bet = @post.bets.where(:user_id => current_user.id)
   end
 
   # GET /posts/new
