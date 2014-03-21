@@ -28,6 +28,10 @@ class Post < ActiveRecord::Base
     self.price * self.quantity
   end
 
+  def percentage_claimed
+    self.price * bets.all.count / self.total * 100
+  end
+
   def paid?
     # if the payment has been made to make the post show up
     !self.order.nil?

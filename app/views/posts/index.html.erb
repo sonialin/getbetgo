@@ -22,11 +22,23 @@
           <div class="caption">
             <h3><%= post.title %></h3>by<small><%= post.user.name %></small>
             <p><%= raw post.description.truncate(20) %></p>
-            <p><%= post.bets.size %> betters </p> 
-            <p><%= post.total %> funding </p>
+          </div>
+          <div class="modal-footer" style="text-align: left">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><b><%= number_to_percentage(post.percentage_claimed, precision: 0) %></b><br/><small>CLAIMED</small></div>
+              <div class="col-md-4"><b>$<%= post.total %></b><br/><small>FUNDED</small></div>
+              <div class="col-md-4"><b><%= post.bets.size %></b><br/><small>PEOPLE BENEFITED</small></div>
+            </div>
           </div>
         </div>
+
       </div>
+
     <% end %>
     <!-- end evaluation if whether the post should show up -->
   <% end %>
