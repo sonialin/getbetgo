@@ -3,6 +3,7 @@
 
 	  <!-- the actual blog post: title/author/date/content -->
 	  <h1><%= @post.title %></h1>
+	  <%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 	  <p class="lead">by <%= link_to @post.user.name, user_path(@post.user.id) %> </p>
 	  <% if !@post.paid? %>
 		  <%= link_to 'Pay now', {:controller => :posts, :action=> :payment, :id => @post}, :class => 'btn btn-primary' %>
@@ -15,7 +16,7 @@
 	  <p><span class="glyphicon glyphicon-time"></span>&nbsp;Created at<%= @post.created_at %>&nbsp;by&nbsp;<%= @post.user.name %></p>
 	  <hr>
 	  <%= image_tag @post.image_url, :class => "img-responsive" %>
-	  <%= image_tag @post.image.url(:big) %>
+	  <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
 	  <hr>
 	  <p class="lead"><%= @post.description %></p>
 	  <p><strong>Placeholder text by:</strong></p>

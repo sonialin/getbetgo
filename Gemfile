@@ -47,6 +47,9 @@ gem 'paperclip', '~> 3.0'
 # Use Amazon S3 for photo storage on production
 gem 'aws-sdk'
 
+# Use acts-as-taggable-on to enable tagging
+gem 'acts-as-taggable-on'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
