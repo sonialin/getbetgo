@@ -1,11 +1,12 @@
 <br />
+<h3>Posted funds</h3>
 <table class="table table-hover table-bordered">
   <thead>
     <tr class="job-header">
       <th>Post Title</th>
       <th>Paid?</th>
       <th>Description</th>
-      <% if user_signed_in? %>
+      <% if @user == current_user %>
         <th colspan="2">Admin Only</th>
       <% end %>
     </tr>
@@ -27,7 +28,7 @@
 	        	<% end %>
 	        </td>
 	        <td><%= raw post.description.truncate(20) %>
-	          <% if current_user == post.user %>
+	          <% if @user == current_user %>
 	            <td class="rowlink-skip"><%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-default' %></td>
 	            <td class="rowlink-skip"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
 	          <% end %>
@@ -38,3 +39,30 @@
     <% end %>
   </tbody>
 </table>
+
+<h3>Funded</h3>
+
+<table>
+<tbody>
+<% @bets.each do |bet| %>
+	<tr>
+	<td><%= bet.post.title %></td>
+	<td><%= bet.post.price %></td>
+	</tr>
+<% end %>
+</tbody>
+</table>
+
+<% if @user == current_user %>
+	<h3>Accounts</h3>
+	<% @paypal_recipient_accounts.each do |account| %>
+		<%= account.email %>
+	<% end %>
+
+	<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
+		<div class="form-group">
+		  <%= f.text_area :email, :class => 'form-control' %><br />
+		  <%= f.submit :class => "btn btn-primary" %>
+		</div>
+	<% end %>
+<% end %>

@@ -50,6 +50,9 @@ gem 'aws-sdk'
 # Use acts-as-taggable-on to enable tagging
 gem 'acts-as-taggable-on'
 
+# Use configatron to set variables
+gem 'configatron', '~> 3.0.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

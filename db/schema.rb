@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322164746) do
+ActiveRecord::Schema.define(version: 20140323140157) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 20140322164746) do
   end
 
   add_index "bets", ["user_id", "post_id"], name: "udx_bets_on_user_and_post", unique: true
+
+  create_table "funds", force: true do |t|
+    t.float    "amount"
+    t.string   "ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bet_id"
+    t.integer  "user_id"
+  end
+
+  add_index "funds", ["bet_id"], name: "index_funds_on_bet_id"
+  add_index "funds", ["user_id"], name: "index_funds_on_user_id"
 
   create_table "orders", force: true do |t|
     t.float    "amount"
@@ -36,6 +48,15 @@ ActiveRecord::Schema.define(version: 20140322164746) do
   end
 
   add_index "orders", ["post_id"], name: "index_orders_on_post_id"
+
+  create_table "paypal_recipient_accounts", force: true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "paypal_recipient_accounts", ["user_id"], name: "index_paypal_recipient_accounts_on_user_id"
 
   create_table "posts", force: true do |t|
     t.string   "title"

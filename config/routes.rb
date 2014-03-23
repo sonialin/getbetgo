@@ -1,6 +1,10 @@
 Getbetgo::Application.routes.draw do
   
 
+  post "paypal_recipient_accounts/create"
+  get "paypal_recipient_accounts/delete"
+  get "fund_transfers/success"
+  get "fund_transfers/failed"
   #get "updates/create"
   devise_for :users
   resources :users
@@ -8,6 +12,7 @@ Getbetgo::Application.routes.draw do
   resources :posts do
     resources :bets do
       post 'select', on: :member
+      get 'receive', on: :member
       resources :updates, :only => [:create]
     end
   end
@@ -18,6 +23,9 @@ Getbetgo::Application.routes.draw do
 
   root :to => 'posts#index'
   get 'tags/:tag', to: 'posts#index', as: :tag
+
+  get 'posts/:post_id/bets/:id/receive' => 'bets#receive'
+  get 'posts/:post_id/bets/:id/receive_process' => 'bets#receive_process'
 
   # get 'transactions/new' => 'transactions#new'
   # post 'transactions/create' => 'transactions#create'

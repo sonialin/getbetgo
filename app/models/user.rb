@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :bets, :dependent => :destroy
   has_many :orders
   has_many :updates
+  has_many :funds
+  has_many :paypal_recipient_accounts
 
   validates :name, presence: true
 end
