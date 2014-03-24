@@ -18,3 +18,5 @@
 
 # Ignore all image files uploaded locally
 /public/system/posts/images
+# Ignore application configuration
+/config/application.yml

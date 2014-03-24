@@ -53,6 +53,9 @@ gem 'acts-as-taggable-on'
 # Use configatron to set variables
 gem 'configatron', '~> 3.0.1'
 
+# Use figaro to set local environment variables
+gem 'figaro'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
