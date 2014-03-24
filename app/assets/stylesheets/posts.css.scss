@@ -1,3 +1,93 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Home page main visual */
+
+.line {
+    border-top:6px solid #98b709;
+    border-bottom:6px solid #98b709;
+}
+
+.map-wrapper {
+    background: #a6bfde;
+}
+
+#home-page-featured {
+    background: #000;
+    position: relative;
+    max-height: 552px;
+    overflow: hidden;
+    clear: both;
+    height: auto;
+
+}
+ #Textus {
+     position: absolute;
+     overflow: hidden;
+     z-index: 1;
+     width: 60%;
+     margin-left: 20%;
+     margin-right: 20%;
+     margin-top: 6%;
+}
+#myCarousel  {
+    z-index: 99999;
+}
+ #Textus p{
+     background: #99b709;
+    margin-top: 10px;
+     padding: 20px;
+     color: #ffffff;
+     display: inline-block;
+     overflow: hidden;
+     font-size: 30px;
+     font-weight: bold;
+     line-height: 40px;
+
+}
+#home-page-featured #Textus {
+    text-align: center;
+}
+
+#home-page-featured ul {
+    margin: 0 -300px 0 0;
+    height: 155px;
+    overflow: hidden;
+}
+#home-page-featured li {
+    float: left;
+    width: 155px;
+    height: 155px;
+    position: relative;
+    left: -100px;
+}
+#home-page-featured img {
+    float: left;
+    position: relative;
+    filter: alpha(opacity=41);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=41)";
+    opacity: 0.41;
+    width: 155px;
+    height: 155px;
+}
+#home-page-featured a {
+    width: 155px;
+    height: 155px;
+}
+#home-page-featured img:hover {
+    width: 155px;
+    height: 155px;
+    filter: alpha(opacity=1);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 1;
+}
+#home-page-featured a:hover {
+    width: 155px;
+    height: 155px;
+}
+
+
+.clear {
+    clear: both;
+}

@@ -1,13 +1,14 @@
 Getbetgo::Application.routes.draw do
   
 
-  post "paypal_recipient_accounts/create"
-  get "paypal_recipient_accounts/delete"
+  # post "paypal_recipient_accounts/create"
+  # delete "paypal_recipient_accounts/delete"
+
+  resources :paypal_recipient_accounts, :only => [:create, :destroy]
   get "fund_transfers/success"
   get "fund_transfers/failed"
-  #get "updates/create"
   devise_for :users
-  resources :users
+  resources :users, :only => [:show]
   
   resources :posts do
     resources :bets do

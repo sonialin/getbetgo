@@ -13,7 +13,13 @@ class PaypalRecipientAccountsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+  	@paypal_recipient_account = current_user.paypal_recipient_accounts.find(params[:id])
+    @paypal_recipient_account.destroy
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: 'Account was successfully deleted.' }
+      format.json { head :no_content }
+    end
   end
 
   private

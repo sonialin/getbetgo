@@ -29,8 +29,8 @@
 	        </td>
 	        <td><%= raw post.description.truncate(20) %>
 	          <% if @user == current_user %>
-	            <td class="rowlink-skip"><%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-default' %></td>
-	            <td class="rowlink-skip"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
+	            <td><%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-default' %></td>
+	            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
 	          <% end %>
 	        </td>    
 	      </tr>
@@ -57,6 +57,7 @@
 	<h3>Accounts</h3>
 	<% @paypal_recipient_accounts.each do |account| %>
 		<%= account.email %>
+		<%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
 	<% end %>
 
 	<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>

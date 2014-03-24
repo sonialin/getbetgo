@@ -30,8 +30,16 @@ class Post < ActiveRecord::Base
     self.price * self.quantity
   end
 
+  def beneficiaries
+    self.bets.where(:status => 'Funded').count
+  end
+
+  def claimed_fund
+    self.beneficiaries * self.price.to_f
+  end
+
   def percentage_claimed
-    self.price * bets.all.count / self.total * 100
+    self.claimed_fund / self.total * 100
   end
 
   def paid?

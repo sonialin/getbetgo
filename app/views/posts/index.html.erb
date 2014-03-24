@@ -1,47 +1,100 @@
-<div class="jumbotron hero-spacer">
-  <h1>A Warm Welcome!</h1>
-  <p>Introduce your website content using this jumbotron! It's an awesome way to call attention to something that needs to be read! It's also a great alternative to using a banner image if you don't have a good quality picture!</p>
-  <p><a class="btn btn-primary btn-large">Call to action!</a></p>
-</div>
+<div class="container-fluid line">
+    <div class="map-wrapper">
+      <div id="map" class="map" style="position: relative; overflow: hidden; -webkit-transform: translateZ(0);height: 465px;">
+        <div id="home-page-featured">
+        <div id="Textus">
+          <div class="clear">
+            <p>GET STARTED</p>
+          </div>
+          <div class="clear">
+            <p>WITH REAL SUPPORT</p>
+          </div>
+        </div>
+        <ul>
+          <li><a href="#"><%= image_tag "main_pic_14.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_15.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_16.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_17.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_18.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_19.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_20.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_13.jpg" %></a></li>  
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+        </ul>
+        <ul>
+          <li><a href="#"><%= image_tag "main_pic_19.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_20.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_13.jpg" %></a></li>  
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_14.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_15.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_16.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_17.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_18.jpg" %></a></li>
+        </ul>
+        <ul>
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_13.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_14.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_15.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_16.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_17.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_18.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_19.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_20.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_21.jpg" %></a></li>
+          <li><a href="#"><%= image_tag "main_pic_22.jpg" %></a></li>
+        </ul>
+        <!-- / container -->
+      </div><!-- end of home-page-featured -->
+    </div><!-- end of map -->
+  </div><!-- end of .map-wrapper -->
+</div><!-- end of container fluid -->
+
       
 <hr>
 
-<div class="row">
-  <div class="col-lg-12">
-    <h3>Latest Features</h3>
-  </div>
-</div><!-- /.row -->
+<div class="container">
 
-<div class="row text-center">
-  <% @posts.each do |post| %>
-    <!-- only have the post show up if paid -->
-    <% if post.paid? %>
-      <div class="col-lg-3 col-md-6 hero-feature">
-        <div class="thumbnail">
-          <%= link_to (image_tag post.image.url(:medium)), post %>
-          <div class="caption">
-            <h3><%= post.title %></h3>by<small><%= post.user.name %></small>
-            <p><%= raw post.description.truncate(20) %></p>
-          </div>
-          <div class="modal-footer" style="text-align: left">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">
-                
+  <div class="row text-center">
+    <% @posts.each do |post| %>
+      <!-- only have the post show up if paid -->
+      <% if post.paid? %>
+        <div class="col-lg-3 col-md-6 hero-feature">
+          <div class="thumbnail">
+            <%= link_to (image_tag post.image.url(:medium)), post %>
+            <div class="caption">
+              <h3><%= post.title %></h3>by<small><%= post.user.name %></small>
+              <p><%= raw post.description.truncate(20) %></p>
+            </div>
+            <div class="modal-footer" style="text-align: left">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"><b><%= number_to_percentage(post.percentage_claimed, precision: 0) %></b><br/><small>CLAIMED</small></div>
+                <div class="col-md-4"><b>$<%= post.total %></b><br/><small>FUNDED</small></div>
+                <div class="col-md-4"><b><%= post.beneficiaries %></b><br/><small>PEOPLE BENEFITED</small></div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-4"><b><%= number_to_percentage(post.percentage_claimed, precision: 0) %></b><br/><small>CLAIMED</small></div>
-              <div class="col-md-4"><b>$<%= post.total %></b><br/><small>FUNDED</small></div>
-              <div class="col-md-4"><b><%= post.bets.size %></b><br/><small>PEOPLE BENEFITED</small></div>
-            </div>
           </div>
+
         </div>
 
-      </div>
-
+      <% end %>
+      <!-- end evaluation if whether the post should show up -->
     <% end %>
-    <!-- end evaluation if whether the post should show up -->
-  <% end %>
-</div>
+  </div>
 
 <%= link_to 'New Post', new_post_path %>
+
+</div>
