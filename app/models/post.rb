@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
-	has_attached_file :image, :styles => { :big => '600', :medium => "250x200#", :thumb => "100x100#" }
+	has_attached_file :image, :styles => { :big => '600', :medium => "200x150#", :thumb => "100x100#" }
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true

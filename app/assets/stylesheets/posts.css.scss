@@ -134,7 +134,9 @@
 .author, .author a:hover, .author a {
     color: #98b709;
     position: relative;
-    top: 5px;
+    display: block;
+    top: 0px;
+    right: 5px;
     font-family: 'Titillium Web', sans-serif;
     font-weight: 400;
 }
@@ -142,7 +144,7 @@
 .folder {
   margin-top: -8px;
   margin-bottom: -4px;
-  height: 50px;
+  height: 70px;
 }
 
 .reduced-margin-bottom {
@@ -162,10 +164,14 @@
 }
 
 .brief-desc {
-  height: 100px;
+  height: 110px;
 }
 
 .brief-desc-text, .brief-desc-text a:hover, .brief-desc-text a {
   color: rgb(51, 51, 51);
   text-decoration: none;
+}
+
+.media-body {
+  height: 100px;
 }
