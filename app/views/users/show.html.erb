@@ -1,4 +1,10 @@
 <br />
+
+<h3>Avatar</h3>
+<% if @user.avatar %>
+	<%= image_tag @user.avatar.url(:medium) %>
+<% end %>
+
 <h3>Posted funds</h3>
 <table class="table table-hover table-bordered">
   <thead>
