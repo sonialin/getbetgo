@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1}
 
-  before_save :default_values
+  after_initialize :default_values
 
   # attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
