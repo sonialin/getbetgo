@@ -15,6 +15,8 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1}
 
+  before_save :default_values
+
   # attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
 
@@ -45,6 +47,10 @@ class Post < ActiveRecord::Base
   def paid?
     # if the payment has been made to make the post show up
     !self.order.nil?
+  end
+
+  def default_values
+    self.status ||= 'Drafted'
   end
 
   private
