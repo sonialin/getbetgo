@@ -56,6 +56,9 @@ gem 'configatron', '~> 3.0.1'
 # Use figaro to set local environment variables
 gem 'figaro'
 
+# Use ExecJS to allow js execution in rails
+gem 'execjs'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

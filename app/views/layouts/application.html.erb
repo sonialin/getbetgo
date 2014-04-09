@@ -63,6 +63,8 @@
       </div><!-- /.container -->
     </nav>
 
+    <div class="theme-background">
+
     <% if !current_page?(root_path) && !current_page?(posts_path) %>
       <div class="container">
     <% end %>
@@ -76,6 +78,8 @@
     <% end %>   
       
 		<%= yield %>
+
+    </div>
       
     <div class="container">
     <hr>
