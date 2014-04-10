@@ -1,6 +1,7 @@
 class BetsController < ApplicationController
   before_action :set_bet, only: [:show, :edit, :update, :destroy, :receive, :receive_process]
   before_filter :evaluate_if_current_user_claim_bet, only: [:receive, :receive_process]
+  before_filter :evaluate_if_selected_limit_reached, only: [:select]
 
   # GET /bets
   # GET /bets.json
@@ -64,6 +65,15 @@ class BetsController < ApplicationController
     post = @bet.post
     if @bet.user != current_user
       flash[:notice] = "You can only claim your own fund!"
+      redirect_to post
+    end
+  end
+
+  def evaluate_if_selected_limit_reached
+    post = Post.find(params[:post_id])
+    selected_bets = post.bets.where(:status => ["Selected", "Submitted", "Funded"]).all
+    if post.quantity == selected_bets.length
+      flash[:notice] = "Limit reached"
       redirect_to post
     end
   end

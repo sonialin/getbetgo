@@ -301,8 +301,8 @@
             <div class="row">
               <div class="col-md-1" style="margin-right: 10px"><div class="image_third"></div></div>
               <div class="text_backers_days_blocks col-md-10">
-                <div class="top_text_backers_days_blocks">XX</div>
-                <div class="bottom_text_backers_days_blocks">days to go</div>
+                <div class="top_text_backers_days_blocks"><%= @post.quantity - @post.beneficiaries %></div>
+                <div class="bottom_text_backers_days_blocks">spots left</div>
               </div>
             </div>
           </div>
@@ -317,16 +317,24 @@
           <h3 class="decoration text-center"><span class="nobgr">Funder</span></h3>
           <div id="face_social_text">
             <div class="left_face_social_text col-md-4">
-              <div class="face_big col-md-9"><div class="pix_author"></div></div>
-              <div class="social_link_author">
+              <div class="face_big col-md-11">
+                <div class="pix_author">
+                  <% if @post.user.avatar %>
+                    <%= link_to image_tag(@post.user.avatar.url(:thumb)), @post.user, :class => "media-object", :width => "100px" %>
+                  <% else %>
+                    <%= image_tag "http://placehold.it/100x100" %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="social_link_author col-md-1">
                 <div class="social_bord"><a href="#" >
-                    <img class="social_decc" src="img/description/facebook_author_icon.png" alt="">
+                  <%= link_to image_tag("funder/facebook_author_icon.png"), "#" %>
                 </a></div>
                 <div class="social_bord"><a href="#" >
-                    <img class="social_decc" src="img/description/twitter_author_icon.png" alt="">
+                  <%= link_to image_tag("funder/google_author_icon.png"), "#" %>
                 </a></div>
                 <div class="social_bord_last"><a href="#" >
-                    <img class="social_decc" src="img/description/google_author_icon.png" alt="">
+                  <%= link_to image_tag("funder/twitter_author_icon.png"), "#" %>
                 </a></div>
               </div>
             </div>
@@ -337,6 +345,7 @@
             </div>
           </div><!-- end of face_social_text -->
         </div><!-- end of author -->
+
         <!-- <div id="pledges_block">
           <h3 class="decoration text-center"><span class="nobgr">Pledges</span></h3>
           <div class="pledges_block_info">
