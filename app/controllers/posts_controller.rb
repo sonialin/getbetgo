@@ -23,6 +23,10 @@ class PostsController < ApplicationController
     if current_user
       @current_user_bet = @post.bets.where(:user_id => current_user.id)
     end
+    @relationship = Relationship.where(
+      follower_id: current_user.id,
+      followed_id: @post.user.id
+      ).first_or_initialize if current_user
   end
 
   # GET /posts/new

@@ -1,6 +1,8 @@
 Getbetgo::Application.routes.draw do
   
 
+  resources :relationships
+
   # post "paypal_recipient_accounts/create"
   # delete "paypal_recipient_accounts/delete"
 

@@ -312,9 +312,20 @@
           </div>
         </div><!-- end back_this_project_block-->
         <div class="back_this_project_button">
-          <button class="btn btn-large back_project" type="button">
-            <small>Subscribe to this Funder</small>
-          </button>
+
+          <% if current_user && @post.user != current_user %>
+            <% if current_user.following? @post.user %>
+              <%= form_for @relationship, method: :delete do |f| %>
+                <%= f.submit "Unfollow This Funder", :class => "btn btn-large back_project" %>
+              <% end %>
+            <% else %>
+              <%= form_for @relationship do |f| %>
+                <%= f.hidden_field :followed_id, value: @post.user.id %>
+                <%= f.submit "Follow This Funder", :class => "btn btn-large back_project"%>
+              <% end %>
+            <% end %>
+          <% end %>
+
         </div>
 
         <div id="author_review">
