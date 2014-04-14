@@ -71,13 +71,13 @@
       <% if alert %>
         <p class="alert alert-warning"><%= alert %></p>
       <% end %>
-      <% if !current_page?(root_path) %>
+      <% if !current_page?(root_path) && !current_page?(:controller => '/posts', :action => 'index') %>
         <div class="container">
       <% end %>  
   		<%= yield %>
     </div>
       
-    <% if !current_page?(root_path) %> 
+    <% if !current_page?(root_path) && !current_page?(:controller => '/posts', :action => 'index') %> 
       </div><!-- /.container -->
     <% end %>
 
