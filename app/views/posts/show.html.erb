@@ -1,4 +1,4 @@
-<div class="line">
+
 
   <div class="clear"></div>
   <div class="content description">
@@ -324,6 +324,8 @@
                 <%= f.submit "Follow This Funder", :class => "btn btn-large back_project"%>
               <% end %>
             <% end %>
+          <% elsif !current_user %>
+            <%= button_to "Sign in to Follow This Funder", new_user_session_path, :class => "btn btn-large back_project", :method => "get" %>
           <% end %>
 
         </div>
@@ -412,7 +414,7 @@
       </div><!-- end of column -->
     </div><!-- end of row -->
   </div><!-- end of content description -->
-</div><!-- end of line -->
+
 
 
 <script type="text/javascript">

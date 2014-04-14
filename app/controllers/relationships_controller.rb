@@ -1,4 +1,6 @@
 class RelationshipsController < ApplicationController
+	before_filter :authenticate_user!
+
 	def create
 		params.permit!
 		@relationship = Relationship.new(params[:relationship])
