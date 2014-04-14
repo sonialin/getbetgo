@@ -59,6 +59,12 @@ gem 'figaro'
 # Use ExecJS to allow js execution in rails
 gem 'execjs'
 
+# Use will_paginate to enable pagination of models
+gem 'will_paginate', '~> 3.0'
+
+# Use will_paginate-bootstrap to add bootstrap styling to pagination bar
+gem 'will_paginate-bootstrap'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

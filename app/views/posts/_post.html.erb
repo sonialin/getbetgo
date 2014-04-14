@@ -1,0 +1,50 @@
+<% if post.paid? %>
+    <div class="col-lg-3 col-md-6 hero-feature listing-big">
+      <div class="thumbnail">
+                   
+        <%= link_to (image_tag post.image.url(:medium)), post %>
+        <hr class="reduced-margin-top">
+        <div class="folder">
+          <h4 class="text-center">
+            <%= link_to raw(post.title.truncate(65)), post %>
+          </h4>
+        </div>
+        
+        <div class="brief-desc">
+          <div class="media author-info">
+            <div class="pull-left">
+              <% if post.user.avatar? %>
+              <%= link_to image_tag(post.user.avatar.url(:thumb)), post.user, :class => "media-object", :width => "50px" %>
+            <% else %>
+              <%= link_to image_tag("http://placehold.it/50x50"), post.user, :class => "media-object" %>
+            <% end %>
+            
+          </div>
+          <div class="media-body align-left">
+            <p class="media-heading brief-desc-text">
+              <%= link_to raw(post.description.truncate(95)), post %>
+            </p>
+          </div>
+
+        </div>
+        <p class="author pull-right"><%= link_to post.user.name, post.user %></p>
+
+        
+        <div class="clear"></div>
+
+      </div>
+        
+      <div class="modal-footer" style="text-align: left">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">      
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"><b><%= number_to_percentage(post.percentage_claimed, precision: 0) %></b><br/><small>CLAIMED</small></div>
+          <div class="col-md-4"><b>$<%= post.total %></b><br/><small>FUNDED</small></div>
+          <div class="col-md-4"><b><%= post.beneficiaries %></b><br/><small>PEOPLE BENEFITED</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

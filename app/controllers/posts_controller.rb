@@ -7,9 +7,13 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params[:tag]
-      @posts = Post.tagged_with(params[:tag]).order("updated_at desc")
+      @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 14).order("updated_at desc")
     else
-      @posts = Post.order("updated_at desc")
+      @posts = Post.paginate(page: params[:page], per_page: 14).order("updated_at desc")
+    end
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
