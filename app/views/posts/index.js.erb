@@ -1,5 +1,5 @@
 $('#my-posts').append('<%= j render @posts %>');
-$('.pagination').replaceWith('<%= j will_paginate @posts, renderer: BootstrapPagination::Rails %>');
+$('.pagination').replaceWith('<%= j will_paginate @posts %>');
 <% if @posts.next_page %>
 	$('#with-button .pagination').hide();
 <% else %>
