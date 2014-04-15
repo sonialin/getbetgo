@@ -793,3 +793,8 @@ input[type="checkbox"] + label::before, input[type="radio"] + label::before {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f8f8f8', endColorstr='#e6e6e6')";
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr="#f8f8f8", endColorstr="#e6e6e6");
 }
+
+#load_more_posts {
+  display: none;
+  margin-bottom: 10px;
+}

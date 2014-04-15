@@ -70,9 +70,15 @@
           <%= render :partial => "posts/post", :locals => {:post => post} %>
         <% end %>
       </div><!-- end small row -->
-      <div id="infinite-scrolling">
-        <%= will_paginate %>
-      </div>
+      
+      <% if @posts.next_page %>
+        <div id="with-button">
+          <%= will_paginate %>
+        </div>
+
+        <div id="load_more_posts" class="btn btn-primary btn-lg">More posts</div>
+      <% end %>
+
     </div><!-- end coloum -->
   </div><!-- end row -->
 </div><!-- container -->
@@ -80,16 +86,28 @@
 <script>
   var $j = jQuery.noConflict();
   $j(function() {
-    if ($j('#infinite-scrolling').length) {
-      $j(window).scroll(function() {
-        var url;
-        url = $j('.pagination .next_page').attr('href');
-        if (url && $j(window).scrollTop() > $j(document).height() - $j(window).height() - 50) {
-          $j('.pagination').html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />');
-        return $j.getScript(url);
+    var loading_posts;
+    if ($('#with-button').size() > 0) {
+      // preparePagination($('.page-delimiter'));
+      $('#with-button .pagination').hide();
+      loading_posts = false;
+      $('#load_more_posts').show().click(function() {
+        var $this, more_posts_url;
+        if (!loading_posts) {
+          loading_posts = true;
+          more_posts_url = $j('#with-button .next_page').attr('href');
+          if (more_posts_url) {
+            $this = $(this);
+            $this.html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
+            $.getScript(more_posts_url, function() {
+              if ($this) {
+                $this.text('More posts').removeClass('disabled');
+              }
+              return loading_posts = false;
+            });
+          }
         }
       });
-    return $j(window).scroll();
     }
-  })
+  });
 </script>
