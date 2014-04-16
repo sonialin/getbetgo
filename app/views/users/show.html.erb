@@ -1,5 +1,10 @@
 <br />
 
+<h1><%= @user.name %></h1>
+<% if @user.title %>
+	<p><%= @user.title %></p>
+<% end %>
+
 <h3>Avatar</h3>
 <% if @user.avatar %>
 	<%= image_tag @user.avatar.url(:medium) %>
