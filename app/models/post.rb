@@ -53,7 +53,11 @@ class Post < ActiveRecord::Base
   end
 
   def default_values
-    self.status ||= 'Drafted'
+    if !self.order.nil?
+      self.status = 'Paid'
+    else
+      self.status ||= 'Drafted'
+    end
   end
 
   private
