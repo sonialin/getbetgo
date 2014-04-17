@@ -6,6 +6,9 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
 	has_attached_file :image, :styles => { :big => '600', :medium => "200x150#", :thumb => "100x100#" }
 
 	before_destroy :ensure_not_referenced_by_any_bet

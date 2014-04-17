@@ -65,6 +65,9 @@ gem 'will_paginate', '~> 3.0'
 # Use will_paginate-bootstrap to add bootstrap styling to pagination bar
 gem 'will_paginate-bootstrap'
 
+# Use friendly_id for generating meaningful path names
+gem 'friendly_id', '~> 5.0.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
