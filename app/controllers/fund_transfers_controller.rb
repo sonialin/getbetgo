@@ -7,7 +7,7 @@ class FundTransfersController < ApplicationController
   	@fund.user = current_user
   	@fund.bet_id = params[:bet_id]
   	@fund.ip_address = request.remote_ip
-  	@post = Post.find(params[:post_id])
+  	@post = Post.friendly.find(params[:post_id])
   	@fund.amount = @post.price
   	@fund.save(:validate=>false)
   	redirect_to @post

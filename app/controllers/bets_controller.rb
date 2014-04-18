@@ -27,7 +27,7 @@ class BetsController < ApplicationController
   # POST /bets.json
   def create
     @user = current_user
-    @post = Post.find(params[:post_id])
+    @post = Post.friendly.find(params[:post_id])
     if @post.user == @user
       redirect_to @post, alert: "Cannot claim your own bets!"
       return
@@ -70,7 +70,7 @@ class BetsController < ApplicationController
   end
 
   def evaluate_if_selected_limit_reached
-    post = Post.find(params[:post_id])
+    post = Post.friendly.find(params[:post_id])
     selected_bets = post.bets.where(:status => ["Selected", "Submitted", "Funded"]).all
     if post.quantity == selected_bets.length
       flash[:notice] = "Limit reached"
@@ -142,7 +142,7 @@ class BetsController < ApplicationController
 
   def select
     params.permit!
-    @post = Post.find(params[:post_id])
+    @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
     @bet.select
     if @bet.status == "Selected"

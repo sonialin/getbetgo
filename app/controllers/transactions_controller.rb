@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
 	def success
 	  p params
 	  #adads
-	  @post = Post.find(params[:post_id])
+	  @post = Post.friendly.find(params[:post_id])
 	  order = Order.new
 	  order.user_id = current_user.id
 	  order.post_id = @post.id
@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
 	
 	def failed
 	  p params
-	  @post = Post.find(params[:post_id])
+	  @post = Post.friendly.find(params[:post_id])
 	  redirect_to @post, notice: 'Sorry, payment failed.'
 	end
 
