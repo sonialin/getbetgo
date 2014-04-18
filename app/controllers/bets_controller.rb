@@ -86,11 +86,11 @@ class BetsController < ApplicationController
       flash[:notice] = 'Please select a method to receive fund.'
       redirect_to :controller => :bets, :post_id => @bet.post.id, :id => @bet.id, :action => :receive
     else
-      send_money('jshenbootflat@gmail.com', @bet.post.price*100)
+      send_money(@bet.post.price*100)
     end
   end
 
-  def send_money(to_email, how_much_in_cents, options = {})
+  def send_money(how_much_in_cents, options = {})
     # if @bet.user.paypal_recipient_accounts.empty?
     #   flash[:notice] = 'No account present.'
     #   redirect_to :controller => :bets, :post_id => @bet.post.id, :id => @bet.id, :action => :receive
@@ -161,6 +161,6 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:post_id, :user_id, :body, :status)
+      params.require(:bet).permit(:post_id, :user_id, :body)
     end
 end
