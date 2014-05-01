@@ -4,9 +4,13 @@
       <div class="col-md-6 col-md-offset-1">
       <h1 class="decoration text-center proj"><span class="nobgr">
         <%= @post.title %>
-        <br /><small style="font-size: 0.5em;">created <%= @post.created_at %></small>
+          <br /><small style="font-size: 0.5em;">created <%= @post.created_at %></small>
+          <br />
         <% if @post.category %>
           <small>in <%= @post.category %></small>
+        <% end %>
+        <% if @post.location %>
+          <small>in <%= @post.location %></small>
         <% end %>
       </span></h1>
       <div class="video">

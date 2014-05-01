@@ -1,3 +1,12 @@
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
+<script type="text/javascript"> // load initialize() from googlemap.js
+  window.onload = function() { 
+   initialize(); 
+} 
+</script>
+
 <%= form_for @post, html: { multipart: true } do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -43,7 +52,23 @@
     <%= f.label :tag_list, "Tags" %><br />
     <%= f.text_field :tag_list %><br />
   </div>
+  <div class="field" id="locationField">
+    <%= f.label :location %><br />
+    <%= f.text_field :location, id: "autocomplete", placeholder: "Enter city" %><br />
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  var autocomplete;
+
+  function initialize() {
+    // Create the autocomplete object, accepting the search
+    // on both establishments and geographical location types.
+    autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete')),{ types: ['(regions)'] }
+    );
+  }
+</script>
