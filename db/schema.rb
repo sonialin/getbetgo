@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140417230129) do
+ActiveRecord::Schema.define(version: 20140501111429) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20140417230129) do
     t.datetime "image_updated_at"
     t.string   "status"
     t.string   "slug"
+    t.string   "category"
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true

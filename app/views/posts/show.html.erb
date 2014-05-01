@@ -1,10 +1,14 @@
-
-
   <div class="clear"></div>
   <div class="content description">
     <div class="row">
       <div class="col-md-6 col-md-offset-1">
-      <h1 class="decoration text-center proj"><span class="nobgr"><%= @post.title %></span></h1>
+      <h1 class="decoration text-center proj"><span class="nobgr">
+        <%= @post.title %>
+        <br /><small style="font-size: 0.5em;">created <%= @post.created_at %></small>
+        <% if @post.category %>
+          <small>in <%= @post.category %></small>
+        <% end %>
+      </span></h1>
       <div class="video">
         <!-- main visual -->
         <div id="myCarousel" class="carousel">

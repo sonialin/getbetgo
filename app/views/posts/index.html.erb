@@ -65,19 +65,59 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <div class="row text-center" id="my-posts">
-        <% @posts.each do |post| %>
-          <%= render :partial => "posts/post", :locals => {:post => post} %>
-        <% end %>
-      </div><!-- end small row -->
-      
-      <% if @posts.next_page %>
-        <div id="with-button">
-          <%= will_paginate %>
-        </div>
 
-        <div id="load_more_posts" class="btn btn-primary btn-lg">More posts</div>
-      <% end %>
+      
+      <div class="portfolio-selection block">
+        <div class="decoration text-center" data-toggle="buttons">
+          <div class="nobgr">
+            <div class="text-center tags">
+              <ul id="portfolio-filter" class="list-inline">
+                <li><input class="btn" id="all" type="button" value="All" class="current" title=""> </li>
+                <li><input class="btn" id="business" type="button" value="Business" class="" title=""> </li>
+                <li><input class="btn" id="education" type="button" value="Education" class="" title=""> </li>
+                <li><input class="btn" id="lifestyle" type="button" value="Lifestyle" class="" title="">  </li>
+                <li><input class="btn" id="socialimpact" type="button" value="Social Impact" class="" title="">  </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tag1">
+        <div class="row text-center" id="my-posts">
+          <% @posts.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing all") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+        <% if @posts.next_page %>
+          <div id="with-button">
+            <%= will_paginate %>
+          </div>
+          <div id="load_more_posts" class="btn btn-primary btn-lg">More posts</div>
+        <% end %> 
+      </div>
+
+      <div id="tag2">
+        <div class="row text-center" id="my-posts2">
+          <% @posts_test.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing business") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
+
+      <div id="tag3">
+        <div class="row text-center" id="my-posts3">
+          <% @posts_test2.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing education") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
 
     </div><!-- end coloum -->
   </div><!-- end row -->
@@ -85,10 +125,16 @@
 
 <script>
   var $j = jQuery.noConflict();
+  var loading_posts;
+
   $j(function() {
-    var loading_posts;
-    if ($('#with-button').size() > 0) {
-      // preparePagination($('.page-delimiter'));
+    $('#tag2').hide();
+    $('#tag3').hide();
+    loadMmorePosts();
+  });
+
+  function loadMmorePosts() {
+  if ($('#with-button').size() > 0) {
       $('#with-button .pagination').hide();
       loading_posts = false;
       $('#load_more_posts').show().click(function() {
@@ -109,5 +155,15 @@
         }
       });
     }
+  }
+
+  jQuery('#portfolio-filter input').click(function() {
+    jQuery('#portfolio-filter input').removeClass('current');
+    jQuery(this).addClass('current');
+    var filter = jQuery(this).attr('id');
+      jQuery('.portfolio-listing').slideUp('fast');
+      jQuery('.portfolio-listing').parent().parent().hide();
+      jQuery('.portfolio-listing.' + filter).parent().parent().show();
+      jQuery('.portfolio-listing.' + filter).slideDown('fast');
   });
 </script>

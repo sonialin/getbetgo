@@ -11,6 +11,10 @@ class PostsController < ApplicationController
     else
       @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
     end
+
+    @posts_test = Post.where(:category => 'Business').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts_test2 = Post.where(:category => 'Education').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+
     respond_to do |format|
       format.html
       format.js
@@ -105,6 +109,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :image_url, :price, :quantity, :tag_list)
+      params.require(:post).permit(:title, :description, :image, :image_url, :price, :quantity, :tag_list, :category)
     end
 end
