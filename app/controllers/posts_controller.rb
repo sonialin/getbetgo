@@ -12,8 +12,10 @@ class PostsController < ApplicationController
       @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
     end
 
-    @posts_test = Post.where(:category => 'Business').paginate(page: params[:page], per_page: 12).order("updated_at desc")
-    @posts_test2 = Post.where(:category => 'Education').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts_business = Post.where(:category => 'Business').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts_education = Post.where(:category => 'Education').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts_lifestyle = Post.where(:category => 'Lifestyle').paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts_socialimpact = Post.where(:category => 'Social Impact').paginate(page: params[:page], per_page: 12).order("updated_at desc")
 
     respond_to do |format|
       format.html

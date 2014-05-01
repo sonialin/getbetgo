@@ -100,8 +100,8 @@
       </div>
 
       <div id="tag2">
-        <div class="row text-center" id="my-posts2">
-          <% @posts_test.each do |post| %>
+        <div class="row text-center" id="my-posts-biz">
+          <% @posts_business.each do |post| %>
             <%= content_tag(:div, :class => "portfolio-listing business") do %>
               <%= render :partial => "posts/post", :locals => {:post => post} %>
             <% end %>
@@ -110,9 +110,29 @@
       </div>
 
       <div id="tag3">
-        <div class="row text-center" id="my-posts3">
-          <% @posts_test2.each do |post| %>
+        <div class="row text-center" id="my-posts-ed">
+          <% @posts_education.each do |post| %>
             <%= content_tag(:div, :class => "portfolio-listing education") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
+
+      <div id="tag4">
+        <div class="row text-center" id="my-posts-life">
+          <% @posts_lifestyle.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing lifestyle") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
+
+      <div id="tag5">
+        <div class="row text-center" id="my-posts-social">
+          <% @posts_socialimpact.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing socialimpact") do %>
               <%= render :partial => "posts/post", :locals => {:post => post} %>
             <% end %>
           <% end %>
@@ -130,6 +150,8 @@
   $j(function() {
     $('#tag2').hide();
     $('#tag3').hide();
+    $('#tag4').hide();
+    $('#tag5').hide();
     loadMmorePosts();
   });
 
