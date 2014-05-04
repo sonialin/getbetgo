@@ -12,14 +12,21 @@ class PostsController < ApplicationController
       @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
     end
 
-    @posts_business = Post.where(:category => 'Business').paginate(page: params[:page], per_page: 12).order("updated_at desc")
-    @posts_education = Post.where(:category => 'Education').paginate(page: params[:page], per_page: 12).order("updated_at desc")
-    @posts_lifestyle = Post.where(:category => 'Lifestyle').paginate(page: params[:page], per_page: 12).order("updated_at desc")
-    @posts_socialimpact = Post.where(:category => 'Social Impact').paginate(page: params[:page], per_page: 12).order("updated_at desc")
-
     respond_to do |format|
       format.html
-      format.js
+    end
+  end
+
+  # POST /getposts
+  def getposts
+    if params[:category] == "all"
+      @posts = Post.paginate(page: params[:page], per_page: 2).order("updated_at desc")
+    else
+      @posts = Post.paginate(page: params[:page], per_page: 2).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+    end
+
+    respond_to do |format|
+      format.js { render 'index.js.erb' }
     end
   end
 

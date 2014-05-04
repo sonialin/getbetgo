@@ -1,7 +1,14 @@
+// $('#my-posts').append('<%= j render @posts %>');
+// $('.pagination').replaceWith('<%= j will_paginate @posts %>');
+// <% if @posts.next_page %>
+// 	$('#with-button .pagination').hide();
+// <% else %>
+// 	$('#with-button .pagination, #load_more_posts').remove();
+// <% end %>
+
 $('#my-posts').append('<%= j render @posts %>');
-$('.pagination').replaceWith('<%= j will_paginate @posts %>');
-<% if @posts.next_page %>
-	$('#with-button .pagination').hide();
+<% if not @posts.next_page %>
+  $('#load_more_posts').hide();
 <% else %>
-	$('#with-button .pagination, #load_more_posts').remove();
+  $('#load_more_posts').show();
 <% end %>
