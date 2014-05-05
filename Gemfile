@@ -41,6 +41,11 @@ end
 # Use devise for authentication
 gem 'devise', '~> 3.1.0.rc'
 
+# Use the following gems to enable signup and login thru 3rd party
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+
 # Use Paperclip for user image upload
 gem 'paperclip', '~> 3.0'
 

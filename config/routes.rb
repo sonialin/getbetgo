@@ -1,5 +1,4 @@
 Getbetgo::Application.routes.draw do
-  
 
   resources :relationships
 
@@ -9,7 +8,7 @@ Getbetgo::Application.routes.draw do
   resources :paypal_recipient_accounts, :only => [:create, :destroy]
   get "fund_transfers/success"
   get "fund_transfers/failed"
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users, :only => [:show]
   
   resources :posts do
