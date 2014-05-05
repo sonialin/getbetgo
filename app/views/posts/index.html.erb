@@ -94,9 +94,11 @@
         </div> 
         <% if @posts.next_page %>
           <div id="load_more_posts" class="btn btn-primary btn-lg" style ="display:block;">More posts</div>
-        <% end %> 
+        <% else %>
+          <div id="load_more_posts" class="btn btn-primary btn-lg" style ="display:none;">More posts</div>
+        <% end %>  
       </div>
-
+  
     </div><!-- end coloum -->
   </div><!-- end row -->
 </div><!-- container -->
@@ -134,7 +136,7 @@
       $.ajax({
         url: 'getposts',
         type: 'POST',
-        data: "category="+category+"&page="+page,
+        data: "category="+category+"&page="+(page+1), 
         beforeSend: function(xhr, settings) {
           xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
         },

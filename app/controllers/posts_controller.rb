@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
   # before_action :set_gateway
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show, :getposts]
 
   # GET /posts
   # GET /posts.json
@@ -20,9 +20,9 @@ class PostsController < ApplicationController
   # POST /getposts
   def getposts
     if params[:category] == "all"
-      @posts = Post.paginate(page: params[:page], per_page: 2).order("updated_at desc")
+      @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
     else
-      @posts = Post.paginate(page: params[:page], per_page: 2).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+      @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
     end
 
     respond_to do |format|
