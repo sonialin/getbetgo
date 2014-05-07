@@ -6,6 +6,13 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @recommended_posts = Post.where('location LIKE ?', "%#{"Chicago"}%").limit(4)
+
+    if current_user
+      followed_ids = current_user.followeds.map(&:id)
+      @followed_posts = Post.where(:user_id => followed_ids).limit(4)
+    end
+
     if params[:tag]
       @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
     else
