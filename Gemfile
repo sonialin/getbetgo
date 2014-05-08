@@ -73,6 +73,9 @@ gem 'will_paginate-bootstrap'
 # Use friendly_id for generating meaningful path names
 gem 'friendly_id', '~> 5.0.0'
 
+# Use geocoder to obtain user's location
+gem "geocoder"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

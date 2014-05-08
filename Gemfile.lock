@@ -64,6 +64,7 @@ GEM
       rails (>= 3, < 5)
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
+    geocoder (1.1.9)
     hashie (2.1.1)
     hike (1.2.3)
     i18n (0.6.9)
@@ -191,6 +192,7 @@ DEPENDENCIES
   execjs
   figaro
   friendly_id (~> 5.0.0)
+  geocoder
   jbuilder (~> 1.2)
   jquery-rails
   omniauth
