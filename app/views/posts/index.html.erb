@@ -93,10 +93,14 @@
         <div class="item active">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
-              <% @recommended_posts.each do |post| %>
-                <%= content_tag(:div, :class => "portfolio-listing all") do %>
-                  <%= render :partial => "posts/post", :locals => {:post => post} %>
+              <% if @recommended_posts.size != 0 %>
+                <% @recommended_posts.each do |post| %>
+                  <%= content_tag(:div, :class => "portfolio-listing all") do %>
+                    <%= render :partial => "posts/post", :locals => {:post => post} %>
+                  <% end %>
                 <% end %>
+              <% else %>
+                <p>No match.</p>
               <% end %>
             </div><!-- end col-sm-3 -->
           </div><!-- end row -->

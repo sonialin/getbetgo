@@ -9,9 +9,8 @@ class PostsController < ApplicationController
 
     @city = request.location.city
     @country = request.location.country
-    search_location = @city + ' ' + @country
 
-    @recommended_posts = Post.where('location LIKE ?', "%#{search_location}%").limit(4)
+    @recommended_posts = Post.where('location LIKE ? AND location LIKE ?', "%#{@city}%", "%#{@country}%").limit(4)
 
     if current_user
       followed_ids = current_user.followeds.map(&:id)
