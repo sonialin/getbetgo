@@ -67,61 +67,63 @@
   </div><!-- end of .map-wrapper -->
 </div><!-- end of container fluid -->
 
-<div class="container">
-  <div class="row">
+<% if current_page?(root_path) %>
+  <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h3>Recommended for You</h3>
-      </div>
-      <div class="col-md-3">
-        <p>You're in <%= @city %>, <%= @country %></p>
-      </div>
-      <div class="col-md-3">
-        <!-- Controls -->
-        <div class="controls pull-right">
-          <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
-            data-slide="prev"></a>
-          <a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
-            data-slide="next"></a>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Recommended for You</h3>
+        </div>
+        <div class="col-md-3">
+          <p>You're in <%= @city %>, <%= @country %></p>
+        </div>
+        <div class="col-md-3">
+          <!-- Controls -->
+          <div class="controls pull-right">
+            <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example"
+              data-slide="prev"></a>
+            <a class="right fa fa-chevron-right btn btn-success" href="#carousel-example"
+              data-slide="next"></a>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div id="carousel-example" class="carousel slide" data-ride="carousel">
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <% if @recommended_posts.size != 0 %>
+      
+      <div id="carousel-example" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <% if @recommended_posts.size != 0 %>
+                  <% @recommended_posts.each do |post| %>
+                    <%= content_tag(:div, :class => "portfolio-listing all") do %>
+                      <%= render :partial => "posts/post", :locals => {:post => post} %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <p>No match.</p>
+                <% end %>
+              </div><!-- end col-sm-3 -->
+            </div><!-- end row -->
+          </div><!-- end item active -->
+          <div class="item">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
                 <% @recommended_posts.each do |post| %>
                   <%= content_tag(:div, :class => "portfolio-listing all") do %>
                     <%= render :partial => "posts/post", :locals => {:post => post} %>
                   <% end %>
                 <% end %>
-              <% else %>
-                <p>No match.</p>
-              <% end %>
-            </div><!-- end col-sm-3 -->
-          </div><!-- end row -->
-        </div><!-- end item active -->
-        <div class="item">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <% @recommended_posts.each do |post| %>
-                <%= content_tag(:div, :class => "portfolio-listing all") do %>
-                  <%= render :partial => "posts/post", :locals => {:post => post} %>
-                <% end %>
-              <% end %>
-            </div><!-- end col-sm-3 -->
-          </div><!-- end row -->
-        </div><!-- end item -->
+              </div><!-- end col-sm-3 -->
+            </div><!-- end row -->
+          </div><!-- end item -->
 
-      </div><!-- end carousel-inner -->
-    </div><!-- end carousel-example -->
+        </div><!-- end carousel-inner -->
+      </div><!-- end carousel-example -->
 
-  </div><!-- end row -->
-</div><!-- end container -->
+    </div><!-- end row -->
+  </div><!-- end container -->
+<% end %>
 
 <% if current_user %>
   <h1 class="decoration text-center proj"><span class="nobgr">Your Followings' Posts</span></h1>
@@ -174,9 +176,9 @@
           <% end %>
         </div> 
         <% if @posts.next_page %>
-          <div id="load_more_posts" class="btn btn-primary btn-lg" style ="display:block;">More posts</div>
+          <div id="load_more_posts" class="btn btn-default btn-lg" style ="display:block;">More posts</div>
         <% else %>
-          <div id="load_more_posts" class="btn btn-primary btn-lg" style ="display:none;">More posts</div>
+          <div id="load_more_posts" class="btn btn-default btn-lg" style ="display:none;">More posts</div>
         <% end %>  
       </div>
   

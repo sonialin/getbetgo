@@ -30,6 +30,7 @@
      margin-right: 20%;
      margin-top: 6%;
 }
+
 #myCarousel  {
    /* z-index: 99999;*/
 }
@@ -64,8 +65,9 @@
 #home-page-featured img {
     float: left;
     position: relative;
-    filter: alpha(opacity=41);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=41)";
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
     opacity: 0.41;
     width: 155px;
     height: 155px;
@@ -77,8 +79,9 @@
 #home-page-featured img:hover {
     width: 155px;
     height: 155px;
-    filter: alpha(opacity=1);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    filter: grayscale(0%);
     opacity: 1;
 }
 #home-page-featured a:hover {
@@ -816,4 +819,24 @@ line-height: 64px;*/
 
 #portfolio-filter .current {
   color: #c8c8c8;
+}
+
+#page {
+      Min-height: 100%;
+      position:relative;
+}
+ 
+#main {
+      Padding-bottom: 75px;   /* This value is the height of your footer */
+}
+ 
+#footer {
+      Position: absolute;
+      Width: 100%;
+      Bottom: 0;
+      Height: 75px;  /* This value is the height of your footer */
+}
+
+#footer a {
+color: #333333;
 }
