@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
+//= require judge
 //= require_tree .

@@ -7,68 +7,101 @@
 } 
 </script>
 
-<%= form_for @post, html: { multipart: true } do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="well well-sm">
+      <fieldset>
+        <legend class="text-center">Create a New Fund</legend>
+        <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+          <% if @post.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+              <ul>
+              <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="title">Title</label>
+            <div class="col-md-8">
+              <%= f.text_field :title, :validate => true, :class => "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="price">Price</label>
+            <div class="col-md-8">
+              <%= f.text_field :price, :class => "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="quantity">Quantity</label>
+            <div class="col-md-8">
+              <%= f.text_field :quantity, :class => "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="category">Category</label>
+            <div class="col-md-8">
+              <%= f.select(:category, [["Business", "Business"], ["Education", "Education"], ["Lifestyle", "Lifestyle"], ["Social Impact", "Social Impact"]], {}, {:class => "form-control"}) %>        
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="image">Image</label>
+            <div class="col-md-8">
+              <%= f.file_field :image %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="description">Description</label>
+            <div class="col-md-8">
+              <%= f.text_area :description, :class=> "form-control", :rows => "5" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="tag_list">Tags</label>
+            <div class="col-md-8">
+              <%= f.text_field :tag_list, :class => "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="location">Location</label>
+            <div class="col-md-8">
+              <%= f.text_field :location, :class => "form-control", id: "autocomplete", placeholder: "Enter city" %><br />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-11 text-right">
+              <%= f.submit "Submit", :class => "btn btn-success btn-lg" %>      
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= f.label :category %><br />
-    <%= f.select :category, [["Business", "Business"], ["Education", "Education"], ["Lifestyle", "Lifestyle"], ["Social Impact", "Social Impact"]] %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.file_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :image_url %><br>
-    <%= f.text_field :image_url %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity %>
-  </div>
-  <div class="field">
-    <%= f.label :tag_list, "Tags" %><br />
-    <%= f.text_field :tag_list %><br />
-  </div>
-  <div class="field" id="locationField">
-    <%= f.label :location %><br />
-    <%= f.text_field :location, id: "autocomplete", placeholder: "Enter city" %><br />
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
 
 <script type="text/javascript">
   var autocomplete;
 
   function initialize() {
-    // Create the autocomplete object, accepting the search
-    // on both establishments and geographical location types.
     autocomplete = new google.maps.places.Autocomplete(
       (document.getElementById('autocomplete')),{ types: ['(regions)'] }
     );
   }
+
+  $('#post_title').on('blur', function() {
+    judge.validate(document.getElementById('post_title'), {
+      valid: function(element) {
+        element.style.border = '1px solid #98b709';
+      },
+      invalid: function(element, messages) {
+        element.style.border = '1px solid red';
+        alert(messages.join(','));
+      }
+    });
+  });
+
 </script>

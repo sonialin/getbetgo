@@ -31,6 +31,8 @@ Getbetgo::Application.routes.draw do
   get 'posts/:post_id/bets/:id/receive' => 'bets#receive'
   get 'posts/:post_id/bets/:id/receive_process' => 'bets#receive_process'
 
+  mount Judge::Engine => '/judge'
+
   # get 'transactions/new' => 'transactions#new'
   # post 'transactions/create' => 'transactions#create'
 
