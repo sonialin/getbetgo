@@ -10,46 +10,32 @@
 	<%= image_tag @user.avatar.url(:medium) %>
 <% end %>
 
-<h3>Posted funds</h3>
-<table class="table table-hover table-bordered">
-  <thead>
-    <tr class="job-header">
-      <th>Post Title</th>
-      <th>Paid?</th>
-      <th>Description</th>
-      <% if @user == current_user %>
-        <th colspan="2">Admin Only</th>
-      <% end %>
-    </tr>
-  </thead>
+<h1 class="decoration text-center proj"><span class="nobgr"><%= @user.name %>'s Funds</span></h1>
 
-  <tbody data-link="row" class="rowlink">
-    <% @posts.each do |post| %>
-    	<!-- only have the post show up if paid or created by current user -->
-    	<% if !(post.user != current_user && !post.paid?) %>
-	      <tr>
-	        <td>
-	        <%= link_to post.title, post %>
-	        </td>
-	        <td>
-	        	<% if post.paid? %>
-	        		Paid
-	        	<% else %>
-	        		<%= link_to 'Pay', {:controller => :posts, :action=> :payment, :id => post.id}, :class => 'btn btn-success' %> 
-	        	<% end %>
-	        </td>
-	        <td><%= raw post.description.truncate(20) %>
-	          <% if @user == current_user %>
-	            <td><%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-default' %></td>
-	            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %></td>
-	          <% end %>
-	        </td>    
-	      </tr>
-      <% end %>
-      <!-- end evaluation if whether the post should show up -->
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+      <div id="posts-container">
+        <div class="row text-center" id="user-posts">
+          <% @posts.each do |post| %>
+            <%= content_tag(:div, :class => "portfolio-listing all") do %>
+              <%= render :partial => "posts/post", :locals => {:post => post} %>
+            <% end %>
+          <% end %>
+        </div> 
+        <% if @posts.next_page %>
+          <div id="with-button">
+      			<%= will_paginate @posts %>
+    			</div>
+
+    			<div id="load_more_posts_user" class="btn btn-default btn-lg">More posts</div>
+        <% end %>  
+      </div>
+  
+    </div><!-- end coloum -->
+  </div><!-- end row -->
+</div><!-- container -->
 
 <h3>Funded</h3>
 
@@ -78,3 +64,31 @@
 		</div>
 	<% end %>
 <% end %>
+
+<script>
+  var $j = jQuery.noConflict();
+  $j(function() { 
+  	var loading_posts;
+    if ($('#with-button').size() > 0) {
+      $('#with-button .pagination').hide();
+      loading_posts = false;
+      $('#load_more_posts_user').show().click(function() {
+        var $this, more_posts_url;
+        if (!loading_posts) {
+          loading_posts = true;
+          more_posts_url = $j('#with-button .next_page').attr('href');
+          if (more_posts_url) {
+            $this = $(this);
+            $this.html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
+            $.getScript(more_posts_url, function() {
+              if ($this) {
+                $this.text('More posts').removeClass('disabled');
+              }
+              return loading_posts = false;
+            });
+          }
+         }
+      });
+    }
+  });
+</script>

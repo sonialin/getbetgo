@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :set_user, only: [:show]
 
   def show
-    @posts = @user.posts
+    @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
 
     @paypal_recipient_accounts = @user.paypal_recipient_accounts
     @paypal_recipient_account = PaypalRecipientAccount.new
@@ -10,8 +10,8 @@ class UsersController < ApplicationController
     @bets = @user.bets
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @user }
+      format.html
+      format.js
     end
   end
 
