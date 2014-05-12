@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Sign in</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-margin">
+          <div class="social-box">
+            <div class="row">
+              <div class="col-md-12">
+                <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-primary btn-block" %>               
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-12">
+                <a href="#" class="btn btn-info btn-block" >
+                  <i class="icon-twitter"></i>Login with Twitter
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="main">  
+            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+              <div><%= f.label :email %><br />
+              <%= f.email_field :email, :class => "form-control form-group" %></div>
+
+              <div><%= f.label :password %><br />
+              <%= f.password_field :password, :class => "form-control form-group"  %></div>
+
+              <% if devise_mapping.rememberable? -%>
+                <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+              <% end -%>          
+            <span class="clearfix"></span>  
+          </div>
+          <div class="login-footer">
+            <div class="row">
+              <div class="col-xs-6 col-md-6 pull-left">
+                <div class="login-help">
+                  New user? <%= link_to "Sign up", new_registration_path(resource_name) %>
+                </div>      
+              </div>
+              <div class="col-xs-6 col-md-6">   
+                <%= f.submit "Sign in", :class => "btn btn-success btn-lg pull-right" %>           
+                <% end %><!-- end form -->  
+              </div>
+            </div>
+          </div>              
+        </div>         
+      </div><!-- end modal body -->
+    </div><!-- end modal content -->
+  </div><!-- end modal dialog -->
+</div><!-- end modal fade -->
