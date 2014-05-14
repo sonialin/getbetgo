@@ -18,18 +18,14 @@
             <% else %>
               <%= link_to image_tag("http://placehold.it/50x50"), post.user, :class => "media-object" %>
             <% end %>
-            
           </div>
           <div class="media-body align-left">
             <p class="media-heading brief-desc-text">
               <%= link_to raw(post.description.truncate(95)), post %>
             </p>
           </div>
-
         </div>
-        <p class="author pull-right"><%= link_to post.user.name, post.user %></p>
-
-        
+        <p class="author pull-right"><%= link_to post.user.name, post.user, :class => "user-info", data:{toggle: 'popover', container: 'body', content: 'blahblah'} %></p>
         <div class="clear"></div>
 
       </div>
