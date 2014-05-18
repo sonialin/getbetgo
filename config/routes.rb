@@ -1,5 +1,7 @@
 Getbetgo::Application.routes.draw do
 
+  get "about" => 'pages#about'
+  get "contact" => 'pages#contact'
   resources :relationships
 
   # post "paypal_recipient_accounts/create"
