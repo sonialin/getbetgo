@@ -52,7 +52,10 @@
 .navbar-default .navbar-toggle {
   border-color: #DDD;
 }
-.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:hover {
+  background-color: #99b709;
+}
+
 .navbar-default .navbar-toggle:focus {
   background-color: #ed1c24;
 }
