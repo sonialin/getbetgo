@@ -9,9 +9,11 @@ class UsersController < ApplicationController
 
     @bets = @user.bets
 
+    @user_posts = true
+
     respond_to do |format|
       format.html
-      format.js
+      format.js { render '/posts/index.js.erb' }
     end
   end
 

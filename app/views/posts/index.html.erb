@@ -158,29 +158,14 @@
         </div>
       </div>
 
-      <div id="posts-container">
-        <div class="row text-center" id="my-posts">
-          <% @posts.each do |post| %>
-            <%= content_tag(:div, :class => "portfolio-listing all") do %>
-              <%= render :partial => "posts/post", :locals => {:post => post} %>
-            <% end %>
-          <% end %>
-        </div> 
-        <% if @posts.next_page %>
-          <div id="load_more_posts" class="btn btn-default btn-lg " style ="display:block;">More posts</div>
-        <% else %>
-          <div id="load_more_posts" class="btn btn-default btn-lg" style ="display:none;">More posts</div>
-        <% end %>  
-      </div>
+      <%= render 'postscontainer' , :user_posts => false, :url_to_get_posts => "/getposts" %>
   
     </div><!-- end coloum -->
   </div><!-- end row -->
 </div><!-- container -->
 
 <script>
-  var loading_posts = false;
-  var category = "all";
-  var page = 1;
+  tag = "<%= @tag %>";
 
   $('#portfolio-filter input').click(function() {
     $('#portfolio-filter input').removeClass('current');
@@ -193,36 +178,13 @@
     page = 1;
 
     $.ajax({
-      url: 'getposts',
+      url: '/getposts',
       type: 'POST',
-      data: "category="+category+"&page="+page,
+      data: "category="+category+"&page="+page+"&tag="+tag,
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       }
     });
-  });
-
-  $('#load_more_posts').click(function() {
-    if(!loading_posts) {
-      loading_posts = true;
-      $(this).html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
-
-      $.ajax({
-        url: 'getposts',
-        type: 'POST',
-        data: "category="+category+"&page="+(page+1), 
-        beforeSend: function(xhr, settings) {
-          xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
-        },
-        success: function(data) {
-          page += 1;
-          loading_posts = false;
-          if ($('#load_more_posts').length) {
-            $('#load_more_posts').html('More posts').removeClass('disabled');
-          }
-        }
-      });
-    }
   });
 
   $('#posts-container .user-info').popover({trigger: 'hover'});

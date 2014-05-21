@@ -6,7 +6,6 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-
     @city = request.location.city
     @country = request.location.country
 
@@ -19,8 +18,10 @@ class PostsController < ApplicationController
 
     if params[:tag]
       @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      @tag = params[:tag]
     else
       @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      @tag = ""
     end
 
     respond_to do |format|
@@ -31,9 +32,17 @@ class PostsController < ApplicationController
   # POST /getposts
   def getposts
     if params[:category] == "all"
-      @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      if params[:tag] == ""
+        @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      else
+        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      end
     else
-      @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+      if params[:tag] == ""
+        @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+      else
+        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+      end
     end
 
     respond_to do |format|

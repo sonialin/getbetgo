@@ -16,22 +16,7 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
 
-      <div id="posts-container-user">
-        <div class="row text-center" id="user-posts">
-          <% @posts.each do |post| %>
-            <%= content_tag(:div, :class => "portfolio-listing all") do %>
-              <%= render :partial => "posts/post", :locals => {:post => post} %>
-            <% end %>
-          <% end %>
-        </div> 
-        <% if @posts.next_page %>
-          <div id="with-button">
-      			<%= will_paginate @posts %>
-    			</div>
-
-    			<div id="load_more_posts_user" class="btn btn-default btn-lg">More posts</div>
-        <% end %>  
-      </div>
+      <%= render '/posts/postscontainer' , :user_posts => true, :url_to_get_posts => "/getuserposts", :user_id => @user.id %>
   
     </div><!-- end coloum -->
   </div><!-- end row -->
@@ -64,31 +49,3 @@
 		</div>
 	<% end %>
 <% end %>
-
-<script>
-  var $j = jQuery.noConflict();
-  $j(function() { 
-  	var loading_posts;
-    if ($('#with-button').size() > 0) {
-      $('#with-button .pagination').hide();
-      loading_posts = false;
-      $('#load_more_posts_user').show().click(function() {
-        var $this, more_posts_url;
-        if (!loading_posts) {
-          loading_posts = true;
-          more_posts_url = $j('#with-button .next_page').attr('href');
-          if (more_posts_url) {
-            $this = $(this);
-            $this.html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
-            $.getScript(more_posts_url, function() {
-              if ($this) {
-                $this.text('More posts').removeClass('disabled');
-              }
-              return loading_posts = false;
-            });
-          }
-         }
-      });
-    }
-  });
-</script>

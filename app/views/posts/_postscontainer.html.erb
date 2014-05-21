@@ -1,0 +1,49 @@
+<div id="posts-container<% if user_posts %><%= "-user" %><% end %>">
+  <div class="row text-center" id="<% if user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts">
+		<% @posts.each do |post| %>
+	    <%= content_tag(:div, :class => "portfolio-listing all") do %>
+				<%= render :partial => "posts/post", :locals => {:post => post} %>
+	    <% end %>
+		<% end %>
+  </div> 
+  <% if @posts.next_page %>
+		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg " style ="display:block;">More posts</div>
+  <% else %>
+		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:none;">More posts</div>
+  <% end %>  
+</div>
+
+<script>
+  var loading_posts = false;
+  var category = "all";
+  var page = 1;
+  var tag = "";
+  var user_id;
+
+  <% if defined? user_id %>
+		user_id = <%= user_id %>
+  <% end %>
+
+  $("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").click(function() {
+		if(!loading_posts) {
+	    loading_posts = true;
+	    $(this).html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
+
+	    $.ajax({
+				url: "<%= url_to_get_posts %>",
+				type: 'POST',
+				data: "category="+category+"&page="+(page+1)+"&tag="+tag+"&id="+user_id, 
+				beforeSend: function(xhr, settings) {
+				  xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+				},
+				success: function(data) {
+				  page += 1;
+				  loading_posts = false;
+				  if ($("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").length) {
+						$("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").html('More posts').removeClass('disabled');
+		    	}
+				}
+	    });
+		}
+  });
+</script>

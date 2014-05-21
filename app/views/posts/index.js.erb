@@ -1,14 +1,8 @@
-// $('#my-posts').append('<%= j render @posts %>');
-// $('.pagination').replaceWith('<%= j will_paginate @posts %>');
-// <% if @posts.next_page %>
-// 	$('#with-button .pagination').hide();
-// <% else %>
-// 	$('#with-button .pagination, #load_more_posts').remove();
-// <% end %>
-
-$('#my-posts').append('<%= j render @posts %>');
+$('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<%= j render @posts %>');
 <% if not @posts.next_page %>
-  $('#load_more_posts').hide();
+  $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").hide();
 <% else %>
-  $('#load_more_posts').show();
+  $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").show();
 <% end %>
+
+$('.user-info-hover').popover({trigger: 'hover'});

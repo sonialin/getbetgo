@@ -26,6 +26,7 @@ Getbetgo::Application.routes.draw do
   get 'transactions/:post_id/failed' => 'transactions#failed'
 
   post 'getposts' => 'posts#getposts'
+  post 'getuserposts' => 'users#show'
 
   root :to => 'posts#index'
   get 'tags/:tag', to: 'posts#index', as: :tag
