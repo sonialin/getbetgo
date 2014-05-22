@@ -1,6 +1,0 @@
-$('#user-posts').append('<%= j render @posts %>');
-<% if not @posts.next_page %>
-  $('#load_more_posts_user').hide();
-<% else %>
-  $('#load_more_posts_user').show();
-<% end %>
