@@ -36,22 +36,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "About", about_path %></li>
-            <li><a href="#services">Services</a></li>
-            <li class="<%= 'active' if current_page?(contact_path) %>"><%= link_to "Contact", contact_path %></li>
+            <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "ABOUT", about_path %></li>
+            <li><a href="#services">SERVICES</a></li>
+            <li class="<%= 'active' if current_page?(contact_path) %>"><%= link_to "CONTACT", contact_path %></li>
             <% if user_signed_in? %>        
-		      		<li><%= link_to 'New Post', new_post_path %></li>
+		      		<li><%= link_to 'NEW POST', new_post_path %></li>
 		      		<li class="dropdown">
-				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
+				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;<%= current_user.name %><b class="caret"></b></a>
 				        <ul class="dropdown-menu">
-                  <li><%= link_to "Profile", current_user %></li>
-				          <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                  <li><%= link_to "PROFILE", current_user %></li>
+				          <li><%= link_to "EDIT PROFILE", edit_user_registration_path %></li>
+			            <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
 			        	</ul>
 	      			</li>
       			<% else %>
-  	        	<li><%= link_to "Sign in", "#myModal", :data => {:toggle=>"modal"} %></li>  		
+  	        	<li><%= link_to "<i class='fa fa-user'></i>&nbsp;SIGN IN".html_safe, "#myModal", :data => {:toggle=>"modal"} %></li>  		
       			<% end %>
           </ul>
 
@@ -84,15 +83,37 @@
       </div><!-- /.container -->
     <% end %>
 
-    <div class="container">
-      <hr>
-      <footer>
-        <div class="row">
-          <div class="col-lg-12">
-            <p>Copyright &copy; Company 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
-          </div>
+    <div id="fwfooter">
+      <div class="container">
+        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-3">
+          <h5>About Company</h5>
+          <p>Aliquam dui lobortis vestibulum amet sit per sodales proin cursus suscipit sapien netus fermentum eleifend phasellus nam torquent mollis sociis conubia venenatis vivamus commodo enim cras eu sit integer massa</p>
         </div>
-      </footer>
+        <ul class="col-md-2 col-md-offset-1 list-unstyled">
+          <h5>Company</h5>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Jobs</a></li>
+          <li><a href="#">Investors</a></li>
+        </ul>
+        <ul class="col-md-2 list-unstyled">
+          <h5>User</h5>
+          <li><a href="#">Starting a fund</a></li>
+          <li><a href="#">Accepting a fund</a></li>
+          <li><a href="#">Advertising</a></li>
+        </ul> 
+        <ul class="col-md-2 list-unstyled">
+          <h5>Get Help</h5>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Customer Support</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Terms Of Use</a></li>
+          <li><a href="#">Privacy Statement</a></li>
+        </ul>
+        </div>      
+      </div>
     </div>
     
     <script>

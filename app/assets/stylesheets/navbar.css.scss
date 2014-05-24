@@ -1,48 +1,55 @@
 /* navbar */
 .navbar-default {
-  background: #99b709;;
   border-bottom: none;
 }
 /* title */
 .navbar-default .navbar-brand {
-  color: #fff;
+  /*color: #fff;*/
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5E5E5E;
+  color: #99b709;
 }
 /* link */
 .navbar-default .navbar-nav > li > a {
-  color: #fff;
+  color: #99b709;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #fff;
-  background-color: #ed1c24;
+  background-color: #99b709;
 }
-.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a {
+  color: #fff;
+  background: #99b709;
+}
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
   color: #fff;
-  background: #c0392b;
+  background-color: #99b709;
 }
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
   color: #fff;
-  background-color: #ed1c24;
+  background-color: #99b709;
 }
 /* caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
-  border-top-color: #fff;
-  border-bottom-color: #fff;
+  border-top-color: #99b709;
+  border-bottom-color: #99b709;
+  
 }
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
   border-top-color: #fff;
   border-bottom-color: #fff;
 }
-.navbar-default .navbar-nav > .open > a .caret, 
+.navbar-default .navbar-nav > .open > a .caret {
+  border-top-color: #99b709;
+  border-bottom-color: #99b709;
+}
+
 .navbar-default .navbar-nav > .open > a:hover .caret, 
 .navbar-default .navbar-nav > .open > a:focus .caret {
   border-top-color: #fff;
@@ -50,24 +57,26 @@
 }
 /* mobile version */
 .navbar-default .navbar-toggle {
-  border-color: #DDD;
+ /* border-color: #99b709;
+  background-color: #fff;*/
 }
 .navbar-default .navbar-toggle:hover {
-  background-color: #99b709;
+  /*background-color: #fff;*/
 }
 
-.navbar-default .navbar-toggle:focus {
-  background-color: #ed1c24;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #CCC;
-}
+/*.navbar-default .navbar-toggle:focus {
+  background-color: #99b709;
+}*/
+/*.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}*/
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-      color: #fff;
+    color: #99b709;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-      color: #fff;
+    color: #fff;
+    background-color: #99b709;
   }
 }
