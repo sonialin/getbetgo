@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="map-wrapper">
     <div id="map" class="map" style="position: relative; overflow: hidden; -webkit-transform: translateZ(0);height: 465px;">
       <div id="home-page-featured">
@@ -52,11 +52,22 @@
           <li><%= image_tag "main_pic_21.jpg" %></li>
           <li><%= image_tag "main_pic_22.jpg" %></li>
         </ul>
-        <!-- / container -->
-      </div><!-- end of home-page-featured -->
-    </div><!-- end of map -->
-  </div><!-- end of .map-wrapper -->
-</div><!-- end of container fluid -->
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="jumbotron" id="home">
+  <div class="container">
+    <div class="row">   
+        <div class="col-md-10 col-md-offset-1" id="headline">
+          <h1>Throw In Whatever You'd Like</h1>
+          <h2>Integer commodo ipsum neque, nec elementum sem venenatis ac. Sed vehicula felis.</h2>
+          <%= link_to "Start Now", "#", :class => "btn btn-danger btn-lg" %>           
+        </div>
+      </div>
+  </div>
+</div>
 
 <% if current_page?(root_path) %>
   <div class="container">
