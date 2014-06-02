@@ -829,3 +829,27 @@ line-height: 64px;*/
 #main {
       Padding-bottom: 75px;   /* This value is the height of your footer */
 }
+
+.portfolio-selection {
+  margin-bottom: 70px;
+  position: relative;
+  left: -28px;
+}
+
+#portfolio-filter .btn {
+  border-radius: 3px;
+  background: #99b709;
+  color: #ffffff;
+  letter-spacing:1.5px;
+  font-weight: 100;
+}
+
+#portfolio-filter .current {
+  background: #ed1c24;
+}
+
+@media (max-width: 1200px) {
+  .portfolio-selection {
+    margin-bottom: 30px;
+  }
+}
