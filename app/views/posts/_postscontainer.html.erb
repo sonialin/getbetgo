@@ -1,5 +1,17 @@
 <div id="posts-container<% if user_posts %><%= "-user" %><% end %>">
   <div class="row text-center" id="<% if user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts">
+		<% if current_user %>
+			<% @followed_posts.each do |post| %>
+		    <%= content_tag(:div, :class => "portfolio-listing all followed") do %>
+					<%= render :partial => "posts/post", :locals => {:post => post} %>
+		    <% end %>
+			<% end %>
+		<% end %>
+		<% @recommended_posts.each do |post| %>
+		    <%= content_tag(:div, :class => "portfolio-listing all nearby") do %>
+					<%= render :partial => "posts/post", :locals => {:post => post} %>
+		    <% end %>
+			<% end %>
 		<% @posts.each do |post| %>
 	    <%= content_tag(:div, :class => "portfolio-listing all") do %>
 				<%= render :partial => "posts/post", :locals => {:post => post} %>

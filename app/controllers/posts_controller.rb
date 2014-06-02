@@ -31,19 +31,38 @@ class PostsController < ApplicationController
 
   # POST /getposts
   def getposts
-    if params[:category] == "all"
-      if params[:tag] == ""
-        @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    if current_user
+      followed_ids = current_user.followeds.map(&:id)
+      @followed_posts = Post.where(:user_id => followed_ids)
+
+      if params[:category] == "all"
+        if params[:tag] == ""
+          @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+        else
+          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+        end
       else
-        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+        if params[:tag] == ""
+          @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        else
+          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        end
       end
     else
-      if params[:tag] == ""
-        @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+      if params[:category] == "all"
+        if params[:tag] == ""
+          @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+        else
+          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+        end
       else
-        @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        if params[:tag] == ""
+          @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        else
+          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        end
       end
-    end
+    end 
 
     respond_to do |format|
       format.js { render 'index.js.erb' }

@@ -848,6 +848,32 @@ line-height: 64px;*/
   background: #ed1c24;
 }
 
+#posts-container .thumbnail .post-source {
+  display: none;
+}
+
+#posts-container .followed .thumbnail .post-source {
+  display: block;
+  background-color: #99b709;
+  color: #fff;
+  padding: 2px 8px;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 10px;
+}
+
+#posts-container .nearby .thumbnail .post-source {
+  display: block;
+  background-color: #ed1c24;
+  color: #fff;
+  padding: 2px 8px;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 10px;
+}
+
 @media (max-width: 1200px) {
   .portfolio-selection {
     margin-bottom: 30px;

@@ -1,6 +1,8 @@
 <% if post.paid? %>
     <div class="col-lg-3 col-md-6 hero-feature listing-big">
       <div class="thumbnail">
+
+        <span class="post-source pull-right">followed</span>
                    
         <%= link_to (image_tag post.image.url(:medium)), post %>
         <hr class="reduced-margin-top">
