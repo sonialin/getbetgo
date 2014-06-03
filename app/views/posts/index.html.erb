@@ -1,16 +1,16 @@
 <% if !current_user %>
-<div class="jumbotron" id="home">
-  <div class="container" id="home-content">
-    <div class="row text-center">   
-        <div class="col-md-10 col-md-offset-1" id="headline">
-          <h1 >Throw In Whatever You'd Like</h1>
-          <h3 id="subtitle">Integer commodo ipsum neque, nec elementum sem venenatis ac. Sed vehicula felis.</h3>
-          <br />
-          <%= link_to "Start Now", "#", :class => "btn btn-danger btn-lg btn-start" %>        
+  <div class="jumbotron" id="home">
+    <div class="container" id="home-content">
+      <div class="row text-center">   
+          <div class="col-md-10 col-md-offset-1" id="headline">
+            <h1 >Throw In Whatever You'd Like</h1>
+            <h3 id="subtitle">Integer commodo ipsum neque, nec elementum sem venenatis ac. Sed vehicula felis.</h3>
+            <br />
+            <%= link_to "Start Now", "#", :class => "btn btn-danger btn-lg btn-start" %>        
+          </div>
         </div>
-      </div>
+    </div>
   </div>
-</div>
 <% end %>
 
 <div class="container" id="add-post">

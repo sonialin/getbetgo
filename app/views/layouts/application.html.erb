@@ -39,7 +39,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "ABOUT", about_path %></li>
             <li><a href="#services">SERVICES</a></li>
-            <li class="<%= 'active' if current_page?(contact_path) %>"><%= link_to "CONTACT", contact_path %></li>
+            <li class="<%= 'active' if current_page?(new_contact_path) %>"><%= link_to "CONTACT", new_contact_path %></li>
             <% if user_signed_in? %>        
 		      		<li><%= link_to 'NEW POST', new_post_path %></li>
 		      		<li class="dropdown">

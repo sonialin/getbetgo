@@ -1,7 +1,6 @@
 Getbetgo::Application.routes.draw do
 
   get "about" => 'pages#about'
-  get "contact" => 'pages#contact'
   resources :relationships
 
   # post "paypal_recipient_accounts/create"
@@ -35,6 +34,8 @@ Getbetgo::Application.routes.draw do
   get 'posts/:post_id/bets/:id/receive_process' => 'bets#receive_process'
 
   mount Judge::Engine => '/judge'
+
+  resources "contacts", only: [:new, :create]
 
   # get 'transactions/new' => 'transactions#new'
   # post 'transactions/create' => 'transactions#create'

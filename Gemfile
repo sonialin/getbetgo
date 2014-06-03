@@ -79,6 +79,10 @@ gem "geocoder"
 # Use judge for inline validation
 gem 'judge', '~> 2.0.4'
 
+# Use mail_form to enable easy mailer setup
+gem 'mail_form'
+gem 'simple_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
