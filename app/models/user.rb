@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :follower_relationships
   has_many :followeds, through: :followed_relationships
 
-  has_attached_file :avatar, :styles => { :medium => "200x200#", :thumb => "50x50#" }, :default_url => "http://placehold.it/100x100"
+  has_attached_file :avatar, :styles => { :medium => "200x200#", :thumb => "60x60#" }, :default_url => "http://placehold.it/100x100"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   validates :name, presence: true

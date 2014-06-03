@@ -12,14 +12,16 @@
             <%= link_to raw(post.title.truncate(65)), post %>
           </h4>
         </div>
-        
+
+        <hr class="content-divider">
+
         <div class="brief-desc">
           <div class="media author-info">
             <div class="pull-left">
               <% if post.user.avatar? %>
-              <%= link_to image_tag(post.user.avatar.url(:thumb)), post.user, :class => "media-object", :width => "50px" %>
+              <%= link_to image_tag(post.user.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
             <% else %>
-              <%= link_to image_tag("http://placehold.it/50x50"), post.user, :class => "media-object" %>
+              <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
             <% end %>
           </div>
           <div class="media-body align-left">
@@ -27,21 +29,33 @@
               <%= link_to raw(post.description.truncate(95)), post %>
             </p>
           </div>
+          
         </div>
-        <div class="author pull-right"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{toggle: 'popover', container: 'body', html: 'true', content: "<img src=#{post.user.avatar.url(:thumb)}><br />#{post.user.name}"} %></div>
+
+        <div class="author"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{toggle: 'popover', container: 'body', html: 'true', content: "<img src=#{post.user.avatar.url(:thumb)}><br />#{post.user.name}"} %>
+        </div>
         <div class="clear"></div>
 
       </div>
         
-      <div class="modal-footer" style="text-align: left">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">      
+      <div class="modal-footer">
+        <div class="progress progress-striped pb-space">
+          <div class="progress-bar pb" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= post.percentage_claimed %>%;">      
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4"><b><%= number_to_percentage(post.percentage_claimed, precision: 0) %></b><br/><small>CLAIMED</small></div>
-          <div class="col-md-4"><b>$<%= post.total %></b><br/><small>FUNDED</small></div>
-          <div class="col-md-4"><b><%= post.beneficiaries %></b><br/><small>PEOPLE BENEFITED</small></div>
+        <div class="row funding-metrics text-center">
+          <div class="col-md-4 col-xs-4">
+            <span class="funding-metrics-number"><%= number_to_percentage(post.percentage_claimed, precision: 0) %></span><br/>
+            <small class="funding-metrics-text">CLAIMED</small>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <span class="funding-metrics-number">$<%= post.total %></span><br/>
+            <small class="funding-metrics-text">FUNDED</small>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <span class="funding-metrics-number"><%= post.beneficiaries %></span><br/>
+            <small class="funding-metrics-text">PEOPLE BENEFITED</small>
+          </div>
         </div>
       </div>
     </div>
