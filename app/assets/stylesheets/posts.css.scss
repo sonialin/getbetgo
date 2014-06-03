@@ -895,11 +895,11 @@ line-height: 64px;*/
   background: #ed1c24;
 }
 
-#posts-container .thumbnail .post-source-followed {
+#posts-container .thumbnail .post-source-followed, #posts-container-user .thumbnail .post-source-followed {
   display: none;
 }
 
-#posts-container .thumbnail .post-source-nearby {
+#posts-container .thumbnail .post-source-nearby, #posts-container-user .thumbnail .post-source-nearby {
   display: none;
 }
 
