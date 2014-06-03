@@ -1,8 +1,29 @@
-<div>
-  <% flash.each do |key, value| %>
-    <div>
-      <a href="#" data-dismiss="alert">×</a>
-        <%= value %>
+<div id="contact-response">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well well-sm">
+        <fieldset disabled>
+          <legend class="text-center">Thank You for Dropping the Line!</legend>
+          <div class="row">
+            <div class="col-md-3">Name</div>
+            <div class="col-md-9">
+              <%= params[:contact][:name] %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Email</div>
+            <div class="col-md-9">
+              <%= params[:contact][:email] %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Message</div>
+            <div class="col-md-9">
+              <%= params[:contact][:message] %>
+            </div>
+          </div>
+      </fieldset>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>

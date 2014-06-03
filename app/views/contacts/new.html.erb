@@ -1,16 +1,37 @@
-<div align="center">
-  <h3>Send A message to Us</h3>
-
-  <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
-    <%= f.input :name, :required => true %>
-    <%= f.input :email, :required => true %>
-    <%= f.input :message, :as => :text, :required => true %>
-    <div class= "hidden">
-      <%= f.input :nickname, :hint => 'Leave this field blank!' %>
+<div id="contact-form">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well well-sm">
+        <fieldset>
+          <legend class="text-center">Contact Us</legend>
+          <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="name">Name</label>
+              <div class="col-md-8">
+                <%= f.text_field :name, :validate => true, :class => "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="email">Email</label>
+              <div class="col-md-8">
+                <%= f.text_field :email, :class => "form-control" %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Message</label>
+              <div class="col-md-8">
+                <%= f.text_area :message, :class=> "form-control", :rows => "5" %>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="col-md-11 text-right">
+                <%= f.submit "Submit", :class => "btn btn-success btn-lg" %>      
+              </div>
+            </div>
+          <% end %>
+        </fieldset>
+      </div>
     </div>
-    <div>
-      </br>
-      <%= f.button :submit, 'Send message', :class=> "btn btn-primary" %>
-    </div>
-  <% end %>
+  </div>
 </div>
