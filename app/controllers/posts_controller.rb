@@ -72,7 +72,6 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    redirect_to root_url if @post.user != current_user && !@post.paid?
     @bet = Bet.new
     @bets = @post.bets.order("updated_at desc")
     @update = Update.new
@@ -102,9 +101,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to :controller => :posts, :action=> :payment, :id => @post.id }
-        # format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        # format.json { render action: 'show', status: :created, location: @post }
+        # format.html { redirect_to :controller => :posts, :action=> :payment, :id => @post.id }
+        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
