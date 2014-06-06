@@ -4,6 +4,7 @@ class Bet < ActiveRecord::Base
 
   has_one :update
   has_one :fund
+  has_one :order
 
 	validates :user_id, :uniqueness => { :scope => :post_id,
   :message => "Users may only make one bet per post." }
@@ -22,10 +23,14 @@ class Bet < ActiveRecord::Base
  #    return true
  #  end 
 
-  def select
-    self.status = 'Selected'
-    self.save!
-  end
+  # def paid?
+  #   !self.order.nil?
+  # end
+
+  # def select
+  #   self.status = 'Selected'
+  #   self.save!
+  # end
 
   def selected?
     self.status == "Selected"

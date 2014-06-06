@@ -101,7 +101,6 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        # format.html { redirect_to :controller => :posts, :action=> :payment, :id => @post.id }
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @post }
       else
@@ -134,17 +133,6 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
-    end
-  end
-
-  def payment
-  end
-
-  def pay_process
-    if params[:gateway] != "paypal"
-      flash[:notice] = 'Please select payment gateway.'
-      redirect_to :controller=>:posts, :id=>@post.id, :action=>:payment
-      #redirect_to "posts/#{@post.id}/payment", notice: 'Please select payment gateway.'
     end
   end
 

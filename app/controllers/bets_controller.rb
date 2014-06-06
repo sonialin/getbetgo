@@ -1,5 +1,6 @@
 class BetsController < ApplicationController
-  before_action :set_bet, only: [:show, :edit, :update, :destroy, :receive, :receive_process]
+  before_action :set_bet, only: [:show, :edit, :update, :destroy, :receive, :receive_process, :payment, :pay_process]
+  before_action :set_post, only: [:payment, :pay_process]
   before_filter :evaluate_if_current_user_claim_bet, only: [:receive, :receive_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
 
@@ -144,19 +145,34 @@ class BetsController < ApplicationController
     params.permit!
     @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
-    @bet.select
-    if @bet.status == "Selected"
-      flash[:notice] = "The bet has been selected."
-    else 
-      flash[:notice] = "Oops, something went wrong."
+    redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
+    # @bet.select
+    # if @bet.status == "Selected"
+    #   flash[:notice] = "The bet has been selected."
+    # else 
+    #   flash[:notice] = "Oops, something went wrong."
+    # end
+    # redirect_to @post
+  end
+
+  def payment
+  end
+
+  def pay_process
+    if params[:gateway] != "paypal"
+      flash[:notice] = 'Please select payment gateway.'
+      redirect_to :controller=>:bets, :id => @bet.id, :post_id => @post.id, :action=>:payment
     end
-    redirect_to @post
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bet
       @bet = Bet.find(params[:id])
+    end
+
+    def set_post
+      @post = Post.friendly.find(params[:post_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

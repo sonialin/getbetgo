@@ -19,10 +19,11 @@ Getbetgo::Application.routes.draw do
       resources :updates, :only => [:create]
     end
   end
-  get 'posts/:id/payment' => 'posts#payment'
-  get 'posts/:id/pay_process' => 'posts#pay_process'
-  get 'transactions/:post_id/success' => 'transactions#success'
-  get 'transactions/:post_id/failed' => 'transactions#failed'
+  
+  get 'bets/:id/payment' => 'bets#payment'
+  get 'bets/:id/pay_process' => 'bets#pay_process'
+  get 'transactions/:bet_id/success' => 'transactions#success'
+  get 'transactions/:bet_id/failed' => 'transactions#failed'
 
   post 'getposts' => 'posts#getposts'
   post 'getuserposts' => 'users#show'

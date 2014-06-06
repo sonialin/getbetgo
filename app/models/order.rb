@@ -1,11 +1,11 @@
 class Order < ActiveRecord::Base
-	belongs_to :post
 	belongs_to :user
+	belongs_to :bet
 
 	after_save :change_status
 
 	def change_status
-		self.post.status = "Paid"
-		self.post.save
+		self.bet.status = "Selected"
+		self.bet.save
 	end
 end

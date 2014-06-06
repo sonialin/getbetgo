@@ -1,6 +1,5 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
-  has_one :order
 	has_many :bets, :dependent => :destroy
   has_many :updates
 
@@ -18,7 +17,7 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1}
 
-  after_initialize :default_values
+  # after_initialize :default_values
 
   # attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
@@ -45,11 +44,6 @@ class Post < ActiveRecord::Base
 
   def percentage_claimed
     self.claimed_fund / self.total * 100
-  end
-
-  def paid?
-    # if the payment has been made to make the post show up
-    !self.order.nil?
   end
 
   def default_values

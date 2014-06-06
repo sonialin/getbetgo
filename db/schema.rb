@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522194756) do
+ActiveRecord::Schema.define(version: 20140606002839) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -58,8 +58,10 @@ ActiveRecord::Schema.define(version: 20140522194756) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "post_id"
+    t.integer  "bet_id"
   end
 
+  add_index "orders", ["bet_id"], name: "index_orders_on_bet_id"
   add_index "orders", ["post_id"], name: "index_orders_on_post_id"
 
   create_table "paypal_recipient_accounts", force: true do |t|

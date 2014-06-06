@@ -10,18 +10,18 @@
 		  <!-- the comment box -->
 		  <div class="well">
 		    <h4>Order details:</h4>
-		    <form role="form" action="/posts/<%=params[:id]%>/pay_process">
+		    <form role="form" action="/bets/<%=params[:id]%>/pay_process">
 		      <div class="form-group">
-		        Quantity: <%=@post.quantity%><br />
-		        Quantity: <%=@post.price%><br />
+		        Price: <%= @post.price %><br />
+		        Quantity: 1<br />
 		        --------------------------<br />
-		        Total: <%=@post.quantity * @post.price%>
+		        Total: <%= @post.price %>
 		      </div>
 		      <div class="form-group">
 		        <input type="radio" name="gateway" value="paypal">Paypal<br>
-	          <input type="radio" name="gateway" value="bitcoin">Bitcoin
 		      </div>
-		      <input type="hidden" value="<%=@post.id%>" name="post_id" />
+		      <input type="hidden" value="<%= params[:post_id] %>" name="post_id" />
+		      <input name="bet_id" type="hidden" value="<%= @bet.id %>">
 		      <button type="submit" class="btn btn-primary">Continue</button>
 		    </form>
 		  </div>
