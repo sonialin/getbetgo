@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606002839) do
+ActiveRecord::Schema.define(version: 20140606071847) do
 
   create_table "bets", force: true do |t|
     t.integer  "post_id"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20140606002839) do
     t.string   "slug"
     t.string   "category"
     t.string   "location"
+    t.boolean  "free"
+    t.string   "service"
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true

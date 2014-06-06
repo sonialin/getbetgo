@@ -27,21 +27,32 @@
           <div class="form-group">
             <label class="col-md-3 control-label" for="title">Title</label>
             <div class="col-md-8">
-              <%= f.text_field :title, :validate => true, :class => "form-control" %>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  I am giving
+                </div>
+                <div class="col-md-9">
+                  $<%= f.text_field :price, :class => "form-control post-number-input" %> to
+                  <%= f.text_field :quantity, :class => "form-control post-number-input" %> people
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  for 
+                </div>
+                <div class="col-md-9">
+                  <div class="col-md-12">
+                    <%= f.text_field :service, :class => "form-control", :id => "service" %>
+                  </div>
+                  <div class="col-md-12">
+                    <%= f.check_box :free, :id => "free-checkbox" %>
+                    <%= f.label "Free" %>
+                  </div>
+                </div>
+              </div>  
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="price">Price</label>
-            <div class="col-md-8">
-              <%= f.text_field :price, :class => "form-control" %>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="quantity">Quantity</label>
-            <div class="col-md-8">
-              <%= f.text_field :quantity, :class => "form-control" %>
-            </div>
-          </div>
+
           <div class="form-group">
             <label class="col-md-3 control-label" for="category">Category</label>
             <div class="col-md-8">
@@ -102,6 +113,14 @@
         alert(messages.join(','));
       }
     });
+  });
+
+  $("#free-checkbox").click( function() {
+    if( $(this).is(':checked') ) {
+      $('#service').attr("disabled", "disabled");
+    } else {
+      $('#service').removeAttr("disabled");
+    }
   });
 
 </script>

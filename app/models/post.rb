@@ -3,16 +3,17 @@ class Post < ActiveRecord::Base
 	has_many :bets, :dependent => :destroy
   has_many :updates
 
+  before_create :set_title
+
   acts_as_taggable
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
 	has_attached_file :image, :styles => { :big => '600', :medium => "200x150#", :thumb => "100x100#" }
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true
-  validates :title, presence: true
   validates :description, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1}
@@ -21,6 +22,13 @@ class Post < ActiveRecord::Base
 
   # attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
+
+  def slug_candidates
+    [
+      [:service, :category, :tag_list],
+      [:service, :category, :tag_list, :location]
+    ]
+  end
 
   def available_quantity
   	quantity - bets.all.count
@@ -64,5 +72,9 @@ class Post < ActiveRecord::Base
         errors.add(:base, 'Bets present')
         return false
       end
+    end
+
+    def set_title
+      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s
     end
 end
