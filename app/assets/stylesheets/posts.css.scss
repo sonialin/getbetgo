@@ -115,6 +115,12 @@
   /* Project section title ends */
 
   /* listing items */
+
+.listing-item {
+  display: inline-block; 
+  max-width: 208px;
+}
+
 .folder h4 a, .table a{
     text-decoration: none;
     color: #4d4d4d;
@@ -937,6 +943,16 @@ line-height: 64px;*/
   }
 
   .funding-metrics {
-    left: 0;
+    left: -10px;
+  }
+}
+
+@media (max-width: 766px) {
+  .listing-item { 
+    max-width: 100%;
+  }
+
+  .thumbnail-size {
+    width: 100%;
   }
 }

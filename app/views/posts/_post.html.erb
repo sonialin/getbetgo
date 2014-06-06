@@ -1,11 +1,11 @@
 
-    <div class="col-lg-3 col-md-6 hero-feature listing-big">
-      <div class="thumbnail">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hero-feature listing-big text-center">
+      <div class="thumbnail listing-item">
 
         <span class="post-source-followed pull-right">followed</span>
         <span class="post-source-nearby pull-right">nearby</span>
                    
-        <%= link_to (image_tag post.image.url(:medium)), post %>
+        <%= link_to (image_tag(post.image.url(:medium), :class => "thumbnail-size")), post %>
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">
