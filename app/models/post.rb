@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :bets, :dependent => :destroy
   has_many :updates
 
-  before_create :set_title
+  before_create :set_title_and_service
 
   acts_as_taggable
 
@@ -74,7 +74,10 @@ class Post < ActiveRecord::Base
       end
     end
 
-    def set_title
-      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s
+    def set_title_and_service
+      if self.service == nil
+        self.service = 'Free'
+      end
+      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people for ' + self.service
     end
 end
