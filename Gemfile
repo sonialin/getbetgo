@@ -83,6 +83,9 @@ gem 'judge', '~> 2.0.4'
 gem 'mail_form'
 gem 'simple_form'
 
+# Use public_activity to track changes on models
+gem 'public_activity'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

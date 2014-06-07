@@ -10,6 +10,7 @@ class TransactionsController < ApplicationController
 	  order.amount = @post.price
 	  order.post_id = @post.id
 	  order.save!
+	  order.create_activity :create, owner: @post.user, recipient: @bet.user
 	  redirect_to @post, notice: 'Payment has been successfully done.'
 	end
 	

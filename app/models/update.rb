@@ -5,6 +5,8 @@ class Update < ActiveRecord::Base
 
 	validates :body, presence: true
 
+	include PublicActivity::Common
+
 	after_save :change_status
 
 	def change_status

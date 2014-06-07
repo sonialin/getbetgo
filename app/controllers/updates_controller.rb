@@ -9,6 +9,7 @@ class UpdatesController < ApplicationController
     @update.post = @post
 
     if @update.save
+      @update.create_activity :create, owner: current_user, recipient: @post.user
     	flash[:notice] = "Your update has been posted!"
     	redirect_to @post
     else

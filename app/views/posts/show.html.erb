@@ -13,6 +13,9 @@
           <small>in <%= @post.location %></small>
         <% end %>
       </span></h1>
+      <% if @post.user == current_user %>
+        <%= link_to 'Edit', edit_post_path %>
+      <% end %>
       <div class="video">
         <!-- main visual -->
         <div id="myCarousel" class="carousel">

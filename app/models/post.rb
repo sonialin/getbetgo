@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
+  include PublicActivity::Common
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 

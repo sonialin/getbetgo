@@ -39,6 +39,7 @@ class BetsController < ApplicationController
 
     respond_to do |format|
       if @bet.save
+        @bet.create_activity :create, owner: current_user, recipient: @post.user
         format.html { redirect_to @post, notice: 'Bet was successfully created.' }
         #format.json { render action: 'show', status: :created, location: @bet }
       else

@@ -9,8 +9,9 @@ class FundTransfersController < ApplicationController
   	@fund.ip_address = request.remote_ip
   	@post = Post.friendly.find(params[:post_id])
   	@fund.amount = @post.price
-  	@fund.save(:validate=>false)
-  	redirect_to @post
+  	@fund.save
+    @fund.create_activity :create, owner: @post.user, recipient: @fund.bet.user
+  	redirect_to @post, notice: "Fund transfered!" 
   end
 
   def failed

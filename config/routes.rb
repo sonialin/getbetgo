@@ -38,6 +38,8 @@ Getbetgo::Application.routes.draw do
 
   resources "contacts", only: [:new, :create]
 
+  resources :activities
+
   # get 'transactions/new' => 'transactions#new'
   # post 'transactions/create' => 'transactions#create'
 
