@@ -13,6 +13,10 @@ class BetsController < ApplicationController
   # GET /bets/1
   # GET /bets/1.json
   def show
+    if current_user
+      @current_user_bet = @bet.post.bets.where(:user_id => current_user.id)
+    end
+    @update = Update.new
   end
 
   # GET /bets/new
@@ -40,7 +44,9 @@ class BetsController < ApplicationController
     respond_to do |format|
       if @bet.save
         @bet.create_activity :create, owner: @bet.user, recipient: @post.user
-        @post.user.notify("#{@bet.user.name} applied to your fund #{@post.title}", "#{@bet.user.name} applied to your fund #{@post.title}")
+        @post.user.notify("#{@bet.user.name} applied to your fund #{@post.title}",
+                          "#{@bet.user.name} applied to your fund #{@post.title}" 
+                          )
         format.html { redirect_to @post, notice: 'Bet was successfully created.' }
         #format.json { render action: 'show', status: :created, location: @bet }
       else

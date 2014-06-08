@@ -1,7 +1,9 @@
-<% @activities.each do |activity| %>
-  <div class="activity">
-  	<% if (activity.owner == current_user or activity.recipient == current_user) %>
-    	<%= render_activity activity %>
-    <% end %>
-  </div>
-<% end %>
+<div class="container">
+	<% @activities.each do |activity| %>
+	  <div class="activity">
+	  	<% if (activity.owner == current_user or activity.recipient == current_user) %>
+	    	<%= render_activity activity %>
+	    <% end %>
+	  </div>
+	<% end %>
+</div>

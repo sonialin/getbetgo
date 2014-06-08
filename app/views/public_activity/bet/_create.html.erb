@@ -1,3 +1,5 @@
-<%= link_to activity.owner.name, activity.owner if activity.owner %>
-applied for a fund
-<%= link_to activity.trackable.post.title, activity.trackable.post %>
+<%= link_to post_bet_path(activity.trackable.post, activity.trackable) do %>
+	<%= activity.owner.name if activity.owner %>
+	applied for a fund
+	<%= activity.trackable.post.title %>
+<% end %>

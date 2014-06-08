@@ -1,3 +1,5 @@
-<%= link_to activity.recipient.name, activity.recipient if activity.recipient %>
-got a fund from <%= link_to activity.owner.name, activity.owner %>
-on <%= link_to activity.trackable.bet.post.title, activity.trackable.bet.post %>
+<%= link_to post_bet_path(activity.trackable.bet.post, activity.trackable.bet) do %>
+	<%= activity.recipient.name %>
+	got a fund from
+	<%= activity.owner.name %>
+<% end %>

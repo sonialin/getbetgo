@@ -9,12 +9,15 @@ class UpdatesController < ApplicationController
     @update.post = @post
 
     if @update.save
-      @update.create_activity :create, owner: current_user, recipient: @post.user
+      @update.create_activity :create, owner: @update.user, recipient: @post.user
+      @post.user.notify("#{@update.user.name} submitted an update on #{@post.title}",
+                        "#{@update.user.name} submitted an update on #{@post.title}"
+                        )
     	flash[:notice] = "Your update has been posted!"
-    	redirect_to @post
+    	redirect_to :back
     else
     	flash[:notice] = "Fail."
-    	redirect_to @post
+    	redirect_to :back
     end
   end
 

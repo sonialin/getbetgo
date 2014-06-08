@@ -1,3 +1,5 @@
-<%= link_to activity.owner.name, activity.owner if activity.owner %>
-submitted an update on
-<%= link_to activity.trackable.bet.post.title, activity.trackable.bet.post %>
+<%= link_to post_bet_path(activity.trackable.bet.post, activity.trackable.bet) do %>
+	<%= activity.owner.name if activity.owner %>
+	submitted an update on
+	<%= activity.trackable.post.title %>
+<% end %>
