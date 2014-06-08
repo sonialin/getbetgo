@@ -12,8 +12,8 @@ class FundTransfersController < ApplicationController
   	@fund.save
     @fund.create_activity :create, owner: @post.user, recipient: @fund.bet.user
     @fund.bet.user.notify("You got a fund from #{@post.user.name} on #{@post.title}",
-                          "You got a fund from #{@post.user.name} on #{@post.title}"
-                          )
+                          "You got a fund from #{@post.user.name} on #{@post.title}",
+                          notified_object = @fund)
   	redirect_to @post, notice: "Fund transfered!" 
   end
 

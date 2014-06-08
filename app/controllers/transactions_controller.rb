@@ -12,8 +12,8 @@ class TransactionsController < ApplicationController
 	  order.save!
 	  order.create_activity :create, owner: @post.user, recipient: @bet.user
     @bet.user.notify("#{@post.user.name} selected you on #{@post.title}",
-                  		"#{@post.user.name} selected you on #{@post.title}" 
-                 		)
+                  		"#{@post.user.name} selected you on #{@post.title}", 
+                 			notified_object = order)
 	  redirect_to @post, notice: 'Payment has been successfully done.'
 	end
 	

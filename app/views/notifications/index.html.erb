@@ -1,4 +1,12 @@
 <h1>blah</h1>
 <% @notifications.each do |notification| %>
-<p><%= notification.subject %></p>
+	<% if notification.notified_object %>
+		<% if notification.notified_object_type == 'Bet' %>	
+			<p><%= link_to notification.subject, post_bet_path(notification.notified_object.post, notification.notified_object) %></p>
+		<% else %>
+			<p><%= link_to notification.subject, post_bet_path(notification.notified_object.bet.post, notification.notified_object.bet) %></p>
+		<% end %>
+	<% else %>
+		<p><%= notification.subject %></p>
+	<% end %>
 <% end %>

@@ -11,8 +11,8 @@ class UpdatesController < ApplicationController
     if @update.save
       @update.create_activity :create, owner: @update.user, recipient: @post.user
       @post.user.notify("#{@update.user.name} submitted an update on #{@post.title}",
-                        "#{@update.user.name} submitted an update on #{@post.title}"
-                        )
+                        "#{@update.user.name} submitted an update on #{@post.title}",
+                        notified_object = @update)
     	flash[:notice] = "Your update has been posted!"
     	redirect_to :back
     else
