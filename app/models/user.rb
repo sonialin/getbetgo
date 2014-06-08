@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  acts_as_messageable
+
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
@@ -49,5 +51,9 @@ class User < ActiveRecord::Base
 
   def follow user
     Relationship.create follower_id: self.id, followed_id: user.id
+  end
+
+  def mailboxer_email(object)
+    return email
   end
 end
