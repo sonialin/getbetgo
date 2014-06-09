@@ -1,0 +1,13 @@
+<div class="container">
+	<h1>blah</h1>
+	<% if @notification_receipt.notification.notified_object %>
+		<% if @notification_receipt.notification.notified_object_type == 'Bet' %>	
+			<p><%= link_to @notification_receipt.notification.subject, post_bet_path(@notification_receipt.notification.notified_object.post, @notification_receipt.notification.notified_object) %></p>
+		<% else %>
+			<p><%= link_to @notification_receipt.notification.subject, post_bet_path(@notification_receipt.notification.notified_object.bet.post, @notification_receipt.notification.notified_object.bet) %></p>
+		<% end %>
+	<% else %>
+		<p><%= @notification_receipt.notification.subject %></p>
+	<% end %>
+	<%= link_to 'Back to notifications', notifications_path %>
+</div>

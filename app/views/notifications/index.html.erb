@@ -1,12 +1,12 @@
-<h1>blah</h1>
-<% @notifications.each do |notification| %>
-	<% if notification.notified_object %>
-		<% if notification.notified_object_type == 'Bet' %>	
-			<p><%= link_to notification.subject, post_bet_path(notification.notified_object.post, notification.notified_object) %></p>
+<div class="container">
+	<h1>blah</h1>
+	<% @notification_receipts.each do |receipt| %>
+		Status: 
+		<% if receipt.is_read == false %>
+			Unread
 		<% else %>
-			<p><%= link_to notification.subject, post_bet_path(notification.notified_object.bet.post, notification.notified_object.bet) %></p>
+			Read
 		<% end %>
-	<% else %>
-		<p><%= notification.subject %></p>
+		<span><%= button_to receipt.notification.subject, mark_read_notification_path(receipt) %></span><br />
 	<% end %>
-<% end %>
+</div>
