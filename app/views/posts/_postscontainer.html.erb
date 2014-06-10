@@ -1,4 +1,4 @@
-<div id="posts-container<% if user_posts %><%= "-user" %><% end %>">
+<div id="posts-container<% if user_posts %><%= "-user" %><% end %>" >
   <div class="row text-center" id="<% if user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts">
 		<% index = 0 %>
 		<% @posts.each do |post| %>
@@ -30,7 +30,7 @@
   <% end %>
  
   <% if @next_page %>
-		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg " style ="display:block;">More posts</div>
+		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:block; width: 95%;">More posts</div>
   <% else %>
 		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:none;">More posts</div>
   <% end %>  
