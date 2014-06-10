@@ -1,5 +1,32 @@
-$('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<%= j render @posts %>');
-<% if not @posts.next_page %>
+<% index = 0 %>
+<% @posts.each do |post| %>
+    <% if @post_type %>
+	<% if @post_type[index] == 'r' %>
+	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all nearby"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
+	<% elsif @post_type[index] == 'f' %>
+	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all followed"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
+	<% else%>
+	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
+	<% end %>
+    <% else %>
+	$('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
+    <% end %>
+    <% index += 1 %>
+<% end %>
+
+<% if defined? @type %>
+    type = <%= @type %>;
+<% end %>
+
+<% if defined? @offset %>
+    offset = <%= @offset %>;
+<% end %>
+
+<% if @next_page.nil? %>
+    <% @next_page = @posts.next_page %>
+<% end %>
+
+<% if not @next_page %>
   $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").hide();
 <% else %>
   $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").show();

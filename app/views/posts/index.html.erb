@@ -78,7 +78,7 @@
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "category="+category+"&page="+page+"&tag="+tag,
+      data: "category="+category+"&page="+page+"&tag="+tag+"&type=1&offset=0",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       }

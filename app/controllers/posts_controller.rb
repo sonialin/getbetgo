@@ -6,22 +6,74 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @city = request.location.city
-    @country = request.location.country
+    city = request.location.city
+    country = request.location.country
 
-    @recommended_posts = Post.where('location LIKE ? AND location LIKE ?', "%#{@city}%", "%#{@country}%").limit(4)
+    per_page = 12
+    followed_ids = [-1]
 
     if current_user
+        if current_user.followeds.count > 0
       followed_ids = current_user.followeds.map(&:id)
-      @followed_posts = Post.where(:user_id => followed_ids).limit(4)
+        end
     end
 
     if params[:tag]
-      @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      @posts = Post.tagged_with(params[:tag])
       @tag = params[:tag]
     else
-      @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+      @posts = Post.all
       @tag = ""
+    end
+
+    @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%")
+    count = @rec_or_fol_posts.count
+
+    if count > per_page
+        @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
+        @next_page = true
+        @type = 1
+        @offset = per_page
+    else
+        if count > 0
+      rec_or_fol_posts_ids = @rec_or_fol_posts.map(&:id)
+      @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
+        else
+      @other_posts = @posts.order("updated_at desc")
+        end
+
+        if @other_posts.count > per_page - count
+      @next_page = true
+      @type = 2
+      @offset = per_page - count
+        else
+      @next_page = false
+        end
+
+        @other_posts = @other_posts.limit(per_page - count)
+
+    end
+
+    @posts = []
+    @post_type = []
+
+    if @rec_or_fol_posts
+        @rec_or_fol_posts.each do |post|
+      @posts << post
+
+      if (not post.location.nil?) and post.location.include? city and post.location.include? country
+          @post_type << 'r'
+      else
+          @post_type << 'f'
+      end
+        end
+    end
+
+    if @other_posts
+        @other_posts.each do |post|
+      @posts << post
+      @post_type << 'o'
+        end
     end
 
     respond_to do |format|
@@ -31,38 +83,105 @@ class PostsController < ApplicationController
 
   # POST /getposts
   def getposts
-    if current_user
-      followed_ids = current_user.followeds.map(&:id)
-      @followed_posts = Post.where(:user_id => followed_ids)
+    city = request.location.city
+    country = request.location.country
 
-      if params[:category] == "all"
-        if params[:tag] == ""
-          @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
-        else
-          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
-        end
+    per_page = 12
+    followed_ids = [-1]
+
+    if current_user
+      if current_user.followeds.count > 0
+        followed_ids = current_user.followeds.map(&:id)
+      end
+    end
+
+    if params[:category] == "all"
+      if params[:tag] == ""
+        @posts = Post.all
       else
-        if params[:tag] == ""
-          @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
-        else
-          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
-        end
+        @posts = Post.tagged_with(params[:tag])
+      end
+    elsif params[:category] == "Others"
+      if params[:tag] == ""
+        @posts = Post.where(:category => nil)
+      else
+        @posts = Post.tagged_with(params[:tag]).where(:category => nil)
       end
     else
-      if params[:category] == "all"
-        if params[:tag] == ""
-          @posts = Post.paginate(page: params[:page], per_page: 12).order("updated_at desc")
-        else
-          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).order("updated_at desc")
-        end
+      if params[:tag] == ""
+        @posts = Post.where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
       else
-        if params[:tag] == ""
-          @posts = Post.paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+        @posts = Post.tagged_with(params[:tag]).where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+      end
+    end
+
+    @type = params[:type].to_i
+    @offset = params[:offset].to_i
+
+    rec_or_fol_posts_ids = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").map(&:id)
+
+    if @type == 1
+      @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").offset(@offset)
+      count = @rec_or_fol_posts.count
+
+      if count > per_page
+        @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
+        @next_page = true
+        @offset += per_page
+      else
+        @type = 2
+        if rec_or_fol_posts_ids.count > 0
+          @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
         else
-          @posts = Post.tagged_with(params[:tag]).paginate(page: params[:page], per_page: 12).where(:category => params[:category].split(/(?=[A-Z])/).join(' ')).order("updated_at desc")
+          @other_posts = @posts.order("updated_at desc")
+        end
+
+        if @other_posts.count > per_page - count
+          @next_page = true
+          @offset = per_page - count
+        else
+          @next_page = false
+        end
+        @other_posts = @other_posts.limit(per_page - count)
+      end
+
+    elsif @type == 2
+      if rec_or_fol_posts_ids.count > 0
+        @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc").offset(@offset)
+      else
+        @other_posts = @posts.order("updated_at desc").offset(@offset)
+      end
+      if @other_posts.count > per_page
+        @next_page = true
+        @offset += per_page
+      else
+        @next_page = false
+      end
+
+      @other_posts = @other_posts.limit(per_page)
+    end
+
+    @posts = []
+    @post_type = []
+
+    if @rec_or_fol_posts
+      @rec_or_fol_posts.each do |post|
+        @posts << post
+
+        if (not post.location.nil?) and post.location.include? city and post.location.include? country
+            @post_type << 'r'
+        else
+            @post_type << 'f'
         end
       end
-    end 
+    end
+
+    if @other_posts
+      @other_posts.each do |post|
+        @posts << post
+        @post_type << 'o'
+      end
+    end
 
     respond_to do |format|
       format.js { render 'index.js.erb' }
