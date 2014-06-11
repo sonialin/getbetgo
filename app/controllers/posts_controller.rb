@@ -13,9 +13,9 @@ class PostsController < ApplicationController
     followed_ids = [-1]
 
     if current_user
-        if current_user.followeds.count > 0
-      followed_ids = current_user.followeds.map(&:id)
-        end
+      if current_user.followeds.count > 0
+        followed_ids = current_user.followeds.map(&:id)
+      end
     end
 
     if params[:tag]
@@ -26,54 +26,52 @@ class PostsController < ApplicationController
       @tag = ""
     end
 
-    @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%")
+    @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids, "%#{city}%", "%#{country}%")
     count = @rec_or_fol_posts.count
 
     if count > per_page
-        @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
-        @next_page = true
-        @type = 1
-        @offset = per_page
-    else
-        if count > 0
-      rec_or_fol_posts_ids = @rec_or_fol_posts.map(&:id)
-      @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
-        else
-      @other_posts = @posts.order("updated_at desc")
-        end
-
-        if @other_posts.count > per_page - count
+      @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
       @next_page = true
-      @type = 2
-      @offset = per_page - count
-        else
-      @next_page = false
-        end
+      @type = 1
+      @offset = per_page
+    else
+      if count > 0
+        rec_or_fol_posts_ids = @rec_or_fol_posts.map(&:id)
+        @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
+      else
+        @other_posts = @posts.order("updated_at desc")
+      end
 
-        @other_posts = @other_posts.limit(per_page - count)
+      if @other_posts.count > per_page - count
+        @next_page = true
+        @type = 2
+        @offset = per_page - count
+      else
+        @next_page = false
+      end
 
+      @other_posts = @other_posts.limit(per_page - count)
     end
 
     @posts = []
     @post_type = []
 
     if @rec_or_fol_posts
-        @rec_or_fol_posts.each do |post|
-      @posts << post
-
-      if (not post.location.nil?) and post.location.include? city and post.location.include? country
+      @rec_or_fol_posts.each do |post|
+        @posts << post
+        if (not post.location.nil?) and post.location.include? city and post.location.include? country
           @post_type << 'r'
-      else
+        else
           @post_type << 'f'
-      end
         end
+      end
     end
 
     if @other_posts
-        @other_posts.each do |post|
-      @posts << post
-      @post_type << 'o'
-        end
+      @other_posts.each do |post|
+        @posts << post
+        @post_type << 'o'
+      end
     end
 
     respond_to do |format|
