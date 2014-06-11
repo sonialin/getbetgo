@@ -7,7 +7,7 @@
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">
-            <%= link_to post.id, post %>
+            <%= link_to raw(post.title.truncate(65)), post %>
           </h4>
         </div>
 
