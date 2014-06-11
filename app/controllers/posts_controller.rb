@@ -119,7 +119,7 @@ class PostsController < ApplicationController
     rec_or_fol_posts_ids = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").map(&:id)
 
     if @type == 1
-      @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").offset(@offset)
+      @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").offset(@offset).order("posts.id desc")
       count = @rec_or_fol_posts.count
 
       if count > per_page
