@@ -6,8 +6,10 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    city = request.location.city
-    country = request.location.country
+    # city = request.location.city
+    # country = request.location.country
+    city = 'Chiayi'
+    country = 'Taiwan'
 
     per_page = 12
     followed_ids = [-1]
