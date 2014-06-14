@@ -1,12 +1,29 @@
-<div class="container">
-	<h1>blah</h1>
-	<% @notification_receipts.each do |receipt| %>
-		Status: 
-		<% if receipt.is_read == false %>
-			Unread
-		<% else %>
-			Read
-		<% end %>
-		<span><%= button_to receipt.notification.subject, mark_read_notification_path(receipt) %></span><br />
-	<% end %>
-</div>
+<div class="container" id="notifications">
+  <div class="row">
+	  <div class="col-md-10 col-md-offset-1">
+
+	    <!-- Nav tabs -->
+	    <ul class="nav nav-tabs">
+	      <li class="active"><a href="#inbox" data-toggle="tab"><span class="glyphicon glyphicon-inbox">
+	      </span>System</a></li>
+	    </ul>
+	    <!-- Tab panes -->
+	    <div class="tab-content">
+	      <div class="tab-pane fade in active">
+	        <div class="list-group">
+	        	<% @notification_receipts.each do |receipt| %>
+		        	<div class="list-group-item<% if receipt.is_read %><%= " read" %><% end %>">
+		        		<%= link_to mark_read_notification_path(receipt), :method => "post" do %>
+			            <span class="name" style="min-width: 120px; display: inline-block;">fundwok</span>
+			            <span class=""><%= receipt.notification.subject %></span>
+			            <span class="badge pull-right"><%= receipt.created_at %></span>
+		            <% end %>
+		          </div>
+	          <% end %>
+		    	</div>
+		  	</div>
+		  </div>
+
+	  </div><!-- end col-md-10 -->        
+  </div><!-- end row -->
+</div><!-- end container -->

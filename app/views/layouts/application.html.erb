@@ -38,10 +38,14 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "ABOUT", about_path %></li>
-            <li><a href="#services">SERVICES</a></li>
             <li class="<%= 'active' if current_page?(new_contact_path) %>"><%= link_to "CONTACT", new_contact_path %></li>
             <% if user_signed_in? %>        
 		      		<li><%= link_to 'NEW POST', new_post_path %></li>
+              <li class="<%= 'active' if current_page?(notifications_path) %>">
+                <%= link_to notifications_path do %>
+                  <i class="fa fa-envelope"></i>
+                <% end %>
+              </li>
 		      		<li class="dropdown">
 				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;<%= current_user.name %><b class="caret"></b></a>
 				        <ul class="dropdown-menu">
