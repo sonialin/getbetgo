@@ -1,4 +1,51 @@
 #fwfooter {
 	background-color: #cccccc;
 	padding: 20px;
+	color: #595959;
+	font-family: Lato, sans-serif;
+	border-bottom: 30px solid #595959;
+
+	a {
+		color: #595959;
+	}
+
+	a:hover {
+		color: #99b709;
+		text-decoration: none;
+	}
+
+	.footer-col {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	#footer-content {
+		position: relative;
+		left: 2%;
+	}
+
+	hr {
+		border-color: #a7a7a7;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		border-top-width: 1px;
+	}
+
+	.hr-offset {
+		width: 110%;
+		position: relative;
+		left: -50%;
+	}
+
+		@media (max-width: 991px) {
+			#footer-content {
+				width: 90%;
+			}
+
+			.hr-offset {
+				width: 100%;
+				position: relative;
+				left: 0%;
+			}
+	}
 }
