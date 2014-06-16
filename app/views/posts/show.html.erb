@@ -1,51 +1,21 @@
 <div class="container">
-  <div class="content description">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-1">
-      <h1 class="decoration text-center proj"><span class="nobgr">
-        <%= @post.title %>
-          <br /><small style="font-size: 0.5em;">created <%= @post.created_at %></small>
-          <br />
-        <% if @post.category %>
-          <small>in <%= @post.category %></small>
-        <% end %>
-        <% if @post.location %>
-          <small>in <%= @post.location %></small>
-        <% end %>
-      </span></h1>
-      <% if @post.user == current_user %>
-        <%= link_to 'Edit', edit_post_path %>
-      <% end %>
-      <div class="video">
-        <!-- main visual -->
-        <div id="myCarousel" class="carousel">
-          <div class="carousel-inner content" style="width: 100%">
-              <!-- <div class="item">
-                  <iframe id="player1" src="http://player.vimeo.com/video/47653105?api=1&player_id=player1" width="620" height="380" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-              </div> -->
-              <div class="item active">
-                <div>
-                  <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
-                </div>
-              </div>
-          </div>
-          <!-- <div id="visiblepanel" class="visiblepanel">
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev" id="slide_left"></a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next" id="slide_right"></a>
-          </div> -->
-        </div>
-      </div><!-- end of main visual -->
-
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8">
+      <h1><%= @post.title %></h1>
+      created <%= @post.created_at %>
+      <hr>
+      <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
       <!-- tabs -->
-      <div class="tabbable" style="margin-bottom: 18px;">
+      <div class="tabbable">
         <div id="tabs_pages">
-          <ul class="tabs_pages_ul row">
-            <li class="active col-md-4" style="height: 62px;"><a href="#tab1" data-toggle="tab">DESCRIPTION</a></li>
-            <li class="col-md-4" style="height: 62px;"><a href="#tab2" data-toggle="tab">BETTERS</a></li>
-            <li class="col-md-4" style="height: 62px;"><a href="#tab3" data-toggle="tab">UPDATES</a></li>
+          <ul class="tabs_pages_ul">
+            <li class="active col-md-4 col-lg-4 col-sm-4 col-xs-5"><a href="#tab1" data-toggle="tab">DESCRIPTION</a></li>
+            <li class="col-md-4 col-lg-4 col-sm-4 col-xs-3"><a href="#tab2" data-toggle="tab">BETTERS</a></li>
+            <li class="col-md-4 col-lg-4 col-sm-4 col-xs-4"><a href="#tab3" data-toggle="tab">UPDATES</a></li>
           </ul>
         </div>
-        <div class="tab-content" style="padding: 20px;">
+        <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="tab-pane active" id="tab1">
             <div id="description_content">
               <div class="title_description_content"><%= @post.description %></div>
@@ -57,40 +27,22 @@
               <% if @post.bets.any? %>
                 <div class="row">
                   <% @post.bets.each do |bet| %>
-                  <div class="col-md-6">
-                    <div class="backers_block_text">
-                      <div class="image_face_backers_content"><div class="face_backers_content"></div></div>
-                      <div class="text_backers_content">
-                        <div class="backer_name"><%= bet.user.name %></div>
-                        <div class="backer_date"><%= bet.created_at %></div>
-                        <!-- <div class="number_project">Backed 5 project</div> -->
+                    <div class="col-md-6">
+                      <div class="backers_block_text">
+                        <div class="image_face_backers_content"><div class="face_backers_content"></div></div>
+                        <div class="text_backers_content">
+                          <div class="backer_name"><%= bet.user.name %></div>
+                          <div class="backer_date"><%= bet.created_at %></div>
+                          <!-- <div class="number_project">Backed 5 project</div> -->
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
                   <% end %>            
-              	</div><!-- ends row -->
+                </div><!-- ends row -->
               <% end %>            
-                                   
-              <!-- pagination -->
-              <!-- <div class="row">
-                <div class="col-md-12">
-                  <div class="btn-toolbar text-center">
-                    <div class="decoration text-center proj">
-                      <div class="btn-group nobacgr">
-                        <button class="btn"><span class="gray">1</span></button>
-                        <button class="btn mleft10">2</button>
-                        <button class="btn mleft10">3</button>
-                        <button class="btn mleft10">4</button>
-                        <button class="btn mleft10">5</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
 
-          	</div><!-- end backer's content -->
-        	</div><!-- end tab2 -->
+            </div><!-- end backer's content -->
+          </div><!-- end tab2 -->
 
           <div class="tab-pane" id="tab3">
             <div id="updates_content">
@@ -107,7 +59,7 @@
         </div><!-- end of tab content -->
       </div><!-- end of tabbable -->
 
-      <div id="social_uncategorized">
+      <div id="social_and_tags">
         <div class="left_social_uncategorized"><span><%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span></div>
         <div class="social inline pull-right">
           <ul id="social_mid" class="bleft_social">
@@ -121,64 +73,14 @@
         </div>
       </div><!-- end of social media icons -->
 
-      <div class="clear"></div>
-
-      <div class="clear"></div>
-      <!--<h4 class="decoration text-center"><span class="nobgr">Bets</span></h4>
-      <div id="asc_a_question">
-        <div class="reply_user main_reply">
-          <div class="row">
-            <div class="col-md-2">
-              <div class="image_face"></div>
-            </div>
-            <div class="col-md-10">
-              <div class="name_and_date"><span class="user_name">User</span> - April 10, 2013 at 7:34 pm - <span class="reply_t">Reply</span></div>
-              <div class="text_reply">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="reply_user subreply">
-          <div class="row">
-            <div class="col-md-2">
-              <div class="image_face"></div>
-            </div>
-            <div class="col-md-10">
-              <div class="name_and_date"><span class="user_name">Admin</span> - April 10, 2013 at 7:34 pm - <span class="reply_t">Reply</span></div>
-              <div class="text_reply">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="asc_a_question_form">
-        <h3 class="text-center asc_question_form_name">Make a &nbsp;<span class="h3_quest">Comment</span></h3>
-        <div class="form_question">
-          <div class="row">
-            <div class="controls controls-row message">
-              <input class="inputp search-query col-md-4" type="text" placeholder="Name*">
-              <input class="inputp search-query col-md-4" type="text" placeholder="Email*">
-              <input class="inputp search-query col-md-4" type="text" placeholder="Website*">
-              <div class="clear"></div>
-              <textarea id="redex" class="inputp search-query col-md-12"  rows="5" placeholder="Project description"></textarea>
-              <div class="clear"></div>
-              <div class="tmargin20">
-                  <button type="submit" class="btn"><strong>Send Message</strong></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <!-- /.panel -->
       <div class="panel panel-default">
         <div class="panel-heading">
-          <i class="fa fa-clock-o fa-fw"></i>Current Bets
+          <i class="fa fa-clock-o fa-fw"></i>Fund Applications
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
           <ul class="timeline">
-            <br />
             <br />
             <li>
               <div class="timeline-panel">
@@ -192,7 +94,7 @@
                     <%= form_for([@post, @bet]) do |f| %>
                       <div class="form-group">
                         <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-                        <%= f.submit :class => "btn btn-primary" %>
+                        <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
                       </div>
                     <% end %>
                   <% end %>
@@ -283,150 +185,131 @@
               </li>
             <% end %><!-- bet loop ends -->
           </ul>
-          <br />
-          <br />
         </div>
         <!-- /.panel-body -->
       </div>
       <!-- /.panel -->
 
-
-      </div>
-      <div class="sidebar_descr col-md-4">
-        <div id="back_this_project_block">
-          <div class="backers_days_blocks first">
-            <div class="row">
-              <div class="col-md-1" style="margin-right: 10px"><div class="image_first"></div></div>
-              <div class="text_backers_days_blocks col-md-10">
-                <div class="top_text_backers_days_blocks"><%= @post.beneficiaries %></div>
-                <div class="bottom_text_backers_days_blocks">Beneficiaries</div>
-              </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row" id="show-funding-metrics">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+              <span class="circle-icon"><i class="fa fa-users icon-font"></i></span>
             </div>
-          </div>
-          <div class="backers_days_blocks">
-            <div class="row">
-              <div class="col-md-1" style="margin-right: 10px"><div class="image_second"></div></div>
-              <div class="text_backers_days_blocks col-md-10">
-                  <div class="top_text_backers_days_blocks">$<%= @post.claimed_fund %></div>
-                  <div class="bottom_text_backers_days_blocks">of $<%= @post.total %> claimed</div>
-              </div>
-            </div>
-          </div>
-          <div class="backers_days_blocks">
-            <div class="row">
-              <div class="col-md-1" style="margin-right: 10px"><div class="image_third"></div></div>
-              <div class="text_backers_days_blocks col-md-10">
-                <div class="top_text_backers_days_blocks"><%= @post.quantity - @post.beneficiaries %></div>
-                <div class="bottom_text_backers_days_blocks">spots left</div>
-              </div>
-            </div>
-          </div>
-        </div><!-- end back_this_project_block-->
-        <div class="back_this_project_button">
-
-          <% if current_user && @post.user != current_user %>
-            <% if current_user.following? @post.user %>
-              <%= form_for @relationship, method: :delete do |f| %>
-                <%= f.submit "Unfollow This Funder", :class => "btn btn-large back_project" %>
-              <% end %>
-            <% else %>
-              <%= form_for @relationship do |f| %>
-                <%= f.hidden_field :followed_id, value: @post.user.id %>
-                <%= f.submit "Follow This Funder", :class => "btn btn-large back_project"%>
-              <% end %>
-            <% end %>
-          <% elsif !current_user %>
-            <%= button_to "Sign in to Follow This Funder", new_user_session_path, :class => "btn btn-large back_project", :method => "get" %>
-          <% end %>
-
-        </div>
-
-        <div id="author_review">
-          <h3 class="decoration text-center"><span class="nobgr">Funder</span></h3>
-          <div id="face_social_text">
-            <div class="left_face_social_text col-md-4">
-              <div class="face_big col-md-11">
-                <div class="pix_author">
-                  <% if @post.user.avatar %>
-                    <%= link_to image_tag(@post.user.avatar.url(:thumb)), @post.user, :class => "media-object", :width => "100px" %>
-                  <% else %>
-                    <%= image_tag "http://placehold.it/100x100" %>
-                  <% end %>
+            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
+              <div class="row show-funding-metrics-content">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
+                  <%= @post.beneficiaries %>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
+                  Beneficiaries
                 </div>
               </div>
-              <div class="social_link_author col-md-1">
-                <div class="social_bord"><a href="#" >
-                  <%= link_to image_tag("funder/facebook_author_icon.png"), "#" %>
-                </a></div>
-                <div class="social_bord"><a href="#" >
-                  <%= link_to image_tag("funder/google_author_icon.png"), "#" %>
-                </a></div>
-                <div class="social_bord_last"><a href="#" >
-                  <%= link_to image_tag("funder/twitter_author_icon.png"), "#" %>
-                </a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+              <span class="circle-icon"><i class="fa fa-usd icon-font"></i></span>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
+              <div class="row show-funding-metrics-content">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
+                  $<%= @post.claimed_fund %>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
+                  of $<%= @post.total %> claimed
+                </div>
               </div>
             </div>
-            <div class="right_face_social_text col-md-8">
-              <div class="name_surname"><%= @post.user.name %></div>
-              <div class="proff">Title</div>
-              <div class="text_author_right">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.</div>
-            </div>
-          </div><!-- end of face_social_text -->
-        </div><!-- end of author -->
-
-        <!-- <div id="pledges_block">
-          <h3 class="decoration text-center"><span class="nobgr">Pledges</span></h3>
-          <div class="pledges_block_info">
-            <div class="pledges_block_info_link"><a id="link_pledges_block_info_link_1">Pledge $5 or more</a></div>
-            <div id="pledges_block_info_1">
-              <div class="pledges_block_info_backers">10 backers</div>
-              <div class="pledges_block_info_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              <div class="pledges_block_info_estimate_delivery">Estimate delivery: Jan 2013</div>
-            </div>
           </div>
-          <div class="pledges_block_info">
-            <div class="pledges_block_info_link"><a id="link_pledges_block_info_link_2">Pledge $10 or more</a></div>
-            <div id="pledges_block_info_2">
-              <div class="pledges_block_info_backers">15 backers</div>
-              <div class="pledges_block_info_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              <div class="pledges_block_info_estimate_delivery">Estimate delivery: Feb 2013</div>
-            </div>
-          </div>   
         </div>
-        <div id="payment_gateway">
-          <h3 class="decoration text-center"><span class="nobgr">Payment Gateway</span></h3>
-          <div class="payment_gateway_block">
-            <div class="payment_cost">$15</div>
-            <div class="your_card">
-              <h3>Choose Your Card:</h3>
-              <ul class="choose">
-                <li>
-                  <input id="rfirst" type="radio" name="radio" checked hidden />
-                  <label for="rfirst">Visa</label>
-                </li>
-                <li>
-                  <input id="rsecond" type="radio" name="radio" hidden />
-                  <label for="rsecond">MasterCard</label>
-                </li>
-                <li>
-                  <input id="re" type="radio" name="radio" hidden />
-                  <label for="re">American Express</label>
-                </li>
-              </ul>
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+              <span class="circle-icon"><i class="fa fa-clock-o icon-font"></i></span>
             </div>
-            <div class="payment_gateway_button">
-              <button class="btn btn-large make_payment" type="button">
-                <small>Make Payment</small>
-              </button>
+            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
+              <div class="row show-funding-metrics-content">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
+                  <%= @post.quantity - @post.beneficiaries %>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
+                  Spots left
+                </div>
+              </div>
             </div>
           </div>
-        </div>-->
+        </div>
+        
+        <% if current_user && @post.user != current_user %>
+          <% if current_user.following? @post.user %>
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
+              <%= form_for @relationship, method: :delete do |f| %>
+                <%= f.submit "Unfollow This Funder", :class => "btn-large unsubscribe" %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
+              <%= form_for @relationship do |f| %>
+                <%= f.hidden_field :followed_id, value: @post.user.id %>
+                <%= f.submit "Follow This Funder", :class => "btn btn-danger btn-subscribe"%>
+              <% end %>
+            </div>
+          <% end %>
+        <% elsif !current_user %>
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
+            <%= button_to new_user_session_path, :class => "btn btn-danger btn-subscribe", :method => "get" do %>
+              <span style="font-size: 1.3em;">Sign in</span><br />to Follow This Funder
+            <% end %>
+          </div>
+        <% end %>
+        
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" id="funder-profile">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+              <h3>Funder</h3>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <% if @post.user.avatar? %>
+                    <%= link_to image_tag(@post.user.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
+                  <% else %>
+                    <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
+                  <% end %>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                  <%= @post.user.name.upcase %>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
+              <%= link_to "#" do %>
+                <i class="fa fa-facebook-square"></i>
+              <% end %>
+              <%= link_to "#" do %>
+                <i class="fa fa-twitter-square"></i>
+              <% end %>
+              <%= link_to "#" do %>
+                <i class="fa fa-linkedin-square"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
 
-      </div><!-- end of column -->
-    </div><!-- end of row -->
-  </div><!-- end of content description -->
+        <span class="clearfix"></span>  
+      </div>
+    </div>
+
+  </div>
 </div>
-
 
 <script type="text/javascript">
 	$(function(){

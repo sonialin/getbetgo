@@ -271,8 +271,7 @@
   font-size: 60px;
   font-weight: 100;
   line-height: 30px;
-  color: 
-  #ffffff;
+  color: #ffffff;
   text-align: center;
   background: image-url('slide_proj_left.png') no-repeat;
   height: 50px;
@@ -292,7 +291,14 @@
 
 #tabs_pages .tabs_pages_ul {
   list-style-type: none;
-  margin: 30px -10px 0 -32px;
+
+  margin-bottom: 0px;
+  margin-left: -40px;
+  margin-right: -1px;
+}
+
+#tabs_pages .tabs_pages_ul li {
+  height: 62px;
 }
 
 .tabbable::before, .tabbable::after {
@@ -305,29 +311,45 @@
   clear: both;
 }
 
-#tabs_pages .tabs_pages_ul li.active {
-  background: image-url('background.png') repeat;
-  border-bottom: none;
-  border-top: 6px solid #dcdcdc;
-  border-radius: 3px 3px 0 0;
+.tabbable {
+  margin-top: 30px;
+  box-shadow: 1px 1px 5px #dcdcdc;
 }
 
 #tabs_pages .tabs_pages_ul li {
   list-style-type: none;
   display: inline-block;
-  background: #fff;
   border: 1px solid #dcdcdc;
-  margin-left: -4px;
+  border-right: none;
+  border-bottom: none;
   text-align: center;
   padding-top: 20px;
+  background-color: #dcdcdc;
+}
+
+#tabs_pages .tabs_pages_ul li.active {
+  border-bottom: #fff;
+  border-radius: 3px 3px 0 0;
+  background-color: #fff;
+}
+
+#tabs_pages .tabs_pages_ul li:last-child {
+  border-right: 1px solid #dcdcdc;
 }
 
 #tabs_pages .tabs_pages_ul li a {
   color: rgb(77, 77, 77);
 }
 
+#tabs_pages .tabs_pages_ul li a:hover {
+  text-decoration: none;
+}
+
 .tab-content {
   overflow: auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #dcdcdc;
 }
 
 #description_content .title_description_content {
@@ -344,70 +366,19 @@
   font-weight: 400;
 }
 
-#backers_content {
-  margin-top: 30px;
-}
-
-#backers_content .backers_block_text {
-  margin-top: 15px;
-  height: 65px;
-}
-
-#backers_content .backers_block_text .image_face_backers_content {
-  border: 1px solid #dcdcdc;
-  float: left;
-  width: 58px;
-}
-
-#backers_content .backers_block_text .face_backers_content {
-  background: url('http://placehold.it/100x100') center center no-repeat 
-  #fff;
-  margin: 1px;
-  width: 56px;
-  height: 56px;
-  float: left;
-}
-
-#backers_content .backers_block_text .text_backers_content {
-  border: 1px solid 
-  #dcdcdc;
-  float: left;
-  font-family: 'Titillium Web',sans-serif;
-  height: 58px;
-  margin-left: -1px;
-  padding-left: 5px;
-  width: 180px;
-}
-
-#backers_content .backers_block_text .text_backers_content .backer_name {
-  font-size: 16px;
-  font-family: 'Patua One',sans-serif;
-  font-weight: normal;
-  position: relative;
-  top: 2px;
-}
-
-#backers_content .backers_block_text .text_backers_content .number_project {
-  color: 
-  #a0a0a0;
-  position: relative;
-  top: -3px;
-}
-
 #updates_content .updates_block_text {
   margin-top: 30px;
 }
 
-#social_uncategorized {
-  background: 
-  #fff;
+#social_and_tags {
+  background: #fff;
   height: 50px;
-  border: 1px solid 
-  #dcdcdc;
+  border: 1px solid #dcdcdc;
   margin-top: 42px;
+  margin-bottom: 15px;
 }
 
-#social_uncategorized .left_social_uncategorized {
+#social_and_tags .left_social_uncategorized {
   float: left;
   background: image-url('pencil.png') left center no-repeat;
   margin-top: 15px;
@@ -416,12 +387,12 @@
   font-size: 14px;
 }
 
-#social_uncategorized .left_social_uncategorized span {
+#social_and_tags .left_social_uncategorized span {
   padding-left: 25px;
   font-family: 'Titillium Web',sans-serif;
 }
 
-#social_uncategorized .social .inline {
+#social_and_tags .social .inline {
   margin-top: 14px;
   margin-right: 14px;
 }
@@ -443,403 +414,96 @@
   right: 10px;
 }
 
-#author_review h3 {
-  font-size: 19px;
-  font-weight: normal;
-  margin-top: 20px;
-  font-family: 'Patua One',sans-serif;
-}
-
-#author_review #face_social_text {
-  margin-top: 20px;
-}
-
-#author_review #face_social_text .left_face_social_text {
-  background: #fff;
-  width: 30%;
-  float: left;
-  border: 1px solid #dcdcdc;
-}
-
-#author_review #face_social_text .left_face_social_text .face_big {
-  border-right: 1px solid 
-  #dcdcdc;
-}
-
-#author_review #face_social_text .left_face_social_text .pix_author {
-  
-  height: 142px;
-  width: 142px;
-  margin: 3px;
+#show-funding-metrics {
   position: relative;
-  right: 20px;
+  top: 110px;
+  right: -50px;
 }
 
-.pix_author {
-  
+.show-funding-metrics-item {
+  padding: 20px 0 20px 0;
+  border-bottom: 1px solid #dcdcdc;
 }
 
-#author_review #face_social_text .left_face_social_text .social_link_author {
+.show-funding-metrics-content {
+  position: relative;
+  top: 5px;
+}
+
+#show-funding-metrics .show-funding-metrics-text {
+  font-weight: 400;
+  color: #a1a1a1;
+}
+
+#show-funding-metrics .show-funding-metrics-number {
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #777777;
+}
+
+.circle-icon {
+  height: 50px;
+  width: 50px;
+  float: left;
+  background: #99b709;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  text-align: center;
+}
+
+.icon-font {
+  position: relative;
+  top: 14px;
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.btn-subscribe {
+  width: 250px;
+  height: 70px;
+  font-size: 1.1em;
+  border-radius: 10px;
   display: block;
-  float: left;
-  width: 25%;
 }
 
-.social_bord {
-  border-bottom: 1px solid #e7e7e7;
-}
-
-.social_decc {
-  padding: 16px 20px 16px 17px;
-}
-
-.social_bord_last {
-}
-
-#author_review .right_face_social_text {
-  width: 65%;
-  display: block;
-  float: left;
-}
-
-#author_review .right_face_social_text .name_surname {
-  font-size: 17px;
-  font-weight: normal;
-  font-family: 'Patua One',sans-serif;
-}
-
-#author_review .right_face_social_text .proff {
-  font-size: 16px;
-  font-family: 'Patua One',sans-serif;
-  font-weight: normal;
-}
-
-#author_review .right_face_social_text .text_author_right {
-  font-size: 14px;
-  margin-top: 10px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-#asc_a_question .reply_user {
-  border-bottom: 1px solid 
-  #e7e7e7;
-  margin-top: 15px;
-  padding-bottom: 20px;
-}
-
-#asc_a_question .reply_user .image_face {
-  background: image-url('http://placehold.it/100x100') no-repeat;
-  margin: 4px;
-  width: 52px;
-  height: 52px;
-  border: 1px solid 
-  #e7e7e7;
-}
-
-#asc_a_question .reply_user .name_and_date {
-  margin-top: 5px;
-}
-
-#asc_a_question .reply_user .name_and_date, #asc_a_question .reply_user .text_reply {
-  margin-left: 10px;
-  font-size: 14px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-#asc_a_question .reply_user .name_and_date .user_name {
-  font-size: 16px;
-  font-weight: normal;
-  font-family: 'Patua One',sans-serif;
-}
-
-#asc_a_question .reply_user .name_and_date .reply_t {
-  color: #98B709;
-  font-size: 16px;
-}
-
-#asc_a_question .reply_user .name_and_date, #asc_a_question .reply_user .text_reply {
-  margin-left: 10px;
-  font-size: 14px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-#asc_a_question .reply_user.subreply {
-  margin-left: 33px;
-}
-
-#asc_a_question .reply_user {
-  border-bottom: 1px solid #e7e7e7;
-  margin-top: 15px;
-  padding-bottom: 20px;
-}
-
-#asc_a_question_form {
-  background: #fff;
-  border: 1px solid #e7e7e7;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-#asc_a_question_form h3 {
-  font-size: 20px;
-  font-weight: normal;
-  text-align: left;
-  padding-left: 30px;
-  border-bottom: 1px solid #e7e7e7;
-  padding-bottom: 10px;
-  font-family: 'Patua One',sans-serif;
-}
-
-#asc_a_question_form h3 .h3_quest {
-  color: #98B709;
-}
-
-.controls-row {
-}
-
-.message {
-  padding: 10px 20px 20px 20px;
-}
-
-.controls-row::before, .controls-row::after {
-  display: table;
-  line-height: 0;
-  content: "";
-}
-
-.controls-row::after {
-  clear: both;
-}
-
-.controls-row::before, .controls-row::after {
-  display: table;
-  line-height: 0;
-  content: "";
-}
-
-#asc_a_question_form .form_question textarea {
-  font-family: 'Titillium Web',sans-serif;
-  margin-top: 20px;
-}
-
-#redex, #redex2, #redex3 {
-  resize: none;
-}
-
-.tmargin20 {
-  margin-top: 20px;
-}
-
-.message .btn {
-  padding: 7px 20px;
-}
-
-#back_this_project_block {
-  margin: 7px auto 0;
-  padding: 0 25px;
-}
-
-.backers_days_blocks.first {
-  border-top: none;
-}
-
-.backers_days_blocks {
-  padding: 10px 0;
-  border-bottom: 1px solid #e7e7e7;
-  border-top: 1px solid #fafafa;
-}
-
-.backers_days_blocks .image_first {
-  background: image-url('project_sidebar/people.png') left center no-repeat;
-  height: 23px;
-  width: 23px;
-  float: left;
-  margin-top: 11px;
-}
-
-.text_backers_days_blocks {
-  width: 225px;
-  float: right;
-  margin-top: 12px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-.text_backers_days_blocks .top_text_backers_days_blocks {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.backers_days_blocks .image_second {
-  background: image-url('project_sidebar/dollar.png') left center no-repeat;
-  height: 23px;
-  width: 23px;
-  float: left;
-  margin-top: 11px;
-}
-
-.text_backers_days_blocks .top_text_backers_days_blocks {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.backers_days_blocks .image_third {
-  background: image-url('project_sidebar/clock.png') left center no-repeat;
-  height: 23px;
-  width: 23px;
-  float: left;
-  margin-top: 11px;
-}
-
-.back_this_project_button {
-  border-top: 1px solid #fafafa;
-  margin: 0 25px;
-}
-
-.back_this_project_button .back_project {
-  border-radius: 55px;
-  border-top: 1px solid #ffeeff;
-  border-bottom: 3px solid #849f08;
-  padding: 15px 58px;
-  margin: 20px auto 0;
-  display: block;
+.subscribe-block {
+  margin-top: 50px;
   font-family: 'Patua One',sans-serif;
   font-size: 19px;
   font-weight: normal;
 }
 
-#pledges_block {
-  margin-top: 30px;
-}
-
-#pledges_block h3 {
-  margin: 0 25px;
-  font-size: 17px;
-  font-weight: normal;
-  font-family: 'Patua One',sans-serif;
-}
-
-.sidebar_descr .decoration {
-  background-position: 50% 50%;
-}
-
-.pledges_block_info {
-  margin: 15px auto 0;
-  padding: 0 25px;
-}
-
-.pledges_block_info .pledges_block_info_link a {
-  background: image-url('project_sidebar/minus.png') left center no-repeat;
-  height: 20px;
-  padding-left: 25px;
-  color: 
-  #98B709;
-  font-family: 'Patua One',sans-serif;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.pledges_block_info_backers {
-  font-size: 14px;
-  font-weight: bold;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-.pledges_block_info_backers, .pledges_block_info_text, .pledges_block_info_estimate_delivery {
-  margin-left: 25px;
-}
-
-.pledges_block_info_text {
-  font-size: 14px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-.pledges_block_info_estimate_delivery {
-  font-size: 14px;
-  color: #a0a0a0;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-#payment_gateway {
-  margin: 30px 20px 15px 20px;
-}
-
-#payment_gateway h3 {
-  font-size: 18px;
-  font-weight: normal;
-  font-family: 'Patua One',sans-serif;
-}
-
-.payment_gateway_block {
-  background: #fff;
-  border-left: 1px solid #e7e7e7;
-  border-right: 1px solid #e7e7e7;
-  border-top: 1px solid #e7e7e7;
-}
-
-.payment_gateway_block .payment_cost {
-  text-align: center;
-  border-bottom: 1px solid #e7e7e7;
-  color: #98B709;
-  font-size: 45px;
-  font-weight: bold;
-  height: 50px;
-  padding-top: 30px;
-}
-
-.payment_getaway_block .your_card {
-  text-align: center;
-  border-bottom: 1px solid #e7e7e7;
-  padding-bottom: 25px;
-}
-
-.choose {
-text-align: left;
-}
-
-.choose li {
-  list-style: none;
-}
-
-input[type="checkbox"] + label, input[type="radio"] + label {
-  color: #444;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-input[type="radio"]:checked + label::before {
-  background-position: -108px -279px;
-}
-
-input[type="radio"] + label::before {
-  background-position: 0px -279px;
-}
-
-/*input[type="checkbox"] + label::before, input[type="radio"] + label::before {
-  content: "";
-  display: inline-block;
-  height: 17px;
-  width: 18px;
-  margin: 0 5px 0 0;
-  background-image: image-url('sprite.png');
-  background-repeat: no-repeat;
-}*/
-
-.payment_gateway_block .payment_gateway_button {
-  border-bottom: 1px solid #e7e7e7;
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.payment_gateway_block .payment_gateway_button button {
-  padding: 7px 40px;
+.subscribe-block .unsubscribe {
   border-top: 1px solid #ffeeff;
-  margin-top: 30px;
-  margin-bottom: 34px;
-  border-radius: 4px;
-  font-family: 'Patua One',sans-serif;
-  font-size: 18px;
-  font-weight: normal;
   border-bottom: 3px solid #849f08;
+  background-color: #dcdcdc;
+  width: 250px;
+  height: 70px;
+  font-size: 1.1em;
+  border-radius: 10px;
+  display: block;
+}
+
+#funder-profile {
+  position: relative;
+  top: 20px;
+}
+
+.funder-profile-item {
+  padding: 10px;
+}
+
+.funder-social-icon {
+  font-size: 1.8em;
+}
+
+.funder-social-icon a {
+  color: #a1a1a1;
+}
+
+.funder-social-icon a:hover {
+  color: #99b709;
 }
 
 .content .btn {
@@ -858,21 +522,6 @@ input[type="radio"] + label::before {
 #load_more_posts {
   display: none;
   margin-bottom: 10px;
-}
-
-ul#portfolio-filter {
-  /*margin: -20px 0;
-padding: 0;
-
-line-height: 64px;*/
-}
-
-.tags .btn {
-  margin-left: 6px;
-  font-size: 13px;
-  font-family: 'Patua One',sans-serif;
-  font-weight: 100;
-  border-bottom: 3px solid #849f08;
 }
 
 #portfolio-filter .current {
@@ -967,6 +616,13 @@ line-height: 64px;*/
 
   #posts-container .nearby .post-source-nearby {
     right: 18px;
+  }
+}
+
+@media (max-width: 990px) {
+  #show-funding-metrics {
+    top: 0px;
+    right: -5%;
   }
 }
 
