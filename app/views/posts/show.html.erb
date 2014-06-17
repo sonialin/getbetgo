@@ -4,17 +4,21 @@
       
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" id="title-section">
-          <div class="title-content pull-left">
+          <div class="title-content">
             <h1><%= @post.title %></h1>
-            <h2><small>by <%= @post.user.name %>
-            created <%= @post.created_at %></small></h2>
+            <h3><small>by <%= link_to @post.user.name, @post.user, :class => 'user_name_link' %>
+            · <%= reformatted_post_datetime(@post.created_at) %></small></h3>
           </div>
-          <div class="post-info pull-right" id="title-info">
-            <%= link_to '#', :class =>"btn btn-default" do %>
-              <%= @post.category %> 
+          <div class="pull-right" id="title-info">
+            <% if @post.category != nil %>
+              <%= link_to '#', :class =>"btn btn-default" do %>
+                <%= @post.category %> 
+              <% end %>
             <% end %>
-            <%= link_to '#', :class =>"btn btn-default" do %>
-              <%= @post.location %>
+            <% if @post.location != nil %>
+              <%= link_to '#', :class =>"btn btn-default" do %>
+                <%= @post.location %>
+              <% end %>
             <% end %>
           </div>
           <hr class="post-content-divider clear">

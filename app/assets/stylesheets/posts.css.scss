@@ -242,6 +242,15 @@
   margin-bottom: 20px;
 }
 
+.user_name_link {
+  color: #99b709;
+}
+
+a.user_name_link:hover {
+  color: #99b709;
+  text-decoration: none;
+}
+
 .post-content-divider {
   height: 2px;
   color: #eee;
@@ -330,7 +339,7 @@
 
 .tabbable {
   margin-top: 30px;
-  box-shadow: 1px 1px 5px #dcdcdc;
+  
 }
 
 #tabs_pages .tabs_pages_ul li {
@@ -398,40 +407,35 @@
   left: 2%;
 }
 
-#social_and_tags .left_social_uncategorized {
-  float: left;
-  background: image-url('pencil.png') left center no-repeat;
-  margin-top: 15px;
-  margin-left: 20px;
-  color: #98B709;
-  font-size: 14px;
+#social-share-panel {
+  width: 96%;
+  height: auto;
+  position: relative;
+  left: 5%;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  margin-top: 42px;
+  margin-bottom: 15px;
+  padding: 10px 5px 5px 10px;
 }
 
-#social_and_tags .left_social_uncategorized span {
-  padding-left: 25px;
-  font-family: 'Titillium Web',sans-serif;
-}
-
-#social_and_tags .social .inline {
-  margin-top: 14px;
-  margin-right: 14px;
-}
-
-#social_mid li {
-  list-style: none;
-}
-
-#social li, #social_b li, #social_mid li {
+#social-share-icons li {
   display: inline-block;
   margin-right: 5px;
   line-height: 24px;
   vertical-align: middle;
+  list-style: none;
 }
 
-#social_mid {
+#post-tags {
+  color: #a1a1a1;
   position: relative;
-  top: 10px;
-  right: 10px;
+  top: 4px;
+  margin-bottom: 5px;
+}
+
+#post-tags a {
+  color: #99b709;
 }
 
 #show-funding-metrics {
@@ -441,10 +445,6 @@
 
 .show-funding-metrics-item {
   padding: 8px 0 8px 0;
-}
-
-.show-funding-metrics-item:last-child {
-  border-bottom: none;
 }
 
 .show-funding-metrics-content {
@@ -509,6 +509,10 @@
   display: block;
 }
 
+.funder-section-title {
+  color: #ed1c24;
+}
+
 #funder-profile {
   position: relative;
   top: 20px;
@@ -516,6 +520,17 @@
 
 .funder-profile-item {
   padding: 10px;
+  position: relative;
+  left: -10px;
+}
+
+.funder-name {
+  margin-bottom: -5px;
+}
+
+.funder-name-and-social {
+  position: relative;
+  top: -4px;
 }
 
 .funder-social-icon {
@@ -646,6 +661,11 @@
 @media (max-width: 990px) {
   #show-funding-metrics {
     right: -5%;
+  }
+
+  #funder-profile {
+    position: relative;
+    left: 17px;
   }
 }
 

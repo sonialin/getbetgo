@@ -1,13 +1,15 @@
-<div id="social_and_tags">
-  <div class="left_social_uncategorized"><span><%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span></div>
-  <div class="social inline pull-right">
-    <ul id="social_mid" class="bleft_social">
+<div class="row" id="social-share-panel">
+  <div class="pull-left" id="post-tags">
+    <i class="fa fa-tags"></i>
+    <span><%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span>
+  </div>
+  <div class="pull-right">
+    <ul id="social-share-icons">
       <li><a href="https://twitter.com/" target="_blank"  original-title="twitter"><%= image_tag "social/icon_header_face.png" %></a></li>
       <li><a href="https://plus.google.com" target="_blank"  original-title="googleplus"><%= image_tag "social/icon_header_g.png" %></a></li>
       <li><a href="https://www.facebook.com" title="facebook" target="_blank" ><%= image_tag "social/icon_header_tw.png" %></a></li>
       <li><a href="http://www.linkedin.com/" target="_blank" original-title="linkedin"><%= image_tag "social/icon_header_in.png" %></a></li>
       <li><a href="johndoe@domainname.com" target="_self" original-title="mail"><%= image_tag "social/icon_header_p.png" %></a></li>
-      <li><a href="johndoe@domainname.com" target="_self" original-title="mail"><%= image_tag "social/icon_header_ball.png" %></a></li>
     </ul>
   </div>
-</div><!-- end of social media icons -->
+</div>
