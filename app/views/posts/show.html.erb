@@ -3,11 +3,23 @@
     <div class="col-md-10 col-md-offset-1">
       
       <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" id="post-title">
-          <h1><%= @post.title %></h1>
-          created <%= @post.created_at %>
-          <hr class="post-content-divider">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" id="title-section">
+          <div class="title-content pull-left">
+            <h1><%= @post.title %></h1>
+            <h2><small>by <%= @post.user.name %>
+            created <%= @post.created_at %></small></h2>
+          </div>
+          <div class="post-info pull-right" id="title-info">
+            <%= link_to '#', :class =>"btn btn-default" do %>
+              <%= @post.category %> 
+            <% end %>
+            <%= link_to '#', :class =>"btn btn-default" do %>
+              <%= @post.location %>
+            <% end %>
+          </div>
+          <hr class="post-content-divider clear">
         </div>
+
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <%= render :partial => "posts/show_funding_stats" %>
         </div>
@@ -15,29 +27,27 @@
       
       <hr class="show-funding-content-divider">
 
-      <div id="title-spacing-offset">
-        <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">  
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <%= render :partial => "posts/description_tabs" %>
-            </div>   
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">  
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
           </div>
-
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <%= render :partial => "posts/funder_profile" %>
-          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <%= render :partial => "posts/description_tabs" %>
+          </div>   
         </div>
 
-        <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <%= render :partial => "posts/social_panel" %>
-            <%= render :partial => "posts/timeline" %>
-          </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <%= render :partial => "posts/funder_profile" %>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+          <%= render :partial => "posts/social_panel" %>
+          <%= render :partial => "posts/timeline" %>
+        </div>
+      </div> 
 
     </div><!-- end col-md-10 -->
   </div><!-- end row -->

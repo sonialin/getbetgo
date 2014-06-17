@@ -1,60 +1,58 @@
-<div id="funder-profile-wrapper">
-  <% if current_user && @post.user != current_user %>
-    <% if current_user.following? @post.user %>
-      <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
-        <%= form_for @relationship, method: :delete do |f| %>
-          <%= f.submit "Unfollow This Funder", :class => "btn-large btn-block unsubscribe" %>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
-        <%= form_for @relationship do |f| %>
-          <%= f.hidden_field :followed_id, value: @post.user.id %>
-          <%= f.submit "Follow This Funder", :class => "btn-danger btn-block btn-subscribe"%>
-        <% end %>
-      </div>
-    <% end %>
-  <% elsif !current_user %>
+<% if current_user && @post.user != current_user %>
+  <% if current_user.following? @post.user %>
     <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
-      <%= button_to new_user_session_path, :class => "btn-danger btn-block btn-subscribe", :method => "get" do %>
-        Sign in<br /><small>to Follow This Funder</small>
+      <%= form_for @relationship, method: :delete do |f| %>
+        <%= f.submit "Unfollow This Funder", :class => "btn-large btn-block unsubscribe" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
+      <%= form_for @relationship do |f| %>
+        <%= f.hidden_field :followed_id, value: @post.user.id %>
+        <%= f.submit "Follow This Funder", :class => "btn-danger btn-block btn-subscribe"%>
       <% end %>
     </div>
   <% end %>
+<% elsif !current_user %>
+  <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
+    <%= button_to new_user_session_path, :class => "btn-danger btn-block btn-subscribe", :method => "get" do %>
+      Sign in<br /><small>to Follow This Funder</small>
+    <% end %>
+  </div>
+<% end %>
 
-  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="funder-profile">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-        <h3>Funder</h3>
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            <% if @post.user.avatar? %>
-              <%= link_to image_tag(@post.user.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
-            <% else %>
-              <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
-            <% end %>
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            <%= @post.user.name.upcase %>
-          </div>
+<div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="funder-profile">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+      <h3>Funder</h3>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <% if @post.user.avatar? %>
+            <%= link_to image_tag(@post.user.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
+          <% else %>
+            <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
+          <% end %>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+          <%= @post.user.name.upcase %>
         </div>
       </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.
-      </div>
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
-        <%= link_to "#" do %>
-          <i class="fa fa-facebook-square"></i>
-        <% end %>
-        <%= link_to "#" do %>
-          <i class="fa fa-twitter-square"></i>
-        <% end %>
-        <%= link_to "#" do %>
-          <i class="fa fa-linkedin-square"></i>
-        <% end %>
-      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
+      <%= link_to "#" do %>
+        <i class="fa fa-facebook-square"></i>
+      <% end %>
+      <%= link_to "#" do %>
+        <i class="fa fa-twitter-square"></i>
+      <% end %>
+      <%= link_to "#" do %>
+        <i class="fa fa-linkedin-square"></i>
+      <% end %>
     </div>
   </div>
 </div>

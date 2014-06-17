@@ -238,21 +238,11 @@
 }
 
 /* Post show page */
-
-/* Offset the grid spacing */
-#title-spacing-offset {
-  position: relative;
-  top: -40px;
-  margin-bottom: -40px;
+#title-info {
+  margin-bottom: 20px;
 }
 
-#funder-profile-wrapper {
-  position: relative;
-  top: 40px;
-}
-/* end offset the grid spacing */
-
-#post-title .post-content-divider {
+.post-content-divider {
   height: 2px;
   color: #eee;
   background-color: #dcdcdc;
@@ -445,8 +435,6 @@
 }
 
 #show-funding-metrics {
-  background: #fff;
-  border-radius: 5px;
   position: relative;
   top: 20px;
 }
@@ -622,15 +610,6 @@
 }
 
 @media (max-width: 1200px) {
-  #title-spacing-offset {
-    top: 0;
-    margin-bottom: 0;
-  }
-
-  #funder-profile-wrapper {
-    top: 0;
-  }
-
   #posts-container .followed  .post-source-followed {
     right: 25px;
   }
