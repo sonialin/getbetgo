@@ -1,315 +1,47 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-    <div class="col-md-8">
-      <h1><%= @post.title %></h1>
-      created <%= @post.created_at %>
-      <hr>
-      <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
-      <!-- tabs -->
-      <div class="tabbable">
-        <div id="tabs_pages">
-          <ul class="tabs_pages_ul">
-            <li class="active col-md-4 col-lg-4 col-sm-4 col-xs-5"><a href="#tab1" data-toggle="tab">DESCRIPTION</a></li>
-            <li class="col-md-4 col-lg-4 col-sm-4 col-xs-3"><a href="#tab2" data-toggle="tab">BETTERS</a></li>
-            <li class="col-md-4 col-lg-4 col-sm-4 col-xs-4"><a href="#tab3" data-toggle="tab">UPDATES</a></li>
-          </ul>
+      
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" id="post-title">
+          <h1><%= @post.title %></h1>
+          created <%= @post.created_at %>
+          <hr class="post-content-divider">
         </div>
-        <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="tab-pane active" id="tab1">
-            <div id="description_content">
-              <div class="title_description_content"><%= @post.description %></div>
-              <!-- <div class="text_description_content"><%= @post.description %></div> -->
-            </div>
-          </div>
-          <div class="tab-pane" id="tab2">
-            <div id="backers_content">
-              <% if @post.bets.any? %>
-                <div class="row">
-                  <% @post.bets.each do |bet| %>
-                    <div class="col-md-6">
-                      <div class="backers_block_text">
-                        <div class="image_face_backers_content"><div class="face_backers_content"></div></div>
-                        <div class="text_backers_content">
-                          <div class="backer_name"><%= bet.user.name %></div>
-                          <div class="backer_date"><%= bet.created_at %></div>
-                          <!-- <div class="number_project">Backed 5 project</div> -->
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>            
-                </div><!-- ends row -->
-              <% end %>            
-
-            </div><!-- end backer's content -->
-          </div><!-- end tab2 -->
-
-          <div class="tab-pane" id="tab3">
-            <div id="updates_content">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="updates_block_text">
-                    <h4>Update</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien. Nullam ac nisi vel augue ultrices venenatis sed sed felis. Quisque velit tortor, suscipit et auctor tempus, pretium eu velit. Vestibulum vitae ligula sapien. Donec et felis lorem. Vestibulum non feugiat risus. Sed malesuada nisl vel lorem rhoncus feugiat. Proin pellentesque velit nec metus tincidunt quis egestas tortor venenatis. Phasellus mattis sapien suscipit massa suscipit placerat. Vestibulum semper laoreet tempus. Curabitur ac sagittis urna. Sed rhoncus massa vel lorem lobortis sit amet adipiscing nunc aliquet.  accumsan sit amet, posuere eget odio. Suspendisse pellentesque odio id nunc tempor placerat. Pellentesque ipsum mauris, ultrices ut rhoncus id, vehicula eget est. </p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- end of updates_content -->
-          </div><!-- end of tab3-->
-        </div><!-- end of tab content -->
-      </div><!-- end of tabbable -->
-
-      <div id="social_and_tags">
-        <div class="left_social_uncategorized"><span><%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span></div>
-        <div class="social inline pull-right">
-          <ul id="social_mid" class="bleft_social">
-            <li><a href="https://twitter.com/" target="_blank"  original-title="twitter"><%= image_tag "social/icon_header_face.png" %></a></li>
-            <li><a href="https://plus.google.com" target="_blank"  original-title="googleplus"><%= image_tag "social/icon_header_g.png" %></a></li>
-            <li><a href="https://www.facebook.com" title="facebook" target="_blank" ><%= image_tag "social/icon_header_tw.png" %></a></li>
-            <li><a href="http://www.linkedin.com/" target="_blank" original-title="linkedin"><%= image_tag "social/icon_header_in.png" %></a></li>
-            <li><a href="johndoe@domainname.com" target="_self" original-title="mail"><%= image_tag "social/icon_header_p.png" %></a></li>
-            <li><a href="johndoe@domainname.com" target="_self" original-title="mail"><%= image_tag "social/icon_header_ball.png" %></a></li>
-          </ul>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <%= render :partial => "posts/show_funding_stats" %>
         </div>
-      </div><!-- end of social media icons -->
-
-      <!-- /.panel -->
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <i class="fa fa-clock-o fa-fw"></i>Fund Applications
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <ul class="timeline">
-            <br />
-            <li>
-              <div class="timeline-panel">
-                <% if user_signed_in? %>
-                  <% if !@current_user_bet.empty? %>
-                    You've already submitted your bet!
-                  <% elsif @post.user == current_user %>
-                    Kudos to you, <%= current_user.name %>!
-                  <% else %>
-                    <h4>Submit Your Bet:</h4>
-                    <%= form_for([@post, @bet]) do |f| %>
-                      <div class="form-group">
-                        <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-                        <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
-                      </div>
-                    <% end %>
-                  <% end %>
-                <% else %>
-                  <div>
-                    <p>Please log in to create a bet</p>
-                  </div>
-                <% end %>
-              </div>
-            </li>
-            <% @bets.each do |bet| %>
-              <li class="<%= cycle("timeline-inverted", "") %>" >
-                <% if bet.open? %>
-                  <div class="timeline-badge">
-                    <i class="fa fa-flag"></i>
-                  </div>
-                <% elsif bet.selected? %>
-                  <div class="timeline-badge info">
-                    <i class="fa fa-check"></i>
-                   </div>
-                <% elsif bet.submitted? %>
-                  <div class="timeline-badge success">
-                    <i class="fa fa-thumbs-up"></i>
-                   </div>
-                <% elsif bet.funded? %>
-                  <div class="timeline-badge success">
-                    <i class="fa fa-thumbs-up"></i>
-                   </div>
-                <% end %>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
-                    <p>
-                      <small class="text-muted"><i class="fa fa-time"></i><%= bet.created_at %></small>
-                    </p>
-                  </div>
-                  <div class="timeline-body">
-                    <!-- bet snippet begins; todo: refractor later-->
-                    <p><%= bet.body %></p>
-                    <% if bet.open? %>
-                      <% if @post.user == current_user %>
-                        <hr>
-                        <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-success" do %>
-                          Select
-                        <% end %>
-                      <% end %>
-                    <% elsif bet.selected? %>
-                      <% if bet.user == current_user %>
-                        <hr>
-                        <h4>Submit Your Update:</h4>
-                        <%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
-                          <div class="form-group">
-                            <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-                            <%= f.submit :class => "btn btn-primary" %>
-                          </div>
-                        <% end %>
-                      <% end %>
-                    <% elsif bet.submitted? %>
-                      <hr>
-                      <% if bet.update %>
-                        <p>
-                          <small class="text-muted"><i class="fa fa-time"></i><%= bet.update.created_at %></small>
-                        </p>
-                        <p>
-                          <%= bet.update.body %>
-                          <% if bet.user == current_user %>
-                            <%= button_to receive_post_bet_path(@post, bet), :method => :get, :class => "btn btn-success pull-right" do %>
-                              Claim Fund
-                            <% end %>
-                          <% end %>
-                        </p>
-                      <% end %>
-                    <% elsif bet.funded? %>
-                      <hr>
-                      <% if bet.update %>
-                        <p>
-                          <small class="text-muted"><i class="fa fa-time"></i><%= bet.update.created_at %></small>
-                        </p>
-                        <p>
-                          <%= bet.update.body %>
-                          <p class='pull-right'>Funded!</p>
-                        </p>
-                      <% end %>
-                    <% end %>
-                    <!-- bet snippet ends -->
-                  </div>
-                </div>
-              </li>
-            <% end %><!-- bet loop ends -->
-          </ul>
-        </div>
-        <!-- /.panel-body -->
       </div>
-      <!-- /.panel -->
+      
+      <hr class="show-funding-content-divider">
 
-    </div>
-    <div class="col-md-4">
-      <div class="row" id="show-funding-metrics">
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
-              <span class="circle-icon"><i class="fa fa-users icon-font"></i></span>
+      <div id="title-spacing-offset">
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">  
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
-              <div class="row show-funding-metrics-content">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
-                  <%= @post.beneficiaries %>
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
-                  Beneficiaries
-                </div>
-              </div>
-            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <%= render :partial => "posts/description_tabs" %>
+            </div>   
           </div>
-        </div>
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
-              <span class="circle-icon"><i class="fa fa-usd icon-font"></i></span>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
-              <div class="row show-funding-metrics-content">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
-                  $<%= @post.claimed_fund %>
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
-                  of $<%= @post.total %> claimed
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 show-funding-metrics-item">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
-              <span class="circle-icon"><i class="fa fa-clock-o icon-font"></i></span>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-9 col-xs-9">
-              <div class="row show-funding-metrics-content">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-number">
-                  <%= @post.quantity - @post.beneficiaries %>
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-11 col-xs-11 show-funding-metrics-text">
-                  Spots left
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <% if current_user && @post.user != current_user %>
-          <% if current_user.following? @post.user %>
-            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
-              <%= form_for @relationship, method: :delete do |f| %>
-                <%= f.submit "Unfollow This Funder", :class => "btn-large unsubscribe" %>
-              <% end %>
-            </div>
-          <% else %>
-            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
-              <%= form_for @relationship do |f| %>
-                <%= f.hidden_field :followed_id, value: @post.user.id %>
-                <%= f.submit "Follow This Funder", :class => "btn btn-danger btn-subscribe"%>
-              <% end %>
-            </div>
-          <% end %>
-        <% elsif !current_user %>
-          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 subscribe-block">
-            <%= button_to new_user_session_path, :class => "btn btn-danger btn-subscribe", :method => "get" do %>
-              <span style="font-size: 1.3em;">Sign in</span><br />to Follow This Funder
-            <% end %>
-          </div>
-        <% end %>
-        
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" id="funder-profile">
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-              <h3>Funder</h3>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-              <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <% if @post.user.avatar? %>
-                    <%= link_to image_tag(@post.user.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
-                  <% else %>
-                    <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
-                  <% end %>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                  <%= @post.user.name.upcase %>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
-              <%= link_to "#" do %>
-                <i class="fa fa-facebook-square"></i>
-              <% end %>
-              <%= link_to "#" do %>
-                <i class="fa fa-twitter-square"></i>
-              <% end %>
-              <%= link_to "#" do %>
-                <i class="fa fa-linkedin-square"></i>
-              <% end %>
-            </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <%= render :partial => "posts/funder_profile" %>
           </div>
         </div>
 
-        <span class="clearfix"></span>  
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <%= render :partial => "posts/social_panel" %>
+            <%= render :partial => "posts/timeline" %>
+          </div>
+        </div>
       </div>
-    </div>
 
-  </div>
-</div>
+    </div><!-- end col-md-10 -->
+  </div><!-- end row -->
+</div><!-- end container -->
 
 <script type="text/javascript">
 	$(function(){
