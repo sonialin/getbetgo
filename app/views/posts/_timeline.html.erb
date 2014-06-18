@@ -11,7 +11,7 @@
         <div class="timeline-panel">
           <% if user_signed_in? %>
             <% if !@current_user_bet.empty? %>
-              You've already submitted your bet!
+              Great job - you've submitted your application!
             <% elsif @post.user == current_user %>
               Kudos to you, <%= current_user.name %>!
             <% else %>
@@ -25,7 +25,7 @@
             <% end %>
           <% else %>
             <div>
-              <p>Please log in to create a bet</p>
+              <p>Please log in to claim this fund</p>
             </div>
           <% end %>
         </div>
@@ -53,7 +53,7 @@
             <div class="timeline-heading">
               <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
               <p>
-                <small class="text-muted"><i class="fa fa-time"></i><%= bet.created_at %></small>
+                <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
               </p>
             </div>
             <div class="timeline-body">
@@ -81,7 +81,7 @@
                 <hr>
                 <% if bet.update %>
                   <p>
-                    <small class="text-muted"><i class="fa fa-time"></i><%= bet.update.created_at %></small>
+                    <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.update.created_at) %></small>
                   </p>
                   <p>
                     <%= bet.update.body %>
@@ -96,7 +96,7 @@
                 <hr>
                 <% if bet.update %>
                   <p>
-                    <small class="text-muted"><i class="fa fa-time"></i><%= bet.update.created_at %></small>
+                    <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.update.created_at) %></small>
                   </p>
                   <p>
                     <%= bet.update.body %>
