@@ -47,7 +47,7 @@ class BetsController < ApplicationController
         @post.user.notify("#{@bet.user.name} applied to your fund #{@post.title}",
                           "#{@bet.user.name} applied to your fund #{@post.title}", 
                           notified_object = @bet)
-        format.html { redirect_to @post, notice: 'Bet was successfully created.' }
+        format.html { redirect_to @post, notice: 'Application was successfully submitted!' }
         #format.json { render action: 'show', status: :created, location: @bet }
       else
         format.html { redirect_to @post, alert: 'Oops, something went wrong.' }

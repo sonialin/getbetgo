@@ -572,6 +572,23 @@ a.user_name_link:hover {
       Padding-bottom: 75px;   /* This value is the height of your footer */
 }
 
+.tag-display {
+  margin-bottom: 40px;
+}
+
+.tag-display .search-text {
+  color: #999;
+  font-size: 1.3em;
+}
+
+.search-tag {
+  box-shadow: 1px 1px 1px 1px #ccc;
+  padding: 10px 15px;
+  background-color: #eee;
+  color: #555;
+  margin: 5px 5px;
+}
+
 .portfolio-selection {
   margin-bottom: 70px;
   position: relative;
