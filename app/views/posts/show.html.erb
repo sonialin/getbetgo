@@ -11,13 +11,13 @@
           </div>
           <div class="pull-right" id="title-info">
             <% if @post.category != nil %>
-              <%= link_to category_path(@post.category), :class =>"btn btn-default" do %>
+              <%= link_to category_path(@post.category), :class =>"btn btn-default btn-filter" do %>
                 <%= post_category_icon(@post.category) %>&nbsp;
                 <%= @post.category %>
               <% end %>
             <% end %>
             <% if @post.location != nil %>
-              <%= link_to location_path(@post.location), :class =>"btn btn-default" do %>
+              <%= link_to location_path(@post.location), :class =>"btn btn-default btn-filter" do %>
                 <i class="fa fa-map-marker"></i></i>&nbsp;
                 <%= @post.location %>
               <% end %>
