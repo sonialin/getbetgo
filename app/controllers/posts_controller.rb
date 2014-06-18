@@ -21,9 +21,12 @@ class PostsController < ApplicationController
     if params[:tag]
       @posts = Post.tagged_with(params[:tag])
       @tag = params[:tag]
+    elsif params[:category]
+      @posts = Post.where(:category => params[:category])
+    elsif params[:location]
+      @posts = Post.where(:location => params[:location])
     else
       @posts = Post.all
-      @tag = ""
     end
 
     @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids, "%#{city}%", "%#{country}%").order("posts.id desc")

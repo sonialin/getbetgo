@@ -1,5 +1,4 @@
 module PostsHelper
-	
 	def reformatted_post_datetime(time_created_at)
 	  distance = Time.now - time_created_at
 
@@ -14,4 +13,15 @@ module PostsHelper
 	  end
 	end
 
+	def post_category_icon(category)
+		if category == 'Business'
+			raw("<i class='fa fa-briefcase'></i>")
+		elsif category == 'Education'
+			raw("<i class='fa fa-graduation-cap'></i>")
+		elsif category == 'Lifestyle'
+			raw("<i class='fa fa-coffee'></i>")
+		elsif category == 'Social Impact'
+			raw("<i class='fa fa-heart'></i>")
+		end			
+	end
 end

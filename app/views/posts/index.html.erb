@@ -43,12 +43,11 @@
             <div class="text-center">
               <div id="portfolio-filter" class="btn-group-lg">  
                 <span type="button" class="btn btn-default col-lg-2 current" id="all" value="All">All</span>
-                <% Post.group("category").count.each do |category,cnt| %>
-                  <% if category == nil %>
-                    <% category = 'Others' %>
-                  <% end %>
-                  <span type="button" class="btn btn-default col-lg-2" id="<%= category.split.join('') %>" value="<%= category %>"><%= category %></span>
-                <% end %>
+                <span type="button" class="btn btn-default col-lg-2" id="Business" value="Business">Business</span>
+                <span type="button" class="btn btn-default col-lg-2" id="Education" value="Education">Education</span>
+                <span type="button" class="btn btn-default col-lg-2" id="Lifestyle" value="Lifestyle">Lifestyle</span>
+                <span type="button" class="btn btn-default col-lg-2" id="SocialImpact" value="Social Impact">Social Impact</span>
+                <span type="button" class="btn btn-default col-lg-2" id="Others" value="Others">Others</span>
               </div>
             </div>
           </div>

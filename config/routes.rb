@@ -30,6 +30,8 @@ Getbetgo::Application.routes.draw do
 
   root :to => 'posts#index'
   get 'tags/:tag', to: 'posts#index', as: :tag
+  get 'category/:category', to: 'posts#index', as: :category
+  get 'location/:location', to: 'posts#index', as: :location
 
   get 'posts/:post_id/bets/:id/receive' => 'bets#receive'
   get 'posts/:post_id/bets/:id/receive_process' => 'bets#receive_process'
