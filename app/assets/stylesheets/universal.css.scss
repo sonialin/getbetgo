@@ -43,3 +43,15 @@ fieldset[disabled] .btn-fw.active {
   color: #99B709; 
   background-color: #FFFFFF; 
 }
+
+.btn-action {
+  width: 250px;
+  height: 60px;
+  font-size: 1.2em;
+}
+
+.btn-action-content {
+  position: relative;
+  top: 0.2em;
+  font-family: 'Titillium Web', sans-serif;
+}

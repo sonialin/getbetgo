@@ -33,9 +33,14 @@
   text-shadow: #858585 0.1em 0.1em 0.2em;
 }
 
+#about-add-new-fund {
+	margin-top: 20px;
+}
+
 .action-text {
 	position: relative;
 	top: -15px;
+	font-family: 'Titillium Web', sans-serif;
 }
 
 .action-icon {
@@ -63,7 +68,7 @@
 
 	#about-action-headline {
 		position: relative;
-		bottom: -70px;
+		bottom: -40px;
 	}
 
 }
@@ -76,5 +81,9 @@
 	
 	.about-icon {
 		top: 0;
+	}
+
+	#about-action-headline {
+		bottom: -30px;
 	}
 }

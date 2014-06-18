@@ -2,7 +2,7 @@
   <div class="container" id="home-content">
     <div class="row text-center">   
       <div class="col-md-10 col-md-offset-1" id="headline">
-        <h1 >fundwok<span style="vertical-align: super; font-size: 0.5em; color: #ed1c24;">beta</span></h1>
+        <h1>fundwok<span style="vertical-align: super; font-size: 0.5em; color: #ed1c24;">beta</span></h1>
         <h2>Thank you for visiting us at this young stage of our development!</h2>
         <h3 id="subtitle">If you like the idea of making funding easy and would like to help us improve that process, please read on.</h3>
         <br />
@@ -68,12 +68,18 @@
   <div class="container" id="about-action-headline">
     <div class="row text-center">   
 			<div class="col-md-6 col-md-offset-3 text-center">
-        <h2>Get on the exclusive list</h2>
+        <h2>Join the exclusive community</h2>
         <h3>Before others do.</h3>
-        <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger btn-lg btn-start" do %>
-        	<i class='fa fa-user'></i>&nbsp;
-        	<span class="">Join fundwok<span style="vertical-align: super; font-size: 0.5em;">beta</span></span>
-        <% end %>  
+        <% if current_user %>
+          <%= link_to new_post_path, :class => "btn btn-fw btn-action", :id => "about-add-new-fund" do %>
+            <span class="btn-action-content">+ Add New Fund</span>
+          <% end %>
+        <% else %>
+          <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger btn-lg btn-start" do %>
+          	<i class='fa fa-user'></i>&nbsp;
+          	<span class="">Join fundwok<span style="vertical-align: super; font-size: 0.5em;">beta</span></span>
+          <% end %>  
+        <% end %>
       </div>
     </div>
   </div>
