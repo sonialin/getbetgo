@@ -62,7 +62,7 @@
 
 @media (max-width: 1200px) {
   #home-content {
-    top: 25%;
+    top: 20%;
   }
 
   #subtitle {
@@ -72,5 +72,11 @@
 
   .vcenter-text {
     height: 9em;
+  }
+}
+
+@media (max-width: 766px) {
+  #home-content {
+    top: 40%;
   }
 }
