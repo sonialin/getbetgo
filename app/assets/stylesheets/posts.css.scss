@@ -573,12 +573,16 @@ a.user_name_link:hover {
 }
 
 .tag-display {
-  margin-bottom: 40px;
+  margin: 20px 20px 20px 10px; 
 }
 
 .tag-display .search-text {
   color: #999;
   font-size: 1.3em;
+}
+
+a .dismiss-tag {
+  color: #555;
 }
 
 .search-tag {
@@ -587,6 +591,7 @@ a.user_name_link:hover {
   background-color: #eee;
   color: #555;
   margin: 5px 5px;
+  display: inline-block;
 }
 
 .portfolio-selection {
@@ -684,6 +689,10 @@ a.user_name_link:hover {
 }
 
 @media (max-width: 766px) {
+  .tag-display {
+    margin-left: 10%;
+  }
+
   #posts-container .followed .post-source-followed {
     right: 40px;
   }

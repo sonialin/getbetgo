@@ -1,4 +1,4 @@
-<% if !current_user %>
+<% if (!current_user && !params[:tag]) && !params[:location] %>
   <div class="jumbotron" id="home">
     <div class="container" id="home-content">
       <div class="row text-center">   
@@ -41,6 +41,9 @@
         <div class="tag-display">
           <span class="search-text">Search results of tag:</span>
           <span class="search-tag">
+            <%= link_to posts_path do %>
+              <i class="fa fa-times dismiss-tag"></i>
+            <% end %>&nbsp;
             <%= params[:tag] %>
           </span>
         </div>
@@ -48,6 +51,9 @@
         <div class="tag-display">
           <span class="search-text">Search results of location:</span>
           <span class="search-tag">
+            <%= link_to posts_path do %>
+              <i class="fa fa-times dismiss-tag"></i>
+            <% end %>&nbsp;
             <%= params[:location] %>
           </span>
         </div>
