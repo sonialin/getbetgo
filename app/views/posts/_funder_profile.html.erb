@@ -15,8 +15,10 @@
   <% end %>
 <% elsif !current_user %>
   <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 subscribe-block">
-    <%= button_to new_user_session_path, :class => "btn-danger btn-block btn-subscribe", :method => "get" do %>
-      Sign in<br /><small>to Follow This Funder</small>
+    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger btn-block btn-subscribe" do %>
+      <div class="text-center" id="sign-in-follow">
+        Sign in<br /><small>to Follow This Funder</small>
+      </div>
     <% end %>
   </div>
 <% end %>

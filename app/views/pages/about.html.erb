@@ -6,7 +6,7 @@
         <h2>Thank you for visiting us at this young stage of our development!</h2>
         <h3 id="subtitle">If you like the idea of making funding easy and would like to help us improve that process, please read on.</h3>
         <br />
-        <%= link_to "#fw-intro", :class => "btn btn-danger btn-lg btn-start" do %>
+        <%= link_to "#fw-intro", :class => "btn btn-danger btn-lg btn-start", :id => 'btn-readon' do %>
         	<span class="action-text">Read on</span>&nbsp;
         	<i class="fa fa-arrow-circle-o-down fa-2x action-icon"></i>
         <% end %>      
@@ -75,9 +75,11 @@
             <span class="btn-action-content">+ Add New Fund</span>
           <% end %>
         <% else %>
-          <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger btn-lg btn-start" do %>
-          	<i class='fa fa-user'></i>&nbsp;
-          	<span class="">Join fundwok<span style="vertical-align: super; font-size: 0.5em;">beta</span></span>
+          <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger btn-lg btn-start", :id => "about-join-fw-btn" do %>
+            <div id="about-join-fw-content">
+          	 <i class='fa fa-user'></i>&nbsp;
+          	 <span class="about-join-fw-text">Join fundwok<span style="vertical-align: super; font-size: 0.5em;">beta</span></span>
+            </div>
           <% end %>  
         <% end %>
       </div>

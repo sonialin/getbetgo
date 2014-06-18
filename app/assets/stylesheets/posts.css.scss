@@ -140,20 +140,17 @@
   height: 100px;
 }
 
-/*img .img-circle .author-thumbnail {
-  width: 60px;
-}*/
-
 .author, .author a:hover, .author a {
   color: #ed1c24;
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
 }
 
-.user-info {
+.author .user-info {
   position: relative;
   display: block;
-  left: 4.5%;
+  float: left;
+  margin-left: 3px;
 }
 
 .folder {
@@ -507,6 +504,16 @@ a.user_name_link:hover {
   height: 70px;
   border-radius: 10px;
   display: block;
+}
+
+#sign-in-follow {
+  position: relative;
+  top: -2px;
+  font-size: 1.5em;
+}
+
+a#sign-in-follow:hover {
+  text-decoration: none;
 }
 
 .funder-section-title {
