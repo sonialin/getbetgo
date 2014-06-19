@@ -382,7 +382,6 @@ a.user_name_link:hover {
 #description_content .title_description_content {
   font-size: 16px;
   font-weight: normal;
-  margin-top: 25px;
   font-family: 'Patua One',sans-serif;
 }
 
@@ -391,6 +390,41 @@ a.user_name_link:hover {
   margin-top: 25px;
   font-family: 'Titillium Web',sans-serif;
   font-weight: 400;
+}
+
+.applicant-listing {
+  margin: 12px 4px;
+  border: 1px solid #eee;
+  padding: 5px;
+}
+
+.applicant-info {
+  color: #767676;
+  position: relative;
+  top: 3px;
+}
+
+.applicant-avatar-block {
+  margin-left: -10px;
+  margin-right: 15px;
+}
+
+.applicant-name {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.applicant-name a {
+  color: #767676;
+}
+
+.applicant-name a:hover {
+  text-decoration: none;
+  color: #767676;
+}
+
+.application-date {
+  font-weight: 300;
 }
 
 #updates_content .updates_block_text {
@@ -736,6 +770,11 @@ a .dismiss-tag {
 
   .show-funding-metrics-icon {
     top: 0;
+  }
+
+  .applicant-avatar-block {
+    margin-left: -13px;
+    margin-right: 18px;
   }
 }
 

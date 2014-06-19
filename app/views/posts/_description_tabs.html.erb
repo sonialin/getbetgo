@@ -2,30 +2,38 @@
 <div class="tabbable">
   <div id="tabs_pages">
     <ul class="tabs_pages_ul">
-      <li class="active col-md-4 col-lg-4 col-sm-4 col-xs-5"><a href="#tab1" data-toggle="tab">DESCRIPTION</a></li>
-      <li class="col-md-4 col-lg-4 col-sm-4 col-xs-3"><a href="#tab2" data-toggle="tab">BETTERS</a></li>
-      <li class="col-md-4 col-lg-4 col-sm-4 col-xs-4"><a href="#tab3" data-toggle="tab">UPDATES</a></li>
+      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab1" data-toggle="tab">DESCRIPTION</a></li>
+      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab2" data-toggle="tab">APPLICANTS</a></li>
+
     </ul>
   </div>
   <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="tab-pane active" id="tab1">
       <div id="description_content">
         <div class="title_description_content"><%= @post.description %></div>
-        <!-- <div class="text_description_content"><%= @post.description %></div> -->
       </div>
     </div>
     <div class="tab-pane" id="tab2">
       <div id="backers_content">
-        <% if @post.bets.any? %>
+        <% if @post.bets.size == 0 %>
+          <span>There are no applications yet.</span>
+        <% else %>
           <div class="row">
             <% @post.bets.each do |bet| %>
-              <div class="col-md-6">
-                <div class="backers_block_text">
-                  <div class="image_face_backers_content"><div class="face_backers_content"></div></div>
-                  <div class="text_backers_content">
-                    <div class="backer_name"><%= bet.user.name %></div>
-                    <div class="backer_date"><%= bet.created_at %></div>
-                    <!-- <div class="number_project">Backed 5 project</div> -->
+              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="applicant-listing row">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
+                    <div class="applicant-avatar-block">
+                    <% if bet.user.avatar? %>
+                      <%= link_to image_tag(bet.user.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
+                    <% else %>
+                      <%= link_to image_tag("http://placehold.it/60x60", size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
+                    <% end %>
+                    </div>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10 applicant-info">
+                    <div class="applicant-name"><%= link_to bet.user.name, bet.user %></div>
+                    <div class="application-date">submitted <%= reformatted_post_datetime(bet.created_at) %></div>
                   </div>
                 </div>
               </div>
@@ -36,17 +44,6 @@
       </div><!-- end backer's content -->
     </div><!-- end tab2 -->
 
-    <div class="tab-pane" id="tab3">
-      <div id="updates_content">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="updates_block_text">
-              <h4>Update</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien. Nullam ac nisi vel augue ultrices venenatis sed sed felis. Quisque velit tortor, suscipit et auctor tempus, pretium eu velit. Vestibulum vitae ligula sapien. Donec et felis lorem. Vestibulum non feugiat risus. Sed malesuada nisl vel lorem rhoncus feugiat. Proin pellentesque velit nec metus tincidunt quis egestas tortor venenatis. Phasellus mattis sapien suscipit massa suscipit placerat. Vestibulum semper laoreet tempus. Curabitur ac sagittis urna. Sed rhoncus massa vel lorem lobortis sit amet adipiscing nunc aliquet.  accumsan sit amet, posuere eget odio. Suspendisse pellentesque odio id nunc tempor placerat. Pellentesque ipsum mauris, ultrices ut rhoncus id, vehicula eget est. </p>
-            </div>
-          </div>
-        </div>
-      </div><!-- end of updates_content -->
-    </div><!-- end of tab3-->
+
   </div><!-- end of tab content -->
 </div><!-- end of tabbable -->
