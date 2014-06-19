@@ -1,12 +1,23 @@
 <div class="container">
 	<h1><%= @user.name %></h1>
-	<% if @user.title %>
-		<p><%= @user.title %></p>
-	<% end %>
 
 	<h3>Avatar</h3>
 	<% if @user.avatar %>
 		<%= image_tag @user.avatar.url(:medium) %>
+	<% end %>
+
+	<% if @user_info.biography %>
+		<%= @user_info.biography %>
+		<% if @user == current_user %>
+			<%= link_to 'Edit', edit_user_info_path(:id => @user.user_info.id), :class => 'btn btn-default' %>
+		<% end %>
+	<% elsif @user == current_user %>
+		<%= form_for @user_info, :url => { :controller => "user_infos", :action => "create" }, :html => {:method => :post} do |f| %>
+			<div class="form-group">
+			  <%= f.text_area :biography, :class => 'form-control' %><br />
+			  <%= f.submit :class => "btn btn-primary" %>
+			</div>
+		<% end %>
 	<% end %>
 
 	<h1 class="decoration text-center proj"><span class="nobgr"><%= @user.name %>'s Funds</span></h1>

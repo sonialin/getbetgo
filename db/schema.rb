@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607123404) do
+ActiveRecord::Schema.define(version: 20140619061450) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -198,6 +198,15 @@ ActiveRecord::Schema.define(version: 20140607123404) do
   add_index "updates", ["post_id"], name: "index_updates_on_post_id"
   add_index "updates", ["user_id"], name: "index_updates_on_user_id"
 
+  create_table "user_infos", force: true do |t|
+    t.text     "biography"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "user_infos", ["user_id"], name: "index_user_infos_on_user_id"
+
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
     t.string   "encrypted_password",     limit: 128, default: "", null: false
@@ -216,7 +225,6 @@ ActiveRecord::Schema.define(version: 20140607123404) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "title"
     t.string   "provider"
     t.string   "uid"
   end

@@ -38,7 +38,7 @@
           <% end %>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8 funder-name-and-social">
-          <h4 class="funder-name"><%= @post.user.name.upcase %></h4>
+          <h4 class="funder-name"><%= link_to @post.user.name.upcase, @post.user %></h4>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
             <%= link_to "#" do %>
               <i class="fa fa-facebook-square"></i>
@@ -54,7 +54,9 @@
       </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec massa ut justo accumsan malesuada ut pharetra sapien.
+      <% if @user_info && @user_info.biography != "" %>
+        <%= @user_info.biography %>
+      <% end %>
     </div>
   </div>
 </div>

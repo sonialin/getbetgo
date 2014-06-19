@@ -6,6 +6,9 @@ class UsersController < ApplicationController
 
     @paypal_recipient_accounts = @user.paypal_recipient_accounts
     @paypal_recipient_account = PaypalRecipientAccount.new
+    @user_info = UserInfo.where(
+      user_id: @user.id
+      ).first_or_initialize
 
     @bets = @user.bets
 

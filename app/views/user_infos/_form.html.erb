@@ -1,0 +1,13 @@
+<%= form_for @user_info do |f| %>
+	<div class="form-group">
+	  <label class="col-md-3 control-label" for="biography">Biography</label>
+	  <div class="col-md-8">
+	    <%= f.text_field :biography, :class => "form-control" %><br />
+	  </div>
+	</div>
+	<div class="form-group">
+	  <div class="col-md-11 text-right">
+	    <%= f.submit "Submit", :class => "btn btn-success btn-lg" %>      
+	  </div>
+	</div>
+<% end %>
