@@ -8,10 +8,11 @@ class UserInfosController < ApplicationController
 
   	if @user_info.save
     	flash[:notice] = "Your info has been saved!"
+    	redirect_to @user
     else
-    	flash[:notice] = "Fail."
+    	flash[:notice] = "No worries - please try again."
+    	redirect_to @user
     end
-    redirect_to :back
   end
 
   def edit
