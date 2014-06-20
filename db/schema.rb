@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619061450) do
+ActiveRecord::Schema.define(version: 20140620085904) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 20140619061450) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "location"
   end
 
   add_index "user_infos", ["user_id"], name: "index_user_infos_on_user_id"

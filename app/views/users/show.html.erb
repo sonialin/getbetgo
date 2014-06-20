@@ -6,15 +6,17 @@
 		<%= image_tag @user.avatar.url(:medium) %>
 	<% end %>
 
-	<% if @user_info.biography %>
-		<%= @user_info.biography %>
+	<% if @user.user_info %>
+		<p><%= @user.user_info.location %></p>
+		<p><%= @user.user_info.biography %></p>
 		<% if @user == current_user %>
 			<%= link_to 'Edit', edit_user_info_path(:id => @user.user_info.id), :class => 'btn btn-default' %>
 		<% end %>
 	<% elsif @user == current_user %>
 		<%= form_for @user_info, :url => { :controller => "user_infos", :action => "create" }, :html => {:method => :post} do |f| %>
 			<div class="form-group">
-			  <%= f.text_area :biography, :class => 'form-control' %><br />
+			  <%= f.text_area :location, :class => 'form-control', :placeholder => "Enter location" %><br />
+			  <%= f.text_area :biography, :class => 'form-control', :placeholder => "Enter self description" %><br />
 			  <%= f.submit :class => "btn btn-primary" %>
 			</div>
 		<% end %>
