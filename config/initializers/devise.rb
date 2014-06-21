@@ -199,7 +199,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   require "omniauth-facebook"
-  config.omniauth :facebook, configatron.facebook_appid, configatron.facebook_appsecret, {:secure_image_url => true, :image_size => 'square'}
+  config.omniauth :facebook, configatron.facebook_appid, configatron.facebook_appsecret, {:secure_image_url => true, :image_size => 'large'}
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
