@@ -7,11 +7,10 @@
 	<% end %>
 
 	<% if @user.user_info %>
-		<p><%= @user.user_info.location %></p>
-		<p><%= @user.user_info.biography %></p>
-		<% if @user == current_user %>
-			<%= link_to 'Edit', edit_user_info_path(:id => @user.user_info.id), :class => 'btn btn-default' %>
-		<% end %>
+		<div class="user-edit-block">
+			<p><%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>
+			<p><%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
+		</div>
 	<% elsif @user == current_user %>
 		<%= form_for @user_info, :url => { :controller => "user_infos", :action => "create" }, :html => {:method => :post} do |f| %>
 			<div class="form-group">

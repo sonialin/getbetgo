@@ -89,6 +89,9 @@ gem 'public_activity'
 # Use mailboxer to enable sending notifications
 gem 'mailboxer'
 
+# Use best_in_place for inline editing
+gem 'best_in_place', github: 'bernat/best_in_place'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
