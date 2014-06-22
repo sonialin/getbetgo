@@ -35,6 +35,6 @@ class UserInfosController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_info_params
-    	params.require(:user_info).permit(:biography, :location)
+    	params.require(:user_info).permit(:biography, :location, :linkedin, :twitter, :github)
     end
 end

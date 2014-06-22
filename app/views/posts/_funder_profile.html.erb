@@ -39,17 +39,25 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8 funder-name-and-social">
           <h4 class="funder-name"><%= link_to @post.user.name.upcase, @post.user %></h4>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
-            <%= link_to "#" do %>
-              <i class="fa fa-facebook-square"></i>
-            <% end %>
-            <%= link_to "#" do %>
-              <i class="fa fa-twitter-square"></i>
-            <% end %>
-            <%= link_to "#" do %>
-              <i class="fa fa-linkedin-square"></i>
-            <% end %>
-          </div>
+          <% if @post.user.user_info %>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
+              <% if (@post.user.user_info.linkedin != nil && @post.user.user_info.linkedin != '') %>
+                <%= link_to @post.user.user_info.linkedin do %>
+                  <i class="fa fa-linkedin-square"></i>
+                <% end %>
+              <% end %>
+              <% if (@post.user.user_info.twitter != nil && @post.user.user_info.twitter != '') %>
+                <%= link_to @post.user.user_info.twitter do %>
+                  <i class="fa fa-twitter-square"></i>
+                <% end %>
+              <% end %>
+              <% if (@post.user.user_info.github != nil && @post.user.user_info.github != '') %>
+                <%= link_to @post.user.user_info.github do %>
+                  <i class="fa fa-github-square"></i>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

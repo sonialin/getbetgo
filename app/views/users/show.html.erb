@@ -8,14 +8,20 @@
 
 	<% if @user.user_info %>
 		<div class="user-edit-block">
-			<p><%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>
-			<p><%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
+			<p>Location: <%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>
+			<p>About Me: <%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
+			<p>LinkedIn: <%= best_in_place_if @user == current_user, @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin' %><% end %></p>
+			<p>Twitter: <%= best_in_place_if @user == current_user, @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter' %><% end %></p>
+			<p>Github: <%= best_in_place_if @user == current_user, @user.user_info, :github, :type => :input, :activator => '#edit-github' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-github' %><% end %></p>
 		</div>
 	<% elsif @user == current_user %>
 		<%= form_for @user_info, :url => { :controller => "user_infos", :action => "create" }, :html => {:method => :post} do |f| %>
 			<div class="form-group">
 			  <%= f.text_area :location, :class => 'form-control', :placeholder => "Enter location" %><br />
 			  <%= f.text_area :biography, :class => 'form-control', :placeholder => "Enter self description" %><br />
+			  <%= f.text_area :linkedin, :class => 'form-control', :placeholder => "Enter LinkedIn" %><br />
+			  <%= f.text_area :twitter, :class => 'form-control', :placeholder => "Enter Twitter" %><br />
+			  <%= f.text_area :github, :class => 'form-control', :placeholder => "Enter Github" %><br />
 			  <%= f.submit :class => "btn btn-primary" %>
 			</div>
 		<% end %>
