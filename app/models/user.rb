@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :updates
   has_many :funds
-  has_many :paypal_recipient_accounts
+  has_one :paypal_recipient_account
   has_many :follower_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
   has_many :followed_relationships, class_name: 'Relationship', foreign_key: 'follower_id'
   has_many :followers, through: :follower_relationships

@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   def show
     @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
 
-    @paypal_recipient_accounts = @user.paypal_recipient_accounts
     @paypal_recipient_account = PaypalRecipientAccount.new
     @user_info = UserInfo.new
 

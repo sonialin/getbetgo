@@ -53,17 +53,17 @@
 	</table>
 
 	<% if @user == current_user %>
-		<h3>Accounts</h3>
-		<% @paypal_recipient_accounts.each do |account| %>
-			<%= account.email %>
-			<%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
-		<% end %>
-
-		<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
-			<div class="form-group">
-			  <%= f.text_area :email, :class => 'form-control' %><br />
-			  <%= f.submit :class => "btn btn-primary" %>
-			</div>
+		<h3>Account</h3>
+		<% if @user.paypal_recipient_account %>
+			<%= @user.paypal_recipient_account.email %>
+			<%= link_to 'Destroy', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
+		<% else %>
+			<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
+				<div class="form-group">
+				  <%= f.text_area :email, :class => 'form-control' %><br />
+				  <%= f.submit :class => "btn btn-primary" %>
+				</div>
+			<% end %>
 		<% end %>
 	<% end %>
 </div>
