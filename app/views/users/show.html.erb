@@ -1,36 +1,40 @@
 <div class="jumbotron" id="user-cover">
-  <div class="container">
-  	<div class="col-md-8 col-md-offset-2">
-    
-    	<div class="row well text-center" id="user-profile-main"> 
-        <div class="col-lg-3">
-        	<% if @user.avatar %>
-						<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
-					<% end %>
-        </div>
-        <div class="col-lg-9">
-        	<div class="row">
-        		<div class="col-md-6">
-        			<h2 class="pull-left"><%= @user.name %></h2>
-        		</div>
-        		<div class="col-md-6">
-	        		<p>Location: <%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>		
-        		</div>
-        	</div>
-        	<div class="row">
-        		<div class="user-edit-block">				
-							<p>About Me: <%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
-							<p>LinkedIn: <%= best_in_place_if @user == current_user, @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin' %><% end %></p>
-							<p>Twitter: <%= best_in_place_if @user == current_user, @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter' %><% end %></p>
-							<p>Github: <%= best_in_place_if @user == current_user, @user.user_info, :github, :type => :input, :activator => '#edit-github' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-github' %><% end %></p>
-						</div>
-        		
-        	</div>
-        </div>
+</div>
+
+<div class="user-profile-outer">
+<div class="container" id="user-profile-main">
+	<div class="col-md-8 col-md-offset-2">
+  	<div class="row well" id="user-profile-container"> 
+      <div class="col-lg-3 text-center">
+      	<% if @user.avatar %>
+					<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
+				<% end %>
       </div>
-    
-  	</div>
-  </div>
+      <div class="col-lg-9">
+      	<div class="row">
+      		<div class="col-md-6 col-sm-6 col-xs-12">
+      			<h2 class="user-profile-name"><%= @user.name %></h2>
+      		</div>
+      		<div class="col-md-6 col-sm-6 col-xs-12">
+        		<span class="user-profile-location"><i class="fa fa-map-marker"></i>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %>
+        		</span>		
+      		</div>
+      	</div>
+      	<div class="row user-profile-block">
+      		<div class="user-edit-block">				
+						<p><i class="fa fa-user"></i>&nbsp;About Me: <%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
+						<p><i class="fa fa-home"></i>&nbsp;Website: <%= best_in_place_if @user == current_user, @user.user_info, :website, :type => :input, :activator => '#edit-website' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website' %><% end %></p>
+						<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: <%= best_in_place_if @user == current_user, @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin' %><% end %></p>
+						<p><i class="fa fa-twitter-square"></i>&nbsp;Twitter: <%= best_in_place_if @user == current_user, @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter' %><% end %></p>
+					</div>
+      	</div>
+      </div>
+    </div>
+	</div>
+</div>
+</div>
+
+<div id="user-profile-offset-space">
 </div>
 
 <div class="container">

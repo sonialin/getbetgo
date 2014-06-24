@@ -21,5 +21,70 @@
 }
 
 #user-profile-main {
-	font-size: 0.8em;
+	position: absolute;
+  top: -200px;
+  left: 100px;
+}
+
+#user-profile-container {
+  box-shadow: 1px 1px 10px #444;
+}
+
+.user-profile-outer {
+  position: relative;
+}
+
+.user-profile-name {
+  float: left;
+}
+
+.user-profile-location {
+  float: right;
+  position: relative;
+  top: 2em;
+  color: #999;
+}
+
+.user-profile-block {
+  padding: 15px;
+}
+
+#user-profile-offset-space {
+  height: 100px;
+}
+
+@media (max-width: 1200px) {
+  #user-profile-main {
+    top: -300px;
+    left: 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  #user-profile-main {
+    top: -350px;
+    left: 50px;
+  }
+}
+
+@media (max-width: 766px) {
+  #user-profile-main {
+    top: -350px;
+    left: 130px;
+  }
+
+  .user-profile-location {
+    top: 0em;
+    float: none;
+  }
+
+  .user-profile-name {
+    float: none;
+  }
+}
+
+@media (max-width: 580px) {
+  #user-profile-main {
+    left: 0px;
+  }
 }
