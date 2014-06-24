@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
+  after_create :create_info
+
   has_one :user_info, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_many :bets, :dependent => :destroy
@@ -46,6 +48,10 @@ class User < ActiveRecord::Base
 
   def following? user
     self.followeds.include?(user)
+  end
+
+  def create_info
+    UserInfo.create(user_id: self.id) 
   end
 
   def follow user
