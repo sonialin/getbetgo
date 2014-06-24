@@ -1,32 +1,39 @@
+<div class="jumbotron" id="user-cover">
+  <div class="container">
+  	<div class="col-md-8 col-md-offset-2">
+    
+    	<div class="row well text-center" id="user-profile-main"> 
+        <div class="col-lg-3">
+        	<% if @user.avatar %>
+						<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
+					<% end %>
+        </div>
+        <div class="col-lg-9">
+        	<div class="row">
+        		<div class="col-md-6">
+        			<h2 class="pull-left"><%= @user.name %></h2>
+        		</div>
+        		<div class="col-md-6">
+	        		<p>Location: <%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>		
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="user-edit-block">				
+							<p>About Me: <%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
+							<p>LinkedIn: <%= best_in_place_if @user == current_user, @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin' %><% end %></p>
+							<p>Twitter: <%= best_in_place_if @user == current_user, @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter' %><% end %></p>
+							<p>Github: <%= best_in_place_if @user == current_user, @user.user_info, :github, :type => :input, :activator => '#edit-github' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-github' %><% end %></p>
+						</div>
+        		
+        	</div>
+        </div>
+      </div>
+    
+  	</div>
+  </div>
+</div>
+
 <div class="container">
-	<h1><%= @user.name %></h1>
-
-	<h3>Avatar</h3>
-	<% if @user.avatar %>
-		<%= image_tag @user.avatar.url(:medium) %>
-	<% end %>
-
-	<% if @user.user_info %>
-		<div class="user-edit-block">
-			<p>Location: <%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location' %><% end %></p>
-			<p>About Me: <%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography' %><% end %></p>
-			<p>LinkedIn: <%= best_in_place_if @user == current_user, @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin' %><% end %></p>
-			<p>Twitter: <%= best_in_place_if @user == current_user, @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter' %><% end %></p>
-			<p>Github: <%= best_in_place_if @user == current_user, @user.user_info, :github, :type => :input, :activator => '#edit-github' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-github' %><% end %></p>
-		</div>
-	<% elsif @user == current_user %>
-		<%= form_for @user_info, :url => { :controller => "user_infos", :action => "create" }, :html => {:method => :post} do |f| %>
-			<div class="form-group">
-			  <%= f.text_area :location, :class => 'form-control', :placeholder => "Enter location" %><br />
-			  <%= f.text_area :biography, :class => 'form-control', :placeholder => "Enter self description" %><br />
-			  <%= f.text_area :linkedin, :class => 'form-control', :placeholder => "Enter LinkedIn" %><br />
-			  <%= f.text_area :twitter, :class => 'form-control', :placeholder => "Enter Twitter" %><br />
-			  <%= f.text_area :github, :class => 'form-control', :placeholder => "Enter Github" %><br />
-			  <%= f.submit :class => "btn btn-primary" %>
-			</div>
-		<% end %>
-	<% end %>
-
 	<h1 class="decoration text-center proj"><span class="nobgr"><%= @user.name %>'s Funds</span></h1>
 
 	<div class="container">
@@ -38,32 +45,4 @@
 	    </div><!-- end coloum -->
 	  </div><!-- end row -->
 	</div><!-- container -->
-
-	<h3>Funded</h3>
-
-	<table>
-	<tbody>
-	<% @bets.each do |bet| %>
-		<tr>
-		<td><%= bet.post.title %></td>
-		<td><%= bet.post.price %></td>
-		</tr>
-	<% end %>
-	</tbody>
-	</table>
-
-	<% if @user == current_user %>
-		<h3>Account</h3>
-		<% if @user.paypal_recipient_account %>
-			<%= @user.paypal_recipient_account.email %>
-			<%= link_to 'Destroy', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
-		<% else %>
-			<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
-				<div class="form-group">
-				  <%= f.text_area :email, :class => 'form-control' %><br />
-				  <%= f.submit :class => "btn btn-primary" %>
-				</div>
-			<% end %>
-		<% end %>
-	<% end %>
 </div>

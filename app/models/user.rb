@@ -6,9 +6,6 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :email, :password, :password_confirmation, :remember_me
-
   has_one :user_info, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_many :bets, :dependent => :destroy

@@ -1,0 +1,27 @@
+<div class="container">
+	<h3>Funded</h3>
+
+	<table>
+	<tbody>
+	<% @bets.each do |bet| %>
+		<tr>
+		<td><%= bet.post.title %></td>
+		<td><%= bet.post.price %></td>
+		</tr>
+	<% end %>
+	</tbody>
+	</table>
+
+	<h3>Account</h3>
+	<% if @user.paypal_recipient_account %>
+		<%= @user.paypal_recipient_account.email %>
+		<%= link_to 'Destroy', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
+	<% else %>
+		<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
+			<div class="form-group">
+			  <%= f.text_area :email, :class => 'form-control' %><br />
+			  <%= f.submit :class => "btn btn-primary" %>
+			</div>
+		<% end %>
+	<% end %>
+</div>

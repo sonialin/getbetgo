@@ -3,10 +3,8 @@ Getbetgo::Application.routes.draw do
   resources :user_infos
 
   get "about" => 'pages#about'
+  get "finances" => 'pages#finances'
   resources :relationships
-
-  # post "paypal_recipient_accounts/create"
-  # delete "paypal_recipient_accounts/delete"
 
   resources :paypal_recipient_accounts, :only => [:create, :destroy]
   get "fund_transfers/success"

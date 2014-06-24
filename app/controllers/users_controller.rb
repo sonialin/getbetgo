@@ -4,11 +4,6 @@ class UsersController < ApplicationController
   def show
     @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
 
-    @paypal_recipient_account = PaypalRecipientAccount.new
-    @user_info = UserInfo.new
-
-    @bets = @user.bets
-
     @user_posts = true
 
     respond_to do |format|

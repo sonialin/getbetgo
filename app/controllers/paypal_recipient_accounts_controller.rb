@@ -6,10 +6,10 @@ class PaypalRecipientAccountsController < ApplicationController
 
   	if @paypal_recipient_account.save
     	flash[:notice] = "Your account has been saved!"
-    	redirect_to :controller => :users, :id => current_user.id, :action => :show
+    	redirect_to finances_path
     else
     	flash[:notice] = "Oops - something went wrong. Please try again."
-    	redirect_to :controller => :users, :id => current_user.id, :action => :show
+    	redirect_to finances_path
     end
   end
 
@@ -17,7 +17,7 @@ class PaypalRecipientAccountsController < ApplicationController
   	@paypal_recipient_account = current_user.paypal_recipient_account
     @paypal_recipient_account.destroy
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'Account was successfully deleted.' }
+      format.html { redirect_to finances_path, notice: 'Account was successfully deleted.' }
       format.json { head :no_content }
     end
   end
