@@ -1,10 +1,12 @@
 <div class="jumbotron" id="user-cover">
-	<div class="pull-right">
-		<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
-	    <%= f.file_field :cover_photo %>
-	    <%= f.submit "Submit", :class => "btn" %>      
-		<% end %>
-	</div>
+	<% if @user == current_user %>
+		<div class="pull-right">
+			<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+		    <%= f.file_field :cover_photo %>
+		    <%= f.submit "Submit", :class => "btn" %>      
+			<% end %>
+		</div>
+	<% end %>
 </div>
 
 <div class="user-profile-outer">

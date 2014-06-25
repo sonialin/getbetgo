@@ -19,5 +19,7 @@
 # Ignore all image files uploaded locally
 /public/system/posts/images
 /public/system/users/avatars
+/public/system/user_infos/cover_photos
+
 # Ignore application configuration
 /config/application.yml
