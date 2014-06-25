@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624141518) do
+ActiveRecord::Schema.define(version: 20140625061423) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -208,6 +208,10 @@ ActiveRecord::Schema.define(version: 20140624141518) do
     t.string   "twitter"
     t.string   "github"
     t.string   "website"
+    t.string   "cover_photo_file_name"
+    t.string   "cover_photo_content_type"
+    t.integer  "cover_photo_file_size"
+    t.datetime "cover_photo_updated_at"
   end
 
   add_index "user_infos", ["user_id"], name: "index_user_infos_on_user_id"

@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
     @user_posts = true
 
+    @user_info = @user.user_info
+
     respond_to do |format|
       format.html
       format.js { render '/posts/index.js.erb' }
