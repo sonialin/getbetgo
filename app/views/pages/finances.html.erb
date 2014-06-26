@@ -1,16 +1,73 @@
 <div class="container">
-	<h3>Funded</h3>
-
-	<table>
-	<tbody>
-	<% @bets.each do |bet| %>
-		<tr>
-		<td><%= bet.post.title %></td>
-		<td><%= bet.post.price %></td>
-		</tr>
-	<% end %>
-	</tbody>
-	</table>
+<h1>Finances</h1>
+	<!-- tabs -->
+	<div class="tabbable">
+	  <div id="tabs_pages">
+	    <ul class="tabs_pages_ul">
+	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab1" data-toggle="tab">$<%= @posts.sum(&:claimed_fund) %><br />CONTRIBUTIONS</a></li>
+	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab2" data-toggle="tab">$<%= @credit_sum %><br />FUNDING RECEIVED</a></li>
+	    </ul>
+	  </div>
+	  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	    <div class="tab-pane active" id="tab1">
+	      <div id="description_content">
+	        <table class="table table-hover">
+						<% if @posts.count != 0 %>
+							<thead>
+								<td>Number</td>
+								<td>Post</td>
+								<td>Amount Claimed</td>
+								<td>Service</td>
+								<td>Date</td>
+							</thead>
+					  	<tbody>
+					  		<% @posts.each do |post| %>
+						  		<tr>
+							  		<td>Record #</td>
+							  		<td><%= link_to post.title, post %></td>
+							  		<td><%= post.claimed_fund %></td>
+							  		<td><%= post.service %></td>
+							  		<td><%= reformatted_post_datetime(post.created_at) %></td>
+						  		</tr>
+					  		<% end %>
+					  	</tbody>
+				  	<% end %>
+				  </table>					
+	      </div>
+	    </div>
+	    <div class="tab-pane" id="tab2">
+	      <div id="backers_content">
+	        <table class="table table-hover">
+						<thead>
+							<td>Number</td>
+							<td>Post</td>
+							<td>Credits</td>
+							<td>Status</td>
+							<td>Date</td>
+						</thead>
+				  	<tbody>
+				  		<% @bets.each do |bet| %>
+					  		<tr>
+						  		<td>Record #</td>
+						  		<td><%= link_to bet.post.title, bet.post %></td>
+						  		<td>
+						  			<% if bet.status == "Funded" %>
+						  				<%= bet.post.price %>
+						  			<% else %>
+						  				0
+						  			<% end %>
+						  		</td>
+						  		<td><%= bet.status %></td>
+						  		<td><%= reformatted_post_datetime(bet.created_at) %></td>
+					  		</tr>
+				  		<% end %>
+				  		<%= %>
+				  	</tbody>
+					</table>
+	      </div><!-- end backer's content -->
+	    </div><!-- end tab2 -->
+	  </div><!-- end of tab content -->
+	</div><!-- end of tabbable -->
 
 	<h3>Account</h3>
 	<% if @user.paypal_recipient_account %>
