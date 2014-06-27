@@ -29,6 +29,15 @@
   box-shadow: 1px 1px 10px #444;
 }
 
+#user-follow-panel {
+  margin-top: 15px;
+}
+
+#user-follow-panel button {
+  padding: 5px 10px;
+  line-height: 15px;
+}
+
 .user-profile-outer {
   position: relative;
 }
@@ -39,8 +48,6 @@
 
 .user-profile-location {
   float: right;
-  position: relative;
-  top: 2em;
   color: #999;
 }
 
@@ -54,6 +61,17 @@
 
 .disabled-icon {
   color: #aaa;
+}
+
+.follow-number {
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
+.unfollow-user {
+  border-top: 1px solid #ffeeff;
+  border-bottom: 3px solid #849f08;
+  background-color: #dcdcdc;
 }
 
 @media (max-width: 1200px) {
@@ -77,15 +95,6 @@
   #user-profile-main {
     top: -350px;
     left: 60px;
-  }
-
-  .user-profile-location {
-    top: 0em;
-    float: none;
-  }
-
-  .user-profile-name {
-    float: none;
   }
 }
 

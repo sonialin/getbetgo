@@ -3,10 +3,13 @@ class UsersController < ApplicationController
 
   def show
     @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
-
     @user_posts = true
-
     @user_info = @user.user_info
+    
+    @relationship = Relationship.where(
+      follower_id: current_user.id,
+      followed_id: @user.id
+      ).first_or_initialize if current_user
 
     respond_to do |format|
       format.html

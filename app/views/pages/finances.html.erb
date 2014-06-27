@@ -25,7 +25,7 @@
 					  			<%= render :partial => "pages/post", :locals => {:post => post} %>
 					  		<% end %>
 					  		<div id="contributions-pagination">
-								  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+								  <%= will_paginate(@posts) %>
 								</div>
 					  	</tbody>
 				  	<% end %>
@@ -59,7 +59,7 @@
 					  		</tr>
 				  		<% end %>
 				  		<div id="paginate-bets">
-							  <%= will_paginate @bets, renderer: BootstrapPagination::Rails %>
+							  <%= will_paginate @bets %>
 							</div>
 				  	</tbody>
 					</table>
