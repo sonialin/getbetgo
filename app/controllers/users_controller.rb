@@ -2,8 +2,6 @@ class UsersController < ApplicationController
 	before_action :set_user, only: [:show]
 
   def show
-    @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
-
     @user_posts = true
 
     @user_info = @user.user_info

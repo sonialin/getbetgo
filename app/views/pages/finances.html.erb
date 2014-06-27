@@ -4,8 +4,8 @@
 	<div class="tabbable">
 	  <div id="tabs_pages">
 	    <ul class="tabs_pages_ul">
-	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab1" data-toggle="tab">$<%= @posts.sum(&:claimed_fund) %><br />CONTRIBUTIONS</a></li>
-	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab2" data-toggle="tab">$<%= @credit_sum %><br />FUNDING RECEIVED</a></li>
+	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab1" data-toggle="tab">$<%= @contributions_sum %><br />CONTRIBUTIONS</a></li>
+	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#tab2" data-toggle="tab">$<%= @credits_sum %><br />FUNDING RECEIVED</a></li>
 	    </ul>
 	  </div>
 	  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -22,14 +22,11 @@
 							</thead>
 					  	<tbody>
 					  		<% @posts.each do |post| %>
-						  		<tr>
-							  		<td>Record #</td>
-							  		<td><%= link_to post.title, post %></td>
-							  		<td><%= post.claimed_fund %></td>
-							  		<td><%= post.service %></td>
-							  		<td><%= reformatted_post_datetime(post.created_at) %></td>
-						  		</tr>
+					  			<%= render :partial => "pages/post", :locals => {:post => post} %>
 					  		<% end %>
+					  		<div id="contributions-pagination">
+								  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+								</div>
 					  	</tbody>
 				  	<% end %>
 				  </table>					
@@ -61,7 +58,9 @@
 						  		<td><%= reformatted_post_datetime(bet.created_at) %></td>
 					  		</tr>
 				  		<% end %>
-				  		<%= %>
+				  		<div id="paginate-bets">
+							  <%= will_paginate @bets, renderer: BootstrapPagination::Rails %>
+							</div>
 				  	</tbody>
 					</table>
 	      </div><!-- end backer's content -->

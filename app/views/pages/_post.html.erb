@@ -1,0 +1,7 @@
+<tr>
+  <td>Record #</td>
+  <td><%= link_to post.title, post %></td>
+  <td><%= post.claimed_fund %></td>
+  <td><%= post.service %></td>
+  <td><%= reformatted_post_datetime(post.created_at) %></td>
+</tr>
