@@ -1,3 +1,7 @@
+<% if params[:filterclose] %>
+  $('#category-loader').before('<%= j render :partial => "posts/categories" %>');
+<% end %>
+
 <% index = 0 %>
 <% @posts.each do |post| %>
     <% if @post_type %>

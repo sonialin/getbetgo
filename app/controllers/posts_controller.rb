@@ -18,13 +18,17 @@ class PostsController < ApplicationController
       end
     end
 
+    @category = "all"
+
     if params[:tag]
       @posts = Post.tagged_with(params[:tag])
       @tag = params[:tag]
     elsif params[:category]
       @posts = Post.where(:category => params[:category])
+      @category = params[:category]
     elsif params[:location]
       @posts = Post.where(:location => params[:location])
+      @location = params[:location]
     else
       @posts = Post.all
     end
@@ -96,25 +100,29 @@ class PostsController < ApplicationController
       end
     end
 
-    if params[:category] == "all"
-      if params[:tag] == ""
-        @posts = Post.all
-      else
-        @posts = Post.tagged_with(params[:tag])
-      end
-    elsif params[:category] == "Others"
-      if params[:tag] == ""
-        @posts = Post.where(:category => nil)
-      else
-        @posts = Post.tagged_with(params[:tag]).where(:category => nil)
-      end
+    if params[:location] and params[:location] != ""
+      @posts = Post.where(:location => params[:location])
     else
-      if params[:tag] == ""
-        @posts = Post.where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+      if params[:category] == "all"
+        if params[:tag] == ""
+          @posts = Post.all
+        else
+          @posts = Post.tagged_with(params[:tag])
+        end
+      elsif params[:category] == "Others"
+        if params[:tag] == ""
+          @posts = Post.where(:category => nil)
+        else
+          @posts = Post.tagged_with(params[:tag]).where(:category => nil)
+        end
       else
-        @posts = Post.tagged_with(params[:tag]).where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+        if params[:tag] == ""
+          @posts = Post.where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+        else
+          @posts = Post.tagged_with(params[:tag]).where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+        end
       end
-    end
+    end 
 
     @type = params[:type].to_i
     @offset = params[:offset].to_i

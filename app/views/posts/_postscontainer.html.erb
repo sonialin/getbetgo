@@ -41,8 +41,19 @@
   var category = "all";
   var page = 1;
   var tag = "";
+  var locationn = "";
   var user_id;
   var type;
+
+  <% if defined? category %>
+    category = "<%= category %>";
+    $("#all").removeClass('current');
+    $("#<%= category.split.join %>").addClass('current');
+  <% end %>
+
+  <% if defined? @locationn %>
+    locationn = <%= @location %>;
+  <% end %>
 
   <% if defined? @type %>
     type = <%= @type %>;
@@ -66,7 +77,7 @@
 	    $.ajax({
 				url: "<%= url_to_get_posts %>",
 				type: 'POST',
-				data: "category="+category+"&page="+(page+1)+"&tag="+tag+"&id="+user_id+"&type="+type+"&offset="+offset, 
+				data: "category="+category+"&page="+(page+1)+"&tag="+tag+"&location="+locationn+"&id="+user_id+"&type="+type+"&offset="+offset, 
 				beforeSend: function(xhr, settings) {
 				  xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
 				},

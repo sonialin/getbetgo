@@ -638,6 +638,16 @@ a .dismiss-tag {
   color: #555;
 }
 
+#category-loader {
+  font-size: 18px;
+  text-align: center;
+  display: none;
+}
+
+.location-tag-filter {
+  cursor: pointer;
+}
+
 .search-tag {
   box-shadow: 1px 1px 1px 1px #ccc;
   padding: 10px 15px;

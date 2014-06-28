@@ -38,45 +38,34 @@
     <div class="col-md-10 col-md-offset-1">
 
       <% if params[:tag] %>
-        <div class="tag-display">
+        <div id="filter-display" class="tag-display">
           <span class="search-text">Search results of tag:</span>
           <span class="search-tag">
-            <%= link_to posts_path do %>
+            <a class="location-tag-filter">
               <i class="fa fa-times dismiss-tag"></i>
-            <% end %>&nbsp;
+            </a>&nbsp;
             <%= params[:tag] %>
           </span>
         </div>
       <% elsif params[:location] %>
-        <div class="tag-display">
+        <div id="filter-display" class="tag-display">
           <span class="search-text">Search results of location:</span>
           <span class="search-tag">
-            <%= link_to posts_path do %>
+            <a class="location-tag-filter">
               <i class="fa fa-times dismiss-tag"></i>
-            <% end %>&nbsp;
+            </a>&nbsp;
             <%= params[:location] %>
           </span>
         </div>
       <% else %>
-        <div class="portfolio-selection center-block">
-          <div class="decoration text-center">
-            <div class="nobgr">
-              <div class="text-center">
-                <div id="portfolio-filter" class="btn-group-lg">  
-                  <span type="button" class="btn btn-default col-lg-2 current" id="all" value="All">All</span>
-                  <span type="button" class="btn btn-default col-lg-2" id="Business" value="Business">Business</span>
-                  <span type="button" class="btn btn-default col-lg-2" id="Education" value="Education">Education</span>
-                  <span type="button" class="btn btn-default col-lg-2" id="Lifestyle" value="Lifestyle">Lifestyle</span>
-                  <span type="button" class="btn btn-default col-lg-2" id="SocialImpact" value="Social Impact">Social Impact</span>
-                  <span type="button" class="btn btn-default col-lg-2" id="Others" value="Others">Others</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%= render 'categories' %>
       <% end %>
 
-      <%= render 'postscontainer' , :user_posts => false, :url_to_get_posts => "/getposts" %>
+      <div id="category-loader">
+        <img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />&nbsp;&nbsp;Please wait while we are fetching posts
+      </div>
+
+      <%= render 'postscontainer' , :user_posts => false, :url_to_get_posts => "/getposts", :category => @category %>
   
     </div><!-- end coloum -->
   </div><!-- end row -->
@@ -84,13 +73,16 @@
 
 <script>
   tag = "<%= @tag %>";
+  locationn = "<%= @location %>";
 
-  $('#portfolio-filter .btn').click(function() {
+  $(document).on('click', '#portfolio-filter .btn', function() {
     $('#portfolio-filter .btn').removeClass('current');
     $('#portfolio-filter .btn').removeClass('active');
     $(this).addClass('current');
     $(this).removeClass('active');
     $('#my-posts').html('');
+    $('#load_more_posts').hide();
+    $('#category-loader').show();
 
     category = $(this).attr('id');
 
@@ -99,12 +91,36 @@
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "category="+category+"&page="+page+"&tag="+tag+"&type=1&offset=0",
+      data: "category="+category+"&page="+page+"&tag="+tag+"&location="+locationn+"&type=1&offset=0",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+      },
+      success: function() {
+        $('#category-loader').hide();
       }
     });
   });
 
   $('#posts-container .user-info').popover({trigger: 'hover'});
+
+  $('.location-tag-filter').click(function() {
+    tag = "";
+    locationn = "";
+    $('#filter-display').hide();
+    $('#my-posts').html('');
+    $('#load_more_posts').hide();
+    $('#category-loader').show();
+
+    $.ajax({
+      url: '/getposts',
+      type: 'POST',
+      data: "category=all&tag=&location=&type=1&offset=0&filterclose=1",
+      beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+      },
+      success: function() {
+        $('#category-loader').hide();
+      }
+    });
+  });
 </script>
