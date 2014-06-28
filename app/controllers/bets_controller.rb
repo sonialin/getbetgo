@@ -13,9 +13,12 @@ class BetsController < ApplicationController
   # GET /bets/1
   # GET /bets/1.json
   def show
-    if current_user
+    if (current_user && current_user == @bet.user)
       @current_user_bet = @bet.post.bets.where(:user_id => current_user.id)
+    else
+      redirect_to @bet.post
     end
+
     @update = Update.new
   end
 
