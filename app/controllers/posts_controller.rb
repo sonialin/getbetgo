@@ -24,7 +24,13 @@ class PostsController < ApplicationController
       @posts = Post.tagged_with(params[:tag])
       @tag = params[:tag]
     elsif params[:category]
-      @posts = Post.where(:category => params[:category])
+      if params[:category] == "all"
+        @posts = Post.all
+      elsif params[:category] == "Others"
+        @posts = Post.where(:category => nil)
+      else
+        @posts = Post.where(:category => params[:category])
+      end
       @category = params[:category]
     elsif params[:location]
       @posts = Post.where(:location => params[:location])

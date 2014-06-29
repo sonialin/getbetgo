@@ -97,6 +97,7 @@
       },
       success: function() {
         $('#category-loader').hide();
+        window.history.pushState({},'', "/category/"+category);
       }
     });
   });
@@ -120,6 +121,7 @@
       },
       success: function() {
         $('#category-loader').hide();
+        window.history.pushState({},'', "/category/all");
       }
     });
   });
