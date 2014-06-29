@@ -1,12 +1,12 @@
 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 hero-feature listing-big text-center">
   <div class="thumbnail">
-    <div class="thumbnail-cover" style="background-image: url(<%= user.user_info.cover_photo(:medium) %>)">
+    <div class="thumbnail-cover" style="background-image: url(<%= user.user_info.cover_photo(:medium) %>);">
       <div class="row">
         <div class="follow-user-thumbnail-block">
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <div class="follow-user-thumbnail">
               <% if user.avatar? %>
-                <%= link_to image_tag(user.avatar.url(:thumb), size: "80x80", :class => "img-circle author-thumbnail"), user, :class => "media-object" %>
+                <%= link_to image_tag(user.avatar.url(:medium), size: "80x80", :class => "img-circle author-thumbnail"), user, :class => "media-object" %>
               <% else %>
                 <%= link_to image_tag("http://placehold.it/80x80", size: "80x80", :class => "img-circle author-thumbnail"), user, :class => "media-object" %>
               <% end %>
@@ -15,17 +15,17 @@
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             <div class="follow-user-info">
               <div class="pull-left">
-                <%= link_to user.name, user %>
+                <%= link_to user.name, user, :class => "author text-center" %>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>                  
+    </div>                
     <div class="follow-brief-desc">
       <p class="media-heading brief-desc-text">
         <% if user.user_info.biography != nil && user.user_info.biography != '' %>
-          <%= link_to raw(user.user_info.biography.truncate(100)), user %>
+          <%= link_to raw(user.user_info.biography.truncate(105)), user %>
         <% end %>
       </p>
       <div class="clear"></div>

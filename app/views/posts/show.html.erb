@@ -58,29 +58,3 @@
     </div><!-- end col-md-10 -->
   </div><!-- end row -->
 </div><!-- end container -->
-
-<script type="text/javascript">
-	$(function(){
-	  var iframe = $('#player1')[0];
-	  var player = $f(iframe);
-	  var $myCarousel = $('#myCarousel');
-
-	  player.addEvent('ready', function() {
-	      // player.addEvent('pause', onPause);
-	      player.addEvent('play', onPlay);
-	      //player.addEvent('playProgress', onPlayProgress);
-	  });
-
-	  $('#myCarousel').bind('slide', function(){
-	      player.api('pause');
-	      $('#myCarousel').carousel({
-	          interval: 6000
-	      })
-	  });
-
-	  function onPlay(id) {
-	      $myCarousel.carousel('pause');
-	  }
-
-	 });
-</script>
