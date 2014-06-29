@@ -24,7 +24,9 @@
     </div>                  
     <div class="follow-brief-desc">
       <p class="media-heading brief-desc-text">
-        <%= link_to raw(user.user_info.biography.truncate(100)), user %>
+        <% if user.user_info.biography != nil && user.user_info.biography != '' %>
+          <%= link_to raw(user.user_info.biography.truncate(100)), user %>
+        <% end %>
       </p>
       <div class="clear"></div>
     </div>
