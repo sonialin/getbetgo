@@ -18,11 +18,11 @@ class UsersController < ApplicationController
   end
 
   def followings
-    @users = @user.followeds
+    @users = @user.followeds.paginate(page: params[:page], per_page: 12)
   end
 
   def followers
-    @users = @user.followers
+    @users = @user.followers.paginate(page: params[:page], per_page: 12)
   end
 
 	private
