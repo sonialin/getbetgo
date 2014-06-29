@@ -10,7 +10,10 @@ Getbetgo::Application.routes.draw do
   get "fund_transfers/success"
   get "fund_transfers/failed"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users, :only => [:show]
+  resources :users, :only => [:show] do
+    get 'followings', on: :member
+    get 'followers', on: :member
+  end
   
   resources :posts do
     resources :bets do

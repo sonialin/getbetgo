@@ -74,13 +74,54 @@
   background-color: #dcdcdc;
 }
 
+.thumbnail-cover {
+  height: 200px;
+  background-size: cover;
+}
+
+.follow-user-thumbnail {
+  margin-left: 10px;
+}
+
+.follow-user-thumbnail-block {
+  margin-top: 160px;
+}
+
+.follow-user-info {
+  margin-top: 50px;
+}
+
+.follow-brief-desc {
+  height: 70px;
+  margin-top: 40px;
+}
+
+.follow-metrics {
+  position: relative;
+  left: 2px;
+}
+
+.follow-metrics-cell {
+  padding: 0px;
+}
+
+.follow-metrics-button {
+  padding-top: 6px;
+  padding-right: 0;
+}
+
 @media (max-width: 1200px) {
   #user-profile-main {
     top: -300px;
     left: 100px;
   }
+
   #user-profile-offset-space {
     height: 150px;
+  }
+
+  .thumbnail-cover {
+    background-position: 0 30%;
   }
 }
 
@@ -95,6 +136,14 @@
   #user-profile-main {
     top: -350px;
     left: 60px;
+  }
+
+  .follow-metrics {
+    left: -10px;
+  }
+
+  .thumbnail-cover {
+    background-position: 0 0;
   }
 }
 

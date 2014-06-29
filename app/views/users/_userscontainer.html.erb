@@ -1,0 +1,9 @@
+<div id="users-container" >
+  <div class="row text-center" id="users-row">
+		<% @users.each do |user| %>
+	    <%= content_tag(:div, :class => "portfolio-listing") do %>
+				<%= render :partial => "users/user", :locals => {:user => user} %>
+			<% end %>
+	 	<% end %>
+	</div>
+</div>

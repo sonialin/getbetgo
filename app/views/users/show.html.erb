@@ -18,8 +18,12 @@
 						<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
 					<% end %>
 					<div class="btn-group" id="user-follow-panel">
-					  <button type="button" class="btn btn-default"><span class="follow-number fw-main-color"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small></button>
-					  <button type="button" class="btn btn-default"><span class="follow-number fw-main-color"><%= @user.followeds.count %></span><br /><small><% if @user.followeds.count == 1 %>Following<% else %>Followings<% end %></small></button>
+					  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
+					  	<span class="follow-number fw-main-color"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
+					  <% end %>
+					  <%= link_to followings_user_path(@user), :class => "btn btn-default" do %>
+					  	<span class="follow-number fw-main-color"><%= @user.followeds.count %></span><br /><small><% if @user.followeds.count == 1 %>Following<% else %>Followings<% end %></small>
+					  <% end %>
 					</div>
 	      </div>
 	      <div class="col-lg-8">
@@ -78,7 +82,7 @@
 								  <% end %>
 								<% elsif !current_user %>
 							    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger pull-right btn-lg" do %>
-							      <div class="text-center" id="sign-in-follow">
+							      <div class="text-center">
 							        Sign in to Follow</small>
 							      </div>
 							    <% end %>

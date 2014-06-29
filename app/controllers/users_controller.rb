@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show]
+	before_action :set_user
 
   def show
     @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
@@ -15,6 +15,13 @@ class UsersController < ApplicationController
       format.html
       format.js { render '/posts/index.js.erb' }
     end
+  end
+
+  def followings
+    @users = @user.followeds
+  end
+
+  def followers
   end
 
 	private
