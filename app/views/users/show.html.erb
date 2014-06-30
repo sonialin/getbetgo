@@ -9,98 +9,96 @@
 	<% end %>
 </div>
 
-<div class="user-profile-outer">
-	<div class="container" id="user-profile-main">
-		<div class="col-lg-8 col-md-6 col-sm-6 cl-xs-8 col-md-offset-2">
-	  	<div class="row well" id="user-profile-container"> 
-	      <div class="col-lg-4 text-center">
-	      	<% if @user.avatar %>
-						<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
-					<% end %>
-					<div class="btn-group" id="user-follow-panel">
-					  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
-					  	<span class="follow-number fw-main-color"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
-					  <% end %>
-					  <%= link_to followings_user_path(@user), :class => "btn btn-default" do %>
-					  	<span class="follow-number fw-main-color"><%= @user.followeds.count %></span><br /><small><% if @user.followeds.count == 1 %>Following<% else %>Followings<% end %></small>
-					  <% end %>
-					</div>
-	      </div>
-	      <div class="col-lg-8">
-	      	<div class="row">
-	      		<div class="col-md-12 col-sm-12 col-xs-12">
-	      			<div class="row">
-	      				<div class="col-md-12 col-sm-12 col-xs-12">
-	      					<h2 class="user-profile-name"><%= @user.name %></h2>
-	      				</div>
-	      			</div>
-	      			<div class="row">
-	      				<div class="col-md-12 col-sm-12 col-xs-12">
-			        		<div class="user-profile-location"><% if (@user.user_info.location != nil && @user.user_info.location != "") %><i class="fa fa-map-marker"></i><% end %>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %><% end %>
-			        		</div>
+
+<div class="container" id="user-profile-main">
+	<div class="col-lg-8 col-md-6 col-sm-6 cl-xs-8 col-md-offset-2">
+  	<div class="row well" id="user-profile-container"> 
+      <div class="col-lg-4 text-center">
+      	<% if @user.avatar %>
+					<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
+				<% end %>
+				<div class="btn-group" id="user-follow-panel">
+				  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
+				  	<span class="follow-number fw-main-color"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
+				  <% end %>
+				  <%= link_to followings_user_path(@user), :class => "btn btn-default" do %>
+				  	<span class="follow-number fw-main-color"><%= @user.followeds.count %></span><br /><small><% if @user.followeds.count == 1 %>Following<% else %>Followings<% end %></small>
+				  <% end %>
+				</div>
+      </div>
+      <div class="col-lg-8">
+      	<div class="row">
+      		<div class="col-md-12 col-sm-12 col-xs-12">
+      			<div class="row">
+      				<div class="col-md-12 col-sm-12 col-xs-12">
+      					<h2 class="user-profile-name"><%= @user.name %></h2>
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col-md-12 col-sm-12 col-xs-12">
+		        		<div class="user-profile-location"><% if (@user.user_info.location != nil && @user.user_info.location != "") %><i class="fa fa-map-marker"></i><% end %>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %><% end %>
 		        		</div>
-		        	</div>	
-	      		</div>
-	      	</div>
-	      	<div class="row user-profile-block">
-	      		<div class="user-edit-block">				
-							<p><em><%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
-							<% if @user == current_user %>
-								<p><i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %></p>
-								<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %></p>
-								<p><i class="fa fa-twitter-square"></i>&nbsp;Twitter: http://twitter.com/<%= best_in_place @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter', :class => 'fw-main-color' %><% end %></p>
-							<% else %>
-								<hr class="post-content-divider">
-								<div class="pull-left">
-									Find me at&nbsp;
-									<% if (@user.user_info.website != nil && @user.user_info.website != "") %>
-										<%= link_to "<i class='fa fa-home fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.website, :target => '_blank' %>
-									<% else %>
-										<i class='fa fa-home fa-lg disabled-icon'></i>	
-									<% end %>
-									<% if (@user.user_info.linkedin != nil && @user.user_info.linkedin != "") %>
-										<%= link_to "<i class='fa fa-linkedin-square fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.linkedin, :target => '_blank' %>
-									<% else %>
-										<i class="fa fa-linkedin-square fa-lg disabled-icon"></i>	
-									<% end %>
-									<% if (@user.user_info.twitter != nil && @user.user_info.twitter != "") %>
-										<%= link_to "<i class='fa fa-twitter-square fa-lg fw-main-color'></i>".html_safe, 'http://twitter.com/' + @user.user_info.twitter, :target => '_blank' %>
-									<% else %>
-										<i class="fa fa-twitter-square fa-lg disabled-icon"></i>
-									<% end %>
-								</div>
-								<% if current_user && @user != current_user %>
-								  <% if current_user.following? @user %>
-							      <%= form_for @relationship, method: :delete do |f| %>
-							        <%= f.submit "Unfollow", :class => "btn-large pull-right btn-lg unfollow-user" %>
-							      <% end %>  
-								  <% else %>
-							      <%= form_for @relationship do |f| %>
-							        <%= f.hidden_field :followed_id, value: @user.id %>
-							        <%= f.submit "Follow", :class => "btn-danger pull-right btn-lg"%>
-							      <% end %>
-								  <% end %>
-								<% elsif !current_user %>
-							    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger pull-right btn-lg" do %>
-							      <div class="text-center">
-							        Sign in to Follow</small>
-							      </div>
-							    <% end %>
+	        		</div>
+	        	</div>	
+      		</div>
+      	</div>
+      	<div class="row user-profile-block">
+      		<div class="user-edit-block">				
+						<p><em><%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
+						<% if @user == current_user %>
+							<p><i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %></p>
+							<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %></p>
+							<p><i class="fa fa-twitter-square"></i>&nbsp;Twitter: http://twitter.com/<%= best_in_place @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter', :class => 'fw-main-color' %><% end %></p>
+						<% else %>
+							<hr class="post-content-divider">
+							<div class="pull-left">
+								Find me at&nbsp;
+								<% if (@user.user_info.website != nil && @user.user_info.website != "") %>
+									<%= link_to "<i class='fa fa-home fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.website, :target => '_blank' %>
+								<% else %>
+									<i class='fa fa-home fa-lg disabled-icon'></i>	
 								<% end %>
+								<% if (@user.user_info.linkedin != nil && @user.user_info.linkedin != "") %>
+									<%= link_to "<i class='fa fa-linkedin-square fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.linkedin, :target => '_blank' %>
+								<% else %>
+									<i class="fa fa-linkedin-square fa-lg disabled-icon"></i>	
+								<% end %>
+								<% if (@user.user_info.twitter != nil && @user.user_info.twitter != "") %>
+									<%= link_to "<i class='fa fa-twitter-square fa-lg fw-main-color'></i>".html_safe, 'http://twitter.com/' + @user.user_info.twitter, :target => '_blank' %>
+								<% else %>
+									<i class="fa fa-twitter-square fa-lg disabled-icon"></i>
+								<% end %>
+							</div>
+							<% if current_user && @user != current_user %>
+							  <% if current_user.following? @user %>
+						      <%= form_for @relationship, method: :delete do |f| %>
+						        <%= f.submit "Unfollow", :class => "btn-large pull-right btn-lg unfollow-user" %>
+						      <% end %>  
+							  <% else %>
+						      <%= form_for @relationship do |f| %>
+						        <%= f.hidden_field :followed_id, value: @user.id %>
+						        <%= f.submit "Follow", :class => "btn-danger pull-right btn-lg"%>
+						      <% end %>
+							  <% end %>
+							<% elsif !current_user %>
+						    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger pull-right btn-lg" do %>
+						      <div class="text-center">
+						        Sign in to Follow</small>
+						      </div>
+						    <% end %>
 							<% end %>
-						</div>
-	      	</div>
-	      </div>
-	    </div>
-		</div>
+						<% end %>
+					</div>
+      	</div>
+      </div>
+    </div>
 	</div>
 </div>
 
-<div id="user-profile-offset-space">
-</div>
-
 <div class="container">
-	<h1 class="decoration text-center proj"><span class="nobgr"><%= @user.name %>'s Funds</span></h1>
+	<h1 class="decoration text-center proj">
+		<span class="nobgr"><%= @user.name %>'s Funds</span>
+	</h1>
 
 	<div class="container">
 	  <div class="row">

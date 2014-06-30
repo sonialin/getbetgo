@@ -21,9 +21,7 @@
 }
 
 #user-profile-main {
-	position: absolute;
-  top: -200px;
-  left: 100px;
+  margin-top: -200px;
 }
 
 #user-profile-container {
@@ -37,10 +35,6 @@
 #user-follow-panel button {
   padding: 5px 10px;
   line-height: 15px;
-}
-
-.user-profile-outer {
-  position: relative;
 }
 
 .user-profile-name {
@@ -117,11 +111,6 @@
 }
 
 @media (max-width: 1200px) {
-  #user-profile-main {
-    top: -300px;
-    left: 100px;
-  }
-
   #user-profile-offset-space {
     height: 150px;
   }
@@ -132,18 +121,10 @@
 }
 
 @media (max-width: 900px) {
-  #user-profile-main {
-    top: -350px;
-    left: 50px;
-  }
+
 }
 
 @media (max-width: 766px) {
-  #user-profile-main {
-    top: -350px;
-    left: 60px;
-  }
-
   .follow-metrics {
     left: -10px;
   }
@@ -154,7 +135,5 @@
 }
 
 @media (max-width: 580px) {
-  #user-profile-main {
-    left: 0px;
-  }
+  
 }
