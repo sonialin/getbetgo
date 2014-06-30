@@ -1,10 +1,42 @@
 #notifications {
-	.read { 
-		color: #222;
+	padding-top: 40px;
+
+	.notification-cell-name {
+	 	max-height: 22px;
+	 	overflow: hidden;
+	}
+
+	.notification-cell-content {
+	 	max-height: 22px;
+	 	overflow: hidden;
+	}
+
+	.notification-cell-date {
+	 	max-height: 22px;
+	 	overflow: hidden;
+	}
+
+	.list-group .read { 
 		background-color: #F3F3F3;
 	}
 
 	.list-group a:hover {
 		text-decoration: none;
+	}
+
+	.list-group .list-group-item a {
+		color: #555;
+		font-weight: 600;
+	}
+
+	.list-group .read a {
+		color: #222;
+		font-weight: 400;
+	}
+
+	@media (max-width: 1200px) {
+		.notification-cell-content {
+	 		max-height: 44px;
+		}
 	}
 }

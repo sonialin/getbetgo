@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
 	before_filter :authenticate_user!
 	def index
-		@notification_receipts = current_user.mailbox.receipts
+		@notification_receipts = current_user.mailbox.receipts.paginate(page: params[:page], per_page: 15).order('created_at desc')
 	end
 	def show
 		@notification_receipt = Mailboxer::Receipt.find(params[:id])

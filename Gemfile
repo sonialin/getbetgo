@@ -87,7 +87,7 @@ gem 'simple_form'
 gem 'public_activity'
 
 # Use mailboxer to enable sending notifications
-gem 'mailboxer'
+gem 'mailboxer', '~> 0.12.1'
 
 # Use best_in_place for inline editing
 gem 'best_in_place', github: 'bernat/best_in_place'

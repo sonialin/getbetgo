@@ -96,7 +96,7 @@ GEM
     mail_form (1.5.0)
       actionmailer (>= 3.2, < 5)
       activemodel (>= 3.2, < 5)
-    mailboxer (0.12.0)
+    mailboxer (0.12.1)
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
@@ -225,7 +225,7 @@ DEPENDENCIES
   jquery-rails
   judge (~> 2.0.4)
   mail_form
-  mailboxer
+  mailboxer (~> 0.12.1)
   omniauth
   omniauth-facebook
   omniauth-linkedin

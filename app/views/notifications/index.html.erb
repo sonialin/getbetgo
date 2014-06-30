@@ -4,8 +4,11 @@
 
 	    <!-- Nav tabs -->
 	    <ul class="nav nav-tabs">
-	      <li class="active"><a href="#inbox" data-toggle="tab"><span class="glyphicon glyphicon-inbox">
-	      </span>System</a></li>
+	      <li class="active">
+	      	<a href="#inbox" data-toggle="tab">
+	      		<span class="glyphicon glyphicon-inbox"></span>&nbsp;System
+	      	</a>
+	      </li>
 	    </ul>
 	    <!-- Tab panes -->
 	    <div class="tab-content">
@@ -13,17 +16,25 @@
 	        <div class="list-group">
 	        	<% @notification_receipts.each do |receipt| %>
 		        	<div class="list-group-item<% if receipt.is_read %><%= " read" %><% end %>">
-		        		<%= link_to mark_read_notification_path(receipt), :method => "post" do %>
-			            <span class="name" style="min-width: 120px; display: inline-block;">fundwok</span>
-			            <span class=""><%= receipt.notification.subject %></span>
-			            <span class="badge pull-right"><%= receipt.created_at %></span>
-		            <% end %>
+		        		<div class="row">
+			        		<%= link_to mark_read_notification_path(receipt), :method => "post" do %>
+			        			<div class="col-md-3 notification-cell-name">
+				            	<span class="name">fundwok</span>
+				          	</div>
+				          	<div class="col-md-7 notification-cell-content">
+				            	<span><%= receipt.notification.subject %></span>
+				            </div>
+				            <div class="col-md-2 notification-cell-date">
+				            	<span class="badge pull-right"><%= reformatted_post_datetime(receipt.created_at) %></span>
+				          	</div>
+			            <% end %>
+		          	</div>
 		          </div>
 	          <% end %>
 		    	</div>
 		  	</div>
-		  </div>
-
+		  	<%= will_paginate @notification_receipts, renderer: BootstrapPagination::Rails %>
+		  </div><!-- end tab-content -->
 	  </div><!-- end col-md-10 -->        
   </div><!-- end row -->
 </div><!-- end container -->
