@@ -26,13 +26,13 @@
 							<% end %>
 						<% elsif @notification_receipt.notification.notified_object_type == 'Order' %>
 							<p>
-								<%= @notification_receipt.notification.subject %>:	
+								<%= @notification_receipt.notification.subject %>.	
 							</p>
 							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
 								View
 							<% end %>
 						<% else %>
-							<p><%= @notification_receipt.notification.subject %></p>
+							<p><%= @notification_receipt.notification.subject %>.</p>
 							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
 								View
 							<% end %>
