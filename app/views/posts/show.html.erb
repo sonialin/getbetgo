@@ -9,16 +9,23 @@
             <h3><small>by <%= link_to @post.user.name, @post.user, :class => 'user_name_link' %>
             · <%= reformatted_post_datetime(@post.created_at) %></small></h3>
           </div>
+          <div class="pull-left">
+            <% if current_user && current_user == @post.user %>
+              <%= link_to edit_post_path(@post), :class => "btn btn-default btn-filter" do %>
+                <i class="fa fa-pencil"></i>&nbsp;Edit
+              <% end %>  
+            <% end %>
+          </div>
           <div class="pull-right" id="title-info">
-            <% if @post.category != nil %>
+            <% if (@post.category != nil && @post.category != '') %>
               <%= link_to category_path(@post.category), :class =>"btn btn-default btn-filter" do %>
                 <%= post_category_icon(@post.category) %>&nbsp;
                 <%= @post.category %>
               <% end %>
             <% end %>
-            <% if @post.location != nil %>
+            <% if (@post.location != nil && @post.location != '') %>
               <%= link_to location_path(@post.location), :class =>"btn btn-default btn-filter" do %>
-                <i class="fa fa-map-marker"></i></i>&nbsp;
+                <i class="fa fa-map-marker"></i>&nbsp;
                 <%= @post.location %>
               <% end %>
             <% end %>
