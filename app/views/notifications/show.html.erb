@@ -1,13 +1,53 @@
 <div class="container">
-	<h1>blah</h1>
-	<% if @notification_receipt.notification.notified_object %>
-		<% if @notification_receipt.notification.notified_object_type == 'Bet' %>	
-			<p><%= link_to @notification_receipt.notification.subject, post_bet_path(@notification_receipt.notification.notified_object.post, @notification_receipt.notification.notified_object) %></p>
-		<% else %>
-			<p><%= link_to @notification_receipt.notification.subject, post_bet_path(@notification_receipt.notification.notified_object.bet.post, @notification_receipt.notification.notified_object.bet) %></p>
-		<% end %>
-	<% else %>
-		<p><%= @notification_receipt.notification.subject %></p>
-	<% end %>
-	<%= link_to 'Back to notifications', notifications_path %>
-</div>
+	<div class="row">
+	  <div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">fundwok&nbsp;<span style="font-weight: 400;">(no-reply@fundwok.com)</span></h3>
+			  </div>
+			  <div class="panel-body">
+			  	Hi <%= @notification_receipt.receiver.name %>,
+			  	<br /><br />
+			    <% if @notification_receipt.notification.notified_object %>
+						<% if @notification_receipt.notification.notified_object_type == 'Bet' %>	
+							<p><%= @notification_receipt.notification.subject %>:</p>
+							<p>
+								"<%= @notification_receipt.notification.notified_object.body %>"
+							</p>
+							<%= link_to post_path(@notification_receipt.notification.notified_object.post), :class => 'btn btn-fw' do %>
+								View and Select
+							<% end %>
+						<% elsif @notification_receipt.notification.notified_object_type == 'Update' %>
+							<p><%= @notification_receipt.notification.subject %>:<br />
+									"<%= @notification_receipt.notification.notified_object.body %>"
+							</p>
+							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+								View
+							<% end %>
+						<% elsif @notification_receipt.notification.notified_object_type == 'Order' %>
+							<p>
+								<%= @notification_receipt.notification.subject %>:	
+							</p>
+							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+								View
+							<% end %>
+						<% else %>
+							<p><%= @notification_receipt.notification.subject %></p>
+							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+								View
+							<% end %>
+						<% end %>
+					<% else %>
+						<p><%= @notification_receipt.notification.subject %></p>
+					<% end %>
+					<br /><br />
+					<p>
+						Thanks,<br />
+						fundwok
+					</p>
+			  </div>
+			</div><!-- end panel -->
+			<%= link_to 'Back to notifications', notifications_path %>
+		</div><!-- end col -->
+	</div><!-- end row -->
+</div><!-- end container -->

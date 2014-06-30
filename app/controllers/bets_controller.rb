@@ -47,8 +47,8 @@ class BetsController < ApplicationController
     respond_to do |format|
       if @bet.save
         @bet.create_activity :create, owner: @bet.user, recipient: @post.user
-        @post.user.notify("#{@bet.user.name} applied to your fund #{@post.title}",
-                          "#{@bet.user.name} applied to your fund #{@post.title}", 
+        @post.user.notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
+                          "#{@bet.user.name} applied to your fund '#{@post.title}'", 
                           notified_object = @bet)
         format.html { redirect_to @post, notice: 'Application was successfully submitted!' }
         #format.json { render action: 'show', status: :created, location: @bet }
@@ -118,7 +118,7 @@ class BetsController < ApplicationController
       "METHOD" => "MassPay",
       "CURRENCYCODE" => "USD",
       "RECEIVERTYPE" => "EmailAddress",
-      "L_EMAIL0" => @bet.user.paypal_recipient_accounts.first.email,
+      "L_EMAIL0" => @bet.user.paypal_recipient_account.email,
       "L_AMT0" => ((how_much_in_cents.to_i)/100.to_f).to_s,
       "VERSION" => "51.0"
     }
