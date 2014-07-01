@@ -23,9 +23,11 @@ Hi <%= notification.receipts.find_by_notification_id(notification.id).receiver.n
 		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
 			View
 		<% end %>
-	<% else %>
-		<p><%= notification.subject %>.</p>
-		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+	<% elsif notification.notified_object_type == 'Relationship' %>
+		<p>
+			<%= notification.subject %>.	
+		</p>
+		<%= link_to followers_user_path(notification.receipts.find_by_notification_id(notification.id).receiver), :class => 'btn btn-fw' do %>
 			View
 		<% end %>
 	<% end %>
