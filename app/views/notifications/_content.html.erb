@@ -6,28 +6,28 @@ Hi <%= notification.receipts.find_by_notification_id(notification.id).receiver.n
 		<p>
 			"<%= notification.notified_object.body %>"
 		</p>
-		<%= link_to post_path(notification.notified_object.post), :class => 'btn btn-fw' do %>
+		<%= link_to post_url(notification.notified_object.post), :class => 'btn btn-fw' do %>
 			View and Select
 		<% end %>
 	<% elsif notification.notified_object_type == 'Update' %>
 		<p><%= notification.subject %>:<br />
 				"<%= notification.notified_object.body %>"
 		</p>
-		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+		<%= link_to post_url(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
 			View
 		<% end %>
 	<% elsif notification.notified_object_type == 'Order' %>
 		<p>
 			<%= notification.subject %>.	
 		</p>
-		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+		<%= link_to post_url(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
 			View
 		<% end %>
 	<% elsif notification.notified_object_type == 'Relationship' %>
 		<p>
 			<%= notification.subject %>.	
 		</p>
-		<%= link_to followers_user_path(notification.receipts.find_by_notification_id(notification.id).receiver), :class => 'btn btn-fw' do %>
+		<%= link_to followers_user_url(notification.receipts.find_by_notification_id(notification.id).receiver), :class => 'btn btn-fw' do %>
 			View
 		<% end %>
 	<% end %>

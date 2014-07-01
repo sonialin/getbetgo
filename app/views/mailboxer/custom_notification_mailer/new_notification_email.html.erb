@@ -4,7 +4,6 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Notification from fundwok: <%= @notification.subject.html_safe? ? @notification.subject : strip_tags(@notification.subject) %></h1>
     <%= render :partial => "notifications/content", :locals => {:notification => @notification} %>
   </body>
 </html>
