@@ -1,0 +1,80 @@
+<div class="container">
+<h1>Finances</h1>
+	<!-- tabs -->
+	<div class="tabbable">
+	  <div id="tabs_pages">
+	    <ul class="tabs_pages_ul">
+	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+	      	<div class="finances-tab">
+		      	<a href="/giving">
+			      	<span class="finances-number">$<%= @contributions_sum %></span><br />
+			      	CONTRIBUTIONS
+		      	</a>
+	      	</div>
+	      </li>
+	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
+	      	<div class="finances-tab">
+		      	<a href="/receiving">
+		      		<span class="finances-number">$<%= @credits_sum %></span><br />
+		      		FUNDING RECEIVED
+		      	</a>
+	      	</div>
+	      </li>
+	    </ul>
+	  </div>
+	  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	    <div class="tab-pane active" id="tab2">
+	      <div id="backers_content" class="table-responsive">
+	        <table class="table table-hover">
+						<thead>
+							<td>Credits</td>
+							<td>Post</td>
+							<td>Status</td>
+							<td>Date</td>
+						</thead>
+				  	<tbody>
+				  		<% @bets.each do |bet| %>
+					  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
+					  			<td>
+						  			<% if bet.status == "Funded" %>
+						  				<%= bet.post.price %>
+						  			<% else %>
+						  				0
+						  			<% end %>
+						  		</td>
+						  		<td><%= bet.post.title %></td>
+						  		<td><%= bet.status %></td>
+						  		<td><%= reformatted_post_datetime(bet.created_at) %></td>
+					  		</tr>
+				  		<% end %>
+				  	</tbody>
+					</table>
+					<div id="paginate-bets">
+					  <%= will_paginate @bets, renderer: BootstrapPagination::Rails %>
+					</div>
+	      </div><!-- end backer's content -->
+	    </div><!-- end tab2 -->
+	  </div><!-- end of tab content -->
+	</div><!-- end of tabbable -->
+
+	<h3>Account</h3>
+	<% if @user.paypal_recipient_account %>
+		<%= @user.paypal_recipient_account.email %>
+		<%= link_to 'Destroy', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
+	<% else %>
+		<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
+			<div class="form-group">
+			  <%= f.text_area :email, :class => 'form-control' %><br />
+			  <%= f.submit :class => "btn btn-primary" %>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+
+<script>
+
+$("tr[data-link]").click(function() {
+	window.location = this.dataset.link
+});
+
+</script>

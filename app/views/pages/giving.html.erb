@@ -1,0 +1,64 @@
+<div class="container">
+<h1>Finances</h1>
+	<!-- tabs -->
+	<div class="tabbable">
+	  <div id="tabs_pages">
+	    <ul class="tabs_pages_ul">
+	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
+	      	<div class="finances-tab">
+		      	<a href="/giving">
+			      	<span class="finances-number">$<%= @contributions_sum %></span><br />
+			      	CONTRIBUTIONS
+		      	</a>
+	      	</div>
+	      </li>
+	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+	      	<div class="finances-tab">
+		      	<a href="/receiving">
+		      		<span class="finances-number">$<%= @credits_sum %></span><br />
+		      		FUNDING RECEIVED
+		      	</a>
+	      	</div>
+	      </li>
+	    </ul>
+	  </div>
+	  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	    <div class="tab-pane active" id="tab1">
+	      <div id="description_content" class="table-responsive">
+	        <table class="table table-hover">
+						<% if @posts.count != 0 %>
+							<thead>
+								<td>Amount Claimed</td>
+								<td>Post</td>
+								<td>Service</td>
+								<td>Date</td>
+							</thead>
+					  	<tbody>
+					  		<% @posts.each do |post| %>
+					  			<tr data-link="<%= post_path(post) %>" class="clickable-row">
+										<td><%= post.claimed_fund %></td>
+									  <td><%= link_to post.title, post %></td>
+									  <td><%= post.service %></td>
+									  <td><%= reformatted_post_datetime(post.created_at) %></td>
+									</tr>
+					  		<% end %>
+					  		
+					  	</tbody>
+				  	<% end %>
+				  </table>
+				  <div id="contributions-pagination">
+					  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+					</div>					
+	      </div>
+	    </div>
+	  </div><!-- end of tab content -->
+	</div><!-- end of tabbable -->
+</div>
+
+<script>
+
+$("tr[data-link]").click(function() {
+	window.location = this.dataset.link
+});
+
+</script>

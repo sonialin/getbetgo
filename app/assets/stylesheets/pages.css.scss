@@ -67,6 +67,21 @@
 	top: 30px;
 }
 
+/* finances page */
+.clickable-row {
+	cursor: pointer;
+}
+
+.finances-tab {
+	position: relative;
+	top: -10px;
+}
+
+.finances-number {
+	font-weight: 500;
+	font-size: 1.2em;
+}
+
 @media (max-width: 1200px) {
 	#headline { 
 	  position: relative;

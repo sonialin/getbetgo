@@ -56,10 +56,10 @@
                   <i class="fa fa-user"></i>&nbsp;<%= current_user.name %>
                 <% end %>
               </li>
-		      		<li class="dropdown <%= 'active' if current_page?(finances_path) or current_page?(edit_user_registration_path) %>">
+		      		<li class="dropdown <%= 'active' if (current_page?(giving_path) or current_page?(edit_user_registration_path)) or (current_page?(receiving_path)) %>">
 				        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
 				        <ul class="dropdown-menu">
-                  <li><%= link_to "FINANCES", finances_path %></li>
+                  <li><%= link_to "FINANCES", giving_path %></li>
 				          <li><%= link_to "ACCOUNT SETTINGS", edit_user_registration_path %></li>
 			            <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
 			        	</ul>

@@ -3,7 +3,9 @@ Getbetgo::Application.routes.draw do
   resources :user_infos
 
   get "about" => 'pages#about'
-  get "finances" => 'pages#finances'
+  get "giving" => 'pages#giving'
+  get "receiving" => 'pages#receiving'
+
   resources :relationships
 
   resources :paypal_recipient_accounts, :only => [:create, :destroy]
