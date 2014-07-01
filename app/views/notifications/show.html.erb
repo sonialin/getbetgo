@@ -6,45 +6,7 @@
 			    <h3 class="panel-title">fundwok&nbsp;<span style="font-weight: 400;">(no-reply@fundwok.com)</span></h3>
 			  </div>
 			  <div class="panel-body">
-			  	Hi <%= @notification_receipt.receiver.name %>,
-			  	<br /><br />
-			    <% if @notification_receipt.notification.notified_object %>
-						<% if @notification_receipt.notification.notified_object_type == 'Bet' %>	
-							<p><%= @notification_receipt.notification.subject %>:</p>
-							<p>
-								"<%= @notification_receipt.notification.notified_object.body %>"
-							</p>
-							<%= link_to post_path(@notification_receipt.notification.notified_object.post), :class => 'btn btn-fw' do %>
-								View and Select
-							<% end %>
-						<% elsif @notification_receipt.notification.notified_object_type == 'Update' %>
-							<p><%= @notification_receipt.notification.subject %>:<br />
-									"<%= @notification_receipt.notification.notified_object.body %>"
-							</p>
-							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
-								View
-							<% end %>
-						<% elsif @notification_receipt.notification.notified_object_type == 'Order' %>
-							<p>
-								<%= @notification_receipt.notification.subject %>.	
-							</p>
-							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
-								View
-							<% end %>
-						<% else %>
-							<p><%= @notification_receipt.notification.subject %>.</p>
-							<%= link_to post_path(@notification_receipt.notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
-								View
-							<% end %>
-						<% end %>
-					<% else %>
-						<p><%= @notification_receipt.notification.subject %></p>
-					<% end %>
-					<br /><br />
-					<p>
-						Thanks,<br />
-						fundwok
-					</p>
+			  	<%= render :partial => "notifications/content", :locals => {:notification => @notification_receipt.notification} %>
 			  </div>
 			</div><!-- end panel -->
 			<%= link_to 'Back to notifications', notifications_path %>

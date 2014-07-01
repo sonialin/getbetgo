@@ -1,0 +1,39 @@
+Hi <%= notification.receipts.find_by_notification_id(notification.id).receiver.name %>,
+<br /><br />
+<% if notification.notified_object %>
+	<% if notification.notified_object_type == 'Bet' %>	
+		<p><%= notification.subject %>:</p>
+		<p>
+			"<%= notification.notified_object.body %>"
+		</p>
+		<%= link_to post_path(notification.notified_object.post), :class => 'btn btn-fw' do %>
+			View and Select
+		<% end %>
+	<% elsif notification.notified_object_type == 'Update' %>
+		<p><%= notification.subject %>:<br />
+				"<%= notification.notified_object.body %>"
+		</p>
+		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+			View
+		<% end %>
+	<% elsif notification.notified_object_type == 'Order' %>
+		<p>
+			<%= notification.subject %>.	
+		</p>
+		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+			View
+		<% end %>
+	<% else %>
+		<p><%= notification.subject %>.</p>
+		<%= link_to post_path(notification.notified_object.bet.post), :class => 'btn btn-fw' do %>
+			View
+		<% end %>
+	<% end %>
+<% else %>
+	<p><%= notification.subject %></p>
+<% end %>
+<br /><br />
+<p>
+	Thanks,<br />
+	fundwok
+</p>
