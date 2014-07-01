@@ -57,8 +57,8 @@
 }
 /* mobile version */
 .navbar-default .navbar-toggle {
- /* border-color: #99b709;
-  background-color: #fff;*/
+  border-color: #99b709;
+  background-color: #fff;
 }
 .navbar-default .navbar-toggle:hover {
   /*background-color: #fff;*/
@@ -67,9 +67,10 @@
 /*.navbar-default .navbar-toggle:focus {
   background-color: #99b709;
 }*/
-/*.navbar-default .navbar-toggle .icon-bar {
-  background-color: #fff;
-}*/
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #99b709;
+/*  color: #99b709;*/
+}
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #99b709;

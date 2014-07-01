@@ -1,3 +1,44 @@
+/* Push footer to the bottom */
+
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+#main-wrapper {
+  min-height:100%;
+  position:relative;
+}
+#main-header {
+  padding:10px;
+}
+#main-body {
+  padding-top: 30px;
+  padding-bottom:270px;   /* Height of the footer plus padding */
+}
+#main-footer {
+   bottom:0;
+   width:100%;
+   height:230px;   /* Height of the footer */
+   position:absolute;
+}
+/* end pushing footer */
+
+/* alert */
+.alert-success {
+  background-image: -webkit-linear-gradient(top,#99B709 0,#99B709 100%);
+  color: #fff;
+}
+
+.alert-warning {
+  background-image: -webkit-linear-gradient(top,#e7f992 0,#e7f992 100%);
+  color: #99B709;
+}
+
+/* end alert */
+
 a, a:hover {
   color: #99B709;
 }
