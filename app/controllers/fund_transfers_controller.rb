@@ -2,7 +2,6 @@ class FundTransfersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def success
-  	p params
   	@fund = Fund.new
   	@fund.user = current_user
   	@fund.bet_id = params[:bet_id]

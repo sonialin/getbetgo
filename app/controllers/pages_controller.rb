@@ -1,12 +1,14 @@
 class PagesController < ApplicationController
 	before_filter :authenticate_user!, only: [:contributions, :incoming_funds]
   def about
+    @title = 'About Us'
   end
 
   def contact
   end
 
   def giving
+    @title = 'Finances'
     @user = current_user
     @posts = current_user.posts.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
     @contributions_sum = @user.posts.inject(0) {|sum, post| sum + post.claimed_fund}
@@ -15,6 +17,7 @@ class PagesController < ApplicationController
   end
 
   def receiving
+    @title = 'Finances'
     @user = current_user
     @bets = @user.bets.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
     @contributions_sum = @user.posts.inject(0) {|sum, post| sum + post.claimed_fund}

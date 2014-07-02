@@ -217,15 +217,18 @@ class PostsController < ApplicationController
       follower_id: current_user.id,
       followed_id: @post.user.id
       ).first_or_initialize if current_user
+    @title = @post.title
   end
 
   # GET /posts/new
   def new
+    @title = "Create a New Fund"
     @post = current_user.posts.new
   end
 
   # GET /posts/1/edit
   def edit
+    @title = "Edit Your Fund"
     @post = current_user.posts.friendly.find(params[:id])
   end
 
