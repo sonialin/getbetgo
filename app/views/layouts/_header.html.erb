@@ -33,11 +33,27 @@
             <% end %>
           </li>
       		<li class="dropdown <%= 'active' if (current_page?(giving_path) or current_page?(edit_user_registration_path)) or (current_page?(receiving_path)) %>">
-		        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
+		        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personal-switch">
+              <i class="fa fa-folder" id="personal-close"></i>
+              <i class="fa fa-folder-open" id="personal-open"></i>
+              <span>PERSONAL</span>
+            </a>
 		        <ul class="dropdown-menu">
-              <li><%= link_to "FINANCES", giving_path %></li>
-		          <li><%= link_to "ACCOUNT SETTINGS", edit_user_registration_path %></li>
-	            <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+              <li>
+                <%= link_to giving_path do %>
+                  <i class="fa fa-credit-card"></i>&nbsp;FINANCES
+                <% end %>
+              </li>
+		          <li>
+                <%= link_to edit_user_registration_path do %>
+                  <i class="fa fa-cog"></i>&nbsp;ACCOUNT SETTINGS
+                <% end %>
+              </li>
+	            <li>
+                <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fa fa-hand-o-right"></i>&nbsp;LOGOUT
+                <% end %>
+              </li>
 	        	</ul>
     			</li>
   			<% else %>
@@ -46,4 +62,17 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container -->
-</nav> 
+</nav>
+
+<script>
+  $('#personal-open').hide();
+  $('#personal-close').show();
+  $( "#personal-switch" ).focus(function(){
+    $('#personal-open').show();
+    $('#personal-close').hide();
+  });
+  $( "#personal-switch" ).blur(function(){
+    $('#personal-open').hide();
+    $('#personal-close').show();
+  });
+</script> 
