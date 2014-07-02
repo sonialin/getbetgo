@@ -84,7 +84,7 @@ class BetsController < ApplicationController
   def evaluate_if_selected_limit_reached
     post = Post.friendly.find(params[:post_id])
     selected_bets = post.bets.where(:status => ["Selected", "Submitted", "Funded"]).all
-    if post.quantity == selected_bets.length
+    if post.quantity <= selected_bets.length
       flash[:notice] = "Limit reached"
       redirect_to post
     end

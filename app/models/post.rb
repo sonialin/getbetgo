@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :bets, :dependent => :destroy
   has_many :updates
 
-  before_create :set_title_and_service
+  before_save :set_title_and_service
 
   acts_as_taggable
 
@@ -22,7 +22,6 @@ class Post < ActiveRecord::Base
 
   # after_initialize :default_values
 
-  # attr_accessible :title, :description, :image_url, :price, :quantity, :image
   attr_reader :available_quantity
 
   def slug_candidates
@@ -42,6 +41,10 @@ class Post < ActiveRecord::Base
 
   def total
     self.price * self.quantity
+  end
+
+  def bets_past_selection
+    self.bets.where(:status => ["Selected", "Submitted", "Funded"]).all.count
   end
 
   def beneficiaries

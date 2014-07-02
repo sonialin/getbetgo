@@ -15,7 +15,7 @@
             <% elsif @post.user == current_user %>
               Kudos to you, <%= current_user.name %>!
             <% else %>
-              <h4>Submit Your Bet:</h4>
+              <h4>Submit Your Application:</h4>
               <%= form_for([@post, @bet]) do |f| %>
                 <div class="form-group">
                   <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
@@ -62,7 +62,7 @@
               <% if bet.open? %>
                 <% if @post.user == current_user %>
                   <hr>
-                  <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-success" do %>
+                  <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw" do %>
                     Select
                   <% end %>
                 <% end %>

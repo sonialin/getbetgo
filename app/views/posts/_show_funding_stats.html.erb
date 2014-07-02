@@ -8,10 +8,10 @@
       <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12">
         <div class="row show-funding-metrics-content">
           <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 show-funding-metrics-number">
-            <%= @post.beneficiaries %>
+            <%= @post.bets_past_selection %>
           </div>
           <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 show-funding-metrics-text">
-            Beneficiaries
+            Fund Receivers
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
       <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12">
         <div class="row show-funding-metrics-content">
           <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 show-funding-metrics-number">
-            <%= @post.quantity - @post.beneficiaries %>
+            <%= @post.quantity - @post.bets_past_selection %>
           </div>
           <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 show-funding-metrics-text">
             Spots left
