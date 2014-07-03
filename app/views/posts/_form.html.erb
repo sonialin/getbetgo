@@ -42,7 +42,6 @@
           <%= f.label "Free" %>   
         </div>
       </div>
-
       <div class="form-group">
         <label class="col-md-3 control-label" for="category">Category</label>
         <div class="col-md-7">
@@ -52,9 +51,22 @@
       <div class="form-group">
         <label class="col-md-3 control-label" for="image">Image</label>
         <div class="col-md-7">
-          <%= f.file_field :image %>
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+            <div class="fileinput-new thumbnail" id="post-image-upload" style="width: 200px; height: 150px;">
+              <img data-src="holder.js/100%x100%" alt="<% if @post.image.size == nil %>Preview<% end %>">
+            </div>
+            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+            <div>
+            <span class="btn btn-default btn-file">
+              <span class="fileinput-new">Select image</span>
+              <span class="fileinput-exists">Change</span>
+              <%= f.file_field :image %>
+            </span>
+            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+          </div>
         </div>
       </div>
+
       <div class="form-group">
         <label class="col-md-3 control-label" for="description">Description</label>
         <div class="col-md-8">
@@ -271,3 +283,9 @@
   });
 
 </script>
+
+<style>
+#post-image-upload {
+  background-image: url(<%= @post.image.url(:medium) %>);
+}
+</style>
