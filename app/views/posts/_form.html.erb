@@ -48,6 +48,7 @@
           <%= f.select(:category, [["Business", "Business"], ["Education", "Education"], ["Lifestyle", "Lifestyle"], ["Social Impact", "Social Impact"]], {}, {:class => "form-control"}) %>        
         </div>
       </div>
+      
       <div class="form-group">
         <label class="col-md-3 control-label" for="image">Image</label>
         <div class="col-md-7">
@@ -69,34 +70,26 @@
 
       <div class="form-group">
         <label class="col-md-3 control-label" for="description">Description</label>
-        <div class="col-md-8">
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_area :description, :class=> "form-control", :rows => "5", :validate => true %>
-            </div>
+        <div class="col-md-8"> 
+          <div class="col-md-12">
+            <%= f.text_area :description, :class=> "form-control", :rows => "5", :validate => true %>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <span id="post-description-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-              <span id="post-description-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-            </div>
-          </div>
+          <div class="col-md-12">
+            <span id="post-description-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="post-description-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
+          </div>   
         </div>
       </div>
 
       <div class="form-group">
         <label class="col-md-3 control-label" for="tag_list">Tags</label>
         <div class="col-md-8">
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_field :tag_list, :class=> "form-control", :validate => true, placeholder: "Put on some tags - separated with commas" %>
-            </div>
+          <div class="col-md-12">
+            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, placeholder: "Put on some tags - separated with commas" %>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <span id="post-taglist-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-              <span id="post-taglist-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-            </div>
+          <div class="col-md-12">
+            <span id="post-taglist-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="post-taglist-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>  
           </div>
         </div>
       </div>
@@ -104,16 +97,12 @@
       <div class="form-group">
         <label class="col-md-3 control-label" for="location">Location</label>
         <div class="col-md-8">
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
-            </div>
+          <div class="col-md-12">
+          <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-              <span id="post-location-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-            </div>
+          <div class="col-md-12">
+            <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="post-location-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
           </div>
         </div>
       </div>
