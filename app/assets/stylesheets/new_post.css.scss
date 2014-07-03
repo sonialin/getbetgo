@@ -1,0 +1,62 @@
+.validation-success {
+	color: #99b709;
+}
+
+.validation-failed {
+	color: #ed1c24;
+}
+
+#post-price-ok {
+	display: none;
+}
+
+#post-price-nogood {
+	display: none;
+}
+
+#post-description-ok {
+	display: none;
+}
+
+#post-quantity-nogood {
+	display: none;
+}
+
+#post-quantity-ok {
+	display: none;
+}
+
+#post-description-nogood {
+	display: none;
+}
+
+#post-taglist-ok {
+	display: none;
+}
+
+#post-taglist-nogood {
+	display: none;
+}
+
+#post-location-ok {
+	display: none;
+}
+
+#post-location-nogood {
+	display: none;
+}
+
+#post-title {
+	font-size: 1.3em;
+	font-weight: 500;
+}
+
+.post-form {
+	color: #595959;
+	padding-top: 20px;
+}
+
+.post-form legend {
+	font-size: 2em;
+	color: #595959;
+}

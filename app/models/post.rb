@@ -17,8 +17,10 @@ class Post < ActiveRecord::Base
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true
   validates :description, presence: true
-  validates :price, numericality: {greater_than_or_equal_to: 0.01}
-  validates :quantity, numericality: {:greater_than_or_equal_to => 1}
+  validates :tag_list, presence: true
+  validates :location, presence: true
+  validates :price, numericality: {greater_than_or_equal_to: 5.00}
+  validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
 
   # after_initialize :default_values
 

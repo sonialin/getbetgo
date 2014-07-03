@@ -7,92 +7,114 @@
 } 
 </script>
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="well well-sm">
-      <fieldset>
-        <legend class="text-center">Create a New Fund</legend>
-        <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
-          <% if @post.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="well well-sm post-form">
+  <fieldset>
+    <legend class="text-center"><%= current_user.name %>'s Fund</legend>
+    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-              <ul>
-              <% @post.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-              </ul>
-            </div>
+          <ul>
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
           <% end %>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="title">Title</label>
-            <div class="col-md-8">
-              <div class="col-md-12">
-                <div class="col-md-3">
-                  I am giving
-                </div>
-                <div class="col-md-9">
-                  $<%= f.text_field :price, :class => "form-control post-number-input" %> to
-                  <%= f.text_field :quantity, :class => "form-control post-number-input" %> people
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="col-md-3">
-                  for 
-                </div>
-                <div class="col-md-9">
-                  <div class="col-md-12">
-                    <%= f.text_field :service, :class => "form-control", :id => "service" %>
-                  </div>
-                  <div class="col-md-12">
-                    <%= f.check_box :free, :id => "free-checkbox" %>
-                    <%= f.label "Free" %>
-                  </div>
-                </div>
-              </div>  
-            </div>
-          </div>
+          </ul>
+        </div>
+      <% end %>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="title">Title</label>
+        <div class="col-md-8" id="post-title">   
+          I am giving &nbsp;
+          $<%= f.text_field :price, :class => "form-control post-number-input", :validate => true %>
+          <span id="post-price-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+          <span id="post-price-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>    
+           &nbsp; to &nbsp;
+          <%= f.text_field :quantity, :class => "form-control post-number-input", :validate => true %>
+          <span id="post-quantity-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+          <span id="post-quantity-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span> 
+           &nbsp; people
+          for 
+          <br />
+          <br />
+          <%= f.text_field :service, :class => "form-control", :id => "service" %>
+          <%= f.check_box :free, :id => "free-checkbox" %>
+          <%= f.label "Free" %>   
+        </div>
+      </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="category">Category</label>
-            <div class="col-md-8">
-              <%= f.select(:category, [["Business", "Business"], ["Education", "Education"], ["Lifestyle", "Lifestyle"], ["Social Impact", "Social Impact"]], {}, {:class => "form-control"}) %>        
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="category">Category</label>
+        <div class="col-md-7">
+          <%= f.select(:category, [["Business", "Business"], ["Education", "Education"], ["Lifestyle", "Lifestyle"], ["Social Impact", "Social Impact"]], {}, {:class => "form-control"}) %>        
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="image">Image</label>
+        <div class="col-md-7">
+          <%= f.file_field :image %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="description">Description</label>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_area :description, :class=> "form-control", :rows => "5", :validate => true %>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="image">Image</label>
-            <div class="col-md-8">
-              <%= f.file_field :image %>
+          <div class="row">
+            <div class="col-md-12">
+              <span id="post-description-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+              <span id="post-description-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="description">Description</label>
-            <div class="col-md-8">
-              <%= f.text_area :description, :class=> "form-control", :rows => "5" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="tag_list">Tags</label>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :tag_list, :class=> "form-control", :validate => true, placeholder: "Put on some tags - separated with commas" %>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="tag_list">Tags</label>
-            <div class="col-md-8">
-              <%= f.text_field :tag_list, :class => "form-control" %>
+          <div class="row">
+            <div class="col-md-12">
+              <span id="post-taglist-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+              <span id="post-taglist-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label" for="location">Location</label>
-            <div class="col-md-8">
-              <%= f.text_field :location, :class => "form-control", id: "autocomplete", placeholder: "Enter city" %><br />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="location">Location</label>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-md-11 text-right">
-              <%= f.submit "Submit", :class => "btn btn-success btn-lg" %>      
+          <div class="row">
+            <div class="col-md-12">
+              <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+              <span id="post-location-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
             </div>
           </div>
-        <% end %>
-      </fieldset>
-    </div>
-  </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-11 text-right">
+          <%= f.submit "Submit", :class => "btn btn-fw btn-lg" %>      
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
 </div>
+
 
 <script type="text/javascript">
   var autocomplete;
@@ -103,18 +125,143 @@
     );
   }
 
-  $('#post_title').on('blur', function() {
-    judge.validate(document.getElementById('post_title'), {
+  /* function and variables for validation messages */
+  function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+  var beforeDivOk;
+  var beforeDivNoGood;
+  var appendedDivNoGood;
+
+  /* validation for post description */
+  $('#post_description').on('blur', function() {
+    judge.validate(document.getElementById('post_description'), {
       valid: function(element) {
-        element.style.border = '1px solid #98b709';
+        $('#post-description-ok').show();
+        $('#post-description-nogood').hide();
+        $('#post-description-error-message').hide();
       },
       invalid: function(element, messages) {
-        element.style.border = '1px solid red';
-        alert(messages.join(','));
+        $('#post-description-nogood').show();
+        $('#post-description-ok').hide();
+        $('#post-description-success-message').hide();
+
+        beforeDivNoGood = document.getElementById("post-description-nogood");
+        appendedDivNoGood = document.createElement("span");
+        appendedDivNoGood.id = "post-description-error-message";
+        appendedDivNoGood.className = "validation-failed";
+        appendedDivNoGood.innerHTML = " " + messages.join(',');
+        insertAfter(beforeDivNoGood, appendedDivNoGood);
       }
     });
   });
 
+  $('#post_description').on('focus', function() {
+    $('#post-description-ok').hide();
+    $('#post-description-nogood').hide();
+    $('#post-description-success-message').hide();
+    $('#post-description-error-message').hide();
+  });
+
+  /* validation for post tag_list */
+  $('#post_tag_list').on('blur', function() {
+    judge.validate(document.getElementById('post_tag_list'), {
+      valid: function(element) {
+        beforeDiv = document.getElementById("post_tag_list").parentNode;
+        $('#post-taglist-ok').show();
+        $('#post-taglist-nogood').hide();
+        $('#post-taglist-error-message').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-taglist-nogood').show();
+        $('#post-taglist-ok').hide();
+
+        beforeDiv = document.getElementById("post-taglist-nogood");
+        appendedDivNoGood = document.createElement("span");
+        appendedDivNoGood.id = "post-taglist-error-message";
+        appendedDivNoGood.className = "validation-failed";
+        appendedDivNoGood.innerHTML = " " + messages.join(',');
+        insertAfter(beforeDiv, appendedDivNoGood);
+      }
+    });
+  });
+
+  $('#post_tag_list').on('focus', function() {
+    $('#post-taglist-ok').hide();
+    $('#post-taglist-nogood').hide();
+    $('#post-taglist-error-message').hide();
+  });
+
+  /* validation for post location */
+  $('#autocomplete').on('blur', function() {
+    judge.validate(document.getElementById('autocomplete'), {
+      valid: function(element) {
+        beforeDiv = document.getElementById("autocomplete").parentNode;
+        $('#post-location-ok').show();
+        $('#post-location-nogood').hide();
+        $('#post-location-error-message').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-location-nogood').show();
+        $('#post-location-ok').hide();
+
+        beforeDiv = document.getElementById("post-location-nogood");
+        appendedDivNoGood = document.createElement("span");
+        appendedDivNoGood.id = "post-location-error-message";
+        appendedDivNoGood.className = "validation-failed";
+        appendedDivNoGood.innerHTML = " " + messages.join(',');
+        insertAfter(beforeDiv, appendedDivNoGood);
+      }
+    });
+  });
+
+  $('#autocomplete').on('focus', function() {
+    $('#post-location-ok').hide();
+    $('#post-location-nogood').hide();
+    $('#post-location-error-message').hide();
+  });
+
+  /* validation for post price */
+  $('#post_price').on('blur', function() {
+    judge.validate(document.getElementById('post_price'), {
+      valid: function(element) {
+        beforeDiv = document.getElementById("post_price").parentNode;
+        $('#post-price-ok').show();
+        $('#post-price-nogood').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-price-nogood').show();
+        $('#post-price-ok').hide();
+      }
+    });
+  });
+
+  $('#post_price').on('focus', function() {
+    $('#post-price-ok').hide();
+    $('#post-price-nogood').hide();
+  });
+
+  /* validation for post price */
+  $('#post_quantity').on('blur', function() {
+    judge.validate(document.getElementById('post_quantity'), {
+      valid: function(element) {
+        beforeDiv = document.getElementById("post_quantity").parentNode;
+        $('#post-quantity-ok').show();
+        $('#post-quantity-nogood').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-quantity-nogood').show();
+        $('#post-quantity-ok').hide();
+      }
+    });
+  });
+
+  $('#post_quantity').on('focus', function() {
+    $('#post-quantity-ok').hide();
+    $('#post-quantity-nogood').hide();
+  });
+
+  /* free service checkbox */
   $("#free-checkbox").click( function() {
     if( $(this).is(':checked') ) {
       $('#service').attr("disabled", "disabled");
