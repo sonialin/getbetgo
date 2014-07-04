@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
-                            avatar: auth.info.image,
                             password:Devise.friendly_token[0,20]
                           )
       end
