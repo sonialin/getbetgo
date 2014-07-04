@@ -28,8 +28,8 @@
         <div class="brief-desc">
           <div class="media author-info">
             <div class="pull-left">
-              <% if post.user.avatar? %>
-                <%= link_to image_tag(post.user.avatar.url(:medium), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
+              <% if post.user.user_info.avatar? %>
+                <%= link_to image_tag(post.user.user_info.avatar.url(:medium), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
               <% else %>
                 <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
               <% end %>
@@ -42,7 +42,7 @@
           
         </div>
 
-        <div class="author"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{toggle: 'popover', container: 'body', html: 'true', content: "<img src=#{post.user.avatar.url(:thumb)}><br />#{post.user.name}"} %>
+        <div class="author"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{toggle: 'popover', container: 'body', html: 'true', content: "<img src=#{post.user.user_info.avatar.url(:thumb)}><br />#{post.user.name}"} %>
         </div>
         <div class="clear"></div>
 

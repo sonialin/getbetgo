@@ -23,8 +23,8 @@
                 <div class="applicant-listing row">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
                     <div class="applicant-avatar-block">
-                    <% if bet.user.avatar? %>
-                      <%= link_to image_tag(bet.user.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
+                    <% if bet.user.user_info.avatar? %>
+                      <%= link_to image_tag(bet.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
                     <% else %>
                       <%= link_to image_tag("http://placehold.it/60x60", size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
                     <% end %>

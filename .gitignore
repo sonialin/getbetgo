@@ -20,6 +20,7 @@
 /public/system/posts/images
 /public/system/users/avatars
 /public/system/user_infos/cover_photos
+/public/system/user_infos/avatars
 
 # Ignore application configuration
 /config/application.yml

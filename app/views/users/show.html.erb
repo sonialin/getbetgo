@@ -31,9 +31,44 @@
 	<div class="col-lg-8 col-md-6 col-sm-6 cl-xs-8 col-md-offset-2">
   	<div class="row well" id="user-profile-container"> 
       <div class="col-lg-4 text-center">
-      	<% if @user.avatar %>
-					<%= image_tag @user.avatar.url(:medium), :class => 'img-circle', :width => "150px" %>
-				<% end %>
+
+      	<% if @user == current_user %>
+	      	<div class="col-lg-12">
+		      	<span id="user-avatar-upload-switch" class="btn btn-default pull-right">
+							<i class="fa fa-plus"></i>&nbsp;Change Avatar
+						</span>
+					</div>
+	      	<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+		        <div class="fileinput fileinput-new col-lg-12" data-provides="fileinput">
+		        	<div class="col-lg-12">
+		          <div class="fileinput-new img-circle" id="user-avatar-upload" style="width: 160px; height: 160px;">
+		            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.avatar_file_size == nil %>Preview<% end %>">
+		          </div>
+		          <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+		        	</div>
+		          <div id="user-avatar-upload-slide" class="col-lg-12">
+			          <span class="btn btn-default btn-file btn-xs">
+			            <span class="fileinput-new">Select image</span>
+			            <span class="fileinput-exists">Change</span>
+			            <%= f.file_field :avatar %>
+			          </span>
+			          <a href="#" class="btn btn-default fileinput-exists btn-xs" data-dismiss="fileinput">Remove</a>
+			          <%= f.submit "Submit", :class => "btn btn-danger btn-xs"%>
+		        	</div>    
+		        </div>   
+		      <% end %>
+	      <% else %>
+		      <div class="fileinput fileinput-new col-lg-12" data-provides="fileinput">
+	        	<div class="col-lg-12">
+	          <div class="fileinput-new pull-right img-circle" id="user-avatar-upload" style="width: 160px; height: 160px;">
+	            <img data-src="holder.js/100%x100%">
+	          </div>
+	          <div class="fileinput-preview fileinput-exists thumbnail pull-right" style="max-width: 200px; max-height: 150px;"></div>
+	        	</div>
+		      </div>   
+	      <% end %>
+
+	      <div class="col-lg-12">
 				<div class="btn-group" id="user-follow-panel">
 				  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
 				  	<span class="follow-number fw-main-color"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
@@ -42,6 +77,7 @@
 				  	<span class="follow-number fw-main-color"><%= @user.followeds.count %></span><br /><small><% if @user.followeds.count == 1 %>Following<% else %>Followings<% end %></small>
 				  <% end %>
 				</div>
+			</div>
       </div>
       <div class="col-lg-8">
       	<div class="row">
@@ -53,7 +89,7 @@
       			</div>
       			<div class="row">
       				<div class="col-md-12 col-sm-12 col-xs-12">
-		        		<div class="user-profile-location"><% if (@user.user_info.location != nil && @user.user_info.location != "") %><i class="fa fa-map-marker"></i><% end %>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %><% end %>
+		        		<div class="user-profile-location"><% if (@user.user_info.location != nil && @user.user_info.location != "") or (current_user && @user == current_user) %><i class="fa fa-map-marker"></i><% end %>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %><% end %>
 		        		</div>
 	        		</div>
 	        	</div>	
@@ -136,7 +172,16 @@
 		background-image: url(<%= @user_info.cover_photo(:medium) %>);
 	}
 
+	#user-avatar-upload {
+		background-image: url(<%= @user_info.avatar(:medium) %>);
+		background-size: cover;
+	}
+
 	#user-cover-upload-slide {
+		display: none;
+	}
+
+	#user-avatar-upload-slide {
 		display: none;
 	}
 </style>
@@ -152,5 +197,17 @@
       }
 		
 		$( "#user-cover-upload-slide" ).toggle();
+	});
+
+	$('#user-avatar-upload-switch').click(function() {
+		var s = "fa-plus";
+		var r = document.getElementById('user-avatar-upload-switch').innerHTML;
+		if (r.indexOf(s) > -1 ) {
+        $(this).html('<i class="fa fa-minus"></i>&nbsp;Change avatar');
+      } else {
+        $(this).html('<i class="fa fa-plus"></i>&nbsp;Change avatar');
+      }
+		
+		$( "#user-avatar-upload-slide" ).toggle();
 	});
 </script>
