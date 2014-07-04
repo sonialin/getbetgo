@@ -1,24 +1,28 @@
 <div class="jumbotron" id="user-cover">
 	<% if @user == current_user %>
 		<div class="pull-right" id="user-cover-upload-block">
-			<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
-        <div class="fileinput fileinput-new" data-provides="fileinput">
-          <div class="fileinput-new thumbnail" id="user-cover-image-upload" style="width: 200px; height: 150px;">
-            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.cover_photo_file_size == nil %>Preview<% end %>">
-          </div>
-          <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-          <div>
-          <span class="btn btn-default btn-file">
-            <span class="fileinput-new">Select image</span>
-            <span class="fileinput-exists">Change</span>
-            <%= f.file_field :cover_photo %>
-          </span>
-          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-          <%= f.submit "Submit", :class => "btn btn-danger"%> 
-          </div>
-          
-        </div>   
-      <% end %>
+			<span id="user-cover-upload-switch" class="btn btn-default pull-right">
+				<i class="fa fa-plus"></i>&nbsp;Change cover
+			</span>
+			<div id="user-cover-upload-slide">
+				<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+	        <div class="fileinput fileinput-new" data-provides="fileinput">
+	          <div class="fileinput-new thumbnail pull-right" id="user-cover-image-upload" style="width: 160px; height: 120px;">
+	            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.cover_photo_file_size == nil %>Preview<% end %>">
+	          </div>
+	          <div class="fileinput-preview fileinput-exists thumbnail pull-right" style="max-width: 200px; max-height: 150px;"></div>
+	          <div>
+	          <span class="btn btn-default btn-file">
+	            <span class="fileinput-new">Select image</span>
+	            <span class="fileinput-exists">Change</span>
+	            <%= f.file_field :cover_photo %>
+	          </span>
+	          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+	          <%= f.submit "Submit", :class => "btn btn-danger"%> 
+	          </div>
+	        </div>   
+	      <% end %>
+    	</div>
 		</div>
 	<% end %>
 </div>
@@ -131,4 +135,22 @@
 	#user-cover-image-upload {
 		background-image: url(<%= @user_info.cover_photo(:medium) %>);
 	}
+
+	#user-cover-upload-slide {
+		display: none;
+	}
 </style>
+
+<script>
+	$('#user-cover-upload-switch').click(function() {
+		var s = "fa-plus";
+		var r = document.getElementById('user-cover-upload-switch').innerHTML;
+		if (r.indexOf(s) > -1 ) {
+        $(this).html('<i class="fa fa-minus"></i>&nbsp;Change cover');
+      } else {
+        $(this).html('<i class="fa fa-plus"></i>&nbsp;Change cover');
+      }
+		
+		$( "#user-cover-upload-slide" ).toggle();
+	});
+</script>
