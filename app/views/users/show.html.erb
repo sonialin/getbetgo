@@ -4,7 +4,7 @@
 			<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
         <div class="fileinput fileinput-new" data-provides="fileinput">
           <div class="fileinput-new thumbnail" id="user-cover-image-upload" style="width: 200px; height: 150px;">
-            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.cover_photo.size == nil %>Preview Cover Photo<% end %>">
+            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.cover_photo_file_size == nil %>Preview<% end %>">
           </div>
           <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
           <div>
