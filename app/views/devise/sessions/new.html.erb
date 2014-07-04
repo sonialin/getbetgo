@@ -1,19 +1,52 @@
+<div class="page-top-offset">
+</div>
 <div class="container">
-	<h2>Sign in</h2>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="well well-sm">
+        <fieldset>
+          <legend class="text-center">Sign in</legend>
 
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-	  <div><%= f.label :email %><br />
-	  <%= f.email_field :email %></div>
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>	
+						<%= devise_error_messages! %>
+						<div class="form-group">
+          		<label class="col-md-3 control-label" for="email">Email</label>
+          		<div class="col-md-8">
+          			<%= f.email_field :email, :class => "form-control form-group" %>
+          		</div>
+        		</div>
 
-	  <div><%= f.label :password %><br />
-	  <%= f.password_field :password %></div>
+						<div class="form-group">
+          		<label class="col-md-3 control-label" for="password">Password</label>
+          		<div class="col-md-8">
+          			<%= f.password_field :password, :class => "form-control form-group" %>
+          		</div>
+        		</div>          		
 
-	  <% if devise_mapping.rememberable? -%>
-	    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-	  <% end -%>
+        		<% if devise_mapping.rememberable? -%>
+        		<div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-8">
+					      <div class="checkbox">
+					        <label>
+					          <%= f.check_box :remember_me %> Remember me
+					        </label>
+					      </div>
+					    </div>
+					  </div>
+					  <% end -%>
+			  
+					  <div class="form-group">
+	            <div class="col-md-6">
+	              <%= render :partial => "devise/shared/links" %>
+	            </div>
+	            <div class="col-md-6 text-right">
+	              <%= f.submit "Submit", :class => "btn btn-fw btn-lg" %>      
+	            </div>
+	          </div>
 
-	  <div><%= f.submit "Sign in" %></div>
-	<% end %>
-
-	<%= render :partial => "devise/shared/links" %>
+					<% end %>			
+ 				</fieldset>
+      </div>
+    </div>
+  </div>
 </div>
