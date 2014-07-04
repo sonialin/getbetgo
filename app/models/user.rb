@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20]
                           )
+        flash[:avatar_url] = auth.info.image
       end
        
     end
@@ -47,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def create_info
-    UserInfo.create(user_id: self.id, avatar: auth.info.image) 
+    UserInfo.create(user_id: self.id, avatar: flash[:avatar_url]) 
   end
 
   def follow user
