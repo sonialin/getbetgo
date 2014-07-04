@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def create_info
-    UserInfo.create(user_id: self.id) 
+    UserInfo.create(user_id: self.id, avatar: auth.info.image) 
   end
 
   def follow user

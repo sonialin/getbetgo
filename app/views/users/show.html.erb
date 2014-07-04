@@ -42,7 +42,7 @@
 		        <div class="fileinput fileinput-new col-lg-12" data-provides="fileinput">
 		        	<div class="col-lg-12">
 		          <div class="fileinput-new img-circle" id="user-avatar-upload" style="width: 160px; height: 160px;">
-		            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.avatar_file_size == nil %>Preview<% end %>">
+		            <img data-src="holder.js/100%x100%">
 		          </div>
 		          <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
 		        	</div>
@@ -97,7 +97,7 @@
       	</div>
       	<div class="row user-profile-block">
       		<div class="user-edit-block">				
-						<p><em><%= best_in_place_if @user == current_user, @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
+						<p><% if current_user && @user == current_user %>About me: <% end %><em><%= best_in_place_if (current_user && @user == current_user), @user.user_info, :biography, :type => :input, :activator => '#edit-biography' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
 						<% if @user == current_user %>
 							<p><i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %></p>
 							<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %></p>
