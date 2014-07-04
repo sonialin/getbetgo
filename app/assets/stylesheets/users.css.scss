@@ -8,6 +8,11 @@
   margin-bottom: 10px;
 }
 
+#user-cover-upload-block {
+  position: relative;
+  top: -20px;
+}
+
 #user-cover {
   height: 400px;
   position: relative;
@@ -79,8 +84,12 @@
   margin-left: 10px;
 }
 
+#follow-user-clickable-block {
+  height: 110px;
+}
+
 .follow-user-thumbnail-block {
-  margin-top: 110px;
+  
 }
 
 .follow-user-info {
