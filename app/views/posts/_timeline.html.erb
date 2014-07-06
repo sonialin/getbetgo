@@ -20,7 +20,7 @@
                 <div class="form-group">
                   <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
                   
-                  <div id="fund-application-char-count">200 charachter(s) to go..</div><br />
+                  <div id="fund-application-char-count">200 charachters to go</div><br />
 
                   <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
                 </div>
@@ -133,9 +133,9 @@
     else
     {
       if ((limitNum - fieldLEN) > 1) {
-        limitCount.innerHTML = (limitNum - fieldLEN) + ' characters to go.';
+        limitCount.innerHTML = (limitNum - fieldLEN) + ' characters to go';
       } else {
-        limitCount.innerHTML = (limitNum - fieldLEN) + ' character to go.';
+        limitCount.innerHTML = (limitNum - fieldLEN) + ' character to go';
       }
     }
   }
