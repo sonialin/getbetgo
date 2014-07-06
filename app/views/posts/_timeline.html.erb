@@ -18,7 +18,10 @@
               <h4>Submit Your Application:</h4>
               <%= form_for([@post, @bet]) do |f| %>
                 <div class="form-group">
-                  <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
+                  <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
+                  
+                  <div id="fund-application-char-count">200 charachter(s) to go..</div><br />
+
                   <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
                 </div>
               <% end %>
@@ -72,8 +75,10 @@
                   <h4>Submit Your Update:</h4>
                   <%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
                     <div class="form-group">
-                      <%= f.text_area :body, :class => 'form-control', :rows => '3' %><br />
-                      <%= f.submit :class => "btn btn-primary" %>
+                      <%= f.text_area :body, :class => 'form-control', :id => "fund-update", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-update', 'fund-update-char-count', 200);", :onkeydown => "limitTextCount('fund-update', 'fund-update-char-count', 200);" %>
+                  
+                      <div id="fund-update-char-count">200 charachter(s) to go..</div><br />
+                      <%= f.submit :class => "btn btn-fw" %>
                     </div>
                   <% end %>
                 <% end %>
@@ -85,8 +90,8 @@
                   </p>
                   <p>
                     <%= bet.update.body %>
-                    <% if bet.user == current_user %>
-                      <%= button_to receive_post_bet_path(@post, bet), :method => :get, :class => "btn btn-success pull-right" do %>
+                    <% if bet.user == current_user %><br /><br />
+                      <%= button_to receive_post_bet_path(@post, bet), :method => :get, :class => "btn btn-fw pull-right" do %>
                         Claim Fund
                       <% end %>
                     <% end %>
@@ -99,7 +104,7 @@
                     <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.update.created_at) %></small>
                   </p>
                   <p>
-                    <%= bet.update.body %>
+                    <%= bet.update.body %><br /><br />
                     <p class='pull-right'>Funded!</p>
                   </p>
                 <% end %>
@@ -114,3 +119,24 @@
   <!-- /.panel-body -->
 </div>
 <!-- /.panel -->  
+
+<script>
+  function limitTextCount(limitField_id, limitCount_id, limitNum) {
+    var limitField = document.getElementById(limitField_id);
+    var limitCount = document.getElementById(limitCount_id);
+    var fieldLEN = limitField.value.length;
+
+    if (fieldLEN > limitNum)
+    {
+      limitField.value = limitField.value.substring(0, limitNum);
+    }
+    else
+    {
+      if ((limitNum - fieldLEN) > 1) {
+        limitCount.innerHTML = (limitNum - fieldLEN) + ' characters to go.';
+      } else {
+        limitCount.innerHTML = (limitNum - fieldLEN) + ' character to go.';
+      }
+    }
+  }
+</script>
