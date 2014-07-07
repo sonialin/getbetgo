@@ -18,6 +18,8 @@ class Post < ActiveRecord::Base
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true
+  validates :category_id, presence: true
+  validates :subcategory_id, presence: true
   validates :description, presence: true
   validates :tag_list, presence: true
   validates :location, presence: true

@@ -28,3 +28,5 @@ h1 {
 	font-family: 'Titillium Web', sans-serif;
 	color: #ed1c24;
 }
+
+.field_with_errors { display: inline; } 

@@ -12,14 +12,17 @@
     <legend class="text-center"><%= current_user.name %>'s Fund</legend>
     <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
       <% if @post.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-          <ul>
-          <% @post.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
+        <div id="error_explanation" class="form-group">
+          <div class="col-md-8 col-md-offset-3">
+            <h4><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h4>
+          </div>
+          <div class="col-md-8 col-md-offset-3">
+            <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
         </div>
       <% end %>
       <div class="form-group">
@@ -48,7 +51,12 @@
           <%= f.collection_select(:category_id, Category.order(:name), :id, :name, {include_blank: true}, {:class => "form-control"}) %>      
         </div>
       </div>
-      
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="subcategory">Subcategory</label>
+        <div class="col-md-7">
+          <%= f.grouped_collection_select(:subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, {include_blank: true} , {:class => "form-control"}) %>     
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-md-3 control-label" for="image">Image</label>
         <div class="col-md-7">
