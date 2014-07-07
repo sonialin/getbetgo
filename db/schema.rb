@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704075338) do
+ActiveRecord::Schema.define(version: 20140707042514) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -40,6 +40,12 @@ ActiveRecord::Schema.define(version: 20140704075338) do
   end
 
   add_index "bets", ["user_id", "post_id"], name: "udx_bets_on_user_and_post", unique: true
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -150,13 +156,16 @@ ActiveRecord::Schema.define(version: 20140704075338) do
     t.datetime "image_updated_at"
     t.string   "status"
     t.string   "slug"
-    t.string   "category"
     t.string   "location"
     t.boolean  "free"
     t.string   "service"
+    t.integer  "category_id"
+    t.integer  "subcategory_id"
   end
 
+  add_index "posts", ["category_id"], name: "index_posts_on_category_id"
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true
+  add_index "posts", ["subcategory_id"], name: "index_posts_on_subcategory_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "relationships", force: true do |t|
@@ -165,6 +174,15 @@ ActiveRecord::Schema.define(version: 20140704075338) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subcategories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "category_id"
+  end
+
+  add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

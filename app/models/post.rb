@@ -2,6 +2,8 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
   has_many :updates
+  belongs_to :category
+  belongs_to :subcategory
 
   before_save :set_title_and_service
 

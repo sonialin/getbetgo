@@ -27,9 +27,10 @@ class PostsController < ApplicationController
       if params[:category] == "all"
         @posts = Post.all
       elsif params[:category] == "Others"
-        @posts = Post.where(:category => nil)
+        @posts = Post.where(:category_id => nil)
       else
-        @posts = Post.where(:category => params[:category])
+        @category = Category.find_by_name(params[:category])
+        @posts = @category.posts
       end
       @category = params[:category]
     elsif params[:location]
@@ -117,15 +118,17 @@ class PostsController < ApplicationController
         end
       elsif params[:category] == "Others"
         if params[:tag] == ""
-          @posts = Post.where(:category => nil)
+          @posts = Post.where(:category_id => nil)
         else
-          @posts = Post.tagged_with(params[:tag]).where(:category => nil)
+          @posts = Post.tagged_with(params[:tag]).where(:category_id => nil)
         end
       else
         if params[:tag] == ""
-          @posts = Post.where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+          @category = Category.find_by_name(params[:category])
+          @posts = @category.posts
         else
-          @posts = Post.tagged_with(params[:tag]).where(:category => params[:category].split(/(?=[A-Z])/).join(' '))
+          @category = Category.find_by_name(params[:category])
+          @posts = @category.posts.tagged_with(params[:tag])
         end
       end
     end 
@@ -282,6 +285,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :category, :location, :free, :service)
+      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :category_id, :location, :free, :service)
     end
 end

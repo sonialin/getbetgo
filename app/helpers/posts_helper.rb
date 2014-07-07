@@ -16,12 +16,16 @@ module PostsHelper
 	def post_category_icon(category)
 		if category == 'Business'
 			raw("<i class='fa fa-briefcase'></i>")
+		elsif category == 'Creative'
+			raw("<i class='fa fa-video-camera'></i>")
 		elsif category == 'Education'
 			raw("<i class='fa fa-graduation-cap'></i>")
 		elsif category == 'Lifestyle'
 			raw("<i class='fa fa-coffee'></i>")
 		elsif category == 'Social Impact'
 			raw("<i class='fa fa-heart'></i>")
+		elsif category == 'Tech'
+			raw("<i class='fa fa-laptop'></i>")
 		end			
 	end
 end
