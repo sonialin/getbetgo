@@ -20,3 +20,11 @@ $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
 });
+
+/* function and variables for validation messages */
+function insertAfter(referenceNode, newNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  var beforeDivOk;
+  var beforeDivNoGood;
+  var appendedDivNoGood;
+}

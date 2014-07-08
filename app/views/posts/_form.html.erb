@@ -48,13 +48,21 @@
       <div class="form-group">
         <label class="col-md-3 control-label" for="category">Category</label>
         <div class="col-md-7">
-          <%= f.collection_select(:category_id, Category.order(:name), :id, :name, {include_blank: true}, {:class => "form-control"}) %>      
+          <%= f.collection_select(:category_id, Category.order(:name), :id, :name, {include_blank: true, :validate => true}, {:class => "form-control"}) %>    
+        </div>
+        <div class="col-md-1">
+          <span id="post-category-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+          <span id="post-category-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-3 control-label" for="subcategory">Subcategory</label>
         <div class="col-md-7">
-          <%= f.grouped_collection_select(:subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, {include_blank: true} , {:class => "form-control"}) %>     
+          <%= f.grouped_collection_select(:subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, {include_blank: true, :validate => true} , {:class => "form-control"}) %>     
+        </div>
+        <div class="col-md-1">
+          <span id="post-subcategory-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+          <span id="post-subcategory-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
         </div>
       </div>
       <div class="form-group">
@@ -133,14 +141,6 @@
       (document.getElementById('autocomplete')),{ types: ['(regions)'] }
     );
   }
-
-  /* function and variables for validation messages */
-  function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-  }
-  var beforeDivOk;
-  var beforeDivNoGood;
-  var appendedDivNoGood;
 
   /* validation for post description */
   $('#post_description').on('blur', function() {
@@ -248,6 +248,46 @@
   $('#post_price').on('focus', function() {
     $('#post-price-ok').hide();
     $('#post-price-nogood').hide();
+  });
+
+  /* validation for post category */
+  $('#post_category_id').on('blur', function() {
+    judge.validate(document.getElementById('post_category_id'), {
+      valid: function(element) {
+        $('#post-category-ok').show();
+        $('#post-category-nogood').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-category-nogood').show();
+        $('#post-category-ok').hide();
+      }
+    });
+  });
+
+  $('#post_category_id').on('focus', function() {
+    $('#post-category-ok').hide();
+    $('#post-category-nogood').hide();
+    $('#post-subcategory-ok').hide();
+    $('#post-subcategory-nogood').hide();
+  });
+
+  /* validation for post subcategory */
+  $('#post_subcategory_id').on('blur', function() {
+    judge.validate(document.getElementById('post_subcategory_id'), {
+      valid: function(element) {
+        $('#post-subcategory-ok').show();
+        $('#post-subcategory-nogood').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-subcategory-nogood').show();
+        $('#post-subcategory-ok').hide();
+      }
+    });
+  });
+
+  $('#post_subcategory_id').on('focus', function() {
+    $('#post-subcategory-ok').hide();
+    $('#post-subcategory-nogood').hide();
   });
 
   /* validation for post price */

@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :followeds, through: :followed_relationships
 
   validates :name, presence: true
+  validates :email, presence: true
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first

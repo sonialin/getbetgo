@@ -1,3 +1,8 @@
+.post-number-input {
+	display: inline;
+	width: 20%;
+}
+
 .validation-success {
 	color: #99b709;
 }
@@ -11,6 +16,22 @@
 }
 
 #post-price-nogood {
+	display: none;
+}
+
+#post-category-ok {
+	display: none;
+}
+
+#post-category-nogood {
+	display: none;
+}
+
+#post-subcategory-ok {
+	display: none;
+}
+
+#post-subcategory-nogood {
 	display: none;
 }
 
