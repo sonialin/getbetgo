@@ -211,6 +211,7 @@ class PostsController < ApplicationController
   def show
     @bet = Bet.new
     @bets = @post.bets.order("updated_at desc")
+    @reply = Reply.new
     @update = Update.new
     @user_info = @post.user.user_info
     if current_user

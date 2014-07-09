@@ -64,53 +64,38 @@
               <p><%= bet.body %></p>
               <% if bet.open? %>
                 <% if @post.user == current_user %>
-                  <hr>
-                  <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw" do %>
+                  <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
                     Select
                   <% end %>
                 <% end %>
-              <% elsif bet.selected? %>
-                <% if bet.user == current_user %>
-                  <hr>
-                  <h4>Submit Your Update:</h4>
-                  <%= form_for([@post, bet, @update], :url => post_bet_updates_path(@post, bet)) do |f| %>
-                    <div class="form-group">
-                      <%= f.text_area :body, :class => 'form-control', :id => "fund-update", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-update', 'fund-update-char-count', 200);", :onkeydown => "limitTextCount('fund-update', 'fund-update-char-count', 200);" %>
-                  
-                      <div id="fund-update-char-count">200 charachter(s) to go..</div><br />
-                      <%= f.submit :class => "btn btn-fw" %>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% elsif bet.submitted? %>
+              <% end %>
+              <% bet.replies.each do |reply| %>
                 <hr>
-                <% if bet.update %>
-                  <p>
-                    <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.update.created_at) %></small>
-                  </p>
-                  <p>
-                    <%= bet.update.body %>
-                    <% if bet.user == current_user %><br /><br />
-                      <%= button_to receive_post_bet_path(@post, bet), :method => :get, :class => "btn btn-fw pull-right" do %>
-                        Claim Fund
-                      <% end %>
+                <p>
+                  <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
+                </p>
+                <p>
+                  <%= reply.body %><br />
+                  <% if reply.proofs.any? %>
+                    <% reply.proofs.each do |proof| %>
+                      <%= link_to proof.document_file_name, proof.document.url %>
                     <% end %>
-                  </p>
-                <% end %>
-              <% elsif bet.funded? %>
-                <hr>
-                <% if bet.update %>
-                  <p>
-                    <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.update.created_at) %></small>
-                  </p>
-                  <p>
-                    <%= bet.update.body %><br /><br />
-                    <p class='pull-right'>Funded!</p>
-                  </p>
+                  <% end %>
+                </p>
+              <% end %>
+              <% if bet.selected? %>
+                <% if (bet.user == current_user) or (bet.post.user == current_user) %>
+                  <hr>
+                  <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
+                    <%= f.hidden_field :bet_id, value: bet.id %>
+                    <%= f.text_area :body, :class => 'form-control' %><br />
+                    <%= file_field_tag "documents[]", type: :file, multiple: true %><br />
+                    <%= f.submit :class => "btn btn-fw" %>
+                  <% end %>
                 <% end %>
               <% end %>
               <!-- bet snippet ends -->
-            </div>
+            </div><!-- end of timeline-body -->
           </div>
         </li>
       <% end %><!-- bet loop ends -->

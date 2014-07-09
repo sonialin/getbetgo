@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707042514) do
+ActiveRecord::Schema.define(version: 20140708125317) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -168,12 +168,35 @@ ActiveRecord::Schema.define(version: 20140707042514) do
   add_index "posts", ["subcategory_id"], name: "index_posts_on_subcategory_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
+  create_table "proofs", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reply_id"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+  end
+
+  add_index "proofs", ["reply_id"], name: "index_proofs_on_reply_id"
+
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "replies", force: true do |t|
+    t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bet_id"
+    t.integer  "user_id"
+  end
+
+  add_index "replies", ["bet_id"], name: "index_replies_on_bet_id"
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id"
 
   create_table "subcategories", force: true do |t|
     t.string   "name"

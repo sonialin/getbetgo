@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_one :user_info, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_many :bets, :dependent => :destroy
+  has_many :replies
   has_many :orders
   has_many :updates
   has_many :funds

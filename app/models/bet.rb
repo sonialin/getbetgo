@@ -2,6 +2,7 @@ class Bet < ActiveRecord::Base
 	belongs_to :post
 	belongs_to :user
 
+  has_many :replies
   has_one :update
   has_one :fund
   has_one :order

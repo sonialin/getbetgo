@@ -1,5 +1,9 @@
 Getbetgo::Application.routes.draw do
 
+  resources :proofs
+
+  resources :replies
+
   resources :user_infos
 
   get "about" => 'pages#about'

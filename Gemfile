@@ -92,6 +92,9 @@ gem 'mailboxer', '~> 0.12.1'
 # Use best_in_place for inline editing
 gem 'best_in_place', github: 'bernat/best_in_place'
 
+# Use jquery file upload for multiple file upload
+gem "jquery-fileupload-rails"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
