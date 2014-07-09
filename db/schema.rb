@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708125317) do
+ActiveRecord::Schema.define(version: 20140709091219) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -171,14 +171,15 @@ ActiveRecord::Schema.define(version: 20140708125317) do
   create_table "proofs", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "reply_id"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.integer  "documentable_id"
+    t.string   "documentable_type"
   end
 
-  add_index "proofs", ["reply_id"], name: "index_proofs_on_reply_id"
+  add_index "proofs", ["documentable_id", "documentable_type"], name: "index_proofs_on_documentable_id_and_documentable_type"
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

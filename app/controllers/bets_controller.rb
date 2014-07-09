@@ -46,6 +46,11 @@ class BetsController < ApplicationController
 
     respond_to do |format|
       if @bet.save
+        if params[:documents]
+          params[:documents].each { |document|
+            @bet.proofs.create(document: document)
+          }
+        end
         @bet.create_activity :create, owner: @bet.user, recipient: @post.user
         @post.user.notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
                           "#{@bet.user.name} applied to your fund '#{@post.title}'", 

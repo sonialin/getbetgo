@@ -16,11 +16,12 @@
               Kudos to you, <%= current_user.name %>!
             <% else %>
               <h4>Submit Your Application:</h4>
-              <%= form_for([@post, @bet]) do |f| %>
+              <%= form_for([@post, @bet], :html => {multipart: true}) do |f| %>
                 <div class="form-group">
                   <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
                   
                   <div id="fund-application-char-count">200 charachters to go</div><br />
+                  <%= file_field_tag "documents[]", type: :file, multiple: true %><br />
 
                   <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
                 </div>
@@ -62,6 +63,15 @@
             <div class="timeline-body">
               <!-- bet snippet begins; todo: refractor later-->
               <p><%= bet.body %></p>
+              
+              <% if bet.proofs.any? %>
+                <div>
+                  <% bet.proofs.each do |proof| %>
+                    <%= link_to proof.document_file_name, proof.document.url %>
+                  <% end %>
+                </div>
+              <% end %>
+              
               <% if bet.open? %>
                 <% if @post.user == current_user %>
                   <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>

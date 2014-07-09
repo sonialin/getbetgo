@@ -7,6 +7,8 @@ class Bet < ActiveRecord::Base
   has_one :fund
   has_one :order
 
+  has_many :proofs, as: :documentable
+
 	validates :user_id, :uniqueness => { :scope => :post_id,
   :message => "Users may only make one bet per post." }
 
