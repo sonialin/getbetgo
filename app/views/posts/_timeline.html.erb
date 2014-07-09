@@ -56,9 +56,8 @@
           <div class="timeline-panel">
             <div class="timeline-heading">
               <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
-              <p>
-                <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
-              </p>
+              <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
+              <br />
             </div>
             <div class="timeline-body">
               <!-- bet snippet begins; todo: refractor later-->
@@ -67,7 +66,11 @@
               <% if bet.proofs.any? %>
                 <div>
                   <% bet.proofs.each do |proof| %>
-                    <%= link_to proof.document_file_name, proof.document.url %>
+                    <%= link_to proof.document.url do %>
+                      <small>
+                        <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                      </small>
+                    <% end %>
                   <% end %>
                 </div>
               <% end %>
@@ -76,22 +79,34 @@
                 <% if @post.user == current_user %>
                   <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
                     Select
-                  <% end %>
+                  <% end %><br />
+                <% end %>
+              <% elsif bet.selected? %>
+                <% if bet.user == current_user %>
+                  <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
+                      Mark Complete
+                  <% end %><br />
                 <% end %>
               <% end %>
+              
               <% bet.replies.each do |reply| %>
                 <hr>
-                <p>
-                  <small class="text-muted"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
-                </p>
-                <p>
+                <div>
+                  <%= link_to reply.user.name, reply.user %>
+                  <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
+                </div><br />
+                <div>
                   <%= reply.body %><br />
                   <% if reply.proofs.any? %>
                     <% reply.proofs.each do |proof| %>
-                      <%= link_to proof.document_file_name, proof.document.url %>
+                      <%= link_to proof.document.url do %>
+                        <small>
+                          <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                        </small>
+                      <% end %>
                     <% end %>
                   <% end %>
-                </p>
+                </div>
               <% end %>
               <% if bet.selected? %>
                 <% if (bet.user == current_user) or (bet.post.user == current_user) %>

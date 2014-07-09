@@ -24,8 +24,8 @@ Getbetgo::Application.routes.draw do
   resources :posts do
     resources :bets do
       post 'select', on: :member
+      post 'mark_complete', on: :member
       get 'receive', on: :member
-      resources :updates, :only => [:create]
     end
   end
   

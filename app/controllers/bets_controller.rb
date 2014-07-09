@@ -171,6 +171,19 @@ class BetsController < ApplicationController
     # redirect_to @post
   end
 
+  def mark_complete
+    @post = Post.friendly.find(params[:post_id])
+    @bet = @post.bets.find_by_id(params[:id])
+    @bet.status = "Submitted"
+    if @bet.save
+      flash[:notice] = 'You have marked the job complete'
+      redirect_to @post
+    else
+      flash[:notice] = 'Oops, something went wrong. Please try again.'
+      redirect_to @post
+    end
+  end
+
   def payment
   end
 
