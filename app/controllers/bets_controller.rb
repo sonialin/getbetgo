@@ -176,7 +176,11 @@ class BetsController < ApplicationController
     @bet = @post.bets.find_by_id(params[:id])
     @bet.status = "Submitted"
     if @bet.save
-      flash[:notice] = 'You have marked the job complete'
+      @bet.create_activity :mark_complete, owner: @bet.user, recipient: @post.user
+        @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
+                          "#{@bet.user.name} completed the fund '#{@post.title}'", 
+                          notified_object = @bet)
+      flash[:notice] = 'You have marked the fund complete'
       redirect_to @post
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'

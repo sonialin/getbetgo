@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   has_many :bets, :dependent => :destroy
   has_many :replies
   has_many :orders
-  has_many :updates
   has_many :funds
   has_one :paypal_recipient_account
   has_many :follower_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
