@@ -89,7 +89,7 @@
                 <% end %>
               <% end %>
               
-              <% bet.replies.each do |reply| %>
+              <% bet.replies.order("created_at").each do |reply| %>
                 <hr>
                 <div>
                   <%= link_to reply.user.name, reply.user %>

@@ -18,31 +18,81 @@
           <span>There are no applications yet.</span>
         <% else %>
           <div class="row">
-            <% @post.bets.each do |bet| %>
-              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <div class="applicant-listing row">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
-                    <div class="applicant-avatar-block">
-                    <% if bet.user.user_info.avatar? %>
-                      <%= link_to image_tag(bet.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
-                    <% else %>
-                      <%= link_to image_tag("http://placehold.it/60x60", size: "50x50", :class => "img-circle author-thumbnail"), bet.user, :class => "media-object" %>
-                    <% end %>
-                    </div>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-10 applicant-info">
-                    <div class="applicant-name"><%= link_to bet.user.name, bet.user %></div>
-                    <div class="application-date">submitted <%= reformatted_post_datetime(bet.created_at) %></div>
-                  </div>
-                </div>
-              </div>
-            <% end %>            
+            <% @bets.limit(@per_page_bets).each do |bet| %>
+              <%= render :partial => "posts/bet", :locals => {:bet => bet} %>  
+            <% end %>       
           </div><!-- ends row -->
         <% end %>            
-
       </div><!-- end backer's content -->
+      <% if @bets.count > @per_page_bets %>
+        <ul class ="pagination pagination-sm">
+          <li style="display:none;"><a class="bets_page" id="bets_page_previous">&larr; Previous</a></li>  
+          <li class ="active"><a class="bets_page" id="bets_page_1">1</a></li>   
+          <% page_num = 2 %>
+          <% ((@bets.count - 1)/@per_page_bets).times do %>
+            <li><a class="bets_page" id="bets_page_<%= page_num %>"><%= page_num %></a></li>
+          <% page_num += 1 %>
+          <% end %>
+          <li><a class="bets_page" id="bets_page_next">Next &rarr;</a></li>
+        </ul>
+      <% end %>
     </div><!-- end tab2 -->
-
-
   </div><!-- end of tab content -->
 </div><!-- end of tabbable -->
+
+<script>
+  var bets_current_page = 1;
+  var post_id = <%= @post.id %>;
+  var last_bets_page = <%= ((@bets.count*1.0)/@per_page_bets).ceil %>;
+  var page_fetching = false;
+
+  $('.bets_page').click(function() {
+    if(page_fetching) return ;
+
+    page_fetching = true;
+
+    var bets_page_id = $(this).attr('id');
+    var page_to_fetch;
+
+    if(bets_page_id == "bets_page_previous") {
+      page_to_fetch = bets_current_page - 1;
+    }
+    else if(bets_page_id == "bets_page_next") {
+      page_to_fetch = parseInt(bets_current_page) + 1;
+    }
+    else {
+      page_to_fetch = bets_page_id.split('_').pop();
+    }
+
+  $.ajax({
+    url: '/getbets',
+    type: 'POST',
+    data: "post="+post_id+"&page="+page_to_fetch,
+    beforeSend: function(xhr,settings) {
+      xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+      $('#tab2').css({opacity:0.1});
+    },
+    success: function(xhr,settings) {
+      $("#bets_page_"+bets_current_page).parent().removeClass('active');
+      bets_current_page = page_to_fetch;
+      $("#bets_page_"+bets_current_page).parent().addClass('active');
+
+      if(page_to_fetch == last_bets_page) {
+        $('#bets_page_next').parent().hide();
+        $('#bets_page_previous').parent().show();
+      }
+      else if(page_to_fetch == 1) {
+        $('#bets_page_previous').parent().hide();
+        $('#bets_page_next').parent().show();
+      }
+      else {
+        $('#bets_page_previous').parent().show();
+        $('#bets_page_next').parent().show();
+      }
+
+      $('#tab2').css({opacity:1});
+        page_fetching = false;
+      }
+    });
+  });
+</script>

@@ -36,6 +36,7 @@ Getbetgo::Application.routes.draw do
 
   post 'getposts' => 'posts#getposts'
   post 'getuserposts' => 'users#show'
+  post 'getbets' => 'posts#getbets'
 
   root :to => 'posts#index'
   get 'tags/:tag', to: 'posts#index', as: :tag

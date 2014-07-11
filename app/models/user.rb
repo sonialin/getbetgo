@@ -38,6 +38,9 @@ class User < ActiveRecord::Base
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20]
                           )
+        user.user_info.avatar = URI.parse(auth.info.image) if auth.info.image?
+        user.user_info.location = auth.info.location if auth.info.location?
+        return user
       end 
        
     end

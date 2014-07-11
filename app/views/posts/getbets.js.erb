@@ -1,0 +1,4 @@
+$('#backers_content > .row').html('');
+<% @bets.each do |bet| %>
+	$('#backers_content > .row').append('<%= j render :partial => "posts/bet", :locals => {:bet => bet} %>');
+<% end %>

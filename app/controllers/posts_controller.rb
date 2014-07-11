@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
   # before_action :set_gateway
-  before_filter :authenticate_user!, except: [:index, :show, :getposts]
+  before_filter :authenticate_user!, except: [:index, :show, :getposts, :getbets]
 
   # GET /posts
   # GET /posts.json
@@ -209,6 +209,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @per_page_bets = 10
     @bet = Bet.new
     @bets = @post.bets.order("updated_at desc")
     @reply = Reply.new
@@ -221,6 +222,14 @@ class PostsController < ApplicationController
       followed_id: @post.user.id
       ).first_or_initialize if current_user
     @title = @post.title
+  end
+
+  def getbets
+    @per_page_bets = 10
+    @bets = Post.find(params[:post].to_i).bets.order("updated_at desc").offset(@per_page_bets*(params[:page].to_i - 1)).limit(@per_page_bets)
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /posts/new
