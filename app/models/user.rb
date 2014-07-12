@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
                           )
         user.user_info.avatar = URI.parse(auth.info.image) if auth.info.image?
         user.user_info.location = auth.info.location if auth.info.location?
+        user.user_info.save
         return user
       end 
        
