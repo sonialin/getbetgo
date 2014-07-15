@@ -1,7 +1,6 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
-  has_many :updates
   belongs_to :category
   belongs_to :subcategory
 
