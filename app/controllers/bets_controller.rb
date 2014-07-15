@@ -1,7 +1,6 @@
 class BetsController < ApplicationController
-  before_action :set_bet, only: [:show, :edit, :update, :destroy, :receive, :receive_process, :payment, :pay_process]
+  before_action :set_bet, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
   before_action :set_post, only: [:payment, :pay_process]
-  before_filter :evaluate_if_current_user_claim_bet, only: [:receive, :receive_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
 
   # GET /bets
@@ -78,72 +77,12 @@ class BetsController < ApplicationController
     end
   end
 
-  def evaluate_if_current_user_claim_bet
-    post = @bet.post
-    if @bet.user != current_user
-      flash[:notice] = "You can only claim your own fund!"
-      redirect_to post
-    end
-  end
-
   def evaluate_if_selected_limit_reached
     post = Post.friendly.find(params[:post_id])
     selected_bets = post.bets.where(:status => ["Selected", "Submitted", "Funded"]).all
     if post.quantity <= selected_bets.length
       flash[:notice] = "Limit reached"
       redirect_to post
-    end
-  end
-
-  def receive
-  end
-
-  def receive_process
-    if params[:gateway] != "paypal"
-      flash[:notice] = 'Please select a method to receive fund.'
-      redirect_to :controller => :bets, :post_id => @bet.post.id, :id => @bet.id, :action => :receive
-    else
-      send_money(@bet.post.price*100)
-    end
-  end
-
-  def send_money(how_much_in_cents, options = {})
-    # if @bet.user.paypal_recipient_accounts.empty?
-    #   flash[:notice] = 'No account present.'
-    #   redirect_to :controller => :bets, :post_id => @bet.post.id, :id => @bet.id, :action => :receive
-    # end
-
-    credentials = {
-      "USER" => configatron.paypal_username,
-      "PWD" => configatron.paypal_pwd,
-      "SIGNATURE" => configatron.paypal_signature,
-    }
-   
-    params = {
-      "METHOD" => "MassPay",
-      "CURRENCYCODE" => "USD",
-      "RECEIVERTYPE" => "EmailAddress",
-      "L_EMAIL0" => @bet.user.paypal_recipient_account.email,
-      "L_AMT0" => ((how_much_in_cents.to_i)/100.to_f).to_s,
-      "VERSION" => "51.0"
-    }
-   
-    endpoint = "https://api-3t.sandbox.paypal.com"
-    url = URI.parse(endpoint)
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    all_params = credentials.merge(params)
-    stringified_params = all_params.collect { |tuple| "#{tuple.first}=#{CGI.escape(tuple.last)}" }.join("&")
-   
-    response = http.post("/nvp", stringified_params)
-    @result = Rack::Utils.parse_nested_query(response.body)
-
-    if (@result["ACK"]=="Success")
-      flash[:notice] = 'Success!'
-      redirect_to :controller => :fund_transfers, :post_id => @bet.post.id, :bet_id => @bet.id, :action => :success
-    else
-      flash[:notice] = 'Oops, something went wrong. Please try again.'
-      redirect_to :controller => :bets, :post_id => @bet.post.id, :id => @bet.id, :action => :receive
     end
   end
 

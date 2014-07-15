@@ -44,7 +44,6 @@ Getbetgo::Application.routes.draw do
   get 'location/:location', to: 'posts#index', as: :location
 
   get 'posts/:post_id/bets/:id/receive' => 'bets#receive'
-  get 'posts/:post_id/bets/:id/receive_process' => 'bets#receive_process'
 
   mount Judge::Engine => '/judge'
 
