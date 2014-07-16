@@ -29,7 +29,7 @@
           </li>
           <li class="<%= 'active' if controller.controller_name == 'users' %>">
             <%= link_to current_user do %>
-              <i class="fa fa-user"></i>&nbsp;<%= current_user.name %>
+              <i class="fa fa-user"></i>&nbsp;<%= current_user.name %>&nbsp;<span class="badge" style="background-color: #ed1c24;">$<%= current_user.total_credits %></span>
             <% end %>
           </li>
       		<li class="dropdown <%= 'active' if (current_page?(giving_path) or current_page?(edit_user_registration_path)) or (current_page?(receiving_path)) %>">

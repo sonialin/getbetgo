@@ -1,7 +1,8 @@
 class BetsController < ApplicationController
-  before_action :set_bet, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
+  before_action :set_bet, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :mark_complete, :evaluate_if_current_user_mark_complete]
   before_action :set_post, only: [:payment, :pay_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
+  before_filter :evaluate_if_current_user_mark_complete, only: [:mark_complete]
 
   # GET /bets
   # GET /bets.json
@@ -115,7 +116,14 @@ class BetsController < ApplicationController
     @bet = @post.bets.find_by_id(params[:id])
     @bet.status = "Submitted"
     if @bet.save
-      @bet.create_activity :mark_complete, owner: @bet.user, recipient: @post.user
+        fund = Fund.new
+        fund.user = current_user
+        fund.bet_id = @bet.id
+        fund.ip_address = request.remote_ip
+        fund.amount = @post.price
+        fund.status = "Credited"
+        fund.save
+        @bet.create_activity :mark_complete, owner: @bet.user, recipient: @post.user
         @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
                           notified_object = @bet)
@@ -134,6 +142,13 @@ class BetsController < ApplicationController
     if params[:gateway] != "paypal"
       flash[:notice] = 'Please select payment gateway.'
       redirect_to :controller=>:bets, :id => @bet.id, :post_id => @post.id, :action=>:payment
+    end
+  end
+
+  def evaluate_if_current_user_mark_complete
+    if @bet.user != current_user
+      flash[:notice] = "You cannot mark complete others' fund."
+      redirect_to post
     end
   end
 

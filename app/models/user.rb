@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     Relationship.create follower_id: self.id, followed_id: user.id
   end
 
+  def total_credits
+    self.funds.where(:status => "Credited").inject(0) {|sum, fund| sum + fund.amount}
+  end
+
   def mailboxer_email(object)
     return email
   end
