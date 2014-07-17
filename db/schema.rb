@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716150726) do
+ActiveRecord::Schema.define(version: 20140717141655) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20140716150726) do
     t.datetime "updated_at"
     t.integer  "bet_id"
     t.integer  "user_id"
-    t.string   "status"
   end
 
   add_index "funds", ["bet_id"], name: "index_funds_on_bet_id"
@@ -270,5 +269,14 @@ ActiveRecord::Schema.define(version: 20140716150726) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "wallets", force: true do |t|
+    t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "wallets", ["user_id"], name: "index_wallets_on_user_id"
 
 end

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   acts_as_messageable
 
-  after_create :create_info
+  after_create :create_info_and_wallet
 
   has_one :user_info, :dependent => :destroy
   has_many :posts, :dependent => :destroy
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :replies
   has_many :orders
   has_many :funds
+  has_one :wallet
   has_one :paypal_recipient_account
   has_many :follower_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
   has_many :followed_relationships, class_name: 'Relationship', foreign_key: 'follower_id'
@@ -51,16 +52,13 @@ class User < ActiveRecord::Base
     self.followeds.include?(user)
   end
 
-  def create_info
-    UserInfo.create(user_id: self.id) 
+  def create_info_and_wallet
+    UserInfo.create(user_id: self.id)
+    Wallet.create(user_id: self.id, amount: 0) 
   end
 
   def follow user
     Relationship.create follower_id: self.id, followed_id: user.id
-  end
-
-  def total_credits
-    self.funds.where(:status => "Credited").inject(0) {|sum, fund| sum + fund.amount}
   end
 
   def mailboxer_email(object)
