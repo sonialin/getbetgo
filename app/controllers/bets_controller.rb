@@ -101,7 +101,27 @@ class BetsController < ApplicationController
     params.permit!
     @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
-    redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
+    wallet = current_user.wallet
+    if wallet.amount > 0
+      if wallet.amount >= @post.price
+        wallet.amount -= @post.price
+        wallet.save
+        @bet.status = 'Selected'
+        @bet.save
+        order.create_activity :create, owner: @post.user, recipient: @bet.user
+        @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
+                      "#{@post.user.name} selected you on '#{@post.title}'", 
+                      notified_object = order)
+        flash[:notice] = 'Payment made successfully with credits!'
+        redirect_to @post
+      elsif wallet.amount < @post.price
+        @@payment_amount = @post.price - wallet.amount
+        redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
+      end
+    else
+      @@payment_amount = @post.price
+      redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
+    end
     # @bet.select
     # if @bet.status == "Selected"
     #   flash[:notice] = "The bet has been selected."
@@ -137,12 +157,14 @@ class BetsController < ApplicationController
   end
 
   def payment
+    @payment_amount = @@payment_amount
   end
 
   def pay_process
+    @payment_amount = @@payment_amount
     if params[:gateway] != "paypal"
       flash[:notice] = 'Please select payment gateway.'
-      redirect_to :controller=>:bets, :id => @bet.id, :post_id => @post.id, :action=>:payment
+      redirect_to :controller => :bets, :id => @bet.id, :post_id => @post.id, :action => :payment
     end
   end
 

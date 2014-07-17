@@ -41,34 +41,48 @@
 	          </thead>
 	          <tbody>
 	            <tr>
-	              <td class="col-md-9"><em><%= @post.title %></em></h4></td>
+	              <td class="col-md-6"><em><%= @post.title %></em></h4></td>
 	              <td class="col-md-1" style="text-align: center"> 1 </td>
-	              <td class="col-md-1 text-center">$<%= @post.price %></td>
-	              <td class="col-md-1 text-center">$<%= @post.price %></td>
+	              <td class="col-md-3 text-center">$<%= @post.price %></td>
+	              <td class="col-md-2 text-center">$<%= @post.price %></td>
 	            </tr>
 	            <tr>
 	              <td>   </td>
 	              <td>   </td>
 	              <td class="text-right">
-	              <p>
-	                <strong>Subtotal: </strong>
-	              </p>
-	              <p>
-	                <strong>Handling Fee: </strong>
-	              </p></td>
+		              <p>
+		                <strong>Subtotal: </strong>
+		              </p>
+		              <p>
+		                <strong>Handling Fee: </strong>
+		              </p>
+		              <% if @post.user.wallet.amount >0 %>
+		              	<p class="fw-main-color">
+		              		<strong>( Credits:</strong>
+		              	</p>
+		              <% end %>
+	            	</td>
 	              <td class="text-center">
-	              <p>
-	                <strong>$<%= @post.price %></strong>
-	              </p>
-	              <p>
-	                <strong>$0</strong>
-	              </p></td>
+		              <p>
+		                <strong>$<%= @post.price %></strong>
+		              </p>
+		              <p>
+		                <strong>$0</strong>
+		              </p>
+		              <% if @post.user.wallet.amount >0 %>
+		              	<p class="fw-main-color">
+		              		<strong>$<%= @post.user.wallet.amount %> )</strong>
+		              	</p>
+		              <% end %>
+		            </td>
 	            </tr>
 	            <tr>
-	              <td>Pay with <input type="radio" name="gateway" value="paypal">&nbsp;Paypal   </td>
-	              <td>   </td>
+	              <td>
+	              	Pay with <input type="radio" name="gateway" value="paypal">&nbsp;Paypal
+	              </td>
+	              <td></td>
 	              <td class="text-right"><h4><strong>Total: </strong></h4></td>
-	              <td class="text-center text-danger"><h4><strong>$<%= @post.price %></strong></h4></td>
+	              <td class="text-center text-danger"><h4><strong>$<%= @payment_amount %></strong></h4></td>
 	            </tr>
 	          </tbody>
 	        </table>
