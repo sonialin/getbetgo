@@ -24,4 +24,7 @@ class PagesController < ApplicationController
     @credits_sum = @user.bets.where(:status => 'Funded').inject(0) {|sum, bet| sum + bet.post.price}
     @paypal_recipient_account = PaypalRecipientAccount.new 
   end
+
+  def howitworks
+  end
 end
