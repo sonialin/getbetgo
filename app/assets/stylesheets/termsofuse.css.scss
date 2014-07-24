@@ -1,13 +1,13 @@
-#scroll-wrap {
+.scroll-wrap {
   height: 400px; /* This can be any height and everything fills in */
   padding-top: 30px;            
 }
 
-#scroll-heading {
+.scroll-heading {
   margin-top:-30px;    
 }
 
-#scroll-content {
+.scroll-content {
   overflow-y: auto; 
   height: 95%;
   padding: 15px;
@@ -17,6 +17,6 @@
 	font-family: Cambria;
 }
 
-#scroll-content h3 {
+.scroll-content h3 {
 	margin-top: 10px;
 }

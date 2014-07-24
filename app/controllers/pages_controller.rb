@@ -30,4 +30,7 @@ class PagesController < ApplicationController
 
   def termsofuse
   end
+
+  def privacystatement
+  end
 end
