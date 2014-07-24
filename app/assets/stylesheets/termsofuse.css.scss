@@ -1,0 +1,22 @@
+#scroll-wrap {
+  height: 400px; /* This can be any height and everything fills in */
+  padding-top: 30px;            
+}
+
+#scroll-heading {
+  margin-top:-30px;    
+}
+
+#scroll-content {
+  overflow-y: auto; 
+  height: 95%;
+  padding: 15px;
+}
+
+.legal, .legal h3, .legal h4 {
+	font-family: Cambria;
+}
+
+#scroll-content h3 {
+	margin-top: 10px;
+}

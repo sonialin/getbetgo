@@ -27,4 +27,7 @@ class PagesController < ApplicationController
 
   def howitworks
   end
+
+  def termsofuse
+  end
 end

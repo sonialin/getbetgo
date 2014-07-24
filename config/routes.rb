@@ -10,6 +10,7 @@ Getbetgo::Application.routes.draw do
   get "giving" => 'pages#giving'
   get "receiving" => 'pages#receiving'
   get "howitworks" => 'pages#howitworks'
+  get "termsofuse" => 'pages#termsofuse'
 
   resources :relationships
 
