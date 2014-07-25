@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-	before_filter :authenticate_user!, only: [:contributions, :incoming_funds]
+	before_filter :authenticate_user!, only: [:giving, :receiving]
   def about
     @title = 'About Us'
   end
@@ -32,5 +32,8 @@ class PagesController < ApplicationController
   end
 
   def privacystatement
+  end
+
+  def faq
   end
 end

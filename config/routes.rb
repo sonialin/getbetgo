@@ -12,6 +12,7 @@ Getbetgo::Application.routes.draw do
   get "howitworks" => 'pages#howitworks'
   get "termsofuse" => 'pages#termsofuse'
   get "privacystatement" => 'pages#privacystatement'
+  get "faq" => 'pages#faq'
 
   resources :relationships
 
