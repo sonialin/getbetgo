@@ -42,6 +42,4 @@ Getbetgo::Application.configure do
 
   # let Paperclip know to look for the uploaded image file
   Paperclip.options[:command_path] = "/opt/ImageMagick/bin/" 
-
-  config.consider_all_requests_local = false
 end
