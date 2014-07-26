@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div class="modal fade" id="quick-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Hiccups? Ideas? Please tell us!</h4>
+      </div>
+      <div class="modal-body" id="quick-contact-content-box">
+        <div class="modal-margin">
+          <div class="social-box" id="quick-contact-header">
+            <div id="quick-contact-header-text">
+              <h4>Whatever you care about</h4>
+              <h2>We're on it</h2>
+            </div>     
+          </div>
+          <div class="main">  
+            <%= form_for @contact do |f| %>
+              <div><%= f.label :name %><br />
+              <%= f.text_field :name, :class => "form-control form-group" %></div>
+              <div><%= f.label :email %><br />
+              <%= f.text_field :email, :class => "form-control form-group" %></div>
+              <div><%= f.label :message %><br />
+              <%= f.text_area :message, :class => "form-control form-group", :rows => '5' %></div>
+            <span class="clearfix"></span>  
+          </div>
+          <div class="login-footer">
+            <div class="row">
+              <div class="col-xs-6 col-md-6 pull-left">
+                <div class="login-help">
+                  Can't wait?<br />Perhaps <a href="/faq">FAQ</a> can help you!
+                </div>      
+              </div>
+              <div class="col-xs-6 col-md-6">   
+                <%= f.submit "Submit", :class => "btn btn-fw btn-lg pull-right" %>           
+                <% end %><!-- end form -->  
+              </div>
+            </div>
+          </div>              
+        </div>         
+      </div><!-- end modal body -->
+    </div><!-- end modal content -->
+  </div><!-- end modal dialog -->
+</div><!-- end modal fade -->

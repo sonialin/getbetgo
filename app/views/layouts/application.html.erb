@@ -32,6 +32,7 @@
 
       <div id="main-body" class="theme-background">
         <%= render "layouts/signin" %><!-- signin modal -->
+        <%= render "layouts/quickcontact" %><!-- contact modal -->
         <%= render "layouts/alertbox" %>
       	<%= yield %>
       </div>
@@ -41,6 +42,14 @@
       </div>
 
     </div>
+
+    <%= link_to "#quick-contact", :data => {:toggle=>"modal"} do %>
+      <div id="contact-tab" class="btn">
+        <span id="contact-tab-text">
+          <i class="fa fa-bell-o fa-2x"></i>
+        </span>
+      </div>
+    <% end %>
 
     <script>
       $('.user-info-hover').popover({trigger: 'hover'});

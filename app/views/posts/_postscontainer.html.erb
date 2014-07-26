@@ -30,9 +30,9 @@
   <% end %>
  
   <% if @next_page %>
-		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:block; width: 95%;">More posts</div>
+		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:block; width: 95%;">More Funds</div>
   <% else %>
-		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:none;">More posts</div>
+		<div id="load_more_posts<% if user_posts %><%= "_user" %><% end %>" class="btn btn-default btn-lg" style ="display:none;">More Funds</div>
   <% end %>  
 </div>
 
@@ -85,7 +85,7 @@
 				  page += 1;
 				  loading_posts = false;
 				  if ($("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").length) {
-						$("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").html('More posts').removeClass('disabled');
+						$("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").html('More Funds').removeClass('disabled');
 		    	}
 				}
 	    });

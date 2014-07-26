@@ -1,3 +1,56 @@
 #contact-form, #contact-response {
 	margin-top: 40px;
 }
+
+#contact-tab {
+	bottom: -15%;
+  display: block;
+  height: 150px;
+  right: 20px;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  text-decoration: none;
+  width: 50px;
+  z-index: 2147483647;
+  background: #ffb914;
+  border: 2px solid #ddd;
+}
+
+#contact-tab-text {
+	display: block;
+	position: relative;
+	top: 8px;
+	color: #fff;
+}
+
+a:hover #contact-tab {
+	background: #FFA500;
+}
+
+#quick-contact-header {
+	background-image: url('http://m.niusnews.com/upload/imgs/default/14MayC/0522human/9.jpg');
+	background-position:center;
+	height: 150px;
+	background-size: cover; 
+	filter: grayscale(100%); /* Current draft standard */
+  -webkit-filter: grayscale(100%); /* New WebKit */
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%); 
+  -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
+  filter: gray; /* IE */
+  -webkit-filter: grayscale(1); /* Old WebKit */
+}
+
+#quick-contact-header-text {
+	color: #fff;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+#quick-contact-content-box {
+	padding-top: 0px;
+}
+
+#quick-contact-content-box .login-help a {
+	color: #99B709;
+}
