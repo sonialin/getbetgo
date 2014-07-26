@@ -26,6 +26,7 @@ class PagesController < ApplicationController
   end
 
   def howitworks
+    @post = Post.find_by_title("I am giving $30.0 to 5 people who want to learn coding")
   end
 
   def termsofuse

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717141655) do
+ActiveRecord::Schema.define(version: 20140726120431) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20140717141655) do
     t.string   "service"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.string   "criteria"
   end
 
   add_index "posts", ["category_id"], name: "index_posts_on_category_id"

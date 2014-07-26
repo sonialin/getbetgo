@@ -24,6 +24,7 @@ class Post < ActiveRecord::Base
   validates :location, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 5.00}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
+  validates :criteria, presence: true
 
   # after_initialize :default_values
 
@@ -88,6 +89,6 @@ class Post < ActiveRecord::Base
       if self.service == nil
         self.service = 'Free'
       end
-      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people for ' + self.service
+      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who ' + self.criteria
     end
 end
