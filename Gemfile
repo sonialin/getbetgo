@@ -95,6 +95,9 @@ gem 'best_in_place', github: 'bernat/best_in_place'
 # Use jquery file upload for multiple file upload
 gem "jquery-fileupload-rails"
 
+# Use gaffe for exception handling
+gem 'gaffe'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

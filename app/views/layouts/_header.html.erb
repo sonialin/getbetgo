@@ -16,7 +16,7 @@
         <li class="<%= 'active' if current_page?(howitworks_path) %>"><%= link_to "HOW IT WORKS", howitworks_path %></li>
         <% if user_signed_in? %>        
       		<li class="<%= 'active' if current_page?(new_post_path) %>">
-            <%= link_to 'NEW POST', new_post_path %>
+            <%= link_to 'NEW FUND', new_post_path %>
           </li>
           <li class="<%= 'active' if controller.controller_name == 'notifications' %>">
             <%= link_to notifications_path do %>
