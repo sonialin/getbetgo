@@ -291,7 +291,7 @@ class PostsController < ApplicationController
 
   def upvote
     if current_user.voted_for? @post
-      flash[:notice] = "You have already given your kudos!"
+      @post.unliked_by current_user
     else 
       current_user.likes @post
     end 

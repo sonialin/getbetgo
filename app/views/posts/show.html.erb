@@ -32,7 +32,7 @@
             <div id="title-info">
               <%= link_to upvote_post_path(@post), :method => :post do %>
                 <span class="pull-left btn btn-default" id="like-post">
-                  <% if current_user.voted_for? @post %>
+                  <% if current_user && current_user.voted_for?(@post) %>
                     <span class="fw-main-color">
                       <i class="fa fa-thumbs-up"></i>
                       Kudos
