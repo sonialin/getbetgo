@@ -21,7 +21,7 @@
             </span>
             <span class="pull-right" id="post-updated-time">
               <i class="fa fa-clock-o"></i>
-              updated <%= reformatted_post_datetime(@post.created_at) %>
+              <%= reformatted_post_datetime(@post.created_at) %>
             </span>
           </div>
           
@@ -30,9 +30,24 @@
           <div class="title-content pull-left">
             <h1><%= @post.title %></h1>
             <div id="title-info">
-              <span class="pull-left btn btn-default" id="like-post">
-                <i class="fa fa-thumbs-o-up"></i> Kudos
-              </span>
+              <%= link_to upvote_post_path(@post), :method => :post do %>
+                <span class="pull-left btn btn-default" id="like-post">
+                  <% if current_user.voted_for? @post %>
+                    <span class="fw-main-color">
+                      <i class="fa fa-thumbs-up"></i>
+                      Kudos
+                    </span>
+                  <% else %>
+                    <i class="fa fa-thumbs-o-up"></i>
+                    Kudos
+                  <% end %>
+                  <% if @post.votes_for.size != 0 %>
+                    <span id="number-of-likes">
+                      <%= @post.votes_for.size %>
+                    </span>
+                  <% end %>
+                </span>
+              <% end %>
               <% if (@post.location != nil && @post.location != '') %>
                 <%= link_to location_path(@post.location), :class =>"pull-right", :id => "post-location" do %>
                   <i class="fa fa-map-marker"></i>&nbsp;
@@ -41,13 +56,12 @@
               <% end %>
             </div>
           </div>
-
-        </div>
+        </div><!-- end title-section -->
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <%= render :partial => "posts/show_funding_stats" %>
         </div>
-      </div>
+      </div><!-- end row -->
       
       <hr class="show-funding-content-divider">
 

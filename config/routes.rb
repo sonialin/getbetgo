@@ -27,6 +27,7 @@ Getbetgo::Application.routes.draw do
   end
   
   resources :posts do
+    post 'upvote', on: :member
     resources :bets do
       post 'select', on: :member
       post 'mark_complete', on: :member

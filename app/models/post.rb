@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
   before_save :set_title_and_service
 
   acts_as_taggable
+  acts_as_votable
 
   include PublicActivity::Common
 

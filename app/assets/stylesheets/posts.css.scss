@@ -275,6 +275,18 @@
   bottom: 9px;
 }
 
+a:hover #like-post {
+  color: #99B709;
+}
+
+#number-of-likes {
+  background-color: #a1a1a1;
+  padding: 3px 4px;
+  margin-left: 10px;
+  border-radius: 3px;
+  color: #fff;
+}
+
 .user_name_link {
   color: #99b709;
 }

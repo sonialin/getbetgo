@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :upvote]
   # before_action :set_gateway
   before_filter :authenticate_user!, except: [:index, :show, :getposts, :getbets]
 
@@ -287,6 +287,15 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    if current_user.voted_for? @post
+      flash[:notice] = "You have already given your kudos!"
+    else 
+      current_user.likes @post
+    end 
+    redirect_to @post
   end
 
   private

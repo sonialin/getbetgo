@@ -34,6 +34,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts-as-taggable-on (3.2.6)
       activerecord (>= 3, < 5)
+    acts_as_votable (0.10.0)
     arel (4.0.2)
     aws-sdk (1.42.0)
       json (~> 1.4)
@@ -225,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  acts_as_votable (~> 0.10.0)
   aws-sdk
   best_in_place!
   bootsy

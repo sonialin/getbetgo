@@ -3,10 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  if $('#post_subcategory_id :selected').text()
-    $('#post_subcategory_id').parent().show()
-  else
-    $('#post_subcategory_id').parent().hide()
+  $('#post_subcategory_id').parent().hide()
   subcategories = $('#post_subcategory_id').html()
   $('#post_category_id').change ->
     category = $('#post_category_id :selected').text()

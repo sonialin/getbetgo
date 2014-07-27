@@ -101,6 +101,9 @@ gem 'gaffe'
 # Use bootsy for wysiwyg
 gem 'bootsy'
 
+# Use acts_as_votable to enable liking
+gem 'acts_as_votable', '~> 0.10.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

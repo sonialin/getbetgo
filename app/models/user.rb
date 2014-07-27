@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   acts_as_messageable
+  acts_as_voter
 
   after_create :create_info_and_wallet
 
