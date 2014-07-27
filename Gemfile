@@ -98,6 +98,9 @@ gem "jquery-fileupload-rails"
 # Use gaffe for exception handling
 gem 'gaffe'
 
+# Use bootsy for wysiwyg
+gem 'bootsy'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

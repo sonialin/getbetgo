@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery_ujs
+//= require bootsy
 //= require best_in_place
 //= require underscore
 //= require judge

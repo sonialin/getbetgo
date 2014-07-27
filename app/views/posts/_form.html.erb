@@ -38,7 +38,9 @@
           <span id="post-quantity-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span> 
            &nbsp; people <br />
            who <br />
-           <%= f.text_field :criteria, :class => "form-control" %>  
+          <%= f.text_field :criteria, :class => "form-control", :validate => true %>
+          <span id="post-criteria-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+          <span id="post-criteria-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>  
         </div>
       </div>
       <div class="form-group">
@@ -84,7 +86,7 @@
         <label class="col-md-3 control-label" for="description">Description</label>
         <div class="col-md-8"> 
           <div class="col-md-12">
-            <%= f.text_area :description, :class=> "form-control", :rows => "5", :validate => true %>
+            <%= f.bootsy_area :description, :class=> "form-control", :id => "post_description", :rows => "5", :validate => true, editor_options: {image: false} %>
           </div>
           <div class="col-md-12">
             <span id="post-description-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
@@ -161,7 +163,6 @@
       invalid: function(element, messages) {
         $('#post-description-nogood').show();
         $('#post-description-ok').hide();
-        $('#post-description-success-message').hide();
 
         beforeDivNoGood = document.getElementById("post-description-nogood");
         appendedDivNoGood = document.createElement("span");
@@ -176,8 +177,35 @@
   $('#post_description').on('focus', function() {
     $('#post-description-ok').hide();
     $('#post-description-nogood').hide();
-    $('#post-description-success-message').hide();
     $('#post-description-error-message').hide();
+  });
+
+  /* validation for post criteria */
+  $('#post_criteria').on('blur', function() {
+    judge.validate(document.getElementById('post_criteria'), {
+      valid: function(element) {
+        $('#post-criteria-ok').show();
+        $('#post-criteria-nogood').hide();
+        $('#post-criteria-error-message').hide();
+      },
+      invalid: function(element, messages) {
+        $('#post-criteria-nogood').show();
+        $('#post-criteria-ok').hide();
+
+        beforeDivNoGood = document.getElementById("post-criteria-nogood");
+        appendedDivNoGood = document.createElement("span");
+        appendedDivNoGood.id = "post-criteria-error-message";
+        appendedDivNoGood.className = "validation-failed";
+        appendedDivNoGood.innerHTML = " " + messages.join(',');
+        insertAfter(beforeDivNoGood, appendedDivNoGood);
+      }
+    });
+  });
+
+  $('#post_criteria').on('focus', function() {
+    $('#post-criteria-ok').hide();
+    $('#post-criteria-nogood').hide();
+    $('#post-criteria-error-message').hide();
   });
 
   /* validation for post tag_list */
