@@ -3,13 +3,14 @@
 }
 
 #contact-tab {
-	bottom: -15%;
   display: block;
-  height: 150px;
-  right: 20px;
+  height: 50px;
   margin: 0;
   padding: 0;
+  padding-right: 5px;
   position: fixed;
+  bottom: 30px;
+  right: -5px;
   text-decoration: none;
   width: 50px;
   z-index: 2147483647;

@@ -33,6 +33,9 @@ class PostsController < ApplicationController
         @posts = @category.posts
       end
       @category = params[:category]
+    elsif params[:subcategory]
+      @subcategory = Subcategory.find_by_name(params[:subcategory])
+      @posts = @subcategory.posts
     elsif params[:location]
       @posts = Post.where(:location => params[:location])
       @location = params[:location]

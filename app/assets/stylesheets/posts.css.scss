@@ -236,7 +236,43 @@
 
 /* Post show page */
 #title-info {
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+#post-show-lead {
+  margin-top: 20px;
+}
+
+#post-updated-time {
+  font-size: 0.9em;
+  color: #a1a1a1;
+  position: relative;
+  top: 4px;
+}
+
+#post-categorization {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+#post-location {
+  color: #a1a1a1;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+#title-section .title-content h1 {
+  margin-top: 0px;
+}
+
+#title-section {
+  margin-bottom: 15px;
+}
+
+#like-post {
+  position: relative;
+  bottom: 9px;
 }
 
 .user_name_link {
@@ -719,6 +755,10 @@ a .dismiss-tag {
 }
 
 @media (max-width: 1200px) {
+  .show-funding-metrics-icon {
+    left: -10px;
+  }
+
   .portfolio-selection {
     margin-bottom: 30px;
     left: 0px;
@@ -747,9 +787,24 @@ a .dismiss-tag {
     position: relative;
     left: 17px;
   }
+  #description_content .text_description_content {
+    margin: 0px;
+  }
 }
 
 @media (max-width: 766px) {
+  #description_content .text_description_content {
+    margin: 20px;
+  }
+
+  .show-funding-metrics-icon {
+    left: 0;
+  }
+
+  #title-section .title-content h1 {
+    margin-top: 0;
+  }
+
   .tag-display {
     margin-left: 10%;
   }
@@ -789,5 +844,11 @@ a .dismiss-tag {
 @media (max-width: 680px) {
   #show-funding-metrics {
     right: 2%;
+  }
+}
+
+@media (max-width: 500px) {
+  #description_content .text_description_content {
+    margin: 0px;
   }
 }

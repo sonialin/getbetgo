@@ -4,33 +4,44 @@
       
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" id="title-section">
-          <div class="title-content">
-            <h1><%= @post.title %></h1>
-            <h3><small>by <%= link_to @post.user.name, @post.user, :class => 'user_name_link' %>
-            · <%= reformatted_post_datetime(@post.created_at) %></small></h3>
-          </div>
-          <div class="pull-left">
-            <% if current_user && current_user == @post.user %>
-              <%= link_to edit_post_path(@post), :class => "btn btn-default btn-filter" do %>
-                <i class="fa fa-pencil"></i>&nbsp;Edit
-              <% end %>  
-            <% end %>
-          </div>
-          <div class="pull-right" id="title-info">
-            <% if (@post.category != nil && @post.category != '') %>
-              <%= link_to category_path(@post.category.name), :class =>"btn btn-default btn-filter" do %>
-                <%= post_category_icon(@post.category.name) %>&nbsp;
-                <%= @post.category.name %>
+          
+          <div id="post-show-lead">
+            <span id="post-categorization">
+              <% if (@post.category != nil && @post.category != '') %>  
+                <%= link_to category_path(@post.category.name) do %>
+                  <%= @post.category.name %>
+                <% end %>  
               <% end %>
-            <% end %>
-            <% if (@post.location != nil && @post.location != '') %>
-              <%= link_to location_path(@post.location), :class =>"btn btn-default btn-filter" do %>
-                <i class="fa fa-map-marker"></i>&nbsp;
-                <%= @post.location %>
+              <% if (@post.subcategory != nil && @post.subcategory != '') %>
+                 >
+                <%= link_to subcategory_path(@post.subcategory.name) do %>
+                  <%= @post.subcategory.name %>
+                <% end %>
               <% end %>
-            <% end %>
+            </span>
+            <span class="pull-right" id="post-updated-time">
+              <i class="fa fa-clock-o"></i>
+              updated <%= reformatted_post_datetime(@post.created_at) %>
+            </span>
           </div>
+          
           <hr class="post-content-divider clear">
+
+          <div class="title-content pull-left">
+            <h1><%= @post.title %></h1>
+            <div id="title-info">
+              <span class="pull-left btn btn-default" id="like-post">
+                <i class="fa fa-thumbs-o-up"></i> Kudos
+              </span>
+              <% if (@post.location != nil && @post.location != '') %>
+                <%= link_to location_path(@post.location), :class =>"pull-right", :id => "post-location" do %>
+                  <i class="fa fa-map-marker"></i>&nbsp;
+                  <%= @post.location %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
