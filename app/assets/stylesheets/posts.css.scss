@@ -222,8 +222,15 @@
 .funding-metrics {
   position: relative;
   display: block;
-  left: -8%;
+  right: 10px;
   color: #777777;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.funding-metrics .funding-metrics-cell-middle {
+  position: relative;
+  right: 5px;
 }
 
 .funding-metrics .funding-metrics-number {
@@ -776,11 +783,6 @@ a .dismiss-tag {
     left: 0px;
   }
 
-  .pb-space {
-    width: 100%;
-    left: 0;
-  }
-
   .funding-metrics {
     left: -10px;
   }
@@ -799,14 +801,24 @@ a .dismiss-tag {
     position: relative;
     left: 17px;
   }
+
   #description_content .text_description_content {
     margin: 0px;
   }
 }
 
 @media (max-width: 766px) {
+  .funding-metrics .funding-metrics-cell-middle {
+    right: 0;
+  }
+
   #description_content .text_description_content {
     margin: 20px;
+  }
+
+  .pb-space {
+    width: 104%;
+    left: -2%;
   }
 
   .show-funding-metrics-icon {

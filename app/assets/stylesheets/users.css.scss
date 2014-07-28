@@ -31,6 +31,10 @@
 
 #user-profile-container {
   box-shadow: 1px 1px 10px #444;
+  border-radius: 3px;
+  padding: 15px;
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.85);
 }
 
 #user-follow-panel {
@@ -112,11 +116,14 @@
 
 .follow-metrics-cell {
   padding: 0px;
+  position: relative;
+  right: 10px;
 }
 
-.follow-metrics-button {
-  padding-top: 6px;
-  padding-right: 0;
+.follow-metrics-button .btn {
+  position: relative;
+  top: 8px;
+  right: 8px;
 }
 
 @media (max-width: 1200px) {
@@ -127,10 +134,18 @@
   .thumbnail-cover {
     background-position: 0 30%;
   }
+
+  #user-profile-follow {
+    font-size: 1em;
+  }
+
+  .follow-metrics-button .btn {
+    right: -6px;
+  }
 }
 
 @media (max-width: 900px) {
-
+  
 }
 
 @media (max-width: 766px) {
@@ -141,8 +156,22 @@
   .thumbnail-cover {
     background-position: 0 0;
   }
+
+  #user-profile-follow {
+    font-size: 1.2em;
+  }
 }
 
 @media (max-width: 580px) {
-  
+  #user-profile-follow {
+    font-size: 1em;
+  }
+
+  .follow-metrics-cell {
+    right: 0px;
+  }
+
+  .follow-metrics-button .btn {
+    right: -14px;
+  }
 }

@@ -62,6 +62,10 @@ class User < ActiveRecord::Base
     Relationship.create follower_id: self.id, followed_id: user.id
   end
 
+  def kudos
+    self.posts.inject(0) {|sum, post| sum + post.votes_for.size}
+  end
+
   def mailboxer_email(object)
     return email
   end
