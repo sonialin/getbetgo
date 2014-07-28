@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def kudos
-    self.posts.inject(0) {|sum, post| sum + post.votes_for.size}
+    @kudos ||= self.posts.inject(0) {|sum, post| sum + post.votes_for.size}
   end
 
   def mailboxer_email(object)

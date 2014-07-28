@@ -109,6 +109,23 @@
   margin-top: 40px;
 }
 
+.follow-brief-desc .brief-desc-text {
+  padding-left: 9px;
+  padding-right: 9px;
+  height: 75px;
+  overflow: hidden;
+}
+
+.thumbnail-kudos {
+  position: relative;
+  top: 15px;
+}
+
+.thumbnail-kudos-number {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
 .follow-metrics {
   position: relative;
   left: 2px;
