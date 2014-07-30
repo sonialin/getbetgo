@@ -54,6 +54,30 @@
 	input[type=text] {
   	font-family: 'Handlee', cursive;
 	}
+
+	#homepage-post-price-ok {
+		display: none;
+	}
+
+	#homepage-post-price-nogood {
+		display: none;
+	}
+
+	#homepage-post-quantity-ok {
+		display: none;
+	}
+
+	#homepage-post-quantity-nogood {
+		display: none;
+	}
+
+	#homepage-post-criteria-ok {
+		display: none;
+	}
+
+	#homepage-post-criteria-nogood {
+		display: none;
+	}
 }
 
 .post-number-input {
