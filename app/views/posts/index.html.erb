@@ -67,33 +67,35 @@
 <% if current_user %>
   <section id="homepage-new-fund">
     <div class="container">
-    <div class="row">
-      <%= form_tag new_post_path, :method => 'get', :class => 'form-inline lead-big' do %>
-        <div class="form-group homepage-new-fund-div">
-          <label for="name">I am giving</label>
-          $<span class="homepage-addfund-instruction">at least 5</span>
-          <%= text_field_tag(:price) %>
-          <span id="homepage-post-price-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="homepage-post-price-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-          to
-        </div>
-        <div class="form-group homepage-new-fund-div">
-          <span class="homepage-addfund-instruction">any number</span>
-          <%= text_field_tag(:quantity) %>
-          <span id="homepage-post-quantity-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="homepage-post-quantity-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-          <label for="company"> people</label>
-        </div>
-        <div class="homepage-new-fund-div">
-          <label for="email"> who</label>
-          <span class="homepage-addfund-instruction">criteria</span>
-          <%= text_field_tag(:criteria) %>
-          <span id="homepage-post-criteria-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="homepage-post-criteria-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-        </div>
-        <div>
-          <%= submit_tag "Add Fund", :class => "btn btn-default btn-lg submit", :name => nil %>
-        </div>
+      <div class="row">
+        <%= form_tag new_post_path, :method => 'get', :class => 'form-inline lead-big' do %>
+          <div class="form-group homepage-new-fund-div">
+            <label for="name">I am giving</label>
+            $<span id="instruction1" class="homepage-addfund-instruction">at least 5</span>
+            <%= text_field_tag(:price) %>
+            <span id="homepage-post-price-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="homepage-post-price-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
+            to
+          </div>
+          <div class="form-group homepage-new-fund-div">
+            <span id="instruction2" class="homepage-addfund-instruction">any number</span>
+            <%= text_field_tag(:quantity) %>
+            <span id="homepage-post-quantity-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="homepage-post-quantity-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
+            <label for="company"> people</label>
+          </div>
+          <div class="homepage-new-fund-div">
+            <label for="email"> who</label>
+            <span id="instruction3" class="homepage-addfund-instruction">criteria</span>
+            <%= text_field_tag(:criteria) %>
+            <span id="homepage-post-criteria-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
+            <span id="homepage-post-criteria-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
+          </div>
+          <div>
+            <button class='btn btn-default btn-lg submit'>  
+              <i class="fa fa-send-o"></i> Go
+            </button>
+          </div>
         <% end %>
       </div>
     </div>
@@ -209,9 +211,11 @@
   $('#price').on('blur', function() {
     if ($.isNumeric($(this).val()) && ($(this).val() >= 5)) {
       $('#homepage-post-price-ok').show();
+      $('#instruction1').html("<span class='validation-success input-feedback'>Good!</span>");
       $('#homepage-post-price-nogood').hide();
     } else {
       $('#homepage-post-price-nogood').show();
+      $('#instruction1').html("<span class='validation-failed input-feedback'>Maybe start with 5?</span>");
       $('#homepage-post-price-ok').hide();
     }
   });
@@ -223,11 +227,13 @@
 
   /* validation for post price */
   $('#quantity').on('blur', function() {
-    if ($.isNumeric($(this).val())) {
+    if (($.isNumeric($(this).val()) && ($(this).val() > 0)) && (Math.floor($(this).val()) == $(this).val()) ) {
       $('#homepage-post-quantity-ok').show();
+      $('#instruction2').html("<span class='validation-success input-feedback'>Good!</span>");
       $('#homepage-post-quantity-nogood').hide();
     } else {
       $('#homepage-post-quantity-nogood').show();
+      $('#instruction2').html("<span class='validation-failed input-feedback'>You gotta be kidding me.</span>");
       $('#homepage-post-quantity-ok').hide();
     }
   });
@@ -241,9 +247,11 @@
   $('#criteria').on('blur', function() {
     if ($(this).val()) {
       $('#homepage-post-criteria-ok').show();
+       $('#instruction3').html("<span class='validation-success input-feedback'>Good!</span>");
       $('#homepage-post-criteria-nogood').hide();
     } else {
       $('#homepage-post-criteria-nogood').show();
+      $('#instruction3').html("<span class='validation-failed input-feedback'>What about 'love dogs'? Everyone loves dogs!</span>");
       $('#homepage-post-criteria-ok').hide();
     }
   });
