@@ -238,7 +238,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @title = "Create a New Fund"
-    @post = current_user.posts.new
+    @post = current_user.posts.new(:price => params[:price], :quantity => params[:quantity], :criteria => params[:criteria])
   end
 
   # GET /posts/1/edit
