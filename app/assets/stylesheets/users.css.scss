@@ -41,6 +41,10 @@
   margin-top: 15px;
 }
 
+#user-follow-panel .follow-number {
+  color: #777777;
+}
+
 #user-follow-panel button {
   padding: 5px 10px;
   line-height: 15px;
@@ -76,6 +80,28 @@
   border-top: 1px solid #ffeeff;
   border-bottom: 3px solid #849f08;
   background-color: #dcdcdc;
+}
+
+.user-show-kudos {
+  padding-top: -10px;
+  margin-bottom: 5px;
+}
+
+.user-show-stats {
+  position: relative;
+  top: -10px;
+  right: 10px;
+  float: none;
+  margin: 0 auto;
+}
+
+.user-show-follows {
+  padding-left: 0;
+  padding-right: 0;
+  width: 105%;
+  position: relative;
+  float: none;
+  margin: 0 auto;
 }
 
 .thumbnail-cover {
