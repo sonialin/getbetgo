@@ -14,6 +14,7 @@ Getbetgo::Application.routes.draw do
   get "termsofuse" => 'pages#termsofuse'
   get "privacystatement" => 'pages#privacystatement'
   get "faq" => 'pages#faq'
+  get "comingsoon" => 'pages#comingsoon'
 
   resources :relationships
 
