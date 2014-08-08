@@ -39,7 +39,7 @@ group :doc do
 end
 
 # Use devise for authentication
-gem 'devise', '~> 3.1.0.rc'
+gem 'devise', '~> 3.2.0'
 
 # Use the following gems to enable signup and login thru 3rd party
 gem 'omniauth'
@@ -103,6 +103,9 @@ gem 'bootsy'
 
 # Use acts_as_votable to enable liking
 gem 'acts_as_votable', '~> 0.10.0'
+
+# Use activeadmin for database management
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
