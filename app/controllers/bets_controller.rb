@@ -136,14 +136,6 @@ class BetsController < ApplicationController
     @bet = @post.bets.find_by_id(params[:id])
     @bet.status = "Submitted"
     if @bet.save
-        fund = Fund.new
-        fund.user = current_user
-        fund.bet_id = @bet.id
-        fund.ip_address = request.remote_ip
-        fund.amount = @post.price
-        fund.save
-        current_user.wallet.amount += @post.price
-        current_user.wallet.save
         @bet.create_activity :mark_complete, owner: @bet.user, recipient: @post.user
         @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
