@@ -39,7 +39,7 @@ group :doc do
 end
 
 # Use devise for authentication
-gem 'devise', '~> 3.2.0'
+gem 'devise', '~> 3.2.4'
 
 # Use the following gems to enable signup and login thru 3rd party
 gem 'omniauth'

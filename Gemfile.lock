@@ -277,7 +277,7 @@ DEPENDENCIES
   bootsy
   coffee-rails (~> 4.0.0)
   configatron (~> 3.0.1)
-  devise (~> 3.2.0)
+  devise (~> 3.2.4)
   execjs
   figaro
   friendly_id (~> 5.0.0)
