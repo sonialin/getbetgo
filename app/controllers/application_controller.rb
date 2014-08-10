@@ -10,11 +10,7 @@ class ApplicationController < ActionController::Base
 	# Redirect the user to previous page after login, sign-up, etc
 	def store_location
 	  # store last url - this is needed for post-login redirect to whatever the user last visited.
-	  if (request.fullpath != "/users/sign_in" &&
-	      request.fullpath != "/users/sign_up" &&
-	      !request.fullpath.include?("/users/password") &&
-	      request.fullpath != "/users/sign_out" &&
-	      !request.xhr?) && request.fullpath != "/users/confirmation"
+	  if !devise_controller? && !request.xhr? # don't store ajax calls
 	    session[:previous_url] = request.fullpath 
 	  end
 	end
