@@ -107,6 +107,9 @@ gem 'acts_as_votable', '~> 0.10.0'
 # Use activeadmin for database management
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+# Use new relic for analytics
+gem 'newrelic_rpm'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
