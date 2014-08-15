@@ -146,15 +146,13 @@
         <img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />&nbsp;&nbsp;Fetching funds
       </div>
 
-      <%= render 'postscontainer' , :user_posts => false, :url_to_get_posts => "/getposts", :category => @category %>
+      <%= render 'postscontainer' , :user_posts => false, :url_to_get_posts => "/getposts" %>
   
     </div><!-- end coloum -->
   </div><!-- end row -->
 </div><!-- container -->
 
 <script>
-  tag = "<%= @tag %>";
-  locationn = "<%= @location %>";
 
   $(document).on('click', '#portfolio-filter .btn', function() {
     $('#portfolio-filter .btn').removeClass('current');
@@ -167,12 +165,10 @@
 
     category = $(this).attr('value');
 
-    page = 1;
-
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "category="+category+"&page="+page+"&tag="+tag+"&location="+locationn+"&type=1&offset=0",
+      data: "category="+category+"&type=1&offset=0",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       },
@@ -186,8 +182,8 @@
   $('#posts-container .user-info').popover({trigger: 'hover'});
 
   $('.location-tag-filter').click(function() {
-    tag = "";
-    locationn = "";
+    tag = null;
+    locationn = null;
     $('#filter-display').hide();
     $('#my-posts').html('');
     $('#load_more_posts').hide();
@@ -196,13 +192,13 @@
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "category=all&tag=&location=&type=1&offset=0&filterclose=1",
+      data: "type=1&offset=0&filterclose=1",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       },
       success: function() {
         $('#category-loader').hide();
-        window.history.pushState({},'', "/category/all");
+        window.history.pushState({},'', "/");
       }
     });
   });

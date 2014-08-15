@@ -29,6 +29,29 @@ class Post < ActiveRecord::Base
 
   attr_reader :available_quantity
 
+  def self.filter(params)
+    posts = Post.all
+    posts = posts.tagged_with(params[:tag]) if params[:tag]
+    posts = posts.apply_category_filter(posts, params[:category]) if params[:category]
+    posts = posts.apply_subcategory_filter(posts, params[:subcategory]) if params[:subcategory]
+    posts = posts.apply_location_filter(params[:location]) if params[:location]
+    return posts
+  end
+
+  def self.apply_category_filter(posts, category_name)
+    category = Category.find_by_name(category_name)
+    posts.filter_by_subcategory_ids(category.subcategories.pluck(:id))
+  end
+
+  def self.apply_subcategory_filter(posts, subcategory_name)
+    subcategory = Subcategory.find_by_name(subcategory_name)
+    posts.where(:subcategory_id => subcategory.id)
+  end
+
+  def self.apply_location_filter(location)
+    where(:location => location)
+  end
+
   def slug_candidates
     [
       [:service, :category, :tag_list],

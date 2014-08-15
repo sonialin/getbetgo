@@ -55,4 +55,12 @@ class Bet < ActiveRecord::Base
   def default_values
     self.status ||= 'Open'
   end
+
+  def self.order_by_updated_at_desc
+    order("updated_at desc")
+  end
+
+  def self.filter_by_user(user_id)
+    where(:user_id => user_id)
+  end
 end
