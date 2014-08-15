@@ -4,13 +4,13 @@
 		<input type="hidden" name="business" value="sonialin83-facilitator@gmail.com">
 		<input type="hidden" name="item_name" value="<%= @post.title %>">
 		<input type="hidden" name="return" value="<%= root_url %>transactions/<%= params[:id] %>/success">
-		<input type="hidden" name="cancel_return" value="<%= root_url %>transactions/<%= @post.id %>/failed">
+		<input type="hidden" name="cancel_return" value="<%= root_url %>transactions/<%= params[:id] %>/failed">
 		<input type="hidden" name="currency_code" value="USD">
 		<input name="amount" type="hidden" value="<%= @payment_amount %>">
 		<input name="quantity" type="hidden" value="1">
- </form>
+ 	</form>
  
- <script>
- 	document.frm.submit();
- </script>
+ 	<script>
+ 		document.frm.submit();
+ 	</script>
 <% end %>

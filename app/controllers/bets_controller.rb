@@ -108,10 +108,20 @@ class BetsController < ApplicationController
         wallet.save
         @bet.status = 'Selected'
         @bet.save
+
+        order = Order.new
+        order.user_id = current_user.id
+        order.bet_id = @bet.id
+        order.amount = @post.price
+        order.post_id = @post.id
+        order.credit = @post.price
+        order.save!
+
         order.create_activity :create, owner: @post.user, recipient: @bet.user
         @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
                       "#{@post.user.name} selected you on '#{@post.title}'", 
                       notified_object = order)
+
         flash[:notice] = 'Payment made successfully with credits!'
         redirect_to @post
       elsif wallet.amount < @post.price
