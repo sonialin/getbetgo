@@ -36,12 +36,16 @@
 
 <script>
   var loading_posts = false;
-  var category,page,tag,locationn,user_id,page,type,offset;
+  var category,subcategory,page,tag,locationn,user_id,page,type,offset;
 
   <% unless @category.nil? %>
     category = "<%= @category %>";
     $("#all").removeClass('current');
     $("#<%= @category.split.join %>").addClass('current');
+  <% end %>
+
+  <% unless @subcategory.nil? %>
+    subcategory = "<%= @subcategory %>";
   <% end %>
 
   <% unless @location.nil? %>
@@ -79,6 +83,7 @@
 
 	    var data = "";
 	    if(category) data += "&category="+category;
+	    if(subcategory) data += "&subcategory="+subcategory;
 	    if(user_id) data += "&id="+user_id;
 	    if(page) data += "&page="+(page+1);
 	    if(tag) data += "&tag="+tag;

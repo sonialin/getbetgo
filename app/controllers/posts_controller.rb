@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :check_user, only: [:update, :destroy, :edit]
 
   APPLICANTS_PER_PAGE = 10
-  POSTS_PER_PAGE = 12
+  POSTS_PER_PAGE = 1
 
   # GET /posts
   # GET /posts.json
@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @tag = params[:tag]
     @category = params[:category]
     @location = params[:location]
+    @subcategory = params[:subcategory]
 
     @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids, "%#{city}%", "%#{country}%").order("posts.id desc")
     count = @rec_or_fol_posts.count
