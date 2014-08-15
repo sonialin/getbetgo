@@ -216,6 +216,7 @@ class PostsController < ApplicationController
     @bet = Bet.new
     @bets = @post.bets.order("updated_at desc")
     @reply = Reply.new
+    @modification_request = ModificationRequest.new
     @user_info = @post.user.user_info
     if current_user
       @current_user_bet = @post.bets.where(:user_id => current_user.id)

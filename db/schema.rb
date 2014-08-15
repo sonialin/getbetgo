@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810085806) do
+ActiveRecord::Schema.define(version: 20140815120654) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -164,6 +164,17 @@ ActiveRecord::Schema.define(version: 20140810085806) do
   end
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
+
+  create_table "modification_requests", force: true do |t|
+    t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reply_id"
+    t.integer  "user_id"
+  end
+
+  add_index "modification_requests", ["reply_id"], name: "index_modification_requests_on_reply_id"
+  add_index "modification_requests", ["user_id"], name: "index_modification_requests_on_user_id"
 
   create_table "orders", force: true do |t|
     t.float    "amount"

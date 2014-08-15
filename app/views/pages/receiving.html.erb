@@ -52,6 +52,8 @@
 						  		<td>
 						  			<% if bet.status == "Funded" %>
 						  				Funded
+						  			<% elsif bet.awaiting_modification? %>
+						  				<span class="fw-main-color">Awaiting Your Modification</span>
 						  			<% else %>
 						  				<span class="fw-main-color">Pending</span>
 						  			<% end %>
