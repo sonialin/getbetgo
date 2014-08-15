@@ -1,7 +1,6 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
-  belongs_to :category
   belongs_to :subcategory
 
   before_save :set_title_and_service
@@ -18,7 +17,6 @@ class Post < ActiveRecord::Base
 
 	before_destroy :ensure_not_referenced_by_any_bet
   validates :user_id, presence: true
-  validates :category_id, presence: true
   validates :subcategory_id, presence: true
   validates :description, presence: true
   validates :tag_list, presence: true
@@ -72,6 +70,14 @@ class Post < ActiveRecord::Base
     else
       self.status ||= 'Drafted'
     end
+  end
+
+  def self.filter_by_subcategory_ids(subcategory_ids)
+    where(:subcategory_id => subcategory_ids)
+  end
+
+  def category
+    self.subcategory.category
   end
 
   private
