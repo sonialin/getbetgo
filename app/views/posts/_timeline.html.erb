@@ -38,7 +38,7 @@
         <li class="<%= cycle("timeline-inverted", "") %>" >
           <% if bet.open? %>
             <div class="timeline-badge open">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-paper-plane"></i>
             </div>
           <% elsif bet.selected? %>
             <div class="timeline-badge info">
@@ -87,15 +87,11 @@
                 <% end %>
               <% elsif bet.selected? %>
                 <% if bet.user == current_user %>
-                  <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
-                      Mark Complete
-                  <% end %><br />
-                <% end %>
-              <% elsif bet.submitted? %>
-                <% if @post.user == current_user %>
-                  <%= link_to '#', :method => :post do %>
-                    Ask for Modification
-                  <% end %><br />
+                  <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
+                    <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
+                        Mark Complete
+                    <% end %><br />
+                  <% end %>
                 <% end %>
               <% end %>
               

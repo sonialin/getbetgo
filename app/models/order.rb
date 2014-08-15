@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
 	belongs_to :bet
 
 	include PublicActivity::Common
+	include Tokenable
 
 	after_save :change_status
 
