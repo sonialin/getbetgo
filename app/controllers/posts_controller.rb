@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :upvote]
   # before_action :set_gateway
-  before_filter :authenticate_user!, except: [:index, :show, :getposts, :getbets]
+  before_filter :authenticate_user!, except: [:index, :show, :getbets]
   before_action :check_user, only: [:update, :destroy, :edit]
 
   include PostsHelper

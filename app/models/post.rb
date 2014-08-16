@@ -116,9 +116,7 @@ class Post < ActiveRecord::Base
     end
 
     def set_title_and_service
-      if self.service == nil
-        self.service = 'Free'
-      end
+      self.service = 'Free' if self.service == nil
       self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who ' + self.criteria
     end
 end

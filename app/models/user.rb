@@ -66,6 +66,14 @@ class User < ActiveRecord::Base
     @kudos ||= self.posts.inject(0) {|sum, post| sum + post.votes_for.size}
   end
 
+  def contributions
+    self.posts.joins(:bets).where("bets.status = 'Funded'").sum(:price).to_f
+  end
+
+  def credits
+    self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Funded').sum("posts.price").to_f
+  end
+
   def mailboxer_email(object)
     return email
   end

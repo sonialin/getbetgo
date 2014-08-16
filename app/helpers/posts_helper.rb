@@ -35,7 +35,7 @@ module PostsHelper
     country = request.location.country
 		per_page = POSTS_PER_PAGE
 		followed_ids = current_user.followeds.pluck(:id) if current_user
-    rec_or_fol_posts = posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").offset(@offset).order("posts.id desc")
+    rec_or_fol_posts = posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").order("posts.id desc")
     rec_or_fol_posts_ids = rec_or_fol_posts.pluck(:id)
     rec_or_fol_posts_count = rec_or_fol_posts_ids.count
     other_posts = posts.order("updated_at desc")
@@ -44,7 +44,7 @@ module PostsHelper
     rem_count = page * per_page - rec_or_fol_posts_count
 
     if rem_count > 0
-      other_posts_offset = ((rem_count - 1)/per_page)*per_page
+      other_posts_offset = (rem_count > per_page) ? rem_count - per_page : 0
       other_posts_limit = (rem_count > per_page) ? per_page : rem_count
       other_posts = other_posts.limit(other_posts_limit).offset(other_posts_offset)
     else

@@ -11,8 +11,8 @@ class PagesController < ApplicationController
     @title = 'Finances'
     @user = current_user
     @posts = current_user.posts.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
-    @contributions_sum = @user.posts.inject(0) {|sum, post| sum + post.claimed_fund}
-    @credits_sum = @user.bets.where(:status => 'Funded').inject(0) {|sum, bet| sum + bet.post.price}
+    @contributions_sum = @user.contributions
+    @credits_sum = @user.credits
     @paypal_recipient_account = PaypalRecipientAccount.new 
   end
 
@@ -20,8 +20,8 @@ class PagesController < ApplicationController
     @title = 'Finances'
     @user = current_user
     @bets = @user.bets.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
-    @contributions_sum = @user.posts.inject(0) {|sum, post| sum + post.claimed_fund}
-    @credits_sum = @user.bets.where(:status => ['Funded', 'Submitted']).inject(0) {|sum, bet| sum + bet.post.price}
+    @contributions_sum = @user.contributions
+    @credits_sum = @user.credits
     @paypal_recipient_account = PaypalRecipientAccount.new 
   end
 
