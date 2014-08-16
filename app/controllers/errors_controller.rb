@@ -5,7 +5,7 @@ class ErrorsController < ApplicationController
   # skip_before_filter :authenticate_user!
 
   # Override 'error' layout
-  layout 'application'
+  layout 'errors'
 
   # Render the correct template based on the exception “standard” code.
   # Eg. For a 404 error, the `errors/not_found` template will be rendered.
