@@ -16,14 +16,6 @@
     <% end %>
 <% end %>
 
-<% unless @type.nil? %>
-    type = <%= @type %>;
-<% end %>
-
-<% unless @offset.nil? %>
-    offset = <%= @offset %>;
-<% end %>
-
 <% if @next_page.nil? %>
     <% @next_page = @posts.next_page %>
 <% end %>
