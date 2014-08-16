@@ -28,11 +28,7 @@
         <div class="brief-desc">
           <div class="media author-info">
             <div class="pull-left">
-              <% if post.user.user_info.avatar? %>
-                <%= link_to image_tag(post.user.user_info.avatar.url(:medium), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
-              <% else %>
-                <%= link_to image_tag("http://placehold.it/60x60", size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
-              <% end %>
+              <%= link_to image_tag(post.user.user_info.avatar.url(:medium), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
           </div>
           <div class="media-body align-left">
             <p class="media-heading brief-desc-text">
@@ -42,7 +38,20 @@
           
         </div>
 
-        <div class="author"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{toggle: 'popover', container: 'body', html: 'true', content: "<img src=#{post.user.user_info.avatar.url(:thumb)}><br />#{post.user.name}"} %>
+        <div class="author"><%= link_to post.user.name, post.user, :class => "user-info user-info-hover", data:{ content: "<div class='row'>
+                      <div class='col-md-3'>
+                        <img src=#{post.user.user_info.avatar.url(:thumb)} width=50 class='img-circle user-info-hover-avatar'>
+                      </div>
+                      <div class='col-md-9'>
+                        <span class='user-info-hover-name'>#{post.user.name}</span><br />
+                        <span class='user-info-hover-content'>
+                          #{post.user.posts.size} Funds<br />
+                          #{post.user.followeds.size} Followers
+                        </span>
+                      </div>
+                    </div>"} %>
+
+
         </div>
         <div class="clear"></div>
 
@@ -76,3 +85,16 @@
       </div>
     </div>
   </div>
+
+<script>
+  $('.user-info-hover').each(function () {
+    var $elem = $(this);
+    $elem.popover({
+      placement: 'auto',
+      trigger: 'hover',
+      html: true,
+      container: $elem,
+      animation: true,
+    });
+  });
+</script>  

@@ -169,6 +169,27 @@
   right: 8px;
 }
 
+.user-info-hover .popover-content {
+  padding: 0px;
+}
+
+.user-info-hover .popover {
+  width: 200px;
+}
+
+.user-info-hover .user-info-hover-name {
+  color: #333;
+}
+
+.user-info-hover .user-info-hover-content {
+  color: #777;
+  font-weight: 500;
+}
+
+.user-info-hover .user-info-hover-avatar {
+  margin-top: 5px;
+}
+
 @media (max-width: 1200px) {
   #user-profile-offset-space {
     height: 150px;
