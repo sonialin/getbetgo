@@ -2,8 +2,7 @@
   $('#category-loader').before('<%= j render :partial => "posts/categories" %>');
 <% end %>
 
-<% index = 0 %>
-<% @posts.each do |post| %>
+<% @posts.each_with_index do |post,index| %>
     <% if @post_type %>
 	<% if @post_type[index] == 'r' %>
 	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all nearby"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
@@ -15,25 +14,16 @@
     <% else %>
 	$('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
     <% end %>
-    <% index += 1 %>
-<% end %>
-
-<% if defined? @type %>
-    type = <%= @type %>;
-<% end %>
-
-<% if defined? @offset %>
-    offset = <%= @offset %>;
 <% end %>
 
 <% if @next_page.nil? %>
     <% @next_page = @posts.next_page %>
 <% end %>
 
-<% if not @next_page %>
-  $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").hide();
-<% else %>
+<% if @next_page == true %>
   $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").show();
+<% else %>
+  $("#load_more_posts<% if @user_posts %><%= "_user" %><% end %>").hide();
 <% end %>
 
 $('.user-info-hover').popover({trigger: 'hover'});

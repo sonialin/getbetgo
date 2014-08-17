@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
 	before_action :set_user
 
+  POSTS_PER_PAGE = 12
+
   def show
     @title = @user.name
-    @posts = @user.posts.paginate(page: params[:page], per_page: 12).order("updated_at desc")
+    @posts = @user.posts.paginate(page: params[:page], per_page: POSTS_PER_PAGE).order("updated_at desc")
+    @page = 1
     @user_posts = true
     @user_info = @user.user_info
     

@@ -1,210 +1,26 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :upvote]
   # before_action :set_gateway
-  before_filter :authenticate_user!, except: [:index, :show, :getposts, :getbets]
+  before_filter :authenticate_user!, except: [:index, :show, :getbets]
+  before_action :check_user, only: [:update, :destroy, :edit]
+
+  include PostsHelper
+
+  APPLICANTS_PER_PAGE = 10
 
   # GET /posts
   # GET /posts.json
   def index
-    city = request.location.city
-    country = request.location.country
-
-    per_page = 12
-    followed_ids = [-1]
-
-    if current_user
-      if current_user.followeds.count > 0
-        followed_ids = current_user.followeds.map(&:id)
-      end
-    end
-
-    @category = "all"
-
-    if params[:tag]
-      @posts = Post.tagged_with(params[:tag])
-      @tag = params[:tag]
-    elsif params[:category]
-      if params[:category] == "all"
-        @posts = Post.all
-      elsif params[:category] == "Others"
-        @posts = Post.where(:category_id => nil)
-      else
-        @category = Category.find_by_name(params[:category])
-        @posts = @category.posts
-      end
-      @category = params[:category]
-    elsif params[:subcategory]
-      @subcategory = Subcategory.find_by_name(params[:subcategory])
-      @posts = @subcategory.posts
-    elsif params[:location]
-      @posts = Post.where(:location => params[:location])
-      @location = params[:location]
-    else
-      @posts = Post.all
-    end
-
-    @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids, "%#{city}%", "%#{country}%").order("posts.id desc")
-    count = @rec_or_fol_posts.count
-
-    if count > per_page
-      @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
-      @next_page = true
-      @type = 1
-      @offset = per_page
-    else
-      if count > 0
-        rec_or_fol_posts_ids = @rec_or_fol_posts.map(&:id)
-        @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
-      else
-        @other_posts = @posts.order("updated_at desc")
-      end
-
-      if @other_posts.count > per_page - count
-        @next_page = true
-        @type = 2
-        @offset = per_page - count
-      else
-        @next_page = false
-      end
-
-      @other_posts = @other_posts.limit(per_page - count)
-    end
-
-    @posts = []
-    @post_type = []
-
-    if @rec_or_fol_posts
-      @rec_or_fol_posts.each do |post|
-        @posts << post
-        if (not post.location.nil?) and post.location.include? city and post.location.include? country
-          @post_type << 'r'
-        else
-          @post_type << 'f'
-        end
-      end
-    end
-
-    if @other_posts
-      @other_posts.each do |post|
-        @posts << post
-        @post_type << 'o'
-      end
-    end
+    @posts = Post.filter(params)
+    @tag = params[:tag]
+    @category = params[:category]
+    @location = params[:location]
+    @subcategory = params[:subcategory]
+    page = params[:page] || 1
+    @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
 
     respond_to do |format|
       format.html
-    end
-  end
-
-  # POST /getposts
-  def getposts
-    city = request.location.city
-    country = request.location.country
-
-    per_page = 12
-    followed_ids = [-1]
-
-    if current_user
-      if current_user.followeds.count > 0
-        followed_ids = current_user.followeds.map(&:id)
-      end
-    end
-
-    if params[:location] and params[:location] != ""
-      @posts = Post.where(:location => params[:location])
-    else
-      if params[:category] == "all"
-        if params[:tag] == ""
-          @posts = Post.all
-        else
-          @posts = Post.tagged_with(params[:tag])
-        end
-      elsif params[:category] == "Others"
-        if params[:tag] == ""
-          @posts = Post.where(:category_id => nil)
-        else
-          @posts = Post.tagged_with(params[:tag]).where(:category_id => nil)
-        end
-      else
-        if params[:tag] == ""
-          @category = Category.find_by_name(params[:category])
-          @posts = @category.posts
-        else
-          @category = Category.find_by_name(params[:category])
-          @posts = @category.posts.tagged_with(params[:tag])
-        end
-      end
-    end 
-
-    @type = params[:type].to_i
-    @offset = params[:offset].to_i
-
-    rec_or_fol_posts_ids = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").map(&:id)
-
-    if @type == 1
-      @rec_or_fol_posts = @posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").offset(@offset).order("posts.id desc")
-      count = @rec_or_fol_posts.count
-
-      if count > per_page
-        @rec_or_fol_posts = @rec_or_fol_posts.limit(per_page)
-        @next_page = true
-        @offset += per_page
-      else
-        @type = 2
-        if rec_or_fol_posts_ids.count > 0
-          @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc")
-        else
-          @other_posts = @posts.order("updated_at desc")
-        end
-
-        if @other_posts.count > per_page - count
-          @next_page = true
-          @offset = per_page - count
-        else
-          @next_page = false
-        end
-        @other_posts = @other_posts.limit(per_page - count)
-      end
-
-    elsif @type == 2
-      if rec_or_fol_posts_ids.count > 0
-        @other_posts = @posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids).order("updated_at desc").offset(@offset)
-      else
-        @other_posts = @posts.order("updated_at desc").offset(@offset)
-      end
-      if @other_posts.count > per_page
-        @next_page = true
-        @offset += per_page
-      else
-        @next_page = false
-      end
-
-      @other_posts = @other_posts.limit(per_page)
-    end
-
-    @posts = []
-    @post_type = []
-
-    if @rec_or_fol_posts
-      @rec_or_fol_posts.each do |post|
-        @posts << post
-
-        if (not post.location.nil?) and post.location.include? city and post.location.include? country
-            @post_type << 'r'
-        else
-            @post_type << 'f'
-        end
-      end
-    end
-
-    if @other_posts
-      @other_posts.each do |post|
-        @posts << post
-        @post_type << 'o'
-      end
-    end
-
-    respond_to do |format|
       format.js { render 'index.js.erb' }
     end
   end
@@ -212,15 +28,13 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @per_page_bets = 10
+    @per_page_bets = APPLICANTS_PER_PAGE
     @bet = Bet.new
-    @bets = @post.bets.order("updated_at desc")
+    @bets = @post.bets.order_by_updated_at_desc
     @reply = Reply.new
     @modification_request = ModificationRequest.new
     @user_info = @post.user.user_info
-    if current_user
-      @current_user_bet = @post.bets.where(:user_id => current_user.id)
-    end
+    @current_user_bet = @post.bets.filter_by_user(current_user.id) if current_user
     @relationship = Relationship.where(
       follower_id: current_user.id,
       followed_id: @post.user.id
@@ -229,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def getbets
-    @per_page_bets = 10
+    @per_page_bets = APPLICANTS_PER_PAGE
     @bets = Post.find(params[:post].to_i).bets.order("updated_at desc").offset(@per_page_bets*(params[:page].to_i - 1)).limit(@per_page_bets)
     respond_to do |format|
       format.js
@@ -245,7 +59,6 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @title = "Edit Your Fund"
-    @post = current_user.posts.friendly.find(params[:id])
   end
 
   # POST /posts
@@ -267,7 +80,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    @post = current_user.posts.friendly.find(params[:id])
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -282,7 +94,6 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post = current_user.posts.friendly.find(params[:id])
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url }
@@ -305,8 +116,12 @@ class PostsController < ApplicationController
       @post = Post.friendly.find(params[:id])
     end
 
+    def check_user
+      render 'errors/forbidden' unless @post.user == current_user
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :category_id, :subcategory_id, :location, :free, :service, :criteria)
+      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :subcategory_id, :location, :free, :service, :criteria)
     end
 end

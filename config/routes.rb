@@ -45,7 +45,7 @@ Getbetgo::Application.routes.draw do
   get 'transactions/:bet_id/success' => 'transactions#success'
   get 'transactions/:bet_id/failed' => 'transactions#failed'
 
-  post 'getposts' => 'posts#getposts'
+  post 'getposts' => 'posts#index'
   post 'getuserposts' => 'users#show'
   post 'getbets' => 'posts#getbets'
 

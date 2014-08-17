@@ -1,7 +1,6 @@
 <div id="posts-container<% if user_posts %><%= "-user" %><% end %>" >
   <div class="row text-center" id="<% if user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts">
-		<% index = 0 %>
-		<% @posts.each do |post| %>
+		<% @posts.each_with_index do |post,index| %>
 		  <% if @post_type %>
 				<% if @post_type[index] == 'r' %>
 			    <%= content_tag(:div, :class => "portfolio-listing all nearby") do %>
@@ -21,7 +20,6 @@
 	 		    <%= render :partial => "posts/post", :locals => {:post => post} %>
 				<% end %>
 		  <% end %>
-	 	  <% index += 1 %>
 	 	<% end %>
 	</div>
  
@@ -38,35 +36,29 @@
 
 <script>
   var loading_posts = false;
-  var category = "all";
-  var page = 1;
-  var tag = "";
-  var locationn = "";
-  var user_id;
-  var type;
+  var category,subcategory,page,tag,locationn,user_id,page;
+  page = 1;
 
-  <% if defined? category %>
-    category = "<%= category %>";
+  <% unless @category.nil? %>
+    category = "<%= @category %>";
     $("#all").removeClass('current');
-    $("#<%= category.split.join %>").addClass('current');
+    $("#<%= @category.split.join %>").addClass('current');
   <% end %>
 
-  <% if defined? @locationn %>
+  <% unless @subcategory.nil? %>
+    subcategory = "<%= @subcategory %>";
+  <% end %>
+
+  <% unless @location.nil? %>
     locationn = "<%= @location %>";
   <% end %>
 
-  <% if defined? @type %>
-    type = <%= @type %>;
+  <% unless @tag.nil? %>
+    tag = "<%= @tag %>";
   <% end %>
 
-  var offset;
-
-  <% if defined? @offset %>
-    offset = <%= @offset %>;
-  <% end %>
-
-  <% if defined? user_id %>
-		user_id = <%= user_id %>
+  <% unless @user.nil? %>
+	user_id = <%= @user.id %>
   <% end %>
 
   $("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").click(function() {
@@ -74,10 +66,17 @@
 	    loading_posts = true;
 	    $(this).html('<img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />').addClass('disabled');
 
+	    var data = "page="+(page+1);
+	    if(category) data += "&category="+category;
+	    if(subcategory) data += "&subcategory="+subcategory;
+	    if(user_id) data += "&id="+user_id;
+	    if(tag) data += "&tag="+tag;
+	    if(locationn) data += "&location="+locationn;
+
 	    $.ajax({
 				url: "<%= url_to_get_posts %>",
 				type: 'POST',
-				data: "category="+category+"&page="+(page+1)+"&tag="+tag+"&location="+locationn+"&id="+user_id+"&type="+type+"&offset="+offset, 
+				data: data,
 				beforeSend: function(xhr, settings) {
 				  xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
 				},
