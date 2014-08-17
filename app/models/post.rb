@@ -103,10 +103,6 @@ class Post < ActiveRecord::Base
     self.subcategory.category
   end
 
-  def category_id
-    self.category.id
-  end
-
   private
  
     # ensure that there are no bets referencing this post
