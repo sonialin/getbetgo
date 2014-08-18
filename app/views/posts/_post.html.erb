@@ -32,7 +32,7 @@
           </div>
           <div class="media-body align-left">
             <p class="media-heading brief-desc-text">
-              <%= link_to sanitize(post.description.truncate(95)), post %>
+              <%= link_to sanitize(post.description.truncate(95)), post, :class => "desc-link" %>
             </p>
           </div>
           
