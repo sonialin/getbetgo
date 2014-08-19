@@ -97,43 +97,45 @@
               
               <% bet.replies.order("created_at").each_with_index do |reply, index| %>
                 <hr>
-                <div>
-                  <%= link_to reply.user.name, reply.user %>
-                  <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
-                </div><br />
-                <div>
-                  <%= reply.body %><br />
-                  <% if reply.proofs.any? %>
-                    <% reply.proofs.each do |proof| %>
-                      <%= link_to proof.document.url do %>
-                        <small>
-                          <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
-                        </small>
+                <div id="<%= dom_id(reply) %>">
+                  <div>
+                    <%= link_to reply.user.name, reply.user %>
+                    <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
+                  </div><br />
+                  <div>
+                    <%= reply.body %><br />
+                    <% if reply.proofs.any? %>
+                      <% reply.proofs.each do |proof| %>
+                        <%= link_to proof.document.url do %>
+                          <small>
+                            <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                          </small>
+                        <% end %>
                       <% end %>
                     <% end %>
-                  <% end %>
-                  <% if reply.modification_request %>
-                    <br />
-                    <div style="background: #eee; padding: 5px; font-size: 0.8em">
-                      <%= @post.user.name %>: 
-                      <%= reply.modification_request.body %>
-                    </div>
-                  <% end %>
-                  <% if index == bet.replies.size - 1 %>
-                    <% if !reply.modification_request %>
-                      <% if @post.user == current_user %>
-                        <% if !(reply.user == @post.user) %>
-                          <br />
-                          <span style="color: #999; float: right;">request modification</span> 
-                          <%= form_for @modification_request, :html => { :class => 'form-horizontal' } do |f| %>
-                            <%= f.hidden_field :reply_id, value: reply.id %>
-                            <%= f.text_area :body, :class => 'form-control' %><br />
-                            <%= f.submit :class => "btn btn-fw" %>
+                    <% if reply.modification_request %>
+                      <br />
+                      <div style="background: #eee; padding: 5px; font-size: 0.8em">
+                        <%= @post.user.name %>: 
+                        <%= reply.modification_request.body %>
+                      </div>
+                    <% end %>
+                    <% if index == bet.replies.size - 1 %>
+                      <% if !reply.modification_request %>
+                        <% if @post.user == current_user %>
+                          <% if !(reply.user == @post.user) %>
+                            <br />
+                            <span class="request-modification">request modification</span><br />
+                            <%= form_for @modification_request, :html => { :class => 'form-horizontal modification-form' } do |f| %>
+                              <%= f.hidden_field :reply_id, value: reply.id %>
+                              <%= f.text_area :body, :class => 'form-control' %><br />
+                              <%= f.submit :class => "btn btn-fw" %>
+                            <% end %>
                           <% end %>
                         <% end %>
                       <% end %>
                     <% end %>
-                  <% end %>
+                  </div>
                 </div>
               <% end %>
               <% if bet.selected? or bet.awaiting_modification? %>
@@ -177,4 +179,10 @@
       }
     }
   }
+
+  $(".modification-form").hide();
+  $('.request-modification').click(function() {
+    reply_id = $(this).parent().parent().attr('id');
+    $('#' + reply_id + ' .modification-form').slideToggle();
+  });
 </script>
