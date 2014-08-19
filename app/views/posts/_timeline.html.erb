@@ -58,9 +58,16 @@
              </div>
           <% end %>
           <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
-              <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
+            <div class="timeline-heading row">
+              <div class="col-md-3">
+                <%= link_to image_tag(bet.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), bet.user, :class => "media-object" %>
+              </div>
+              <div class="col-md-9">
+                <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
+                <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
+              </div>
+              
+              
               <br />
             </div>
             <div class="timeline-body">
