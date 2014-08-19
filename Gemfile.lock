@@ -144,6 +144,7 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
+    mailgunner (2.0.0)
     mime-types (1.25.1)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
@@ -290,6 +291,7 @@ DEPENDENCIES
   judge (~> 2.0.4)
   mail_form
   mailboxer (~> 0.12.1)
+  mailgunner (~> 2.0.0)
   newrelic_rpm
   omniauth
   omniauth-facebook
