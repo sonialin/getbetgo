@@ -7,7 +7,6 @@ class RelationshipsController < ApplicationController
 		@relationship.follower = current_user
 
 		if @relationship.save
-			@relationship.create_activity :create, owner: @relationship.follower, recipient: @relationship.followed
     	@relationship.followed.notify("#{@relationship.follower.name} just followed you", 
     																"#{@relationship.follower.name} just followed you",
                           					notified_object = @relationship)

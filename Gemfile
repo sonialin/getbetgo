@@ -83,9 +83,6 @@ gem 'judge', '~> 2.0.4'
 gem 'mail_form'
 gem 'simple_form'
 
-# Use public_activity to track changes on models
-gem 'public_activity'
-
 # Use mailboxer to enable sending notifications
 gem 'mailboxer', '~> 0.12.1'
 

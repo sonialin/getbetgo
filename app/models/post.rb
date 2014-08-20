@@ -8,8 +8,6 @@ class Post < ActiveRecord::Base
   acts_as_taggable
   acts_as_votable
 
-  include PublicActivity::Common
-
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -104,7 +102,7 @@ class Post < ActiveRecord::Base
   end
 
   def category_id
-    self.category.id
+    self.category.id rescue nil
   end
 
   private

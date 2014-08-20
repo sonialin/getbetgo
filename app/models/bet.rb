@@ -13,8 +13,6 @@ class Bet < ActiveRecord::Base
 
   validates :body, presence: true
 
-  include PublicActivity::Common
-
   before_save :default_values
 
 	# before_create :limit_check

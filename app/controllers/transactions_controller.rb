@@ -13,7 +13,6 @@ class TransactionsController < ApplicationController
 	  @order.save!
 	  current_user.wallet.amount = 0
 	  current_user.wallet.save
-	  @order.create_activity :create, owner: @post.user, recipient: @bet.user
     @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
                   		"#{@post.user.name} selected you on '#{@post.title}'", 
                  			notified_object = @order)
