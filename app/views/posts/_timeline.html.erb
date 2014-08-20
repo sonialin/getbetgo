@@ -52,6 +52,10 @@
             <div class="timeline-badge success">
               <i class="fa fa-eraser"></i>
              </div>
+          <% elsif bet.modified? %>
+            <div class="timeline-badge success">
+              <i class="fa fa-eraser"></i>
+             </div>
           <% elsif bet.funded? %>
             <div class="timeline-badge success">
               <i class="glyphicon glyphicon-ok"></i>
@@ -92,7 +96,7 @@
                     Select
                   <% end %><br />
                 <% end %>
-              <% elsif bet.selected? %>
+              <% elsif bet.selected? or bet.modified? %>
                 <% if bet.user == current_user %>
                   <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
                     <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
@@ -145,7 +149,7 @@
                   </div>
                 </div>
               <% end %>
-              <% if bet.selected? or bet.awaiting_modification? %>
+              <% if ((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted? %>
                 <% if (bet.user == current_user) or (bet.post.user == current_user) %>
                   <hr>
                   <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>

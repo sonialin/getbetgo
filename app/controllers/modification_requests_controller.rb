@@ -2,7 +2,7 @@ class ModificationRequestsController < ApplicationController
 	before_filter :authenticate_user!
 
 	def create
-		params.permit!
+	params.permit!
     @modification_request = current_user.modification_requests.build(params[:modification_request])
     @bet = @modification_request.reply.bet
 

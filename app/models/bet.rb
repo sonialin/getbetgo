@@ -52,6 +52,10 @@ class Bet < ActiveRecord::Base
     self.status == "Awaiting Modification"
   end
 
+  def modified?
+    self.status == "Modified"
+  end
+
   def funded?
     self.status == "Funded"
   end

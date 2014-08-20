@@ -9,7 +9,7 @@ class RepliesController < ApplicationController
 
     if @reply.save
       if @reply.bet.awaiting_modification? && !(@reply.user == @post.user)
-        @reply.bet.status = "Submitted"
+        @reply.bet.status = "Modified"
         @reply.bet.save!
         @post.user.notify("#{@bet.user.name} modified application to your fund",
                         "#{@bet.user.name} modified application to your fund '#{@bet.post.title}'", 
