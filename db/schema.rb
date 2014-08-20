@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815175710) do
+ActiveRecord::Schema.define(version: 20140820130434) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -214,7 +214,6 @@ ActiveRecord::Schema.define(version: 20140815175710) do
     t.string   "status"
     t.string   "slug"
     t.string   "location"
-    t.boolean  "free"
     t.string   "service"
     t.integer  "category_id"
     t.integer  "subcategory_id"

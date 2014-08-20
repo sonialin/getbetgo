@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :bets, :dependent => :destroy
   belongs_to :subcategory
 
-  before_save :set_title_and_service
+  before_save :set_title
 
   acts_as_taggable
   acts_as_votable
@@ -119,8 +119,7 @@ class Post < ActiveRecord::Base
       end
     end
 
-    def set_title_and_service
-      self.service = 'Free' if self.service == nil
+    def set_title
       self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who ' + self.criteria
     end
 end
