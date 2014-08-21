@@ -45,8 +45,9 @@
                       <div class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>
                         <span class='user-info-hover-name'>#{post.user.name}</span><br />
                         <span class='user-info-hover-content'>
-                          #{post.user.posts.size} Funds<br />
-                          #{post.user.followers.size} Followers
+                          #{pluralize(post.user.kudos, 'Kudo')}<br />
+                          #{pluralize(post.user.contributions.ceil, 'Karma')}<br />
+                          #{pluralize(post.user.posts.size, 'Fund')}
                         </span>
                       </div>
                     </div>"} %>

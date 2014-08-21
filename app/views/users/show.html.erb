@@ -70,9 +70,21 @@
 
 	      <div class="user-show-stats">
 		      <div class="col-lg-12 user-show-kudos">
-		      	<span class="thumbnail-kudos fw-main-color">
-	            <span class="thumbnail-kudos-number"><%= @user.kudos %><br /></span>
-	            <i class="fa fa-thumbs-up"></i>&nbsp;Kudos
+		      	<span class="profile-contributions fw-main-color">
+	            <span class="thumbnail-kudos-number"><%= @user.kudos %></span>&nbsp;
+	            <i class="fa fa-thumbs-up"></i>&nbsp;
+	            <% if @user.kudos >1 %>
+		            Kudos<br />
+		            <% else %>
+		            Kudo<br />
+	            <% end %>
+	            <span class="thumbnail-kudos-number"><%= @user.contributions.ceil %></span>&nbsp;
+	            <i class="fa fa-refresh"></i>&nbsp;
+	            <% if @user.contributions.ceil >1 %>
+		            Karmas<br />
+		            <% else %>
+		            Karma<br />
+	            <% end %>
 	          </span>
 		      </div>
 		      <div class="col-lg-12 user-show-follows">
