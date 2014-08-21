@@ -16,7 +16,7 @@
 	      	<div class="finances-tab">
 		      	<a href="/receiving">
 		      		<span class="finances-number">$<%= @credits_sum %></span><br />
-		      		FUNDING RECEIVED
+		      		FUNDING
 		      	</a>
 	      	</div>
 	      </li>
@@ -36,33 +36,43 @@
 				  		<% @bets.each do |bet| %>
 					  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
 					  			<td>
-						  			<% if bet.status == "Funded" %>
-						  				<%= bet.post.price %>
-						  			<% else %>
+						  			<% if bet.awaiting_modification? or bet.modified? %>
 						  				<span class="fw-main-color"><%= bet.post.price %></span>
-						  			<% end %>
-						  		</td>
-						  		<td>
-						  			<% if bet.status == "Funded" %>
-						  				<%= bet.post.title %>
 						  			<% else %>
-						  				<span class="fw-main-color">Credits <%= bet.post.title %></span>
+						  				<%= bet.post.price %>
 						  			<% end %>
 						  		</td>
 						  		<td>
-						  			<% if bet.status == "Funded" %>
-						  				Funded
+						  			<% if bet.awaiting_modification? or bet.modified? %>
+						  				<span class="fw-main-color"><%= bet.post.title %></span>
+						  			<% else %>
+						  				<%= bet.post.title %>
+						  			<% end %>
+						  		</td>
+						  		<td>
+						  			<% if bet.open? %>
+						  				Submitted
+						  			<% elsif bet.selected? %>
+						  				Selected
 						  			<% elsif bet.awaiting_modification? %>
 						  				<span class="fw-main-color">Awaiting Your Modification</span>
+						  			<% elsif bet.modified? %>
+						  				<span class="fw-main-color">Awaiting Your Check of Completion</span>
+						  			<% elsif bet.submitted? %>
+						  				Pending credits
+						  			<% elsif bet.credited? %>
+						  				Credits loaded
+						  			<% elsif bet.funded? %>
+						  				Funded
 						  			<% else %>
-						  				<span class="fw-main-color">Pending</span>
+						  				Pending
 						  			<% end %>
 						  		</td>
 						  		<td>
-						  			<% if bet.status == "Funded" %>
-						  				<%= reformatted_post_datetime(bet.created_at) %>
-						  			<% else %>
+						  			<% if bet.awaiting_modification? or bet.modified? %>
 						  				<span class="fw-main-color"><%= reformatted_post_datetime(bet.created_at) %></span>
+						  			<% else %>
+						  				<%= reformatted_post_datetime(bet.created_at) %>
 						  			<% end %>
 						  		</td>
 					  		</tr>

@@ -70,11 +70,11 @@ class Post < ActiveRecord::Base
   end
 
   def bets_past_selection
-    self.bets.where(:status => ["Selected", "Submitted", "Funded"]).all.count
+    self.bets.where(:status => ["Selected", "Submitted", "Awaiting Modification", "Modified", "Credited", "Funded"]).all.count
   end
 
   def beneficiaries
-    self.bets.where(:status => 'Funded').count
+    self.bets.where(:status => ["Submitted", "Credited", "Funded"]).count
   end
 
   def claimed_fund

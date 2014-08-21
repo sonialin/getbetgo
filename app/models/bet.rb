@@ -54,6 +54,10 @@ class Bet < ActiveRecord::Base
     self.status == "Modified"
   end
 
+  def credited?
+    self.status == "Credited"
+  end
+
   def funded?
     self.status == "Funded"
   end

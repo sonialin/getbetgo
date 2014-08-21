@@ -68,11 +68,17 @@ class User < ActiveRecord::Base
   end
 
   def contributions
-    self.posts.joins(:bets).where("bets.status = 'Funded'").sum(:price).to_f
+    stage1 = self.posts.joins(:bets).where("bets.status = 'Submitted'").sum(:price).to_f
+    stage2 = self.posts.joins(:bets).where("bets.status = 'Credited'").sum(:price).to_f
+    stage3 = self.posts.joins(:bets).where("bets.status = 'Funded'").sum(:price).to_f
+    stage1 + stage2 + stage3
   end
 
   def credits
-    self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Funded').sum("posts.price").to_f
+    stage1 = self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Submitted').sum("posts.price").to_f
+    stage2 = self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Credited').sum("posts.price").to_f
+    stage3 = self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Funded').sum("posts.price").to_f
+    stage1 + stage2 + stage3
   end
 
   def mailboxer_email(object)

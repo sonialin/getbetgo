@@ -81,10 +81,16 @@
               <% if bet.proofs.any? %>
                 <div>
                   <% bet.proofs.each do |proof| %>
-                    <%= link_to proof.document.url do %>
-                      <small>
-                        <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
-                      </small>
+                    <% if @post.user == current_user or bet.user == current_user %>
+                      <%= link_to proof.document.url do %>
+                        <small>
+                          <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                        </small>
+                      <% end %>
+                    <% else %>
+                      <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                        <i class="fa fa-paperclip"></i>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </div>
@@ -190,6 +196,8 @@
       }
     }
   }
+
+  $('.hidden-attachment').popover({trigger: 'hover'});       
 
   $(".modification-form").hide();
   $('.request-modification').click(function() {

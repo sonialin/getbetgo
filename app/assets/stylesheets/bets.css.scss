@@ -208,6 +208,11 @@
   color: #99B709;
 }
 
+.hidden-attachment {
+  color: #aaa;
+  cursor: default;
+}
+
 @media (max-width: 767px) {
     ul.timeline:before {
         left: 10px;

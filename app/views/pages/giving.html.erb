@@ -16,7 +16,7 @@
 	      	<div class="finances-tab">
 		      	<a href="/receiving">
 		      		<span class="finances-number">$<%= @credits_sum %></span><br />
-		      		FUNDING RECEIVED
+		      		FUNDING
 		      	</a>
 	      	</div>
 	      </li>
@@ -30,7 +30,6 @@
 							<thead>
 								<td>Amount Claimed</td>
 								<td>Post</td>
-								<td>Service</td>
 								<td>Date</td>
 							</thead>
 					  	<tbody>
@@ -38,11 +37,9 @@
 					  			<tr data-link="<%= post_path(post) %>" class="clickable-row">
 										<td><%= post.claimed_fund %></td>
 									  <td><%= link_to post.title, post %></td>
-									  <td><%= post.service %></td>
 									  <td><%= reformatted_post_datetime(post.created_at) %></td>
 									</tr>
 					  		<% end %>
-					  		
 					  	</tbody>
 				  	<% end %>
 				  </table>
