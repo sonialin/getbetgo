@@ -10,6 +10,11 @@
     <div class="tab-pane active" id="tab1">
       <div id="description_content">
         <div class="text_description_content"><%= sanitize(@post.description) %></div>
+        <% if @post.service != "" && @post.service != nil %>
+          <div>
+            Service in return: <%= @post.service %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="tab-pane" id="tab2">

@@ -213,6 +213,12 @@
   cursor: default;
 }
 
+.tip-attachment {
+  color: #aaa;
+  cursor: default;
+  font-size: 1.5em;
+}
+
 @media (max-width: 767px) {
     ul.timeline:before {
         left: 10px;
