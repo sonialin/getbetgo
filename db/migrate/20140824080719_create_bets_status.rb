@@ -9,6 +9,8 @@ class CreateBetsStatus < ActiveRecord::Migration
   ::Bets::Status.create(:name => "Selected")
   ::Bets::Status.create(:name => "Submitted")
   ::Bets::Status.create(:name => "Awaiting Modification")
+  ::Bets::Status.create(:name => "Modified")
+  ::Bets::Status.create(:name => "Credited")
   ::Bets::Status.create(:name => "Funded")
   end
 end
