@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
   belongs_to :subcategory
+  belongs_to :status, :class_name => "::Posts::Status"
 
   before_save :set_title_and_service
 
@@ -28,6 +29,18 @@ class Post < ActiveRecord::Base
   # after_initialize :default_values
 
   attr_reader :available_quantity
+
+  def status
+    ::Posts::Status.find(self.status_id).name rescue nil
+  end
+
+  def status=(status_name)
+    if status_name
+      self.status_id = ::Posts::Status.find_by_name(status_name).id
+    else
+      self.status_id = nil
+    end
+  end
 
   def self.filter(params)
     posts = Post.all
