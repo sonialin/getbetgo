@@ -83,9 +83,6 @@ gem 'judge', '~> 2.0.4'
 gem 'mail_form'
 gem 'simple_form'
 
-# Use public_activity to track changes on models
-gem 'public_activity'
-
 # Use mailboxer to enable sending notifications
 gem 'mailboxer', '~> 0.12.1'
 
@@ -109,6 +106,9 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Use new relic for analytics
 gem 'newrelic_rpm'
+
+# Use mailgunner to configure mailgun
+gem 'mailgunner', '~> 2.0.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -24,10 +24,22 @@
     </div>                
     <div class="follow-brief-desc">
       <div class="">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
-          <span class="thumbnail-kudos fw-main-color">
-            <span class="thumbnail-kudos-number"><%= user.kudos %><br /></span>
-            <i class="fa fa-thumbs-up"></i>&nbsp;Kudos
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center thumbnail-contributions-block">
+          <span class="thumbnail-contributions fw-main-color">
+            <span class="thumbnail-kudos-number"><%= user.kudos %></span>&nbsp;
+            <i class="fa fa-thumbs-up"></i>&nbsp;
+            <% if user.kudos >1 %>
+              Kudos<br />
+              <% else %>
+              Kudo<br />
+            <% end %>
+            <span class="thumbnail-kudos-number"><%= user.contributions.ceil %></span>&nbsp;
+            <i class="fa fa-refresh"></i>&nbsp;
+            <% if user.contributions.ceil >1 %>
+              Karmas<br />
+              <% else %>
+              Karma<br />
+            <% end %>
           </span>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 brief-desc-text pull-left">

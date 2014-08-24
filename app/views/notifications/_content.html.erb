@@ -15,9 +15,19 @@ Hi <%= notification.receipts.find_by_notification_id(notification.id).receiver.n
 				View Update
 			<% elsif notification.notified_object.awaiting_modification? %>
 				View and Modify
+			<% elsif notification.notified_object.modified? %>
+				View Update
 			<% elsif notification.notified_object.funded? %>
 				View
 			<% end %>
+		<% end %>
+	<% elsif notification.notified_object_type == 'Reply' %>
+		<p><%= notification.subject %>:</p>
+		<p>
+			"<%= notification.notified_object.body %>"
+		</p>
+		<%= link_to post_url(notification.notified_object.bet.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+			View
 		<% end %>
 	<% elsif notification.notified_object_type == 'Order' %>
 		<p>

@@ -142,14 +142,25 @@
   overflow: hidden;
 }
 
-.thumbnail-kudos {
-  position: relative;
-  top: 15px;
-}
-
 .thumbnail-kudos-number {
   font-size: 1.5em;
   font-weight: 600;
+}
+
+.thumbnail-contributions-block {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.thumbnail-contributions {
+  position: relative;
+  top: 15px;
+  font-size: 0.8em;
+}
+
+.profile-contributions {
+  position: relative;
+  top: 15px;
 }
 
 .follow-metrics {

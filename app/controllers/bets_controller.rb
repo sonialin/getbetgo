@@ -51,7 +51,6 @@ class BetsController < ApplicationController
             @bet.proofs.create(document: document)
           }
         end
-        @bet.create_activity :create, owner: @bet.user, recipient: @post.user
         @post.user.notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
                           "#{@bet.user.name} applied to your fund '#{@post.title}'", 
                           notified_object = @bet)
@@ -117,7 +116,6 @@ class BetsController < ApplicationController
         order.credit = @post.price
         order.save!
 
-        order.create_activity :create, owner: @post.user, recipient: @bet.user
         @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
                       "#{@post.user.name} selected you on '#{@post.title}'", 
                       notified_object = order)
@@ -146,8 +144,7 @@ class BetsController < ApplicationController
     @bet = @post.bets.find_by_id(params[:id])
     @bet.status = "Submitted"
     if @bet.save
-        @bet.create_activity :mark_complete, owner: @bet.user, recipient: @post.user
-        @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
+      @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
                           notified_object = @bet)
       flash[:notice] = 'You have marked the fund complete'

@@ -1,7 +1,0 @@
-<%= link_to post_bet_path(activity.trackable.bet.post, activity.trackable.bet) do %>
-	<%= activity.owner.name if activity.owner %>
-	selected
-	<%= activity.recipient.name %>
-	on
-	<%=  activity.trackable.bet.post.title %>
-<% end %>

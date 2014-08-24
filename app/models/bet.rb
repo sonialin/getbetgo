@@ -14,8 +14,6 @@ class Bet < ActiveRecord::Base
 
   validates :body, presence: true
 
-  include PublicActivity::Common
-
   before_save :default_values
 
 	# before_create :limit_check
@@ -59,6 +57,14 @@ class Bet < ActiveRecord::Base
 
   def awaiting_modification?
     self.status == "Awaiting Modification"
+  end
+
+  def modified?
+    self.status == "Modified"
+  end
+
+  def credited?
+    self.status == "Credited"
   end
 
   def funded?

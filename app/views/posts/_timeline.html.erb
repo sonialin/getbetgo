@@ -18,12 +18,15 @@
               <h4>Submit Your Application:</h4>
               <%= form_for([@post, @bet], :html => {multipart: true}) do |f| %>
                 <div class="form-group">
-                  <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :rows => '5', :cols => "30", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
+                  <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :placeholder => "Briefly state why you are suitable for the fund.", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
                   
                   <div id="fund-application-char-count">200 charachters to go</div><br />
                   <%= file_field_tag "documents[]", type: :file, multiple: true %><br />
 
-                  <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund" %>
+                  <%= f.submit "Apply for Fund", :class => "btn btn-primary btn-apply-fund pull-left" %>
+                  <%= link_to '#', :class => "tip-attachment pull-right", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only you and the funder can see the attachment.</span>"} do %>
+                    <i class="fa fa-lightbulb-o"></i>
+                  <% end %>
                 </div>
               <% end %>
             <% end %>
@@ -52,15 +55,24 @@
             <div class="timeline-badge success">
               <i class="fa fa-eraser"></i>
              </div>
+          <% elsif bet.modified? %>
+            <div class="timeline-badge success">
+              <i class="fa fa-eraser"></i>
+             </div>
           <% elsif bet.funded? %>
             <div class="timeline-badge success">
               <i class="glyphicon glyphicon-ok"></i>
              </div>
           <% end %>
           <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
-              <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
+            <div class="timeline-heading row">
+              <div class="col-md-3">
+                <%= link_to image_tag(bet.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), bet.user, :class => "media-object" %>
+              </div>
+              <div class="col-md-9">
+                <h4 class="timeline-title"><%= link_to bet.user.name, bet.user %></h4>
+                <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(bet.created_at) %></small>
+              </div>
               <br />
             </div>
             <div class="timeline-body">
@@ -70,10 +82,16 @@
               <% if bet.proofs.any? %>
                 <div>
                   <% bet.proofs.each do |proof| %>
-                    <%= link_to proof.document.url do %>
-                      <small>
-                        <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
-                      </small>
+                    <% if @post.user == current_user or bet.user == current_user %>
+                      <%= link_to proof.document.url do %>
+                        <small>
+                          <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                        </small>
+                      <% end %>
+                    <% else %>
+                      <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                        <i class="fa fa-paperclip"></i>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </div>
@@ -85,7 +103,7 @@
                     Select
                   <% end %><br />
                 <% end %>
-              <% elsif bet.selected? %>
+              <% elsif bet.selected? or bet.modified? %>
                 <% if bet.user == current_user %>
                   <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
                     <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw pull-right" do %>
@@ -97,46 +115,59 @@
               
               <% bet.replies.order("created_at").each_with_index do |reply, index| %>
                 <hr>
-                <div>
-                  <%= link_to reply.user.name, reply.user %>
-                  <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
-                </div><br />
-                <div>
-                  <%= reply.body %><br />
-                  <% if reply.proofs.any? %>
-                    <% reply.proofs.each do |proof| %>
-                      <%= link_to proof.document.url do %>
-                        <small>
-                          <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
-                        </small>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                  <% if reply.modification_request %>
-                    <br />
-                    <div style="background: #eee; padding: 5px; font-size: 0.8em">
-                      <%= @post.user.name %>: 
-                      <%= reply.modification_request.body %>
+                <div id="<%= dom_id(reply) %>">
+                  <div class="timeline-heading row">
+                    <div class="col-md-3">
+                      <%= link_to image_tag(reply.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), reply.user, :class => "media-object" %>
                     </div>
-                  <% end %>
-                  <% if index == bet.replies.size - 1 %>
-                    <% if !reply.modification_request %>
-                      <% if @post.user == current_user %>
-                        <% if !(reply.user == @post.user) %>
-                          <br />
-                          <span style="color: #999; float: right;">request modification</span> 
-                          <%= form_for @modification_request, :html => { :class => 'form-horizontal' } do |f| %>
-                            <%= f.hidden_field :reply_id, value: reply.id %>
-                            <%= f.text_area :body, :class => 'form-control' %><br />
-                            <%= f.submit :class => "btn btn-fw" %>
+                    <div class="col-md-9">
+                      <h4 class="timeline-title"><%= link_to reply.user.name, reply.user %></h4>
+                      <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
+                    </div>
+                  </div><br />
+                  <div>
+                    <%= reply.body %><br />
+                    <% if reply.proofs.any? %>
+                      <% reply.proofs.each do |proof| %>
+                        <% if @post.user == current_user or bet.user == current_user %>
+                          <%= link_to proof.document.url do %>
+                            <small>
+                              <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                            </small>
+                          <% end %>
+                        <% else %>
+                          <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                            <i class="fa fa-paperclip"></i>
                           <% end %>
                         <% end %>
                       <% end %>
                     <% end %>
-                  <% end %>
+                    <% if reply.modification_request %>
+                      <br />
+                      <div style="background: #eee; padding: 5px; font-size: 0.8em">
+                        <%= @post.user.name %>: 
+                        <%= reply.modification_request.body %>
+                      </div>
+                    <% end %>
+                    <% if index == bet.replies.size - 1 %>
+                      <% if !reply.modification_request %>
+                        <% if @post.user == current_user %>
+                          <% if !(reply.user == @post.user) %>
+                            <br />
+                            <span class="request-modification">request modification</span><br />
+                            <%= form_for @modification_request, :html => { :class => 'form-horizontal modification-form' } do |f| %>
+                              <%= f.hidden_field :reply_id, value: reply.id %>
+                              <%= f.text_area :body, :class => 'form-control' %><br />
+                              <%= f.submit :class => "btn btn-fw" %>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
-              <% if bet.selected? or bet.awaiting_modification? %>
+              <% if ((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted? %>
                 <% if (bet.user == current_user) or (bet.post.user == current_user) %>
                   <hr>
                   <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
@@ -177,4 +208,17 @@
       }
     }
   }
+
+  $('#fund-application').focus(function () {
+    $(this).animate({ height: "8em" }, 200);
+  });
+
+  $('.hidden-attachment').popover({trigger: 'hover'});
+  $('.tip-attachment').popover({trigger: 'hover'});       
+
+  $(".modification-form").hide();
+  $('.request-modification').click(function() {
+    reply_id = $(this).parent().parent().attr('id');
+    $('#' + reply_id + ' .modification-form').slideToggle();
+  });
 </script>

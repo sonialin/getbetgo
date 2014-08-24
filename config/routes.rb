@@ -61,7 +61,6 @@ Getbetgo::Application.routes.draw do
 
   resources "contacts", only: [:new, :create]
 
-  resources :activities
   resources :notifications do
     post 'mark_read', on: :member
   end
