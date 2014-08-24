@@ -68,11 +68,11 @@ class User < ActiveRecord::Base
   end
 
   def contributions
-    self.posts.joins(:bets).where("bets.status = 'Funded'").sum(:price).to_f
+    self.posts.joins("INNER JOIN bets ON bets.post_id = posts.id INNER JOIN bets_statuses ON bets_statuses.id = bets.status_id").where("bets_statuses.name = 'Funded'").sum(:price).to_f
   end
 
   def credits
-    self.bets.joins("INNER JOIN posts ON bets.post_id = posts.id").where(:status => 'Funded').sum("posts.price").to_f
+    self.bets.joins(:post).joins(:status).where("bets_statuses.name = 'Funded'").sum("posts.price").to_f
   end
 
   def mailboxer_email(object)
