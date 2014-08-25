@@ -67,7 +67,7 @@ Getbetgo::Application.configure do
   # config.action_mailer.default_url_options = { :host => 'localhost:3000' } # have to set this to actual host in production
   config.action_mailer.default_url_options = { :host => 'http://afternoon-beach-7927.herokuapp.com' }
 
-  config.action_mailer.delivery_method = :mailgun
+  config.mandrill_mailer.default_url_options = { :host => 'http://afternoon-beach-7927.herokuapp.com' }
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
   #   address: "smtp.gmail.com",

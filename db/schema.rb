@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820162619) do
+ActiveRecord::Schema.define(version: 20140824120513) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -53,9 +53,18 @@ ActiveRecord::Schema.define(version: 20140820162619) do
     t.datetime "updated_at"
     t.string   "body"
     t.string   "status"
+    t.integer  "status_id"
   end
 
-  add_index "bets", ["user_id", "post_id"], name: "udx_bets_on_user_and_post", unique: true
+  add_index "bets", ["post_id"], name: "index_bets_on_post_id"
+  add_index "bets", ["status_id"], name: "index_bets_on_status_id"
+  add_index "bets", ["user_id"], name: "index_bets_on_user_id"
+
+  create_table "bets_statuses", force: true do |t|
+    t.string "name"
+  end
+
+  add_index "bets_statuses", ["name"], name: "index_bets_statuses_on_name"
 
   create_table "bootsy_image_galleries", force: true do |t|
     t.integer  "bootsy_resource_id"
@@ -76,6 +85,8 @@ ActiveRecord::Schema.define(version: 20140820162619) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "categories", ["name"], name: "index_categories_on_name"
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -172,6 +183,7 @@ ActiveRecord::Schema.define(version: 20140820162619) do
 
   add_index "orders", ["bet_id"], name: "index_orders_on_bet_id"
   add_index "orders", ["post_id"], name: "index_orders_on_post_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "paypal_recipient_accounts", force: true do |t|
     t.string   "email"
@@ -201,12 +213,20 @@ ActiveRecord::Schema.define(version: 20140820162619) do
     t.integer  "category_id"
     t.integer  "subcategory_id"
     t.string   "criteria"
+    t.integer  "status_id"
   end
 
   add_index "posts", ["category_id"], name: "index_posts_on_category_id"
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true
+  add_index "posts", ["status_id"], name: "index_posts_on_status_id"
   add_index "posts", ["subcategory_id"], name: "index_posts_on_subcategory_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "posts_statuses", force: true do |t|
+    t.string "name"
+  end
+
+  add_index "posts_statuses", ["name"], name: "index_posts_statuses_on_name"
 
   create_table "proofs", force: true do |t|
     t.datetime "created_at"
@@ -228,6 +248,9 @@ ActiveRecord::Schema.define(version: 20140820162619) do
     t.datetime "updated_at"
   end
 
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
   create_table "replies", force: true do |t|
     t.string   "body"
     t.datetime "created_at"
@@ -247,6 +270,7 @@ ActiveRecord::Schema.define(version: 20140820162619) do
   end
 
   add_index "subcategories", ["category_id"], name: "index_subcategories_on_category_id"
+  add_index "subcategories", ["name"], name: "index_subcategories_on_name"
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

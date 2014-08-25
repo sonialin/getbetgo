@@ -92,6 +92,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    excon (0.39.5)
     execjs (2.2.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -144,7 +145,13 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
-    mailgunner (2.0.0)
+    mandrill-api (1.0.52)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
+    mandrill_mailer (0.4.6)
+      actionpack
+      activesupport
+      mandrill-api (~> 1.0.9)
     mime-types (1.25.1)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
@@ -286,7 +293,7 @@ DEPENDENCIES
   judge (~> 2.0.4)
   mail_form
   mailboxer (~> 0.12.1)
-  mailgunner (~> 2.0.0)
+  mandrill_mailer
   newrelic_rpm
   omniauth
   omniauth-facebook
