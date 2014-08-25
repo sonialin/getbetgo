@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
   belongs_to :subcategory
+  belongs_to :status, :class_name => "::Posts::Status"
 
   before_save :set_title
 
@@ -26,6 +27,18 @@ class Post < ActiveRecord::Base
   # after_initialize :default_values
 
   attr_reader :available_quantity
+
+  def status
+    ::Posts::Status.find(self.status_id).name rescue nil
+  end
+
+  def status=(status_name)
+    if status_name
+      self.status_id = ::Posts::Status.find_by_name(status_name).id
+    else
+      self.status_id = nil
+    end
+  end
 
   def self.filter(params)
     posts = Post.all
@@ -70,11 +83,11 @@ class Post < ActiveRecord::Base
   end
 
   def bets_past_selection
-    self.bets.where(:status => ["Selected", "Submitted", "Awaiting Modification", "Modified", "Credited", "Funded"]).all.count
+    self.bets.joins(:status).where("bets_statuses.name IN ('Selected', 'Submitted', 'Awaiting Modification', 'Modified', 'Credited', 'Funded')").count
   end
 
   def beneficiaries
-    self.bets.where(:status => ["Submitted", "Credited", "Funded"]).count
+    self.bets.joins(:status).where("bets_statuses.name IN ('Submitted', 'Credited', 'Funded')").count
   end
 
   def claimed_fund

@@ -1,6 +1,7 @@
 class Bet < ActiveRecord::Base
 	belongs_to :post
 	belongs_to :user
+  belongs_to :status, :class_name => "::Bets::Status"
 
   has_many :replies
   has_one :fund
@@ -33,6 +34,14 @@ class Bet < ActiveRecord::Base
   #   self.status = 'Selected'
   #   self.save!
   # end
+
+  def status
+    ::Bets::Status.find(self.status_id).name rescue nil
+  end
+
+  def status=(status_name)
+    self.status_id = ::Bets::Status.find_by_name(status_name).id
+  end
 
   def selected?
     self.status == "Selected"
