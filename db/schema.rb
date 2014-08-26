@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140824120513) do
+ActiveRecord::Schema.define(version: 20140826140902) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 20140824120513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "body"
-    t.string   "status"
     t.integer  "status_id"
   end
 
@@ -206,17 +205,14 @@ ActiveRecord::Schema.define(version: 20140824120513) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "status"
     t.string   "slug"
     t.string   "location"
     t.string   "service"
-    t.integer  "category_id"
     t.integer  "subcategory_id"
     t.string   "criteria"
     t.integer  "status_id"
   end
 
-  add_index "posts", ["category_id"], name: "index_posts_on_category_id"
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true
   add_index "posts", ["status_id"], name: "index_posts_on_status_id"
   add_index "posts", ["subcategory_id"], name: "index_posts_on_subcategory_id"
