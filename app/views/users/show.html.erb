@@ -113,7 +113,13 @@
       			</div>
       			<div class="row">
       				<div class="col-md-12 col-sm-12 col-xs-12">
-		        		<div class="user-profile-location"><% if (@user.user_info.location != nil && @user.user_info.location != "") or (current_user && @user == current_user) %><i class="fa fa-map-marker"></i><% end %>&nbsp;<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %><% end %>
+		        		<div class="user-profile-location">
+		        			<% if (@user.user_info.location != nil && @user.user_info.location != "") or (current_user && @user == current_user) %>
+		        				<i class="fa fa-map-marker"></i>
+		        			<% end %>&nbsp;
+		        			<%= best_in_place_if @user == current_user, @user.user_info, :location, :type => :input, :activator => '#edit-location' %>
+		        			<% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %>
+		        			<% end %>
 		        		</div>
 	        		</div>
 	        	</div>	

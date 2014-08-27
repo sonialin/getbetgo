@@ -24,6 +24,11 @@
               <%= reformatted_post_datetime(@post.created_at) %>
             </span>
           </div>
+          <% if current_user && @post.user == current_user %>
+            <%= link_to edit_post_path(@post), :class => 'btn btn-default pull-right funder-post-edit' do %>
+              <i class='fa fa-pencil'></i>&nbsp;Edit
+            <% end %>
+          <% end %>
           
           <hr class="post-content-divider clear">
 

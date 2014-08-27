@@ -32,7 +32,10 @@
             <% end %>
           <% else %>
             <div>
-              <p>Please log in to claim this fund</p>
+              <p>Please 
+                <%= link_to "log in", "#myModal", :data => {:toggle=>"modal"} %>
+                to claim this fund
+              </p>
             </div>
           <% end %>
         </div>
