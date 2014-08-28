@@ -62,7 +62,7 @@
             <div class="timeline-badge success">
               <i class="fa fa-eraser"></i>
              </div>
-          <% elsif bet.funded? %>
+          <% elsif bet.funded? or bet.credited? %>
             <div class="timeline-badge success">
               <i class="glyphicon glyphicon-ok"></i>
              </div>
@@ -224,4 +224,5 @@
     reply_id = $(this).parent().parent().attr('id');
     $('#' + reply_id + ' .modification-form').slideToggle();
   });
+
 </script>
