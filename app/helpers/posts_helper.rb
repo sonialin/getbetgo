@@ -30,6 +30,22 @@ module PostsHelper
 		end			
 	end
 
+  def post_placeholder_image(category)
+    if category.name == 'Business'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231761/stsf_background_rba10x.jpg"
+    elsif category.name == 'Creative'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231755/IMG_1280_copy_mptqt5.jpg"
+    elsif category.name == 'Social Impact'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231752/imagebase21_27_rkz3ti.jpg"
+    elsif category.name == 'Lifestyle'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231793/imagebase11_29_qjvqae.jpg"
+    elsif category.name == 'Technology'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409239784/ehh-630-woman-laptop-coffee-istock-630w_tb64i9.jpg"
+    elsif category.name == 'Other'
+      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231743/3814721488_c344952c7b_avvg9g.jpg"
+    end     
+  end
+
 	def fetch_page_posts(posts, page)
     city = request.location.city
     country = request.location.country

@@ -14,8 +14,12 @@
               <% end %>
             </span>
           </div>  
-        <% end %>              
-        <%= link_to (image_tag(post.image.url(:medium), :class => "thumbnail-size")), post %>
+        <% end %>
+        <% if post.image_file_size != '' && post.image_file_size != nil %>              
+          <%= link_to (image_tag(post.image.url(:medium), :class => "thumbnail-size")), post %>
+        <% else %>
+          <%= link_to (image_tag(post_placeholder_image(post.category), :class => "thumbnail-size")), post %>
+        <% end %>
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">

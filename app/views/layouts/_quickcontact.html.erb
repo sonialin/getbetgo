@@ -15,7 +15,7 @@
             </div>     
           </div>
           <div class="main">  
-            <%= form_for @contact, html: { multipart: true, :class => "form-submit" } do |f| %>
+            <%= form_for @contact do |f| %>
               <div><%= f.label :name %><br />
               <%= f.text_field :name, :class => "form-control form-group" %></div>
               <div><%= f.label :email %><br />

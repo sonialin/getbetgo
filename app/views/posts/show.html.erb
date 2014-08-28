@@ -73,7 +73,9 @@
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">  
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
+            <% if @post.image_file_size != 0 && @post.image_file_size != nil %>
+              <%= image_tag @post.image.url(:big), :class => "img-responsive" %>
+            <% end %>
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <%= render :partial => "posts/description_tabs" %>
