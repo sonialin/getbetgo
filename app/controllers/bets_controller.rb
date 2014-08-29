@@ -1,4 +1,5 @@
 class BetsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_bet, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :mark_complete, :evaluate_if_current_user_mark_complete]
   before_action :set_post, only: [:payment, :pay_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
@@ -6,21 +7,19 @@ class BetsController < ApplicationController
 
   # GET /bets
   # GET /bets.json
-  def index
-    @bets = Bet.all
-  end
+  # def index
+  #   @bets = Bet.all
+  # end
 
   # GET /bets/1
   # GET /bets/1.json
-  def show
-    if (current_user && current_user == @bet.user)
-      @current_user_bet = @bet.post.bets.where(:user_id => current_user.id)
-    else
-      redirect_to @bet.post
-    end
-
-    @update = Update.new
-  end
+  # def show
+  #   if (current_user && current_user == @bet.user)
+  #     @current_user_bet = @bet.post.bets.where(:user_id => current_user.id)
+  #   else
+  #     redirect_to @bet.post
+  #   end
+  # end
 
   # GET /bets/new
   def new
@@ -28,8 +27,8 @@ class BetsController < ApplicationController
   end
 
   # GET /bets/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /bets
   # POST /bets.json
@@ -37,7 +36,11 @@ class BetsController < ApplicationController
     @user = current_user
     @post = Post.friendly.find(params[:post_id])
     if @post.user == @user
-      redirect_to @post, alert: "Cannot claim your own bets!"
+      redirect_to @post, alert: "You cannot claim your own fund."
+      return
+    end
+    if @post.bets.pluck(:user_id).include?(current_user.id)
+      redirect_to @post, alert: "You have submitted your application."
       return
     end
     
@@ -65,21 +68,21 @@ class BetsController < ApplicationController
 
   # PATCH/PUT /bets/1
   # PATCH/PUT /bets/1.json
-  def update
-    respond_to do |format|
-      if @bet.update(bet_params)
-        format.html { redirect_to @bet, notice: 'Bet was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @bet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @bet.update(bet_params)
+  #       format.html { redirect_to @bet, notice: 'Bet was successfully updated.' }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { render action: 'edit' }
+  #       format.json { render json: @bet.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   def evaluate_if_selected_limit_reached
     post = Post.friendly.find(params[:post_id])
-    selected_bets_count = post.bets_past_selection
+    selected_bets_count = post.bets_past_selection.count
     if post.quantity <= selected_bets_count
       flash[:notice] = "Limit reached"
       redirect_to post
@@ -88,15 +91,20 @@ class BetsController < ApplicationController
 
   # DELETE /bets/1
   # DELETE /bets/1.json
-  def destroy
-    @bet.destroy
-    respond_to do |format|
-      format.html { redirect_to bets_url }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @bet.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to bets_url }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   def select
+    if @post.bets_past_selection.pluck(:user_id).include?(@bet.user.id)
+      redirect_to @post, alert: "You can only select the same user once."
+      return
+    end
+
     params.permit!
     @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
