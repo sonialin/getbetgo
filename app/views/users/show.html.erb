@@ -89,7 +89,7 @@
 		      </div>
 		      <div class="col-lg-12 user-show-follows">
 						<div class="btn-group" id="user-follow-panel">
-							<%= link_to user_path(@user), :class => "btn btn-default" do %>
+							<%= link_to user_path(@user, anchor: "user-funds"), :class => "btn btn-default" do %>
 						  	<span class="follow-number"><%= @user.posts.count %></span><br /><small><% if @user.posts.count == 1 %>Fund<% else %>Funds<% end %></small>
 						  <% end %>
 						  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
@@ -178,8 +178,11 @@
 	</div>
 </div>
 
+<div class="user-profile-pushdown">
+</div>
+
 <div class="container">
-	<h1 class="decoration text-center proj">
+	<h1 class="decoration text-center proj" id="user-funds">
 		<span class="nobgr"><%= @user.name %>'s Funds</span>
 	</h1>
 
