@@ -35,12 +35,14 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        user = User.create(name:auth.extra.raw_info.name,
+        user = User.new(name:auth.extra.raw_info.name,
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20]
                           )
+        user.skip_confirmation!
+        user.save
         user.user_info.avatar = URI.parse(auth.info.image) if auth.info.image?
         user.user_info.location = auth.info.location if auth.info.location?
         user.user_info.save
