@@ -9,18 +9,26 @@
   <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="tab-pane active" id="tab1">
       <div id="description_content">
-        <div class="text_description_content"><%= sanitize(@post.description) %></div>
-        <% if @post.service != "" && @post.service != nil %>
-          <div>
-            Service in return: <%= @post.service %>
-          </div>
-        <% end %>
+        <div class="text_description_content">
+          <div class="description-section"><%= sanitize(@post.description) %></div>
+          <% if @post.service != "" && @post.service != nil %>
+            <div>
+              <strong>Service in return:</strong><br />
+              <%= @post.service %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="tab-pane" id="tab2">
       <div id="backers_content">
         <% if @post.bets.size == 0 %>
-          <span>There are no applications yet.</span>
+          <div class="application-block">
+            There are no applications yet.<br />
+            <% if (current_user && current_user != @post.user) or !current_user %>
+              <%= link_to "Be the first one", "#fw-panel" %>.
+            <% end %>
+          </div>
         <% else %>
           <div class="row">
             <% @bets.limit(@per_page_bets).each do |bet| %>

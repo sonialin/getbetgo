@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* Home page main visual */
+.carousel-inner > .item > img {
+  display: block;
+  height: 400px;
+  min-width: 100%;
+  max-width: 300%;
+  overflow: hidden;
+}
+
 .line {
   border-top:6px solid #98b709;
   border-bottom:6px solid #98b709;
@@ -447,6 +455,14 @@ a.user_name_link:hover {
 }
 
 #description_content .text_description_content {
+  margin: 20px;
+}
+
+.description-section {
+  margin-bottom: 10px;
+}
+
+.application-block {
   margin: 20px;
 }
 
