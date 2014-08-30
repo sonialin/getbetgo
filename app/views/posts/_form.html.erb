@@ -121,7 +121,16 @@
         <label class="col-md-3 control-label" for="location">Location</label>
         <div class="col-md-8">
           <div class="col-md-12">
-          <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
+            <div class="inner-addon">
+              <% if @post.new_record? %>
+                <span id="location-remove" style="display:none;"></span>
+                <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
+              <% else %>
+                <span id="location-remove"><%= @post.location %><a>x</a></span>
+                <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", :disabled => true, :value => ''%>
+              <% end %>
+          </div>
+          <%= f.hidden_field :google_api_place_id %>
           </div>
           <div class="col-md-12">
             <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
@@ -138,7 +147,35 @@
     <% end %>
   </fieldset>
 </div>
+<style>
+#location-remove {
+  color: #FFFFFF;
+  background-color: #8AA508;
+  border-color: #99B709;
+  border-radius: 4px;
+  top:4px;
+  position: absolute;
+  padding: 5px;
+  left:10px;
+  height:80%;
+}
 
+#location-remove a {
+  margin-left:10px;
+  color: #FFFFFF;
+  cursor:pointer;
+  text-decoration: none;
+}
+
+.inner-addon { 
+    position: relative; 
+}
+
+.form-control[disabled] {
+  background-color: #fff;
+}
+
+</style>
 
 <script type="text/javascript">
   var autocomplete;
@@ -147,7 +184,29 @@
     autocomplete = new google.maps.places.Autocomplete(
       (document.getElementById('autocomplete')),{ types: ['(regions)'] }
     );
+   
+    // When the user selects an address from the dropdown, disable the field and add place_id
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      $('#post_google_api_place_id').val(autocomplete.getPlace().place_id);
+      disable_location_input();
+    });
   }
+
+  function disable_location_input() {
+    document.getElementById('autocomplete').disabled = true;
+    $('#location-remove').html($('#autocomplete').val() + "<a>x</a>");
+    $('#autocomplete').val('');
+    $('#location-remove').show();
+    $('#autocomplete').attr('placeholder','');
+  }
+
+  $(document).on('click', '#location-remove a', function() {
+    $('#location-remove').hide();
+    $('#autocomplete').attr('placeholder','Enter City');
+    document.getElementById('autocomplete').disabled = false;
+    $('#post-location-ok').hide();
+    $('#post_google_api_place_id').val('');
+  });
 
   /* validation for post description */
   $('#post_description').on('blur', function() {

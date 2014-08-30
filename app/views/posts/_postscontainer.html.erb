@@ -35,7 +35,7 @@
 </div>
 
 <script>
-  var loading_posts = false;
+  var loading_posts = true;
   var category,subcategory,page,tag,locationn,user_id,page;
   page = 1;
 
@@ -60,6 +60,10 @@
   <% unless @user.nil? %>
 	user_id = <%= @user.id %>
   <% end %>
+
+  $(document).ready(function() {
+  	loading_posts = false;
+  });
 
   $("#load_more_posts<% if user_posts %><%= "_user" %><% end %>").click(function() {
 		if(!loading_posts) {
