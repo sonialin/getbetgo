@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :bets, :dependent => :destroy
   belongs_to :subcategory
   belongs_to :status, :class_name => "::Posts::Status"
+  belongs_to :place
 
   before_save :set_title
 
@@ -19,14 +20,81 @@ class Post < ActiveRecord::Base
   validates :subcategory_id, presence: true
   validates :description, presence: true
   validates :tag_list, presence: true
-  validates :location, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 5.00}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
   validates :criteria, presence: true
+  validate :place_exist
+
+  before_save :set_place_id
 
   # after_initialize :default_values
-
   attr_reader :available_quantity
+
+  def place_exist
+    @place_info = Place.get_place_details(self.api_place_id)
+    self.errors.add(:base, "Select a place from dropdown") unless (Place.where(:google_api_place_id => self.api_place_id).first or @place_info)
+  end
+
+  def set_place_id
+    place_row = Place.where(:google_api_place_id => self.api_place_id).first 
+    if place_row
+      self.place_id = place_row.id
+    else
+      Place.create_entries(@place_info)
+      self.place_id = Place.where(:google_api_place_id => self.api_place_id).first.id
+    end
+  end
+
+  def location
+    return nil unless self.place
+    case self.place.political_type
+      when 'Country'
+        country = self.place.political
+        return country.name
+      when 'State'
+        state = self.place.political
+        country = state.country
+        return  state.name + "," + country.name
+      when 'County'
+        county = self.place.political
+        state = county.state
+        country = state.country
+        return county.name + "," + state.short_name + "," + country.name
+      when 'Locality'
+        locality = self.place.political
+        case locality.administrative_area_type
+          when 'Country'
+            country = locality.administrative_area
+            return locality.name + "," + country.name 
+          when 'County'
+            county = locality.administrative_area
+            state = county.state
+            country = state.country
+            return locality.name + "," + state.short_name + "," + country.name        
+          when 'State'
+            state = locality.administrative_area
+            country = state.country    
+            return locality.name + "," + state.short_name + "," + country.name  
+        end  
+      when 'Sublocality'
+        sublocality = self.place.political
+        locality = sublocality.locality
+        case locality.administrative_area_type
+          when 'Country'
+            country = locality.administrative_area
+            return sublocality.name + "," + locality.short_name + "," + country.name 
+          when 'County'
+            county = locality.administrative_area
+            state = county.state
+            country = state.country    
+            return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name        
+          when 'State'
+            state = locality.administrative_area
+            country = state.country    
+            return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name  
+        end  
+    end
+  end
 
   def status
     ::Posts::Status.find(self.status_id).name rescue nil
@@ -45,7 +113,7 @@ class Post < ActiveRecord::Base
     posts = posts.tagged_with(params[:tag]) if params[:tag]
     posts = posts.apply_category_filter(posts, params[:category]) if params[:category]
     posts = posts.apply_subcategory_filter(posts, params[:subcategory]) if params[:subcategory]
-    posts = posts.apply_location_filter(params[:location]) if params[:location]
+    posts = posts.apply_location_filter(posts, params[:location]) if params[:location]
     return posts
   end
 
@@ -59,8 +127,33 @@ class Post < ActiveRecord::Base
     posts.where(:subcategory_id => subcategory.id)
   end
 
-  def self.apply_location_filter(location)
-    where(:location => location)
+  def self.apply_location_filter(posts, location)
+    politicals = location.split(',').reverse
+    begin
+      country = Country.find_by_name(politicals[0])
+      return country.posts if politicals.size == 1
+      state = country.states.where("name = ? or short_name = ?",politicals[1],politicals[1]).first
+      if state
+        return state.posts if politicals.size == 2
+        county = state.counties.find_by_name(politicals[2]) if politicals.size == 3
+        if county
+          return county.posts
+        else
+          locality = state.localities.where("name = ? or short_name = ?",politicals[2],politicals[2]).first
+          locality ||= Locality.joins("INNER JOIN counties ON counties.id = localities.administrative_area_id AND localities.administrative_area_type = 'County' INNER JOIN states ON states.id = counties.state_id").where("states.id = ? AND (localities.name = ? or localities.short_name = ?)",state.id,politicals[2],politicals[2]).first
+          return locality.posts if politicals.size == 3
+          sublocality = locality.sublocalities.find_by_name(politicals[3])
+          return sublocality.posts if politicals.size == 4
+        end
+      else
+        locality = country.localities.where("name = ? or short_name = ?",politicals[1],politicals[1]).first
+        return locality.posts if politicals.size == 2
+        sublocality = locality.sublocalities.find_by_name(politicals[3])
+        return sublocality.posts if politicals.size == 3
+      end
+    rescue
+    end
+    return Post.where(:id => [])
   end
 
   def slug_candidates
@@ -116,6 +209,22 @@ class Post < ActiveRecord::Base
 
   def category_id
     self.category.id rescue nil
+  end
+
+  def google_api_place_id
+    self.place.google_api_place_id rescue nil
+  end
+
+  # Gets the object's singleton class. Backported from Rails 2.3.8 to support older versions of Rails.
+  def singleton_class
+    class << self
+      self
+    end
+  end   
+
+  def set_api_place_id api_place_id
+    singleton_class.send(:attr_accessor, "api_place_id")
+    send("api_place_id" + "=", api_place_id)
   end
 
   private
