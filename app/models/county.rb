@@ -1,12 +1,13 @@
 class County < ActiveRecord::Base
-  belongs_to :state
+  belongs_to :state_country, polymorphic: true
   has_one :place, as: :political
   has_many :localities, as: :administrative_area
   before_save :replace_comma_with_space
 
   validates :name, presence: true
   validates :short_name, presence: true
-  validates :state_id, presence: true
+  validates :state_country_id, presence: true
+  validates :state_country_type, presence: true
 
   def replace_comma_with_space
     self.name.gsub!(',',' ')

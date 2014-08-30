@@ -23,6 +23,9 @@ class Place < ActiveRecord::Base
     elsif locality
       locality = country.localities.find_or_create_by(locality)
       create_locality_hierarchy(locality,sublocality,google_api_place_id)
+    elsif county
+      county = country.counties.find_or_create_by(county) 
+      create_county_hierarchy(county,locality,sublocality,google_api_place_id) 
     else
       country.create_place(:google_api_place_id => google_api_place_id) unless country.place
     end
