@@ -17,8 +17,11 @@ namespace :posts do
       request = Net::HTTP::Get.new(uri.request_uri)
       http.use_ssl = true
       result = JSON.parse(http.request(request).body)
-      post.set_api_place_id(result["predictions"].first["place_id"])
-      post.save
+      begin
+        post.set_api_place_id(result["predictions"].first["place_id"])
+        post.save
+      rescue 
+      end
     end
   end
 end
