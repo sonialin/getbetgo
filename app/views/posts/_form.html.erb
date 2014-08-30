@@ -126,8 +126,13 @@
                 <span id="location-remove" style="display:none;"></span>
                 <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
               <% else %>
-                <span id="location-remove"><%= @post.location %><a>x</a></span>
-                <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", :disabled => true, :value => ''%>
+                <% if @post.place_id %>
+                  <span id="location-remove"><%= @post.location %><a>x</a></span>
+                 <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", :disabled => true, :value => ''%>
+                <% else %>
+                  <span id="location-remove" style="display:none;"></span>
+                 <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City", :value => ''%>
+                <% end %>
               <% end %>
           </div>
           <%= f.hidden_field :google_api_place_id %>

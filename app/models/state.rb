@@ -1,7 +1,7 @@
 class State < ActiveRecord::Base
   belongs_to :country
   has_one :place, as: :political
-  has_many :counties
+  has_many :counties, as: :state_country
   has_many :localities, as: :administrative_area
   before_save :replace_comma_with_space
 

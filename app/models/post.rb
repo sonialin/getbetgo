@@ -36,7 +36,7 @@ class Post < ActiveRecord::Base
   end
 
   def set_place_id
-    place_row = Place.where(:google_api_place_id => self.api_place_id).first 
+    place_row = Place.where(:google_api_place_id => self.api_place_id).first
     if place_row
       self.place_id = place_row.id
     else
@@ -57,9 +57,15 @@ class Post < ActiveRecord::Base
         return  state.name + "," + country.name
       when 'County'
         county = self.place.political
-        state = county.state
-        country = state.country
-        return county.name + "," + state.short_name + "," + country.name
+        case county.state_country_type
+          when 'Country'
+            country = county.state_country
+            return county.name + "," + country.name
+          when 'State'
+            state = county.state_country
+            country = state.country
+            return county.name + "," + state.short_name + "," + country.name
+        end
       when 'Locality'
         locality = self.place.political
         case locality.administrative_area_type
@@ -68,11 +74,16 @@ class Post < ActiveRecord::Base
             return locality.name + "," + country.name 
           when 'County'
             county = locality.administrative_area
-            state = county.state
-            country = state.country
-            return locality.name + "," + state.short_name + "," + country.name        
+            case county.state_country_type
+              when 'Country'
+                country = county.state_country
+                return locality.name + "," + county.short_name + "," + country.name
+              when 'State'
+                state = county.state_country
+                country = state.country
+                return locality.name + "," + state.short_name + "," + country.name
+            end       
           when 'State'
-            state = locality.administrative_area
             country = state.country    
             return locality.name + "," + state.short_name + "," + country.name  
         end  
@@ -85,9 +96,15 @@ class Post < ActiveRecord::Base
             return sublocality.name + "," + locality.short_name + "," + country.name 
           when 'County'
             county = locality.administrative_area
-            state = county.state
-            country = state.country    
-            return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name        
+            case county.state_country_type
+              when 'Country'
+                country = county.state_country
+                return sublocality.name + "," + locality.short_name + "," + county.short_name + "," + country.name
+              when 'State'
+                state = county.state_country
+                country = state.country
+                return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name
+            end            
           when 'State'
             state = locality.administrative_area
             country = state.country    
@@ -133,6 +150,7 @@ class Post < ActiveRecord::Base
       country = Country.find_by_name(politicals[0])
       return country.posts if politicals.size == 1
       state = country.states.where("name = ? or short_name = ?",politicals[1],politicals[1]).first
+      county = country.counties.where("name = ? or short_name = ?",politicals[1],politicals[1]).first
       if state
         return state.posts if politicals.size == 2
         county = state.counties.find_by_name(politicals[2]) if politicals.size == 3
@@ -140,11 +158,17 @@ class Post < ActiveRecord::Base
           return county.posts
         else
           locality = state.localities.where("name = ? or short_name = ?",politicals[2],politicals[2]).first
-          locality ||= Locality.joins("INNER JOIN counties ON counties.id = localities.administrative_area_id AND localities.administrative_area_type = 'County' INNER JOIN states ON states.id = counties.state_id").where("states.id = ? AND (localities.name = ? or localities.short_name = ?)",state.id,politicals[2],politicals[2]).first
+          locality ||= Locality.joins("INNER JOIN counties ON counties.id = localities.administrative_area_id AND localities.administrative_area_type = 'County' INNER JOIN states ON states.id = counties.state_country_id AND counties.state_country_type = 'State'").where("states.id = ? AND (localities.name = ? or localities.short_name = ?)",state.id,politicals[2],politicals[2]).first
           return locality.posts if politicals.size == 3
           sublocality = locality.sublocalities.find_by_name(politicals[3])
           return sublocality.posts if politicals.size == 4
         end
+      elsif county
+        return county.posts if politicals.size == 2
+        locality = county.localities.where("name = ? or short_name = ?",politicals[2],politicals[2]).first
+        return locality.posts if politicals.size == 3
+        sublocality = locality.sublocalities.find_by_name(politicals[3])
+        return sublocality.posts if politicals.size == 4     
       else
         locality = country.localities.where("name = ? or short_name = ?",politicals[1],politicals[1]).first
         return locality.posts if politicals.size == 2

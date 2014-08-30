@@ -90,14 +90,15 @@ ActiveRecord::Schema.define(version: 20140829131909) do
   create_table "counties", force: true do |t|
     t.string   "name"
     t.string   "short_name"
-    t.integer  "state_id"
+    t.integer  "state_country_id"
+    t.string   "state_country_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "counties", ["name"], name: "index_counties_on_name", using: :btree
   add_index "counties", ["short_name"], name: "index_counties_on_short_name", using: :btree
-  add_index "counties", ["state_id"], name: "index_counties_on_state_id", using: :btree
+  add_index "counties", ["state_country_type", "state_country_id"], name: "index_counties_on_state_country_type_and_state_country_id", using: :btree
 
   create_table "countries", force: true do |t|
     t.string   "name"
