@@ -51,7 +51,14 @@ module PostsHelper
     country = request.location.country
 		per_page = POSTS_PER_PAGE
 		followed_ids = current_user.followeds.pluck(:id) if current_user
-    rec_or_fol_posts = posts.where("user_id IN (?) OR (location LIKE ? AND location LIKE ?)", followed_ids,"%#{city}%", "%#{country}%").order("posts.id desc")
+
+    nearby_posts = Post.where(:id => [])
+    locality = Locality.where("lower(name) = ?",city.downcase).first
+    nearby_posts = locality.posts if locality
+    country = Country.where("lower(name) = ?",country.downcase).first
+    nearby_posts = country.posts if country
+    
+    rec_or_fol_posts = posts.where("user_id IN (?) OR id IN (?)", followed_ids,nearby_posts.select("id")).order("posts.id desc")
     rec_or_fol_posts_ids = rec_or_fol_posts.pluck(:id)
     rec_or_fol_posts_count = rec_or_fol_posts_ids.count
     other_posts = posts.order("updated_at desc")
@@ -77,7 +84,7 @@ module PostsHelper
     post_type = []
 
     rec_or_fol_posts.each do |post|
-      if (not post.location.nil?) and post.location.include? city and post.location.include? country
+      if nearby_posts.where(:id => post.id).first
         post_type << 'r'
       else
         post_type << 'f'
