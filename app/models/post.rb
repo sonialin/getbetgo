@@ -30,6 +30,10 @@ class Post < ActiveRecord::Base
   # after_initialize :default_values
   attr_reader :available_quantity
 
+  def self.search(query)
+    where("title like ? or description like ?", "%#{query}%", "%#{query}%") 
+  end
+
   def place_exist
     @place_info = Place.get_place_details(self.api_place_id)
     self.errors.add(:base, "Select a place from dropdown") unless (Place.where(:google_api_place_id => self.api_place_id).first or @place_info)

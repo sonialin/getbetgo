@@ -10,6 +10,13 @@
       <%= link_to "Home", root_path, :class => "navbar-brand" %>
     </div>
 
+    <%= form_tag(posts_path, :method => "get", :class => "navbar-form navbar-left") do %>
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], placeholder: "Search for funds", :class => "form-control" %>
+      </div>
+      <%= submit_tag "Search", :name => nil, :class => "btn btn-default" %>
+    <% end %>
+
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">

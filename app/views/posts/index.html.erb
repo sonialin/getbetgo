@@ -1,4 +1,4 @@
-<% if ((!current_user && !params[:tag]) && !params[:location]) && !params[:subcategory] %>
+<% if (((!current_user && !params[:tag]) && !params[:location]) && !params[:subcategory]) && !params[:search] %>
   <!-- <div class="jumbotron" id="home">
     <div class="container" id="home-content">
       <div class="row text-center">   
@@ -136,6 +136,16 @@
               <i class="fa fa-times dismiss-tag"></i>
             </a>&nbsp;
             <%= params[:subcategory] %>
+          </span>
+        </div>
+      <% elsif params[:search] %>
+        <div id="filter-display" class="tag-display">
+          <span class="search-text">Search results of </span>
+          <span class="search-tag">
+            <a class="location-tag-filter">
+              <i class="fa fa-times dismiss-tag"></i>
+            </a>&nbsp;
+            <%= params[:search] %>
           </span>
         </div>
       <% else %>

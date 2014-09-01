@@ -11,18 +11,23 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.filter(params)
-    @tag = params[:tag]
-    @category = params[:category]
-    @location = params[:location]
-    @subcategory = params[:subcategory]
-    page = params[:page] || 1
-    @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
-
-    respond_to do |format|
-      format.html
-      format.js { render 'index.js.erb' }
+    if params[:search]
+      @posts = Post.search(params[:search]).order("created_at DESC")
+    else
+      @posts = Post.filter(params)
     end
+      @tag = params[:tag]
+      @category = params[:category]
+      @location = params[:location]
+      @subcategory = params[:subcategory]
+      page = params[:page] || 1
+      @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
+
+      respond_to do |format|
+        format.html
+        format.js { render 'index.js.erb' }
+      end
+    
   end
 
   # GET /posts/1
