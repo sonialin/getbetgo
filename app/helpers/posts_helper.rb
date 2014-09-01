@@ -56,10 +56,10 @@ module PostsHelper
     locality = Locality.where("lower(name) = ?",city.downcase).first
     nearby_posts = locality.posts if locality
     country = Country.where("lower(name) = ?",country.downcase).first
-    nearby_posts = country.posts if country
+    nearby_posts = country.posts if (country && nearby_posts.count == 0)
     
-    rec_or_fol_posts = posts.where("user_id IN (?) OR id IN (?)", followed_ids,nearby_posts.select("id")).order("posts.id desc")
-    rec_or_fol_posts_ids = rec_or_fol_posts.pluck(:id)
+    rec_or_fol_posts = posts.where("posts.user_id IN (?) OR posts.id IN (?)", followed_ids,nearby_posts.select("id")).order("posts.id desc")
+    rec_or_fol_posts_ids = rec_or_fol_posts.pluck("posts.id")
     rec_or_fol_posts_count = rec_or_fol_posts_ids.count
     other_posts = posts.order("updated_at desc")
     other_posts = posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids) if rec_or_fol_posts_count > 0
