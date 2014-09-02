@@ -30,3 +30,9 @@ h1 {
 }
 
 .field_with_errors { display: inline; } 
+
+.homepage-logo {
+	max-width: 200px;
+	margin-bottom: -8px;
+	margin-top: -8px;
+}

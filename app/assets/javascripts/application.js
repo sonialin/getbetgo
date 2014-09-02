@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require retina-1.0.0.js
 //= require jquery_ujs
 //= require bootsy
 //= require best_in_place
