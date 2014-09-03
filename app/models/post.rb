@@ -58,38 +58,38 @@ class Post < ActiveRecord::Base
       when 'State'
         state = self.place.political
         country = state.country
-        return  state.name + "," + country.name
+        return  state.name + ", " + country.name
       when 'County'
         county = self.place.political
         case county.state_country_type
           when 'Country'
             country = county.state_country
-            return county.name + "," + country.name
+            return county.name + ", " + country.name
           when 'State'
             state = county.state_country
             country = state.country
-            return county.name + "," + state.short_name + "," + country.name
+            return county.name + ", " + state.short_name + ", " + country.name
         end
       when 'Locality'
         locality = self.place.political
         case locality.administrative_area_type
           when 'Country'
             country = locality.administrative_area
-            return locality.name + "," + country.name 
+            return locality.name + ", " + country.name 
           when 'County'
             county = locality.administrative_area
             case county.state_country_type
               when 'Country'
                 country = county.state_country
-                return locality.name + "," + county.short_name + "," + country.name
+                return locality.name + ", " + county.short_name + ", " + country.name
               when 'State'
                 state = county.state_country
                 country = state.country
-                return locality.name + "," + state.short_name + "," + country.name
+                return locality.name + ", " + state.short_name + ", " + country.name
             end       
           when 'State'
             country = state.country    
-            return locality.name + "," + state.short_name + "," + country.name  
+            return locality.name + ", " + state.short_name + ", " + country.name  
         end  
       when 'Sublocality'
         sublocality = self.place.political
@@ -97,22 +97,22 @@ class Post < ActiveRecord::Base
         case locality.administrative_area_type
           when 'Country'
             country = locality.administrative_area
-            return sublocality.name + "," + locality.short_name + "," + country.name 
+            return sublocality.name + ", " + locality.short_name + ", " + country.name 
           when 'County'
             county = locality.administrative_area
             case county.state_country_type
               when 'Country'
                 country = county.state_country
-                return sublocality.name + "," + locality.short_name + "," + county.short_name + "," + country.name
+                return sublocality.name + ", " + locality.short_name + ", " + county.short_name + ", " + country.name
               when 'State'
                 state = county.state_country
                 country = state.country
-                return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name
+                return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name
             end            
           when 'State'
             state = locality.administrative_area
             country = state.country    
-            return sublocality.name + "," + locality.short_name + "," + state.short_name + "," + country.name  
+            return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name  
         end  
     end
   end
