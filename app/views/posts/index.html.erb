@@ -220,9 +220,13 @@
       $('#homepage-post-price-ok').show();
       $('#instruction1').html("<span class='validation-success input-feedback'>Good!</span>");
       $('#homepage-post-price-nogood').hide();
-    } else {
+    } else if ($(this).val() < 5) {
       $('#homepage-post-price-nogood').show();
       $('#instruction1').html("<span class='validation-failed input-feedback'>Maybe start with 5?</span>");
+      $('#homepage-post-price-ok').hide();
+    } else {
+      $('#homepage-post-price-nogood').show();
+      $('#instruction1').html("<span class='validation-failed input-feedback'>Has to be a number</span>");
       $('#homepage-post-price-ok').hide();
     }
   });
@@ -238,9 +242,17 @@
       $('#homepage-post-quantity-ok').show();
       $('#instruction2').html("<span class='validation-success input-feedback'>Good!</span>");
       $('#homepage-post-quantity-nogood').hide();
+    } else if (Math.floor($(this).val()) != $(this).val()) {
+      $('#homepage-post-quantity-nogood').show();
+      $('#instruction2').html("<span class='validation-failed input-feedback'>You gotta be kidding me</span>");
+      $('#homepage-post-quantity-ok').hide();
+    } else if ($(this).val() < 1) {
+      $('#homepage-post-quantity-nogood').show();
+      $('#instruction2').html("<span class='validation-failed input-feedback'>Maybe start with 1?</span>");
+      $('#homepage-post-quantity-ok').hide();
     } else {
       $('#homepage-post-quantity-nogood').show();
-      $('#instruction2').html("<span class='validation-failed input-feedback'>You gotta be kidding me.</span>");
+      $('#instruction2').html("<span class='validation-failed input-feedback'>Has to be a number</span>");
       $('#homepage-post-quantity-ok').hide();
     }
   });

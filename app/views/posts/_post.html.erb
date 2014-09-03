@@ -71,7 +71,7 @@
             <small class="funding-metrics-text">CLAIMED</small>
           </div>
           <div class="col-md-4 col-xs-4 funding-metrics-cell-middle text-center">
-            <span class="funding-metrics-number">$<%= post.total %></span><br/>
+            <span class="funding-metrics-number">$<%= number_with_precision(post.total, :precision => 2) %></span><br/>
             <small class="funding-metrics-text">AVAILABLE</small>
           </div>
           <div class="col-md-4 col-xs-4 funding-metrics-cell text-center">
