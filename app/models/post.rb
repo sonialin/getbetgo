@@ -149,7 +149,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.apply_location_filter(posts, location)
-    politicals = location.split(',').reverse
+    politicals = location.split(', ').reverse
     begin
       country = Country.find_by_name(politicals[0])
       return country.posts if politicals.size == 1
