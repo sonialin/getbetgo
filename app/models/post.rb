@@ -9,6 +9,7 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
   acts_as_votable
+  is_impressionable
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged

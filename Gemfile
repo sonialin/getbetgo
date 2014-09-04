@@ -110,6 +110,9 @@ gem 'newrelic_rpm'
 # Use mandrill for transactional emails
 gem 'mandrill_mailer'
 
+# Use impressionist to track impressions
+gem 'impressionist'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
