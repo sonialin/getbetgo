@@ -797,7 +797,7 @@ a .dismiss-tag {
   top: 5px;
 }
 
-#posts-container .big-tag-outer .big-tag {
+.big-tag-outer .big-tag {
   display: block;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
@@ -808,12 +808,12 @@ a .dismiss-tag {
   bottom: 0px;
 }
 
-#posts-container .big-tag-outer .big-tag .big-tag-price {
+.big-tag-outer .big-tag .big-tag-price {
   font-size: 1.6em;
   line-height: 1em;
 }
 
-#posts-container .big-tag-outer .big-tag .big-tag-number-available {
+.big-tag-outer .big-tag .big-tag-number-available {
   margin-top: 0px;
 }
 
