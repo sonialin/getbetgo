@@ -269,6 +269,6 @@ class Post < ActiveRecord::Base
     end
 
     def set_title
-      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who ' + self.criteria
+      self.title = 'I am giving $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who want to ' + self.criteria
     end
 end
