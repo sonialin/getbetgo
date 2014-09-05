@@ -7,7 +7,7 @@
 	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
 	      	<div class="finances-tab">
 		      	<a href="/giving">
-			      	<span class="finances-number">$<%= @contributions_sum %></span><br />
+			      	<span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
 			      	CONTRIBUTIONS
 		      	</a>
 	      	</div>
@@ -15,7 +15,7 @@
 	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
 	      	<div class="finances-tab">
 		      	<a href="/receiving">
-		      		<span class="finances-number">$<%= @credits_sum %></span><br />
+		      		<span class="finances-number">$<%= number_with_precision(@credits_sum, :precision => 2) %></span><br />
 		      		FUNDING
 		      	</a>
 	      	</div>
@@ -26,25 +26,59 @@
 	    <div class="tab-pane active" id="tab1">
 	      <div id="description_content" class="table-responsive">
 	        <table class="table table-hover">
-						<% if @posts.count != 0 %>
+						<% if @orders.count != 0 %>
 							<thead>
-								<td>Amount Claimed</td>
-								<td>Post</td>
+								<td>Order #</td>
+								<td>Status</td>
+								<td>Fund Title</td>
 								<td>Date</td>
 							</thead>
 					  	<tbody>
-					  		<% @posts.each do |post| %>
-					  			<tr data-link="<%= post_path(post) %>" class="clickable-row">
-										<td><%= post.claimed_fund %></td>
-									  <td><%= link_to post.title, post %></td>
-									  <td><%= reformatted_post_datetime(post.created_at) %></td>
-									</tr>
+					  		<% @orders.each do |order| %>
+					  			<% if !Bet.exists?(:id => order.bet_id) %>
+					  				<tr>
+						  				<td><%= order.token %></td>
+											<td>nil</td>
+										  <td>nil</td>
+										  <td><%= reformatted_post_datetime(order.created_at) %></td>
+										</tr>
+									<% elsif !Post.exists?(:id => order.post_id) %>
+										<tr>
+						  				<td><%= order.token %></td>
+											<td>nil</td>
+										  <td>nil</td>
+										  <td><%= reformatted_post_datetime(order.created_at) %></td>
+										</tr>
+					  			<% else %>
+						  			<tr data-link="<%= post_path(order.bet.post) %>" class="clickable-row">
+						  				<td><%= order.token %></td>
+											<td><%= order.bet.status %></td>
+										  <td><%= link_to order.bet.post.title, order.bet.post %></td>
+										  <td><%= reformatted_post_datetime(order.created_at) %></td>
+										</tr>
+									<% end %>
 					  		<% end %>
 					  	</tbody>
+					  <% else %>
+					  	<% if current_user.posts != 0 %>
+					  		<div class="row text-center">
+						  		<div class="col-md-8 col-md-offset-2">
+						  			You have not selected an applicant yet.<br /><br />
+						  			<%= link_to "Check out my latest fund", current_user.posts.last, :class => "btn btn-fw" %>
+						  		</div>
+					  		</div>
+					  	<% else %>
+					  		<div class="row text-center">
+						  		<div class="col-md-8 col-md-offset-2">
+						  			You have not made a contribution yet.<br /><br />
+						  			<%= link_to "Start a New Fund", new_post_path, :class => "btn btn-fw" %>
+						  		</div>
+					  		</div>
+					  	<% end %>
 				  	<% end %>
 				  </table>
 				  <div id="contributions-pagination">
-					  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+					  <%= will_paginate @orders, renderer: BootstrapPagination::Rails %>
 					</div>					
 	      </div>
 	    </div>

@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   def giving
     @title = 'Finances'
     @user = current_user
-    @posts = current_user.posts.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
+    @orders = current_user.orders.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
     @contributions_sum = @user.contributions
     @credits_sum = @user.credits
     @paypal_recipient_account = PaypalRecipientAccount.new 

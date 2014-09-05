@@ -161,7 +161,7 @@
                             <%= form_for @modification_request, :html => { :class => 'form-horizontal modification-form' } do |f| %>
                               <%= f.hidden_field :reply_id, value: reply.id %>
                               <%= f.text_area :body, :class => 'form-control' %><br />
-                              <%= f.submit :class => "btn btn-fw" %>
+                              <%= f.submit "Request Modification", :class => "btn btn-fw" %>
                             <% end %>
                           <% end %>
                         <% end %>
@@ -177,7 +177,7 @@
                     <%= f.hidden_field :bet_id, value: bet.id %>
                     <%= f.text_area :body, :class => 'form-control' %><br />
                     <%= file_field_tag "documents[]", type: :file, multiple: true %><br />
-                    <%= f.submit :class => "btn btn-fw" %>
+                    <%= f.submit "Send", class: "btn btn-fw" %>
                   <% end %>
                 <% end %>
               <% end %>

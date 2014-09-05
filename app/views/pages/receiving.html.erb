@@ -7,7 +7,7 @@
 	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
 	      	<div class="finances-tab">
 		      	<a href="/giving">
-			      	<span class="finances-number">$<%= @contributions_sum %></span><br />
+			      	<span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
 			      	CONTRIBUTIONS
 		      	</a>
 	      	</div>
@@ -15,7 +15,7 @@
 	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
 	      	<div class="finances-tab">
 		      	<a href="/receiving">
-		      		<span class="finances-number">$<%= @credits_sum %></span><br />
+		      		<span class="finances-number">$<%= number_with_precision(@credits_sum, :precision => 2) %></span><br />
 		      		FUNDING
 		      	</a>
 	      	</div>
@@ -33,50 +33,59 @@
 							<td>Date</td>
 						</thead>
 				  	<tbody>
-				  		<% @bets.each do |bet| %>
-					  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
-					  			<td>
-						  			<% if bet.awaiting_modification? or bet.modified? %>
-						  				<span class="fw-main-color"><%= bet.post.price %></span>
-						  			<% else %>
-						  				<%= bet.post.price %>
-						  			<% end %>
-						  		</td>
-						  		<td>
-						  			<% if bet.awaiting_modification? or bet.modified? %>
-						  				<span class="fw-main-color"><%= bet.post.title %></span>
-						  			<% else %>
-						  				<%= bet.post.title %>
-						  			<% end %>
-						  		</td>
-						  		<td>
-						  			<% if bet.open? %>
-						  				Submitted
-						  			<% elsif bet.selected? %>
-						  				Selected
-						  			<% elsif bet.awaiting_modification? %>
-						  				<span class="fw-main-color">Awaiting Your Modification</span>
-						  			<% elsif bet.modified? %>
-						  				<span class="fw-main-color">Awaiting Your Check of Completion</span>
-						  			<% elsif bet.submitted? %>
-						  				Pending credits
-						  			<% elsif bet.credited? %>
-						  				Credits loaded
-						  			<% elsif bet.funded? %>
-						  				Funded
-						  			<% else %>
-						  				Pending
-						  			<% end %>
-						  		</td>
-						  		<td>
-						  			<% if bet.awaiting_modification? or bet.modified? %>
-						  				<span class="fw-main-color"><%= reformatted_post_datetime(bet.created_at) %></span>
-						  			<% else %>
-						  				<%= reformatted_post_datetime(bet.created_at) %>
-						  			<% end %>
-						  		</td>
-					  		</tr>
-				  		<% end %>
+				  		<% if @bets.count != 0 %>
+					  		<% @bets.each do |bet| %>
+						  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
+						  			<td>
+							  			<% if bet.awaiting_modification? or bet.modified? %>
+							  				<span class="fw-main-color"><%= bet.post.price %></span>
+							  			<% else %>
+							  				<%= bet.post.price %>
+							  			<% end %>
+							  		</td>
+							  		<td>
+							  			<% if bet.awaiting_modification? or bet.modified? %>
+							  				<span class="fw-main-color"><%= bet.post.title %></span>
+							  			<% else %>
+							  				<%= bet.post.title %>
+							  			<% end %>
+							  		</td>
+							  		<td>
+							  			<% if bet.open? %>
+							  				Submitted
+							  			<% elsif bet.selected? %>
+							  				Selected
+							  			<% elsif bet.awaiting_modification? %>
+							  				<span class="fw-main-color">Awaiting Your Modification</span>
+							  			<% elsif bet.modified? %>
+							  				<span class="fw-main-color">Awaiting Your Check of Completion</span>
+							  			<% elsif bet.submitted? %>
+							  				Pending credits
+							  			<% elsif bet.credited? %>
+							  				Credits loaded
+							  			<% elsif bet.funded? %>
+							  				Funded
+							  			<% else %>
+							  				Pending
+							  			<% end %>
+							  		</td>
+							  		<td>
+							  			<% if bet.awaiting_modification? or bet.modified? %>
+							  				<span class="fw-main-color"><%= reformatted_post_datetime(bet.created_at) %></span>
+							  			<% else %>
+							  				<%= reformatted_post_datetime(bet.created_at) %>
+							  			<% end %>
+							  		</td>
+						  		</tr>
+					  		<% end %>
+					  	<% else %>
+					  		<div class="row text-center">
+						  		<div class="col-md-8 col-md-offset-2">
+						  			You have not applied for any fund.<br /><br />
+						  			<a href="/" class="btn btn-fw btn-outline-rounded">Search for a Fund<i style="margin-left:10px;" class="fa fa-search"></i></a>
+						  		</div>
+					  		</div>
+					  	<% end %>
 				  	</tbody>
 					</table>
 					<div id="paginate-bets">
