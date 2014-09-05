@@ -124,6 +124,11 @@
   /* Project section title ends */
 
   /* listing items */
+.post-listing-title {
+  position: relative;
+  top: -9px;
+}
+
 .listing-item {
   display: inline-block; 
   max-width: 210px;
