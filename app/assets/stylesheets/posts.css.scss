@@ -771,6 +771,10 @@ a .dismiss-tag {
   position: relative;
 }
 
+.big-tag-outer {
+  position: relative;
+}
+
 #posts-container .followed .post-source-followed {
   display: block;
   background-color: #99b709;
@@ -791,6 +795,26 @@ a .dismiss-tag {
   z-index: 10;
   right: -10px;
   top: 5px;
+}
+
+#posts-container .big-tag-outer .big-tag {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0px 6px;
+  position: absolute;
+  z-index: 10;
+  right: 0px;
+  bottom: 0px;
+}
+
+#posts-container .big-tag-outer .big-tag .big-tag-price {
+  font-size: 1.6em;
+  line-height: 1em;
+}
+
+#posts-container .big-tag-outer .big-tag .big-tag-number-available {
+  margin-top: 0px;
 }
 
 .index-edit-post-hover-outer {
