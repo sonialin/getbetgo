@@ -1,7 +1,7 @@
 class BetsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_bet, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :mark_complete, :evaluate_if_current_user_mark_complete]
-  before_action :set_post, only: [:payment, :pay_process]
+  before_action :set_bet, only: [:select, :show, :edit, :update, :destroy, :payment, :pay_process, :mark_complete, :evaluate_if_current_user_mark_complete]
+  before_action :set_post, only: [:select, :payment, :pay_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
   before_filter :evaluate_if_current_user_mark_complete, only: [:mark_complete]
 
