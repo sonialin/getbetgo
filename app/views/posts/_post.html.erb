@@ -33,7 +33,7 @@
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">
-            <%= link_to sanitize(post.criteria.truncate(65)), post, :class => "post-listing-title" %>
+            <%= link_to sanitize(post.criteria.truncate(65).capitalize), post, :class => "post-listing-title" %>
           </h4>
         </div>
 
