@@ -23,7 +23,7 @@
             <label for="company"> people</label>
           </div>
           <div class="homepage-new-fund-div">
-            <label for="email"> who</label>
+            <label for="email"> who want to </label>
             <span id="instruction3" class="homepage-addfund-instruction">criteria</span>
             <%= text_field_tag(:criteria) %>
             <span id="homepage-post-criteria-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
@@ -208,7 +208,7 @@
       $('#homepage-post-criteria-nogood').hide();
     } else {
       $('#homepage-post-criteria-nogood').show();
-      $('#instruction3').html("<span class='validation-failed input-feedback'>What about 'love dogs'? Everyone loves dogs!</span>");
+      $('#instruction3').html("<span class='validation-failed input-feedback'>What about 'do ice bucket challenge'?</span>");
       $('#homepage-post-criteria-ok').hide();
     }
   });
