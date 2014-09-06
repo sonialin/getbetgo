@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     @reply = Reply.new
     @modification_request = ModificationRequest.new
     @user_info = @post.user.user_info
-    @current_user_bet = @post.bets.filter_by_user(current_user.id) if current_user
+    @current_user_bet = @post.bets.filter_by_user(current_user.id) if (current_user && (current_user != @post.user))
     @relationship = Relationship.where(
       follower_id: current_user.id,
       followed_id: @post.user.id

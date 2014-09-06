@@ -7,16 +7,39 @@
   z-index: 500;
   position: fixed;
   width: 100%;
-}
-
-.fund-application-prompt a {
-  color: #fff;
   font-size: 1.5em;
 }
 
-.fund-application-prompt a:hover {
-  background-color: none;
+.fund-application-action-needed a {
+  color: #777;
+}
+
+.fund-application-action-needed a:hover {
+  color: #777;
+}
+
+.fund-application-complete a {
   color: #fff;
+}
+
+.fund-application-complete a:hover {
+  color: #fff;
+}
+
+.fund-application-open {
+  z-index: 500;
+  position: fixed;
+  width: 100%;
+  background-color: #eee;
+}
+
+.fund-application-open a {
+  color: #aaa;
+  font-size: 1.5em;
+}
+
+.fund-application-open a:hover {
+  color: #aaa;
 }
 
 /* Bet show page timeline */

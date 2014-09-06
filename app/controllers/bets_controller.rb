@@ -57,7 +57,7 @@ class BetsController < ApplicationController
         @post.user.notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
                           "#{@bet.user.name} applied to your fund '#{@post.title}'", 
                           notified_object = @bet)
-        format.html { redirect_to @post, notice: 'Application was successfully submitted!' }
+        format.html { redirect_to @post }
         #format.json { render action: 'show', status: :created, location: @bet }
       else
         format.html { redirect_to @post, alert: 'Oops, something went wrong.' }
@@ -155,7 +155,6 @@ class BetsController < ApplicationController
       @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
                           notified_object = @bet)
-      flash[:notice] = 'You have marked the fund complete'
       redirect_to @post
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'

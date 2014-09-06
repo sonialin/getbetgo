@@ -37,10 +37,9 @@ class RepliesController < ApplicationController
           @reply.proofs.create(document: document)
         }
       end
-    	flash[:notice] = "Your reply has been posted!"
     	redirect_to :back
     else
-    	flash[:notice] = "Fail."
+    	flash[:notice] = "Oops - something went wrong."
     	redirect_to :back
     end
   end

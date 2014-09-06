@@ -10,7 +10,7 @@
       <li>
         <div class="timeline-panel">
           <% if user_signed_in? %>
-            <% if !@current_user_bet.empty? %>
+            <% if @current_user_bet %>
               Great job - you've submitted your application!
             <% elsif @post.user == current_user %>
               Kudos to you, <%= current_user.name %>!
@@ -41,7 +41,7 @@
         </div>
       </li>
       <% @bets.each do |bet| %>
-        <li class="<%= cycle("timeline-inverted", "") %>" >
+        <li class="<%= cycle("timeline-inverted", "") %> bet-beginning" id="<%= dom_id(bet) %>">
           <% if bet.open? %>
             <div class="timeline-badge open">
               <i class="fa fa-paper-plane"></i>
@@ -175,7 +175,11 @@
                   <hr>
                   <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
                     <%= f.hidden_field :bet_id, value: bet.id %>
-                    <%= f.text_area :body, :class => 'form-control' %><br />
+                    <% if bet.user == current_user %>
+                      <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any update or question for the funder? Submit it here to obtain the fund!" %><br />
+                    <% else %>
+                      <%= f.text_area :body, :class => 'form-control reply-animation' %><br />
+                    <% end %>
                     <%= file_field_tag "documents[]", type: :file, multiple: true %><br />
                     <%= f.submit "Send", class: "btn btn-fw" %>
                   <% end %>
@@ -214,6 +218,11 @@
 
   $('#fund-application').focus(function () {
     $(this).animate({ height: "8em" }, 200);
+  });
+
+  $('.reply-animation').focus(function () {
+    bet_id = $(this).closest('.bet-beginning').attr('id');
+    $('#' + bet_id + ' .reply-animation').animate({ height: "8em" }, 200);
   });
 
   $('.hidden-attachment').popover({trigger: 'hover'});
