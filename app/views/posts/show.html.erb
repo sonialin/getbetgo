@@ -18,24 +18,28 @@
       <% if @post.bets_past_selection.count == 0 %>
         <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
           <div class="container">
-            <a href="#fw-panel">
-              <% if @post.bets.count == 1 %>
+            <% if @post.bets.count == 1 %>
+              <a href="#bet_<%= @post.bets.first.id %>">
                 <%= @post.bets.first.user.name %>'s application is waiting on your review – Let's get rolling!
                 <i class="fa fa-futbol-o"></i>
-              <% elsif @post.bets.count == 2 %>
+              </a>
+            <% elsif @post.bets.count == 2 %>
+              <a href="#bet_<%= @post.bets.first.id %>">
                 <%= @post.bets.first.user.name %>'s and <%= @post.bets.last.user.name %>'s applications are waiting on your review – Let's get rolling!
                 <i class="fa fa-futbol-o"></i>
-              <% elsif @post.bets.count > 2 %>
+              </a>
+            <% elsif @post.bets.count > 2 %>
+              <a href="#bet_<%= @post.bets.first.id %>">
                 <%= @post.bets.first.user.name %>'s and others' applications are waiting on your review – Let's get rolling!
                 <i class="fa fa-futbol-o"></i>
-              <% end %>
-            </a>  
+              </a>
+            <% end %>
           </div>
         </div>
       <% elsif @post.available_quantity > 0 %>
         <%= render :partial => "posts/call_for_action_to_funder_v" + rand(1..2).to_s %>
       <% else %>
-        <div class="alert alert-success fund-application-prompt" style="margin-bottom: -5px;">
+        <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
           <div class="container">
             <div class="row">
               <div class="col-md-10 col-md-offset-1">

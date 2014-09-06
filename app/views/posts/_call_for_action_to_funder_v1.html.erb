@@ -1,16 +1,30 @@
 <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
   <div class="container">
-    <a href="#fw-panel">
-      <% if @post.not_selected_bets.count == 1 %>
+    <% if @post.not_selected_bets.count == 0 %>
+      <% if @post.available_quantity == 1 %>
+        There is <%= @post.available_quantity %> spots left to apply for your fund. Let's share –
+      <% else %>
+        There are <%= @post.available_quantity %> spots left to apply for your fund. Let's share –
+      <% end %>
+      <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
+      <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
+      <a href="http://twitter.com/share?url=<%= request.original_url %>&text=<%= @post.title %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
+      <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
+    <% elsif @post.not_selected_bets.count == 1 %>
+      <a href="#bet_<%= @post.not_selected_bets.first.id %>">
         <%= @post.not_selected_bets.first.user.name %>'s application is waiting on your review – Let's get rolling!
         <i class="fa fa-futbol-o"></i>
-      <% elsif @post.not_selected_bets.count == 2 %>
+      </a>
+    <% elsif @post.not_selected_bets.count == 2 %>
+      <a href="#bet_<%= @post.not_selected_bets.first.id %>">
         <%= @post.not_selected_bets.first.user.name %>'s and <%= @post.not_selected_bets.last.user.name %>'s applications are waiting on your review – Let's get rolling!
         <i class="fa fa-futbol-o"></i>
-      <% elsif @post.not_selected_bets.count > 2 %>
+      </a>
+    <% elsif @post.not_selected_bets.count > 2 %>
+      <a href="#bet_<%= @post.not_selected_bets.first.id %>">
         <%= @post.not_selected_bets.first.user.name %>'s and others' applications are waiting on your review – Let's get rolling!
         <i class="fa fa-futbol-o"></i>
-      <% end %>
-    </a>  
+      </a>
+    <% end %>
   </div>
 </div>
