@@ -1,0 +1,16 @@
+<div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+  <div class="container">
+    <a href="#fw-panel">
+      <% if @post.not_selected_bets.count == 1 %>
+        <%= @post.not_selected_bets.first.user.name %>'s application is waiting on your review – Let's get rolling!
+        <i class="fa fa-futbol-o"></i>
+      <% elsif @post.not_selected_bets.count == 2 %>
+        <%= @post.not_selected_bets.first.user.name %>'s and <%= @post.not_selected_bets.last.user.name %>'s applications are waiting on your review – Let's get rolling!
+        <i class="fa fa-futbol-o"></i>
+      <% elsif @post.not_selected_bets.count > 2 %>
+        <%= @post.not_selected_bets.first.user.name %>'s and others' applications are waiting on your review – Let's get rolling!
+        <i class="fa fa-futbol-o"></i>
+      <% end %>
+    </a>  
+  </div>
+</div>

@@ -193,7 +193,7 @@ class Post < ActiveRecord::Base
   end
 
   def available_quantity
-  	quantity - bets.all.count
+  	self.quantity - self.bets.all.count
   end
 
   # def bets_limit_reached?
@@ -206,6 +206,14 @@ class Post < ActiveRecord::Base
 
   def bets_past_selection
     self.bets.joins(:status).where("bets_statuses.name IN ('Selected', 'Submitted', 'Awaiting Modification', 'Modified', 'Credited', 'Funded')")
+  end
+
+  def given_out_fund
+    self.bets_past_selection.count * self.price.to_f
+  end
+
+  def not_selected_bets
+    self.bets.where(:status_id => 1)
   end
 
   def beneficiaries
