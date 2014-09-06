@@ -2,6 +2,7 @@
   <% if @post.user == current_user %>
     <% if @post.bets.count == 0 %>
       <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -17,6 +18,7 @@
     <% elsif @post.bets.count > 0 %>
       <% if @post.bets_past_selection.count == 0 %>
         <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <div class="container">
             <% if @post.bets.count == 1 %>
               <a href="#bet_<%= @post.bets.first.id %>">
@@ -40,6 +42,7 @@
         <%= render :partial => "posts/call_for_action_to_funder_v" + rand(1..2).to_s %>
       <% else %>
         <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <div class="container">
             <div class="row">
               <div class="col-md-10 col-md-offset-1">
@@ -57,6 +60,7 @@
   <% elsif @post.bets_past_selection.find_by_user_id(current_user.id) %>        
     <% if @current_user_bet.selected? %>
       <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -70,6 +74,7 @@
       </div>
     <% elsif @current_user_bet.submitted? %>
       <div class="alert alert-success fund-application-prompt fund-application-complete" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -83,6 +88,7 @@
       </div>
     <% elsif @current_user_bet.awaiting_modification? %>
       <div class="alert alert-warning fund-application-prompt" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -96,6 +102,7 @@
       </div>
     <% elsif @current_user_bet.modified? %>
       <div class="alert alert-success fund-application-prompt fund-application-complete" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -109,6 +116,7 @@
       </div>
     <% elsif @current_user_bet.credited? %>
       <div class="alert alert-success fund-application-prompt fund-application-complete" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -125,6 +133,7 @@
       </div>
     <% elsif @current_user_bet.funded? %>
       <div class="alert alert-success fund-application-prompt fund-application-complete" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -142,6 +151,7 @@
     <% end %> 
   <% elsif @current_user_bet %>
     <div class="alert fund-application-open" style="margin-bottom: -5px;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-md-offset-1">

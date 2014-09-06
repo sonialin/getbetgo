@@ -1,10 +1,11 @@
 <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   <div class="container">
     <% if @post.not_selected_bets.count == 0 %>
       <% if @post.available_quantity == 1 %>
-        There is <%= @post.available_quantity %> spots left to apply for your fund. Let's share –
+        There is <%= @post.available_quantity %> spot left to apply for your fund. Let's share the good news –
       <% else %>
-        There are <%= @post.available_quantity %> spots left to apply for your fund. Let's share –
+        There are <%= @post.available_quantity %> spots left to apply for your fund. Let's share the good news –
       <% end %>
       <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
       <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
