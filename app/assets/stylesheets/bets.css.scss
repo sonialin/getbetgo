@@ -2,6 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* */
+.fund-application-prompt {
+  z-index: 500;
+  position: fixed;
+  width: 100%;
+}
+
+.fund-application-prompt a {
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.fund-application-prompt a:hover {
+  background-color: none;
+  color: #fff;
+}
 
 /* Bet show page timeline */
 

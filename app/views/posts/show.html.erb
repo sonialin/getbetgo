@@ -1,3 +1,15 @@
+<% if current_user %>
+  <% if @post.bets_past_selection.find_by_user_id(current_user.id) %>
+    <div class="alert alert-success fund-application-prompt" style="margin-bottom: -5px;">
+      <div class="container">
+        <a href="#fw-panel">
+          Check out the status of your application!
+          <i class="fa fa-arrow-down"></i>
+        </a>
+      </div>
+    </div>
+  <% end %>
+<% end %>
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
