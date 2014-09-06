@@ -45,9 +45,9 @@
               <%= link_to image_tag(post.user.user_info.avatar.url(:medium), size: "70x70", :class => "img-circle author-thumbnail"), post.user, :class => "media-object" %>
           </div>
           <div class="media-body align-left">
-            <p class="media-heading brief-desc-text">
-              <%= link_to sanitize(post.description.truncate(95)), post, :class => "desc-link" %>
-            </p>
+            <div class="media-heading brief-desc-text">
+              <%= link_to strip_tags(sanitize(post.description)).truncate(95), post, :class => "desc-link" %>
+            </div>
           </div>
           
         </div>
