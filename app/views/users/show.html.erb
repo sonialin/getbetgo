@@ -127,7 +127,7 @@
       	</div>
       	<div class="row user-profile-block">
       		<div class="user-edit-block">				
-						<p><% if current_user && @user == current_user %>About me: <% end %><em><%= best_in_place_if (current_user && @user == current_user), @user.user_info, :biography, :type => :input, :activator => '#edit-biography', :type => :textarea, :html_attrs => { :cols => '65%', :rows => '4' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
+						<p><% if current_user && @user == current_user %>About me: <br /> <% end %><em><%= best_in_place_if (current_user && @user == current_user), @user.user_info, :biography, :type => :input, :activator => '#edit-biography', :type => :textarea, :id => "user-info-biography", :html_attrs => { :cols => '65%', :rows => '4' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
 						<% if @user == current_user %>
 							<p><i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website', :html_attrs => { :style => 'width:250px;' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %></p>
 							<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin', :html_attrs => { :style => 'width:250px;' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %></p>
@@ -220,6 +220,53 @@
 </style>
 
 <script>
+	var id;
+	$(window).resize(function() {
+	    clearTimeout(id);
+	    id = setTimeout(fix_overflow_of_biography, 500);
+	});
+
+	function fix_overflow_of_biography(){
+	    var user_edit_width = $('.user-edit-block').width();
+	    var biography_html = $('#user-info-biography').data('bip-original-content').replace(/ +(?= )/g,'').replace( /\n/g, ' ' );
+	    var texts = biography_html.split(' ');
+	    biography_html = "";
+	    for(var i in texts) {
+	    	var text = texts[i];
+	    	text = break_text(text,$('#user-info-biography'),user_edit_width);
+	    	biography_html += text + " ";
+	    }
+	    $('#user-info-biography').html(biography_html);
+	}
+
+	function break_text(text,selector,max_width) {
+		selector.html(text);
+		var selector_width = selector.width();
+		var rem_text = "";
+		while(selector_width > max_width) {
+			rem_text = text.slice(-1) + rem_text;
+			text = text.slice(0,-1);
+			selector.html(text);
+			selector_width = selector.width();
+		}
+
+		if(rem_text.length > 0) text += " " + break_text(rem_text,selector,max_width);
+		return text;
+	}
+
+	fix_overflow_of_biography();
+
+	$('#user-info-biography').bind("ajax:success", function(data) { 
+		$('#user-info-biography').data('bip-value', $('#user-info-biography').html());
+		$('#user-info-biography').attr('data-bip-value', $('#user-info-biography').html());
+		$('#user-info-biography').data('bip-original-content', $('#user-info-biography').html());
+		$('#user-info-biography').attr('data-bip-original-content', $('#user-info-biography').html());
+		fix_overflow_of_biography();
+		$('#user-info-biography').removeData('bestInPlaceEditor');
+		$('#user-info-biography').best_in_place();
+		$('#user-info-biography').activate();
+	});
+
 	$('#user-cover-upload-switch').click(function() {
 		var s = "fa-plus";
 		var r = document.getElementById('user-cover-upload-switch').innerHTML;
