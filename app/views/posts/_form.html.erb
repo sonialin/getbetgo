@@ -10,7 +10,7 @@
 <div class="well well-sm post-form">
   <fieldset>
     <legend class="text-center"><%= current_user.name %>'s Fund</legend>
-    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal", :id => "post-form" } do |f| %>
       <% if @post.errors.any? %>
         <div id="error_explanation" class="form-group">
           <div class="col-md-8 col-md-offset-3">
@@ -108,7 +108,7 @@
         <label class="col-md-3 control-label" for="tag_list">Tags</label>
         <div class="col-md-8">
           <div class="col-md-12">
-            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => (@post.tags.select("tags.id, tags.name")).to_json } %>
+            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => (@post.tags.select("tags.id as id, LOWER(tags.name) as name")).to_json } %>
           </div>
         </div>
       </div>
@@ -381,9 +381,34 @@
       theme: "facebook",
       tokenValue: "name",
       noResultsText: "No tags found",
-      prePopulate: $.parseJSON($('#post_tag_list').attr('data-load'))
+      prePopulate: $.parseJSON($('#post_tag_list').attr('data-load')),
+      onResult: function (results) {
+        var query = $('#token-input-post_tag_list').val().toLowerCase();
+        var to_add = true;
+        for(var i in results) {
+          if(results[i].name == query) {
+            to_add = false;
+            break;
+          }
+        }
+        if(to_add) {
+          result = new Object();
+          result['id']    = query;
+          result['name']  = query;
+          results.push(result);
+        }
+        return results;
+      }
     });
   })
+
+  $('#post-form').bind("keyup keypress", function(e) {
+    var code = e.keyCode || e.which; 
+    if (code  == 13) {               
+      e.preventDefault();
+      return false;
+    }
+  });
 
 </script>
 
