@@ -84,7 +84,7 @@
              </div>
           <% end %>
           <div class="timeline-panel">
-            <div class="timeline-body timeline-body-head">
+            <div class="timeline-body">
               <div class="timeline-heading row">
                 <div class="col-md-3">
                   <%= link_to image_tag(bet.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), bet.user, :class => "media-object" %>
@@ -117,7 +117,11 @@
             </div>
               
             <% bet.replies.order("created_at").each_with_index do |reply, index| %>
-              <div class="timeline-body timeline-body-reply">
+              <% if (index +1)== bet.replies.count %>
+                <div class="timeline-body">
+              <% else %>
+                <div class="timeline-body timeline-body-reply">
+              <% end %>
                 <% if !(bet.replies[index - 1].modification_request) %>
                   <hr class='reply-divider'>
                 <% end %>
