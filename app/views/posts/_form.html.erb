@@ -10,7 +10,7 @@
 <div class="well well-sm post-form">
   <fieldset>
     <legend class="text-center"><%= current_user.name %>'s Fund</legend>
-    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal" } do |f| %>
+    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal", :id => "post-form" } do |f| %>
       <% if @post.errors.any? %>
         <div id="error_explanation" class="form-group">
           <div class="col-md-8 col-md-offset-3">
@@ -108,11 +108,7 @@
         <label class="col-md-3 control-label" for="tag_list">Tags</label>
         <div class="col-md-8">
           <div class="col-md-12">
-            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, placeholder: "Put on some tags - separated with commas" %>
-          </div>
-          <div class="col-md-12">
-            <span id="post-taglist-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-            <span id="post-taglist-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>  
+            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => (@post.tags.select("tags.id as id, LOWER(tags.name) as name")).to_json } %>
           </div>
         </div>
       </div>
@@ -269,35 +265,6 @@
     $('#post-criteria-error-message').hide();
   });
 
-  /* validation for post tag_list */
-  $('#post_tag_list').on('blur', function() {
-    judge.validate(document.getElementById('post_tag_list'), {
-      valid: function(element) {
-        beforeDiv = document.getElementById("post_tag_list").parentNode;
-        $('#post-taglist-ok').show();
-        $('#post-taglist-nogood').hide();
-        $('#post-taglist-error-message').hide();
-      },
-      invalid: function(element, messages) {
-        $('#post-taglist-nogood').show();
-        $('#post-taglist-ok').hide();
-
-        beforeDiv = document.getElementById("post-taglist-nogood");
-        appendedDivNoGood = document.createElement("span");
-        appendedDivNoGood.id = "post-taglist-error-message";
-        appendedDivNoGood.className = "validation-failed";
-        appendedDivNoGood.innerHTML = " " + messages.join(',');
-        insertAfter(beforeDiv, appendedDivNoGood);
-      }
-    });
-  });
-
-  $('#post_tag_list').on('focus', function() {
-    $('#post-taglist-ok').hide();
-    $('#post-taglist-nogood').hide();
-    $('#post-taglist-error-message').hide();
-  });
-
   /* validation for post location */
   $('#autocomplete').on('blur', function() {
     judge.validate(document.getElementById('autocomplete'), {
@@ -405,6 +372,42 @@
   $('#post_quantity').on('focus', function() {
     $('#post-quantity-ok').hide();
     $('#post-quantity-nogood').hide();
+  });
+
+  $(document).ready(function() {
+    var tag_prediction_url = "/tag/prediction";
+    $('#post_tag_list').tokenInput(tag_prediction_url, {
+      preventDuplicates: true,
+      theme: "facebook",
+      tokenValue: "name",
+      noResultsText: "No tags found",
+      prePopulate: $.parseJSON($('#post_tag_list').attr('data-load')),
+      onResult: function (results) {
+        var query = $('#token-input-post_tag_list').val().toLowerCase();
+        var to_add = true;
+        for(var i in results) {
+          if(results[i].name == query) {
+            to_add = false;
+            break;
+          }
+        }
+        if(to_add) {
+          result = new Object();
+          result['id']    = query;
+          result['name']  = query;
+          results.push(result);
+        }
+        return results;
+      }
+    });
+  })
+
+  $('#post-form').bind("keyup keypress", function(e) {
+    var code = e.keyCode || e.which; 
+    if (code  == 13) {               
+      e.preventDefault();
+      return false;
+    }
   });
 
 </script>

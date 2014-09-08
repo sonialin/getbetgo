@@ -1,7 +1,7 @@
 <div class="row" id="social-share-panel">
   <div class="pull-left" id="post-tags">
     <i class="fa fa-tags"></i>
-    <span><%= raw @post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></span>
+    <span><%= raw @post.tag_list.map { |t| link_to t.downcase, tag_path(t.downcase) }.join(', ') %></span>
   </div>
   <div class="pull-right">
     <ul id="social-share-icons">
