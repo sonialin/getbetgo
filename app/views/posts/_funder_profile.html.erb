@@ -53,8 +53,48 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
       <% if @user_info && @user_info.biography != "" %>
-        <%= @user_info.biography %>
+        <span id="user-info-biography" data-bip-original-content="<%= @user_info.biography %>"><%= @user_info.biography %></span>
       <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  var id;
+  $(window).resize(function() {
+      clearTimeout(id);
+      id = setTimeout(fix_overflow_of_biography, 500);
+  });
+
+  function fix_overflow_of_biography(){
+      var funder_profile_width = $('#funder-profile').width();
+      var selector = $('#user-info-biography')
+      var biography_html = selector.data('bip-original-content').replace(/ +(?= )/g,'').replace( /\n/g, ' ' );
+      var texts = biography_html.split(' ');
+      biography_html = "";
+      for(var i in texts) {
+        var text = texts[i];
+        text = break_text(text,selector,funder_profile_width);
+        biography_html += text + " ";
+      }
+      selector.html(biography_html);
+  }
+
+  function break_text(text,selector,max_width) {
+    selector.html(text);
+    var selector_width = selector.width();
+    var rem_text = "";
+    while(selector_width > max_width) {
+      rem_text = text.slice(-1) + rem_text;
+      text = text.slice(0,-1);
+      selector.html(text);
+      selector_width = selector.width();
+    }
+
+    if(rem_text.length > 0) text += " " + break_text(rem_text,selector,max_width);
+    return text;
+  }
+
+  fix_overflow_of_biography();
+
+</script>
