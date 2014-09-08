@@ -101,7 +101,6 @@
     float: left;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
-    padding: 20px;
     margin-top: -10px;
     margin-bottom: -10px;
     margin-left: -15px;
@@ -109,6 +108,35 @@
     position: relative;
     -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+.timeline > li > .timeline-panel > .timeline-heading {
+  padding: 20px;
+}
+
+.timeline > li > .timeline-panel > .timeline-body {
+  padding: 20px;
+}
+
+
+.timeline > li > .timeline-panel > .timeline-body.timeline-body-reply {
+  padding-bottom: 0;
+}
+
+.timeline > li > .timeline-panel > .timeline-body.timeline-body-head {
+  padding-bottom: 0;
+}
+
+.timeline > li > .timeline-panel .panel-footer {
+  padding: 20px;
+}
+
+.timeline > li > .timeline-panel .panel-middle {
+  padding: 20px;
+  background-color: #99B709;
+  color: #fff;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
 }
 
 .timeline > li > .timeline-panel:before {
@@ -236,15 +264,38 @@
   color: #999;
 }
 
+.reply-divider {
+  margin-top: 0;
+}
+
 .request-modification {
   float: right;
   cursor: pointer;
-  color: #999;
+  color: #e7f992;
+  font-size: 0.8em;
 }
 
 .request-modification:hover{
   text-decoration: underline;
-  color: #99B709;
+  color: #e7f992;
+}
+
+.modification-form .form-control:focus{
+  border-color: #e7f992;
+}
+
+.request-modification-send {
+  margin-top: -15px;
+}
+
+.modification-block {
+  background: #eee;
+  padding: 20px;
+  font-size: 0.8em;
+}
+
+.modification-request-time {
+  color: #999;
 }
 
 .hidden-attachment {
@@ -256,6 +307,53 @@
   color: #aaa;
   cursor: default;
   font-size: 1.5em;
+  margin-left: 5px;
+  position: relative;
+  top: -9px;
+}
+
+.application-reply {
+  display: block;
+  margin-bottom: -8px;
+}
+
+.application-reply .btn-reply-file, .btn-reply-submit {
+  margin-top: -15px;
+}
+
+.application-reply .btn-reply-file {
+  padding: 3px;
+  font-size: 0.8em;
+  position: relative;
+  top: -5px;
+}
+
+.application-reply .application-reply-show-filename {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 5px;
+  max-height: 5px;
+}
+
+.application-reply .fileinput-filename {
+  position: relative;
+  top: -10px;
+  font-size: 0.7em;
+  color: #777;
+}
+
+.application-reply .close {
+  position: relative;
+  top: -8px;
+  font-size: 0.9em;
+}
+
+.application-reply .application-reply-file-upload {
+  padding-left: 0;
+}
+
+.application-reply .application-reply-send {
+  padding-right: 0;
 }
 
 @media (max-width: 767px) {

@@ -6,7 +6,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
-              There are no application to the fund yet. Let's change that by sharing –
+              There are no applications to the fund yet. Let's change that by sharing –
               <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
               <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
               <a href="http://twitter.com/share?url=<%= request.original_url %>&text=<%= @post.title %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
@@ -101,13 +101,13 @@
         </div>
       </div>
     <% elsif @current_user_bet.modified? %>
-      <div class="alert alert-success fund-application-prompt fund-application-complete" style="margin-bottom: -5px;">
+      <div class="alert alert-warning fund-application-prompt" style="margin-bottom: -5px;">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
               <a href="#bet_<%= @current_user_bet.id %>">
-                You have resubmitted the update. Good job!
+                You have updated your application. Ready to mark it complete this time?
                 <i class="fa fa-beer"></i>
               </a>
             </div>

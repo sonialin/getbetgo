@@ -10,7 +10,7 @@ class Bet < ActiveRecord::Base
   has_many :proofs, as: :documentable
 
 	validates :user_id, :uniqueness => { :scope => :post_id,
-  :message => "Users may only make one bet per post." }
+  :message => "The user may submit only one application to one fund." }
 
   validates :body, presence: true
 

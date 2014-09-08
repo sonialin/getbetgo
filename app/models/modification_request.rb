@@ -5,7 +5,7 @@ class ModificationRequest < ActiveRecord::Base
 	after_save :change_status
 
 	def change_status
-		self.reply.bet.status = "Awaiting Modification"
+		self.reply.bet.status_id = 4
 		self.reply.bet.save
 	end
 end

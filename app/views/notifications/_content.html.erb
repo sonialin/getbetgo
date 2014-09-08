@@ -3,24 +3,58 @@ Hi <%= notification.receipts.find_by_notification_id(notification.id).receiver.n
 <% if notification.notified_object %>
 	<% if notification.notified_object_type == 'Bet' %>	
 		<p><%= notification.subject %>:</p>
-		<p>
-			"<%= notification.notified_object.body %>"
-		</p>
-		<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
-			<% if notification.notified_object.open? %>
-				View and Select
-			<% elsif notification.notified_object.selected? %>
+		
+		<% if notification.notified_object.open? %>
+			<p>"<%= notification.notified_object.body %>"</p>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+				<% if notification.notified_object.user == notification.notified_object.post.user %>
+					View and Select
+				<% else %>
+					View
+				<% end %>
+			<% end %>
+		<% elsif notification.notified_object.selected? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+				<% if notification.notified_object.user == notification.notified_object.post.user %>
+					View
+				<% else %>
+					View and Update
+				<% end %>
+			<% end %>
+		<% elsif notification.notified_object.submitted? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+				<% if notification.notified_object.user == notification.notified_object.post.user %>
+					View
+				<% else %>
+					View Status
+				<% end %>
+			<% end %>
+		<% elsif notification.notified_object.awaiting_modification? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+				<% if notification.notified_object.user == notification.notified_object.post.user %>
+					View
+				<% else %>
+					View and Update
+				<% end %>
+			<% end %>
+		<% elsif notification.notified_object.modified? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
+				<% if notification.notified_object.user == notification.notified_object.post.user %>
+					View
+				<% else %>
+					View and Complete
+				<% end %>
+			<% end %>
+		<% elsif notification.notified_object.credited? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
 				View
-			<% elsif notification.notified_object.submitted? %>
-				View Update
-			<% elsif notification.notified_object.awaiting_modification? %>
-				View and Modify
-			<% elsif notification.notified_object.modified? %>
-				View Update
-			<% elsif notification.notified_object.funded? %>
+			<% end %>
+		<% elsif notification.notified_object.funded? %>
+			<%= link_to post_url(notification.notified_object.post, :anchor => 'fw-panel'), :class => 'btn btn-fw' do %>
 				View
 			<% end %>
 		<% end %>
+		
 	<% elsif notification.notified_object_type == 'Reply' %>
 		<p><%= notification.subject %>:</p>
 		<p>
