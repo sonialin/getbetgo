@@ -1,0 +1,19 @@
+<% if bet.open? %>
+  <% if @post.user == current_user %>
+    <div class="panel-footer">
+      <%= button_to select_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw btn-block" do %>
+        Select
+      <% end %>
+    </div>
+  <% end %>
+<% elsif bet.selected? or bet.modified? %>
+  <% if bet.user == current_user %>
+    <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
+      <div class="panel-footer">
+        <%= button_to mark_complete_post_bet_path(@post, bet), :method => :post, :class => "btn btn-fw btn-block" do %>
+          Mark Complete
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>  

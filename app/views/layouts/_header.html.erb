@@ -12,15 +12,19 @@
       <% end %>
     </div>
 
-    <%= form_tag(posts_path, :method => "get", :class => "navbar-form navbar-left") do %>
-      <div class="form-group">
-        <%= text_field_tag :search, params[:search], placeholder: "Search for funds", :class => "form-control" %>
-      </div>
-      <%= submit_tag "Search", :name => nil, :class => "btn btn-default" %>
-    <% end %>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <div class="col-sm-3 col-md-3">
+        <%= form_tag(posts_path, :method => "get", :class => "navbar-form") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Search for funds", :class => "form-control" %>
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
       <ul class="nav navbar-nav navbar-right">
         <li class="<%= 'active' if current_page?(howitworks_path) %>"><%= link_to "HOW IT WORKS", howitworks_path %></li>
         <% if user_signed_in? %>        
@@ -31,14 +35,14 @@
             <%= link_to notifications_path do %>
               <i class="fa fa-envelope"></i>
               <% if current_user.mailbox.receipts.where(is_read: false).any? %>
-                <span class="unread-count"><%= current_user.mailbox.receipts.where(is_read: false).count %></span>
+                <span class="badge navbar-alert-bubble"><%= current_user.mailbox.receipts.where(is_read: false).count %></span>
               <% end %>
             <% end %>
           </li>
       		<li class="dropdown <%= 'active' if ((current_page?(giving_path) or current_page?(edit_user_registration_path)) or (current_page?(receiving_path))) or controller.controller_name == 'users' %>">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personal-switch">
               <%= image_tag(current_user.user_info.avatar.url(:medium), :class => "img-circle navbar-avatar") %>
-              <%= current_user.name %>&nbsp;<span class="badge" style="background-color: #ed1c24;">$<%= current_user.wallet.amount %></span>
+              <%= current_user.name %>&nbsp;<span class="badge navbar-alert-bubble">$<%= current_user.wallet.amount %></span>
               <i id="user-profile-dropdown-show" class="fa fa-caret-down"></i>
               <i id="user-profile-dropdown-hide" class="fa fa-caret-up"></i>
             </a>
@@ -70,7 +74,7 @@
   			<% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container -->
+  </div>
 </nav>
 
 <script>

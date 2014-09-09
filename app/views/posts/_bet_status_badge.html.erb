@@ -1,0 +1,25 @@
+<% if bet.open? %>
+  <div class="timeline-badge open">
+    <i class="fa fa-paper-plane"></i>
+  </div>
+<% elsif bet.selected? %>
+  <div class="timeline-badge info">
+    <i class="fa fa-star"></i>
+   </div>
+<% elsif bet.submitted? %>
+  <div class="timeline-badge success">
+    <i class="glyphicon glyphicon-ok"></i>
+   </div>
+<% elsif bet.awaiting_modification? %>
+  <div class="timeline-badge success">
+    <i class="fa fa-eraser"></i>
+   </div>
+<% elsif bet.modified? %>
+  <div class="timeline-badge success">
+    <i class="fa fa-eraser"></i>
+   </div>
+<% elsif bet.funded? or bet.credited? %>
+  <div class="timeline-badge success">
+    <i class="glyphicon glyphicon-ok"></i>
+   </div>
+<% end %>

@@ -1,0 +1,46 @@
+<% bet.replies.order("created_at").each_with_index do |reply, index| %>
+  <hr class='reply-divider'>
+  <div class="timeline-body">
+    <% if !(bet.replies[index - 1].modification_request) %>
+    <% end %>
+    <div id="<%= dom_id(reply) %>">
+      <div class="timeline-heading row">
+        <div class="col-md-3">
+          <%= link_to image_tag(reply.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), reply.user, :class => "media-object" %>
+        </div>
+        <div class="col-md-9">
+          <h4 class="timeline-title"><%= link_to reply.user.name, reply.user %></h4>
+          <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
+        </div>
+      </div>
+      <div>
+        <%= reply.body %><br />
+        <% if reply.proofs.any? %>
+          <% reply.proofs.each do |proof| %>
+            <% if @post.user == current_user or bet.user == current_user %>
+              <%= link_to proof.document.url do %>
+                <small>
+                  <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                </small>
+              <% end %>
+            <% else %>
+              <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                <i class="fa fa-paperclip"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div><!-- end of timeline-body -->
+
+  <% if reply.modification_request %>
+    <div class="modification-block">
+      <%= @post.user.name %>: 
+      <%= reply.modification_request.body %><br />
+      <span class="modification-request-time pull-right">
+        <%= reformatted_post_datetime(reply.modification_request.created_at) %>
+      </span>
+    </div>
+  <% end %>
+<% end %><!-- reply loop ends -->

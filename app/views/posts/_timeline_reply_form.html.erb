@@ -1,0 +1,43 @@
+<% if ((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted? %>
+  <% if (bet.user == current_user) or (bet.post.user == current_user) %>               
+    <div class="timeline-body">
+      <% if (!bet.submitted?) && (!bet.awaiting_modification?) %>
+        <hr class="reply-divider">
+      <% end %>
+      <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
+        <%= f.hidden_field :bet_id, value: bet.id %>
+        <% if bet.user == current_user %>
+          <% if bet.submitted? %>
+            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any follow-up news for the funder? Share it here!" %><br />
+          <% else %>
+            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any update or question for the funder? Submit it here!" %><br />
+          <% end %>
+        <% else %>
+          <% if bet.submitted? %>
+            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any follow-up news for the applicant? Share it here!" %><br />
+          <% else %>
+            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any instructions for the applicant? Submit it here!" %><br />
+          <% end %>
+        <% end %>
+        <div class="fileinput fileinput-new application-reply" data-provides="fileinput">
+          <div class="col-md-8 col-sm-8 col-xs-8 pull-left application-reply-file-upload">   
+            <span class="btn btn-default btn-file btn-reply-file">
+              <%= file_field_tag "documents[]", type: :file, multiple: true %>
+              <span class="fileinput-new"><i class="fa fa-paperclip"></i>&nbsp;Attach</span>
+              <span class="fileinput-exists"><i class="fa fa-paperclip"></i>&nbsp;Change</span>
+            </span>
+            <br />
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 application-reply-send">
+            <%= f.submit "Send", :class => "btn btn-default btn-reply-submit pull-right" %>
+          </div>
+          <div class="clear"></div>
+          <div class="col-md-12 application-reply-show-filename">
+            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a> 
+            <span class="fileinput-filename"></span>
+          </div>
+        </div>
+      <% end %><!-- form_for @reply ends -->
+    </div><!-- timeline-body begins -->
+  <% end %><!-- evaluation of user ends -->
+<% end %><!-- bet status evaluation ends -->  

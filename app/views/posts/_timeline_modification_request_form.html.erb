@@ -1,0 +1,17 @@
+<% if bet.submitted? %>
+  <div class="panel-middle">
+      The application has been completed!
+    <% if @post.user == current_user %>
+      <br />  
+      <span class="request-modification">request modification</span>
+      <div class="clear"></div>
+      <%= form_for @modification_request, :html => { :class => 'form-horizontal modification-form' } do |f| %>
+        <%= f.hidden_field :bet_id, value: bet.id %>
+        <%= f.hidden_field :reply_id, value: bet.replies.last.id %>
+        <%= f.text_area :body, :class => 'form-control' %><br />
+        <%= f.submit "Send", :class => "btn btn-default pull-right request-modification-send" %>
+        <div class="clear"></div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

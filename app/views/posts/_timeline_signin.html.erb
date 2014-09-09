@@ -1,0 +1,42 @@
+<% if user_signed_in? %>
+  <% if @current_user_bet %>
+    Great job - you've submitted your application!
+  <% elsif @post.user == current_user %>
+    Kudos to you, <%= current_user.name %>!
+  <% else %>
+    <h4>Submit Your Application:</h4>
+    <%= form_for([@post, @bet], :html => {multipart: true}) do |f| %>
+      <div class="form-group">
+        <%= f.text_area :body, :class => 'form-control', :id => "fund-application", :value => "", :placeholder => "Briefly state why you are suitable for the fund.", :maxlength =>"200", :onkeyup => "limitTextCount('fund-application', 'fund-application-char-count', 200);", :onkeydown => "limitTextCount('fund-application', 'fund-application-char-count', 200);" %>
+        <div id="fund-application-char-count">200 charachters to go</div><br />
+        <div class="fileinput fileinput-new application-reply" data-provides="fileinput">
+          <div class="col-md-8 col-sm-8 col-xs-8 pull-left application-reply-file-upload">  
+            <span class="btn btn-default btn-file btn-reply-file">
+              <%= file_field_tag "documents[]", type: :file, multiple: true %>
+              <span class="fileinput-new"><i class="fa fa-paperclip"></i>&nbsp;Attach</span>
+              <span class="fileinput-exists"><i class="fa fa-paperclip"></i>&nbsp;Change</span>
+            </span>
+            <%= link_to '#', :class => "tip-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only you and the funder can see the attachment.</span>"} do %>
+              <i class="fa fa-lightbulb-o"></i>
+            <% end %>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 application-reply-send">
+            <%= f.submit "Apply", :class => "btn btn-fw btn-reply-submit pull-right" %>
+          </div>
+          <div class="clear"></div>
+          <div class="col-md-12 application-reply-show-filename">
+            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a> 
+            <span class="fileinput-filename"></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div>
+    <p>Please 
+      <%= link_to "log in", "#myModal", :data => {:toggle=>"modal"} %>
+      to claim this fund
+    </p>
+  </div>
+<% end %>

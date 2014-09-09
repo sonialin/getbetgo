@@ -118,11 +118,6 @@
   padding: 20px;
 }
 
-
-.timeline > li > .timeline-panel > .timeline-body.timeline-body-reply {
-  padding-bottom: 0;
-}
-
 .timeline > li > .timeline-panel .panel-footer {
   padding: 20px;
 }
@@ -196,6 +191,10 @@
     right: auto;
 }
 
+.timeline > li.timeline-inverted {
+  clear: right;
+}
+
 .timeline-badge.primary {
   
 }
@@ -262,6 +261,9 @@
 
 .reply-divider {
   margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .request-modification {
@@ -276,7 +278,7 @@
   color: #e7f992;
 }
 
-.modification-form .form-control:focus{
+.modification-form .form-control:focus {
   border-color: #e7f992;
 }
 
@@ -352,7 +354,7 @@
   padding-right: 0;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1200px) {
     ul.timeline:before {
         left: 10px;
     }
