@@ -2,6 +2,8 @@ Getbetgo::Application.routes.draw do
 
   resources :modification_requests
 
+  resources :nominations
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'

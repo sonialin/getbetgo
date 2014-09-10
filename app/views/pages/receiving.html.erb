@@ -1,24 +1,24 @@
 <div class="container">
-<h1>Finances</h1>
+<h1>My Funds</h1>
 	<!-- tabs -->
 	<div class="tabbable">
 	  <div id="tabs_pages">
 	    <ul class="tabs_pages_ul">
 	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+	      	<a href="/giving">
 	      	<div class="finances-tab">
-		      	<a href="/giving">
-			      	<span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
-			      	CONTRIBUTIONS
-		      	</a>
+			      <span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
+			      CONTRIBUTIONS
 	      	</div>
+	      	</a>
 	      </li>
 	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
-	      	<div class="finances-tab">
-		      	<a href="/receiving">
+	      	<a href="/receiving">
+	      		<div class="finances-tab">
 		      		<span class="finances-number">$<%= number_with_precision(@credits_sum, :precision => 2) %></span><br />
-		      		FUNDING
-		      	</a>
-	      	</div>
+		      		FUNDING	
+	      		</div>
+	      	</a>
 	      </li>
 	    </ul>
 	  </div>

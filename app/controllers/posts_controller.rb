@@ -34,6 +34,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     impressionist(@post)
+    @nomination = Nomination.new
     @per_page_bets = APPLICANTS_PER_PAGE
     @bet = Bet.new
     @bets = @post.bets.order_by_updated_at_desc
