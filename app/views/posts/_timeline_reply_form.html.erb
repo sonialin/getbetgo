@@ -1,9 +1,9 @@
 <% if ((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted? %>
   <% if (bet.user == current_user) or (bet.post.user == current_user) %>               
+    <% if ((!bet.submitted?) && (!bet.awaiting_modification?)) or bet.selected? %>
+      <hr class="reply-divider">
+    <% end %>
     <div class="timeline-body">
-      <% if (!bet.submitted?) && (!bet.awaiting_modification?) %>
-        <hr class="reply-divider">
-      <% end %>
       <%= form_for @reply, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
         <%= f.hidden_field :bet_id, value: bet.id %>
         <% if bet.user == current_user %>

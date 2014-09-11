@@ -58,12 +58,49 @@
   left: 2%;
 }
 
+#apply-form {
+  margin-bottom: 0;
+}
+
+ul.timeline:before {
+    left: 10px;
+}
+
+ul.timeline > li > .timeline-panel {
+  width: 93%;
+}
+
+ul.timeline > li > .timeline-badge {
+    left: -30px;
+    margin-left: 0;
+    top: 25px;
+}
+
+ul.timeline > li > .timeline-panel {
+    float: right;
+    margin: 10px;
+    left: 20px;
+}
+
+ul.timeline > li > .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+}
+
+ul.timeline > li > .timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+}
+
 .timeline {
   list-style: none;
   padding-top: -20px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 20px;
   position: relative;
 }
 
@@ -105,7 +142,6 @@
 }
 
 .timeline > li > .timeline-panel {
-    width: 46%;
     float: left;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
@@ -139,92 +175,47 @@
 }
 
 .timeline > li > .timeline-panel:before {
-    position: absolute;
-    top: 26px;
-    right: -15px;
-    display: inline-block;
-    border-top: 15px solid transparent;
-    border-left: 15px solid #ccc;
-    border-right: 0 solid #ccc;
-    border-bottom: 15px solid transparent;
-    content: " ";
+  position: absolute;
+  top: 26px;
+  right: -15px;
+  display: inline-block;
+  border-top: 15px solid transparent;
+  border-left: 15px solid #ccc;
+  border-right: 0 solid #ccc;
+  border-bottom: 15px solid transparent;
+  content: " ";
 }
 
 .timeline > li > .timeline-panel:after {
-    position: absolute;
-    top: 27px;
-    right: -14px;
-    display: inline-block;
-    border-top: 14px solid transparent;
-    border-left: 14px solid #fff;
-    border-right: 0 solid #fff;
-    border-bottom: 14px solid transparent;
-    content: " ";
+  position: absolute;
+  top: 27px;
+  right: -14px;
+  display: inline-block;
+  border-top: 14px solid transparent;
+  border-left: 14px solid #fff;
+  border-right: 0 solid #fff;
+  border-bottom: 14px solid transparent;
+  content: " ";
 }
 
 .timeline > li > .timeline-badge {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 1.4em;
-    text-align: center;
-    position: absolute;
-    top: 7px;
-    left: 50%;
-    margin-left: -25px;
-    background: #fff;
-    border: 1px solid #bbb;
-    z-index: 100;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-}
-
-.timeline > li.timeline-inverted > .timeline-panel {
-    float: right;
-}
-
-.timeline > li.timeline-inverted > .timeline-panel:before {
-    border-left-width: 0;
-    border-right-width: 15px;
-    left: -15px;
-    right: auto;
-}
-
-.timeline > li.timeline-inverted > .timeline-panel:after {
-    border-left-width: 0;
-    border-right-width: 14px;
-    left: -14px;
-    right: auto;
-}
-
-.timeline > li.timeline-inverted {
-  clear: right;
-}
-
-.timeline-badge.primary {
-  
-}
-
-.timeline-badge.open {
-  color: #2a6496;
-}
-
-.timeline-badge.success {
   color: #999;
-}
-
-.timeline-badge.warning {
-   /* background-color: #f0ad4e !important;*/
-}
-
-.timeline-badge.danger {
-   /* background-color: #d9534f !important;*/
-}
-
-.timeline-badge.info {
-  color: #f1685e;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.4em;
+  text-align: center;
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  margin-left: -25px;
+  background: #fff;
+  border: 1px solid #bbb;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
 }
 
 .timeline-title {
@@ -362,39 +353,9 @@
   padding-right: 0;
 }
 
+
+
 @media (max-width: 1200px) {
-    ul.timeline:before {
-        left: 10px;
-    }
-
-    ul.timeline > li > .timeline-panel {
-      width: 93%;
-    }
-
-    ul.timeline > li > .timeline-badge {
-        left: -30px;
-        margin-left: 0;
-        top: 25px;
-    }
-
-    ul.timeline > li > .timeline-panel {
-        float: right;
-        margin: 10px;
-        left: 20px;
-    }
-
-    ul.timeline > li > .timeline-panel:before {
-        border-left-width: 0;
-        border-right-width: 15px;
-        left: -15px;
-        right: auto;
-    }
-
-    ul.timeline > li > .timeline-panel:after {
-        border-left-width: 0;
-        border-right-width: 14px;
-        left: -14px;
-        right: auto;
-    }
+    
 }
 /* Bet show page timeline ends */
