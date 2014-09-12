@@ -464,7 +464,23 @@ a.user_name_link:hover {
 }
 
 .description-section {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.service-section {
+  margin-top: 20px;
+}
+
+.service-section strong {
+  color: #555;
+}
+
+.tag-section i {
+  color: #777;
+}
+
+#fw-panel {
+  margin-top: 10px;
 }
 
 .application-block {

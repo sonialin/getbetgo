@@ -5,7 +5,7 @@
   </div>
   <div class="panel-body">
     <ul class="timeline">
-      <%= render :partial => "posts/timeline_signin" %>
+      <%= render :partial => "posts/timeline_signin_or_apply" %>
       <% @bets.each do |bet| %>
         <li class="bet-beginning" id="<%= dom_id(bet) %>">
           <%= render :partial => "posts/bet_status_badge", :locals => {:bet => bet} %>
