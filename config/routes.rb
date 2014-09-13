@@ -46,7 +46,8 @@ Getbetgo::Application.routes.draw do
   get 'bets/:id/pay_process' => 'bets#pay_process'
   get 'transactions/:bet_id/success' => 'transactions#success'
   get 'transactions/:bet_id/failed' => 'transactions#failed'
-  get 'tag/prediction' => 'tags#prediction'     
+  get 'tag/prediction' => 'tags#prediction'  
+  get 'place/prediction' => 'places#prediction'   
 
   post 'getposts' => 'posts#index'
   post 'getuserposts' => 'users#show'

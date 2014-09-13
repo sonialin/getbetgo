@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   has_many :nominations
   belongs_to :subcategory
   belongs_to :status, :class_name => "::Posts::Status"
-  belongs_to :place
+  belongs_to :place, :autosave => true
 
   before_save :set_title
 
@@ -25,9 +25,22 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 5.00}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
   validates :criteria, presence: true
-  validate :place_exist
+  accepts_nested_attributes_for :place
 
-  before_save :set_place_id
+  def autosave_associated_records_for_place
+    if existing_place = Place.where(:google_api_place_id => place.google_api_place_id).first
+      self.place = existing_place
+    else
+      place_info = Place.get_place_details(place.google_api_place_id)
+      if place_info
+        Place.create_entries(place_info)
+        self.place = Place.where(:google_api_place_id => place.google_api_place_id).first
+      else
+        self.errors.add(:base, "Location can't be blank")
+        return false
+      end
+    end
+  end
 
   # after_initialize :default_values
   attr_reader :available_quantity
@@ -36,87 +49,8 @@ class Post < ActiveRecord::Base
     where("title like ? or description like ?", "%#{query}%", "%#{query}%") 
   end
 
-  def place_exist
-    @place_info = Place.get_place_details(self.api_place_id)
-    self.errors.add(:base, "Select a place from dropdown") unless (Place.where(:google_api_place_id => self.api_place_id).first or @place_info)
-  end
-
-  def set_place_id
-    place_row = Place.where(:google_api_place_id => self.api_place_id).first
-    if place_row
-      self.place_id = place_row.id
-    else
-      Place.create_entries(@place_info)
-      self.place_id = Place.where(:google_api_place_id => self.api_place_id).first.id
-    end
-  end
-
   def location
-    return nil unless self.place
-    case self.place.political_type
-      when 'Country'
-        country = self.place.political
-        return country.name
-      when 'State'
-        state = self.place.political
-        country = state.country
-        return  state.name + ", " + country.name
-      when 'County'
-        county = self.place.political
-        case county.state_country_type
-          when 'Country'
-            country = county.state_country
-            return county.name + ", " + country.name
-          when 'State'
-            state = county.state_country
-            country = state.country
-            return county.name + ", " + state.short_name + ", " + country.name
-        end
-      when 'Locality'
-        locality = self.place.political
-        case locality.administrative_area_type
-          when 'Country'
-            country = locality.administrative_area
-            return locality.name + ", " + country.name 
-          when 'County'
-            county = locality.administrative_area
-            case county.state_country_type
-              when 'Country'
-                country = county.state_country
-                return locality.name + ", " + county.short_name + ", " + country.name
-              when 'State'
-                state = county.state_country
-                country = state.country
-                return locality.name + ", " + state.short_name + ", " + country.name
-            end       
-          when 'State'
-            country = state.country    
-            return locality.name + ", " + state.short_name + ", " + country.name  
-        end  
-      when 'Sublocality'
-        sublocality = self.place.political
-        locality = sublocality.locality
-        case locality.administrative_area_type
-          when 'Country'
-            country = locality.administrative_area
-            return sublocality.name + ", " + locality.short_name + ", " + country.name 
-          when 'County'
-            county = locality.administrative_area
-            case county.state_country_type
-              when 'Country'
-                country = county.state_country
-                return sublocality.name + ", " + locality.short_name + ", " + county.short_name + ", " + country.name
-              when 'State'
-                state = county.state_country
-                country = state.country
-                return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name
-            end            
-          when 'State'
-            state = locality.administrative_area
-            country = state.country    
-            return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name  
-        end  
-    end
+    self.place.name rescue nil
   end
 
   def status
@@ -249,20 +183,16 @@ class Post < ActiveRecord::Base
     self.category.id rescue nil
   end
 
-  def google_api_place_id
-    self.place.google_api_place_id rescue nil
-  end
-
-  # Gets the object's singleton class. Backported from Rails 2.3.8 to support older versions of Rails.
-  def singleton_class
-    class << self
-      self
+  def tags_tokenize
+    response = []
+    self.tag_list.each do |tag|
+      if db_tag = ActsAsTaggableOn::Tag.where("LOWER(name) = ?",tag.downcase).first
+        response.push({:id => db_tag.id, :name => tag.downcase})
+      else
+        response.push({:id => tag.downcase, :name => tag.downcase})
+      end
     end
-  end   
-
-  def set_api_place_id api_place_id
-    singleton_class.send(:attr_accessor, "api_place_id")
-    send("api_place_id" + "=", api_place_id)
+    return response
   end
 
   private

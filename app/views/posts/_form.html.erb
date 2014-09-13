@@ -1,11 +1,4 @@
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-
-<script type="text/javascript"> // load initialize() from googlemap.js
-  window.onload = function() { 
-   initialize(); 
-} 
-</script>
 
 <div class="well well-sm post-form">
   <fieldset>
@@ -108,7 +101,7 @@
         <label class="col-md-3 control-label" for="tag_list">Tags</label>
         <div class="col-md-8">
           <div class="col-md-12">
-            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => (@post.tags.select("tags.id as id, LOWER(tags.name) as name")).to_json } %>
+            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => @post.tags_tokenize }%>
           </div>
         </div>
       </div>
@@ -117,21 +110,9 @@
         <label class="col-md-3 control-label" for="location">Location</label>
         <div class="col-md-8">
           <div class="col-md-12">
-            <div class="inner-addon">
-              <% if @post.new_record? %>
-                <span id="location-remove" style="display:none;"></span>
-                <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City" %>
-              <% else %>
-                <% if @post.place_id %>
-                  <span id="location-remove"><%= @post.location %><a>x</a></span>
-                 <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", :disabled => true, :value => ''%>
-                <% else %>
-                  <span id="location-remove" style="display:none;"></span>
-                 <%= f.text_field :location, :class=> "form-control", :validate => true, :id => "autocomplete", placeholder: "Enter City", :value => ''%>
-                <% end %>
-              <% end %>
-          </div>
-          <%= f.hidden_field :google_api_place_id %>
+            <%= f.fields_for :place, f.object.place || f.object.build_place do |place| %>
+              <%= place.text_field :google_api_place_id, :class=> "form-control", :validate => true, :data => { :load => place.object.tokenize } %>
+            <% end %>
           </div>
           <div class="col-md-12">
             <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
@@ -179,35 +160,6 @@
 </style>
 
 <script type="text/javascript">
-  var autocomplete;
-
-  function initialize() {
-    autocomplete = new google.maps.places.Autocomplete(
-      (document.getElementById('autocomplete')),{ types: ['(regions)'] }
-    );
-   
-    // When the user selects an address from the dropdown, disable the field and add place_id
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      $('#post_google_api_place_id').val(autocomplete.getPlace().place_id);
-      disable_location_input();
-    });
-  }
-
-  function disable_location_input() {
-    document.getElementById('autocomplete').disabled = true;
-    $('#location-remove').html($('#autocomplete').val() + "<a>x</a>");
-    $('#autocomplete').val('');
-    $('#location-remove').show();
-    $('#autocomplete').attr('placeholder','');
-  }
-
-  $(document).on('click', '#location-remove a', function() {
-    $('#location-remove').hide();
-    $('#autocomplete').attr('placeholder','Enter City');
-    document.getElementById('autocomplete').disabled = false;
-    $('#post-location-ok').hide();
-    $('#post_google_api_place_id').val('');
-  });
 
   /* validation for post description */
   $('#post_description').on('blur', function() {
@@ -399,6 +351,15 @@
         }
         return results;
       }
+    });
+
+    var place_prediction_url = "/place/prediction";
+    $('#post_place_attributes_google_api_place_id').tokenInput(place_prediction_url, {
+      preventDuplicates: true,
+      theme: "facebook",
+      tokenLimit: 1,
+      noResultsText: "No such place",
+      prePopulate: $.parseJSON($('#post_place_attributes_google_api_place_id').attr('data-load')),
     });
   })
 
