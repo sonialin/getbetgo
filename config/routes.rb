@@ -21,6 +21,11 @@ Getbetgo::Application.routes.draw do
   get "privacystatement" => 'pages#privacystatement'
   get "faq" => 'pages#faq'
   get "comingsoon" => 'pages#comingsoon'
+  get "aboutfundwok" => "pages#aboutfundwok"
+  get "startafund" => "pages#startafund"
+  get "applyforafund" => "pages#applyforafund"
+  get "receiveafund" => "pages#receiveafund"
+  get "directory" => "pages#directory"
 
   resources :relationships
 

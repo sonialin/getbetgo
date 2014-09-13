@@ -2,6 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#directory span a {
+	color: #777;
+}
+
+#directory h5 {
+	margin-bottom: 10px;
+}
+
+#directory .category-block {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+a .readmore-about {
+	color: #888;
+}
+
+a .readmore-about:hover {
+	color: #99b709;
+}
+
 #about {
   height: 510px;
   position: relative;
@@ -12,6 +33,68 @@
   background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1387957187/stsf_background_i9d716.jpg');
   background-size: cover;
   background-position: 50% 30%;
+  text-shadow: #858585 0.1em 0.1em 0.2em;
+}
+
+#about-sidebar {
+  margin-top: 30px;
+  font-size: 0.9em;
+}
+
+#about-sidebar .list-group-item.active {
+	background-color: #99b709;
+	border-color: #99b709;
+}
+
+#aboutfundwok-visual {
+	height: 320px;
+  position: relative;
+  top: -20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1410627519/aboutfundwok_pkhua6.jpg');
+  background-size: cover;
+  background-position: 0% 30%;
+  text-shadow: #858585 0.1em 0.1em 0.2em;
+}
+
+#startafund-visual {
+  height: 320px;
+  position: relative;
+  top: -20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1410627916/startafund_lmzwrh.jpg');
+  background-size: cover;
+  background-position: 50% 30%;
+  text-shadow: #858585 0.1em 0.1em 0.2em;
+}
+
+#applyforafund-visual {
+  height: 320px;
+  position: relative;
+  top: -20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1410628288/applyforafund_rkksd8.jpg');
+  background-size: cover;
+  background-position: 50% 25%;
+  text-shadow: #858585 0.1em 0.1em 0.2em;
+}
+
+#receiveafund-visual {
+  height: 320px;
+  position: relative;
+  top: -20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1410629266/receiveafund_gg6syh.jpg');
+  background-size: cover;
+  background-position: 50% 85%;
   text-shadow: #858585 0.1em 0.1em 0.2em;
 }
 
@@ -83,6 +166,10 @@
 }
 
 @media (max-width: 1200px) {
+	#receiveafund-visual {
+		background-position: 50% 70%;
+	}
+
 	#headline { 
 	  position: relative;
 	  top: -40px;
@@ -103,7 +190,31 @@
 		position: relative;
 		top: -15px;
 	}
+}
 
+@media (max-width: 800px) {
+	.intro-pages h1 {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	#aboutfundwok-visual {
+		height: 200px;
+	  background-position: 15% 30%;
+	}
+
+	#startafund-visual {
+		height: 200px;
+
+	}
+
+	#applyforafund-visual {
+		height: 200px;
+	}
+
+	#receiveafund-visual {
+		height: 200px;
+	}
 }
 
 @media (max-width: 600px) {

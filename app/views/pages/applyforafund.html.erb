@@ -1,0 +1,47 @@
+<div class="intro-pages">
+	<div class="jumbotron" id="applyforafund-visual">
+	</div>
+
+	<div class="container">
+		<div class="row">
+	    <div class="col-md-10 col-md-offset-1">
+	    	<div class="row">
+					<div class="col-md-9">
+						<h1>Apply for a Fund</h1>
+
+						<br />
+
+						<p>FundWok gives any individual or company the ability to apply for getting a fund. Whether you are a student looking for help with books and supplies, or an individual that wants to try new business promotions, apply to get a fund. Try out for as many funds as you feel you are the right candidate for.</p>
+
+						<br />
+
+						<p>Here are easy-to-follow instructions for getting funded.</p>
+
+						<ol>
+							<li>Register for the site here: <%= link_to "Sign Up", new_user_registration_path %></li>
+							<li>Browse through the available funds here: <%= link_to "Available Funds", root_path %></li>
+							<li>Select the fund that applies to you</li>
+							<li>Submit your application for the fund</li>
+							<li>In 200 characters or less, explain why you deserve to be funded</li>
+							<li>Attach any applicable evidence</li>
+							<li>Check your inbox to see if you have been chosen to get funded</li>
+							<li>If you have been chosen to receive a fund, click 
+								<%= link_to 'here', receiveafund_path %>
+								 for instructions on how to collect your fund
+							</li>
+						</ol>
+					</div>
+
+					<div class="col-md-3">
+						<div class="list-group" id="about-sidebar">
+							<a href="/aboutfundwok" class="list-group-item"><strong>About FundWok</strong></a>
+						  <a href="/startafund" class="list-group-item">Start a Fund</a>
+						  <a href="/applyforafund" class="list-group-item active">Apply for a Fund</a>
+						  <a href="/receiveafund" class="list-group-item">Receive a Fund</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

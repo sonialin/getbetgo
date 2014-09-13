@@ -40,4 +40,19 @@ class PagesController < ApplicationController
 
   def faq
   end
+
+  def aboutfundwok
+  end
+
+  def startafund
+  end
+
+  def applyforafund
+  end
+
+  def receiveafund
+  end
+
+  def directory
+  end
 end
