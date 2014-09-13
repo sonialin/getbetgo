@@ -26,7 +26,7 @@
       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="<%= 'active' if current_page?(howitworks_path) %>"><%= link_to "HOW IT WORKS", howitworks_path %></li>
+        <li class="<%= 'active' if current_page?(howitworks_path) %>"><%= link_to "ABOUT US", aboutfundwok_path %></li>
         <% if user_signed_in? %>        
       		<li class="<%= 'active' if current_page?(new_post_path) %>">
             <%= link_to 'NEW FUND', new_post_path %>
