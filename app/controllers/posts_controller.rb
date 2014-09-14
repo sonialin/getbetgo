@@ -72,7 +72,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
-    @post.set_api_place_id(@api_place_id)
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Fund was successfully created.' }
@@ -87,7 +86,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    @post.set_api_place_id(@api_place_id)
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -130,8 +128,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      @api_place_id = params[:post][:google_api_place_id]
-      @post.set_api_place_id(@api_place_id) if @post
-      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :subcategory_id, :service, :criteria)
+      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :subcategory_id, :service, :criteria, :place_attributes => [:google_api_place_id])
     end
 end

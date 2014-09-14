@@ -1,9 +1,113 @@
 class Place < ActiveRecord::Base
   has_many :posts
   belongs_to :political, polymorphic: true
-  validates :google_api_place_id, presence: true
-  validates :political_id, presence: true
-  validates :political_type, presence: true
+
+  def name
+    case self.political_type
+      when 'Country'
+        country = self.political
+        return country.name
+      when 'State'
+        state = self.political
+        country = state.country
+        return  state.name + ", " + country.name
+      when 'County'
+        county = self.political
+        case county.state_country_type
+          when 'Country'
+            country = county.state_country
+            return county.name + ", " + country.name
+          when 'State'
+            state = county.state_country
+            country = state.country
+            return county.name + ", " + state.short_name + ", " + country.name
+        end
+      when 'Locality'
+        locality = self.political
+        case locality.administrative_area_type
+          when 'Country'
+            country = locality.administrative_area
+            return locality.name + ", " + country.name 
+          when 'County'
+            county = locality.administrative_area
+            case county.state_country_type
+              when 'Country'
+                country = county.state_country
+                return locality.name + ", " + county.short_name + ", " + country.name
+              when 'State'
+                state = county.state_country
+                country = state.country
+                return locality.name + ", " + state.short_name + ", " + country.name
+            end       
+          when 'State'
+            country = state.country    
+            return locality.name + ", " + state.short_name + ", " + country.name  
+        end  
+      when 'Sublocality'
+        sublocality = self.political
+        locality = sublocality.locality
+        case locality.administrative_area_type
+          when 'Country'
+            country = locality.administrative_area
+            return sublocality.name + ", " + locality.short_name + ", " + country.name 
+          when 'County'
+            county = locality.administrative_area
+            case county.state_country_type
+              when 'Country'
+                country = county.state_country
+                return sublocality.name + ", " + locality.short_name + ", " + county.short_name + ", " + country.name
+              when 'State'
+                state = county.state_country
+                country = state.country
+                return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name
+            end            
+          when 'State'
+            state = locality.administrative_area
+            country = state.country    
+            return sublocality.name + ", " + locality.short_name + ", " + state.short_name + ", " + country.name  
+        end  
+    end
+  end
+
+  def tokenize
+    return [] unless self.google_api_place_id
+    if self.name
+      [self.as_json(:only => [:google_api_place_id], :methods => [:name])]
+    else
+      if Place.get_place_name_from_google(google_api_place_id)
+        [:google_api_place_id => self.google_api_place_id, :name => Place.get_place_name_from_google(google_api_place_id)]
+      else
+        []
+      end
+    end
+  end
+
+  def self.get_place_name_from_google(google_api_place_id)
+    api_key = "AIzaSyCRTakbzqUehny4QI1eDS3HQxuoHXCpVIk"
+    url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{google_api_place_id}&key=#{api_key}"
+    uri = URI.parse(URI.encode(url))
+    http = Net::HTTP.new(uri.host,uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    http.use_ssl = true
+    result = JSON.parse(http.request(request).body)
+    return nil unless result["status"] == "OK"
+    return result["result"]["formatted_address"]
+  end
+
+  def self.get_predictions(keyword)
+    api_key = "AIzaSyCRTakbzqUehny4QI1eDS3HQxuoHXCpVIk"
+    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=#{api_key}&input=#{keyword}&types=(regions)"
+    uri = URI.parse(URI.encode(url))
+    http = Net::HTTP.new(uri.host,uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    http.use_ssl = true
+    result = JSON.parse(http.request(request).body)
+    predictions = []
+    result["predictions"].each do |prediction|
+      predictions.push({:id => prediction["place_id"], :name => prediction["description"]})
+    end
+    return predictions
+  end
 
   def self.create_entries(place_info)
     google_api_place_id = place_info[:id]
