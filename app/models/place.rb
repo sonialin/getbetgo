@@ -96,7 +96,7 @@ class Place < ActiveRecord::Base
 
   def self.get_predictions(keyword)
     api_key = "AIzaSyCRTakbzqUehny4QI1eDS3HQxuoHXCpVIk"
-    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=#{api_key}&input=#{keyword}&types=(regions)"
+    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?&input=#{keyword}&key=#{api_key}&types=(regions)"
     uri = URI.parse(URI.encode(url))
     http = Net::HTTP.new(uri.host,uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
