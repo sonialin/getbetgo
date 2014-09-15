@@ -1,53 +1,65 @@
-<div class="page-top-offset">
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="well well-sm">
-        <fieldset>
-          <legend class="text-center">Sign Up</legend>
-          <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:id => 'signup_form' }) do |f| %>
-            <%= devise_error_messages! %>
+<div id="signup-wrapper-v1">
+  <div class="page-top-offset">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-md-offset-2 text-center" id="signup-v1-title">
+        <div class="signup-main-text">
+          <h3>Find a passion.</h3>
+          <h1><span style="font-size: 0.8em;">or</span>
+            <span class="signup-v1-title-keyword">
+              <strong>FUND ONE</strong>
+            </span>.
+          </h1>
+        </div>
+        <div class="signup-subtext">
+          <p class="signup-intro">Join the community where sky's the limit.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          
+          <div class="col-lg-12 col-md-12 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 text-center">
+            <p class="form-title">
+              Sign In
+            </p>
+          </div>
 
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="email">Email</label>
-              <div class="col-md-8">
-                <%= f.email_field :email, :class => "form-control form-group" %>
-              </div>
-            </div>
+          <div class="col-lg-12 col-md-12 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 text-center">
+            <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-primary btn-fb" %>        
+          </div>
 
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="name">Name</label>
-              <div class="col-md-8">
-                <%= f.text_field :name, :class => "form-control form-group"  %>
-              </div>
-            </div>
+          <div class="col-lg-12 col-md-12 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 text-center" id="divider-block">
+            <div class="col-lg-5 col-md-5 col-ms-5 col-xs-5 divider"></div>
+            <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2" style="color: #000;">OR</div>
+            <div class="col-lg-5 col-md-5 col-ms-5 col-xs-5 divider"></div>
+          </div>
+          
+          <div class="col-lg-12 col-md-12 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 text-center">
+            <p class="form-title">
+              Sign Up
+            </p>
+          </div>
 
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="password">Password</label>
-              <div class="col-md-8">
-                <%= f.text_field :password, :class => "form-control form-group"  %>
-              </div>
-            </div>
+          <div class="col-lg-12 col-md-12 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 text-center">
+            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:id => 'signup_form', :class => "login"}) do |f| %>
+              <%= devise_error_messages! %>
 
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="password_confirmation">Password Confirmation</label>
-              <div class="col-md-8">
-                <%= f.password_field :password_confirmation, :class => "form-control form-group"  %>
+              <%= f.email_field :email, :placeholder => "Email" %>
+              <%= f.text_field :name, :placeholder => "Name" %>
+              <%= f.password_field :password, :placeholder => "Password" %>
+              <%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %>
+              <%= f.submit "Sign Up", :class => "btn btn-fw btn-sm" %>
+              
+              <div class="accept-terms">
+                <label>
+                  <%= f.check_box :terms %>
+                  I Accept the <%= link_to 'Terms of Use', termsofuse_path, :target => "_blank" %>
+                </label>
               </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-md-6">
-                <%= render :partial => "devise/shared/links" %>
-              </div>
-              <div class="col-md-6 text-right">
-                <%= f.submit "Submit", :class => "btn btn-fw btn-lg" %>      
-              </div>
-            </div>
-          <% end %>
-
-        </fieldset>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

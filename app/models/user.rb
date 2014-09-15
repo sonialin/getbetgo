@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :sent_nominations, class_name: 'Nomination', foreign_key: 'sender_id'
   has_many :received_nominations, class_name: 'Nomination', foreign_key: 'receiver_id'
 
+  validates_acceptance_of :terms, acceptance: true
   validates :name, presence: true
   validates :email, presence: true
 
