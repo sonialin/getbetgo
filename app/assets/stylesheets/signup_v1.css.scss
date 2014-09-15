@@ -2,7 +2,7 @@
 	background: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1410785398/signup-v1_qzqn74.jpg') fixed;
   background-size: cover;
   margin-bottom: -50px;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
   background-position: 0% 40%;
 
   #signup-v1-title h1, #signup-v1-title h3 {
@@ -56,6 +56,10 @@
 		height: 15px;
 	}
 
+	.divider-or {
+		padding-right: 8px;
+	}
+
 	p.form-title {
     font-family: 'Open Sans' , sans-serif;
     font-size: 20px;
@@ -80,7 +84,7 @@
     font-weight: 400;
     letter-spacing: 1px;
     margin-bottom: 5px;
-    color: #fff;
+    color: #000;
     outline: 0;
 	}	
 
@@ -134,7 +138,7 @@
 
 	@media( max-width : 1000px ){ 	
   	#signup-v1-title {
-	  	margin-top: -40px;
+	  	margin-top: -30px;
 	  	margin-bottom: 20px;
 	  }
 
