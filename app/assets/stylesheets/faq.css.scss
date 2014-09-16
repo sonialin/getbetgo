@@ -77,3 +77,15 @@
 .bs-docs-sidebar .nav>.active>ul.nav {
   display: block;           
 }
+
+@media (max-width: 1200px) {
+  #faq-sidebar {
+    width: 190px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #faq-sidebar {
+    display: none;
+  }
+}
