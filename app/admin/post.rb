@@ -22,4 +22,22 @@ ActiveAdmin.register Post do
     end
   end
 
+  index do
+    column :title
+    column :price
+    column :quantity
+    column :subcategory_id do |post|
+      post.category.name
+    end
+    column :subcategory_id do |post|
+      post.subcategory.name
+    end
+    column :created_at
+    column :updated_at
+    column :user_id do |post|
+      post.user.name
+    end
+    actions
+  end
+
 end
