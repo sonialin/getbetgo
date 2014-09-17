@@ -35,8 +35,8 @@ module PostsHelper
       "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231761/stsf_background_rba10x.jpg"
     elsif category.name == 'Creative'
       "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231755/IMG_1280_copy_mptqt5.jpg"
-    elsif category.name == 'Social Impact'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231752/imagebase21_27_rkz3ti.jpg"
+    elsif category.name == 'Animals'
+      "http://www.freeallimages.com/wp-content/uploads/2014/09/grumpy-cat-no-3.jpg"
     elsif category.name == 'Lifestyle'
       "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231793/imagebase11_29_qjvqae.jpg"
     elsif category.name == 'Technology'
