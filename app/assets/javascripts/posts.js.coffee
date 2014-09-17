@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('#post_subcategory_id').parent().hide()
+  $('#post_subcategory_id').hide()
   subcategories = $('#post_subcategory_id').html()
   $('#post_category_id').change ->
     category = $('#post_category_id :selected').text()
@@ -11,7 +11,7 @@ jQuery ->
     options = $(subcategories).filter("optgroup[label='#{escaped_category}']").html()
     if options
       $('#post_subcategory_id').html(options)
-      $('#post_subcategory_id').parent().show()
+      $('#post_subcategory_id').show()
     else
       $('#post_subcategory_id').empty()
-      $('#post_subcategory_id').parent().hide()
+      $('#post_subcategory_id').hide()

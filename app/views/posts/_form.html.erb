@@ -1,64 +1,63 @@
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 
-<div class="well well-sm post-form">
-  <fieldset>
-    <legend class="text-center"><%= current_user.name %>'s Fund</legend>
-    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "form-horizontal", :id => "post-form" } do |f| %>
+<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 post-form">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-pencil"></span>
+      <%= current_user.name %>'s Fund
+    </div>
+
+    <div class="panel-body">
+    <%= form_for @post, :builder => Judge::FormBuilder, html: { multipart: true, :class => "", :id => "post-form" } do |f| %>
       <% if @post.errors.any? %>
-        <div id="error_explanation" class="form-group">
-          <div class="col-md-8 col-md-offset-3">
-            <h4><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h4>
-          </div>
-          <div class="col-md-8 col-md-offset-3">
-            <ul>
+        <div class="alert alert-warning alert-block signup-errors">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <h4>Oops - you forgot something:</h4>
+          <ul>
             <% @post.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
             <% end %>
-            </ul>
-          </div>
+          </ul>
         </div>
       <% end %>
+
       <div class="form-group">
-        <label class="col-md-3 control-label" for="title">Title</label>
-        <div class="col-md-8" id="post-title">   
-          I am giving &nbsp;
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="post-title">   
+          I am offering &nbsp;
           $<%= f.text_field :price, :class => "form-control post-number-input", :validate => true %>
-          <span id="post-price-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="post-price-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>    
+          <i id="post-price-ok" class='fa fa-check form-control-feedback validation-success'></i>
+          <i id="post-price-nogood" class='fa fa-close form-control-feedback validation-failed'></i>    
            &nbsp; to &nbsp;
           <%= f.text_field :quantity, :class => "form-control post-number-input", :validate => true %>
-          <span id="post-quantity-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="post-quantity-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span> 
-           &nbsp; people <br />
-           who want to <br />
-          <%= f.text_field :criteria, :class => "form-control", :validate => true %>
-          <span id="post-criteria-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="post-criteria-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>  
+          <i id="post-quantity-ok" class='fa fa-check form-control-feedback validation-success'></i>
+          <i id="post-quantity-nogood" class='fa fa-close form-control-feedback validation-failed'></i>
+           &nbsp; people 
+           who want to &nbsp;
+          <%= f.text_field :criteria, :class => "form-control", :validate => true, :placeholder => "promote a website, learn a new language, etc" %>
+          <div class="pull-right">
+            <i id="post-criteria-ok" class='fa fa-check form-control-feedback validation-success'></i>
+            <i id="post-criteria-nogood" class='fa fa-close form-control-feedback validation-failed'></i>
+          </div>
         </div>
       </div>
+
       <div class="form-group">
-        <label class="col-md-3 control-label" for="category">Category</label>
-        <div class="col-md-7">
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="category">Category</label>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 select-category">
           <%= f.collection_select(:category_id, Category.order(:name), :id, :name, {include_blank: true, :validate => true}, {:class => "form-control"}) %>    
         </div>
-        <div class="col-md-1">
-          <span id="post-category-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-          <span id="post-category-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label" for="subcategory">Subcategory</label>
-        <div class="col-md-7">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-10 select-subcategory">
           <%= f.grouped_collection_select(:subcategory_id, Category.order(:name), :subcategories, :name, :id, :name, {include_blank: true, :validate => true} , {:class => "form-control"}) %>     
         </div>
-        <div class="col-md-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
           <span id="post-subcategory-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
           <span id="post-subcategory-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
         </div>
       </div>
+
       <div class="form-group">
-        <label class="col-md-3 control-label" for="image">Image</label>
-        <div class="col-md-7">
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="image">Image</label>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="fileinput fileinput-new" data-provides="fileinput">
             <div class="fileinput-new thumbnail" id="post-image-upload" style="width: 200px; height: 150px;">
               <img data-src="holder.js/100%x100%" alt="<% if @post.image.size == nil %>Preview<% end %>">
@@ -76,59 +75,44 @@
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="description">Description</label>
-        <div class="col-md-8"> 
-          <div class="col-md-12">
-            <%= f.bootsy_area :description, :class=> "form-control", :id => "post_description", :rows => "5", :validate => true, editor_options: {color: false} %>
-          </div>
-          <div class="col-md-12">
-            <span id="post-description-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-            <span id="post-description-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-          </div>   
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="description">Description</label>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+          <%= f.bootsy_area :description, :class=> "form-control", :id => "post_description", :rows => "5", :validate => true, editor_options: {color: false, font_styles: false, image: false} %>         
+        </div> 
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="service">Request service in return (optional)</label>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <%= f.text_field :service, :class => "form-control", :id => "service" %>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="service">Request service in return (optional)</label>
-        <div class="col-md-8">
-          <div class="col-md-12">
-            <%= f.text_field :service, :class => "form-control", :id => "service" %>
-          </div>
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="tag_list">Tags</label>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => @post.tags_tokenize }%>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="tag_list">Tags</label>
-        <div class="col-md-8">
-          <div class="col-md-12">
-            <%= f.text_field :tag_list, :class=> "form-control", :validate => true, :data => { :load => @post.tags_tokenize }%>
-          </div>
+        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="location">Location</label>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <%= f.fields_for :place, f.object.place || f.object.build_place do |place| %>
+            <%= place.text_field :google_api_place_id, :class=> "form-control", :validate => true, :data => { :load => place.object.tokenize } %>
+          <% end %>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="location">Location</label>
-        <div class="col-md-8">
-          <div class="col-md-12">
-            <%= f.fields_for :place, f.object.place || f.object.build_place do |place| %>
-              <%= place.text_field :google_api_place_id, :class=> "form-control", :validate => true, :data => { :load => place.object.tokenize } %>
-            <% end %>
-          </div>
-          <div class="col-md-12">
-            <span id="post-location-ok" class='glyphicon glyphicon-ok form-control-feedback validation-success'></span>
-            <span id="post-location-nogood" class='glyphicon glyphicon-warning-sign form-control-feedback validation-failed'></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="col-md-11 text-right">
-          <%= f.submit "Submit", :class => "btn btn-fw btn-lg" %>      
+        <div class="col-md-12">
+          <%= f.submit "Submit", :class => "btn btn-fw btn-lg pull-right" %>      
         </div>
       </div>
     <% end %>
-  </fieldset>
+  </div>
 </div>
+
 <style>
 #location-remove {
   color: #FFFFFF;
@@ -160,35 +144,6 @@
 </style>
 
 <script type="text/javascript">
-
-  /* validation for post description */
-  $('#post_description').on('blur', function() {
-    judge.validate(document.getElementById('post_description'), {
-      valid: function(element) {
-        $('#post-description-ok').show();
-        $('#post-description-nogood').hide();
-        $('#post-description-error-message').hide();
-      },
-      invalid: function(element, messages) {
-        $('#post-description-nogood').show();
-        $('#post-description-ok').hide();
-
-        beforeDivNoGood = document.getElementById("post-description-nogood");
-        appendedDivNoGood = document.createElement("span");
-        appendedDivNoGood.id = "post-description-error-message";
-        appendedDivNoGood.className = "validation-failed";
-        appendedDivNoGood.innerHTML = " " + messages.join(',');
-        insertAfter(beforeDivNoGood, appendedDivNoGood);
-      }
-    });
-  });
-
-  $('#post_description').on('focus', function() {
-    $('#post-description-ok').hide();
-    $('#post-description-nogood').hide();
-    $('#post-description-error-message').hide();
-  });
-
   /* validation for post criteria */
   $('#post_criteria').on('blur', function() {
     judge.validate(document.getElementById('post_criteria'), {
@@ -217,35 +172,6 @@
     $('#post-criteria-error-message').hide();
   });
 
-  /* validation for post location */
-  $('#autocomplete').on('blur', function() {
-    judge.validate(document.getElementById('autocomplete'), {
-      valid: function(element) {
-        beforeDiv = document.getElementById("autocomplete").parentNode;
-        $('#post-location-ok').show();
-        $('#post-location-nogood').hide();
-        $('#post-location-error-message').hide();
-      },
-      invalid: function(element, messages) {
-        $('#post-location-nogood').show();
-        $('#post-location-ok').hide();
-
-        beforeDiv = document.getElementById("post-location-nogood");
-        appendedDivNoGood = document.createElement("span");
-        appendedDivNoGood.id = "post-location-error-message";
-        appendedDivNoGood.className = "validation-failed";
-        appendedDivNoGood.innerHTML = " " + messages.join(',');
-        insertAfter(beforeDiv, appendedDivNoGood);
-      }
-    });
-  });
-
-  $('#autocomplete').on('focus', function() {
-    $('#post-location-ok').hide();
-    $('#post-location-nogood').hide();
-    $('#post-location-error-message').hide();
-  });
-
   /* validation for post price */
   $('#post_price').on('blur', function() {
     judge.validate(document.getElementById('post_price'), {
@@ -264,27 +190,6 @@
   $('#post_price').on('focus', function() {
     $('#post-price-ok').hide();
     $('#post-price-nogood').hide();
-  });
-
-  /* validation for post category */
-  $('#post_category_id').on('blur', function() {
-    judge.validate(document.getElementById('post_category_id'), {
-      valid: function(element) {
-        $('#post-category-ok').show();
-        $('#post-category-nogood').hide();
-      },
-      invalid: function(element, messages) {
-        $('#post-category-nogood').show();
-        $('#post-category-ok').hide();
-      }
-    });
-  });
-
-  $('#post_category_id').on('focus', function() {
-    $('#post-category-ok').hide();
-    $('#post-category-nogood').hide();
-    $('#post-subcategory-ok').hide();
-    $('#post-subcategory-nogood').hide();
   });
 
   /* validation for post subcategory */

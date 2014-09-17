@@ -80,6 +80,39 @@
 	}
 }
 
+#new-fund-wrapper {
+	background: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1387957187/stsf_background_i9d716.jpg') fixed;
+  background-size: cover;
+  margin-bottom: -50px;
+  padding-bottom: 70px;
+  background-position: 0% 40%;
+
+  .panel-default {
+		opacity: 0.9;
+		margin-top:30px;
+	}
+
+	.select-category {
+		margin-bottom: 7px;
+	}
+
+	.select-subcategory {
+		margin-bottom: 13px;
+	}
+
+	#post_price, #post_quantity, #post_criteria {
+		overflow: hidden;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px dotted;
+		vertical-align: text-bottom;
+		cursor: pointer;
+		-webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+	}
+}
+
 .post-number-input {
 	display: inline;
 	width: 20%;
@@ -95,18 +128,12 @@
 
 #post-price-ok {
 	display: none;
+	font-size: 0.8em;
 }
 
 #post-price-nogood {
 	display: none;
-}
-
-#post-category-ok {
-	display: none;
-}
-
-#post-category-nogood {
-	display: none;
+	font-size: 0.8em;
 }
 
 #post-subcategory-ok {
@@ -117,20 +144,14 @@
 	display: none;
 }
 
-#post-description-ok {
-	display: none;
-}
-
 #post-quantity-nogood {
 	display: none;
+	font-size: 0.8em;
 }
 
 #post-quantity-ok {
 	display: none;
-}
-
-#post-description-nogood {
-	display: none;
+	font-size: 0.8em;
 }
 
 #post-criteria-nogood {
@@ -143,37 +164,25 @@
 	font-size: 0.8em;
 }
 
+#post-criteria-reminder {
+	font-size: 0.8em;
+	color: #aaa;
+}
+
 #post-criteria-error-message {
 	font-size: 0.8em;
 }
 
-#post-taglist-ok {
-	display: none;
-}
-
-#post-taglist-nogood {
-	display: none;
-}
-
-#post-location-ok {
-	display: none;
-}
-
-#post-location-nogood {
-	display: none;
-}
-
 #post-title {
-	font-size: 1.3em;
+	font-size: 1.2em;
 	font-weight: 500;
+	input[type=text] {
+  	font-family: 'Handlee', cursive;
+  	font-size: 1.2em;
+	}
 }
 
 .post-form {
 	color: #595959;
 	padding-top: 20px;
-}
-
-.post-form legend {
-	font-size: 2em;
-	color: #595959;
 }
