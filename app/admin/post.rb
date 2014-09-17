@@ -14,6 +14,8 @@ ActiveAdmin.register Post do
   #  permitted
   # end
 
+  permit_params :subcategory_id
+
   controller do
     def find_resource
       scoped_collection.friendly.find(params[:id])
