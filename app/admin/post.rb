@@ -20,18 +20,17 @@ ActiveAdmin.register Post do
     def find_resource
       scoped_collection.friendly.find(params[:id])
     end
+    def scoped_collection
+      end_of_association_chain.includes(:subcategory)
+    end
   end
 
   index do
     column :title
     column :price
     column :quantity
-    column :subcategory_id do |post|
-      post.category.name
-    end
-    column :subcategory_id do |post|
-      post.subcategory.name
-    end
+    column Category.name, :category, :sortable => 'categories.name'
+    column Subcategory.name, :subcategory, :sortable => 'subcategories.name'
     column :created_at
     column :updated_at
     column :user_id do |post|
