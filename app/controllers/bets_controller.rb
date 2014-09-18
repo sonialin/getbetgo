@@ -156,6 +156,8 @@ class BetsController < ApplicationController
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
                           notified_object = @bet)
       redirect_to @post
+      @bet.delay(run_at: 5.minutes.from_now).change_to_credited
+
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'
       redirect_to @post

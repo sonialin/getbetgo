@@ -43,6 +43,11 @@ class Bet < ActiveRecord::Base
     self.status_id = ::Bets::Status.find_by_name(status_name).id
   end
 
+  def change_to_credited
+    self.status = "Credited"
+    self.save
+  end
+
   def selected?
     self.status == "Selected"
   end

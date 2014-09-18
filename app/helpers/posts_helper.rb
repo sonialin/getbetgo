@@ -1,7 +1,7 @@
 module PostsHelper
 	POSTS_PER_PAGE = 12
 	def reformatted_post_datetime(time_created_at)
-	  distance = Time.now - time_created_at
+	  distance = Time.zone.now - time_created_at
 
 	  format_for_old_posts = time_created_at.strftime("%m-%d-%Y")
 

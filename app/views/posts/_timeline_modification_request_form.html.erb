@@ -14,4 +14,8 @@
       <% end %>
     <% end %>
   </div>
+<% elsif bet.credited? or bet.funded? %>
+  <div class="panel-middle">
+    The application has been completed!
+  </div>
 <% end %>

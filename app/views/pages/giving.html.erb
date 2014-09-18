@@ -38,15 +38,15 @@
 					  			<% if !Bet.exists?(:id => order.bet_id) %>
 					  				<tr>
 						  				<td><%= order.token %></td>
-											<td>nil</td>
-										  <td>nil</td>
+											<td><span style="color: #ccc;">n/a</span></td>
+										  <td><span style="color: #ccc;">n/a</span></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 									<% elsif !Post.exists?(:id => order.post_id) %>
 										<tr>
 						  				<td><%= order.token %></td>
-											<td>nil</td>
-										  <td>nil</td>
+											<td><span style="color: #ccc;">n/a</span></td>
+										  <td><span style="color: #ccc;">n/a</span></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 					  			<% else %>

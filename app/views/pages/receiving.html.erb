@@ -37,18 +37,26 @@
 					  		<% @bets.each do |bet| %>
 						  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
 						  			<td>
-							  			<% if bet.awaiting_modification? or bet.modified? %>
-							  				<span class="fw-main-color"><%= bet.post.price %></span>
-							  			<% else %>
-							  				<%= bet.post.price %>
-							  			<% end %>
+						  				<% if bet.post %>
+								  			<% if bet.awaiting_modification? or bet.modified? %>
+								  				<span class="fw-main-color"><%= bet.post.price %></span>
+								  			<% else %>
+								  				<%= bet.post.price %>
+								  			<% end %>
+								  		<% else %>
+								  			<span style="color: #ccc;">n/a</span>
+								  		<% end %>
 							  		</td>
 							  		<td>
-							  			<% if bet.awaiting_modification? or bet.modified? %>
-							  				<span class="fw-main-color"><%= bet.post.title %></span>
-							  			<% else %>
-							  				<%= bet.post.title %>
-							  			<% end %>
+							  			<% if bet.post %>
+								  			<% if bet.awaiting_modification? or bet.modified? %>
+								  				<span class="fw-main-color"><%= bet.post.title %></span>
+								  			<% else %>
+								  				<%= bet.post.title %>
+								  			<% end %>
+								  		<% else %>
+								  			<span style="color: #ccc;">fund has been removed</span>
+								  		<% end %>
 							  		</td>
 							  		<td>
 							  			<% if bet.open? %>

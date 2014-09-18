@@ -113,6 +113,9 @@ gem 'mandrill_mailer'
 # Use impressionist to track impressions
 gem 'impressionist'
 
+# Use delayed_job change bet status later
+gem 'delayed_job_active_record'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
