@@ -102,9 +102,9 @@
 
 <script>
 
-  $(document).on('click', '#portfolio-filter .btn', function() {
-    $('#portfolio-filter .btn').removeClass('current');
-    $('#portfolio-filter .btn').removeClass('active');
+  $(document).on('click', '#portfolio-filter .category-selection', function() {
+    $('#portfolio-filter .category-selection').removeClass('current');
+    $('#portfolio-filter .category-selection').removeClass('active');
     $(this).addClass('current');
     $(this).removeClass('active');
     $('#my-posts').html('');
