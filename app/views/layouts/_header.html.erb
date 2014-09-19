@@ -42,7 +42,7 @@
       		<li class="dropdown <%= 'active' if ((current_page?(giving_path) or current_page?(edit_user_registration_path)) or (current_page?(receiving_path))) or controller.controller_name == 'users' %>">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personal-switch">
               <%= image_tag(current_user.user_info.avatar.url(:medium), :class => "img-circle navbar-avatar") %>
-              <%= current_user.name %>&nbsp;<span class="badge navbar-alert-bubble">$<%= current_user.wallet.amount %></span>
+              <%= current_user.name %>&nbsp;<span class="badge navbar-alert-bubble">$<%= number_with_precision(current_user.wallet.amount, :precision => 2) %></span>
               <i id="user-profile-dropdown-show" class="fa fa-caret-down"></i>
               <i id="user-profile-dropdown-hide" class="fa fa-caret-up"></i>
             </a>

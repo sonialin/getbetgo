@@ -2,6 +2,7 @@ class TransactionsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 	
 	def success
+		wallet = current_user.wallet
 	  @bet = Bet.find(params[:bet_id])
 	  @order = Order.new
 	  @order.user_id = current_user.id
@@ -9,14 +10,18 @@ class TransactionsController < ApplicationController
 	  @post = @bet.post
 	  @order.amount = @post.price
 	  @order.post_id = @post.id
-	  @order.credit = current_user.wallet.amount
+	  @order.redeemed_credits = wallet.credits
+	  @order.redeemed_coupons = wallet.coupons
 	  @order.save!
-	  current_user.wallet.amount = 0
-	  current_user.wallet.save
+
+	  wallet.credits = 0
+	  wallet.coupons = 0
+	  wallet.save
+	  
     @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
                   		"#{@post.user.name} selected you on '#{@post.title}'", 
                  			notified_object = @order)
-	  redirect_to @post, notice: "Order #{@order.token} has been successfully made."
+	  redirect_to @post, notice: "Order number #{@order.token} has been successfully processed."
 	end
 	
 	def failed

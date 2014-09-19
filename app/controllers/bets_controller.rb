@@ -109,10 +109,24 @@ class BetsController < ApplicationController
     @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
     wallet = current_user.wallet
+
     if wallet.amount > 0
       if wallet.amount >= @post.price
-        wallet.amount -= @post.price
-        wallet.save
+
+        if wallet.coupons >= @post.price
+          wallet.coupons -= @post.price
+          wallet.save
+          redeemed_coupons = @post.price
+          redeemed_credits = 0
+        else
+          difference = @post.price - wallet.coupons
+          redeemed_coupons = wallet.coupons
+          redeemed_credits = difference
+          wallet.coupons = 0
+          wallet.credits -= difference
+          wallet.save
+        end
+
         @bet.status = 'Selected'
         @bet.save
 
@@ -121,7 +135,8 @@ class BetsController < ApplicationController
         order.bet_id = @bet.id
         order.amount = @post.price
         order.post_id = @post.id
-        order.credit = @post.price
+        order.redeemed_credits = redeemed_credits
+        order.redeemed_coupons = redeemed_coupons
         order.save!
 
         @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
@@ -138,6 +153,7 @@ class BetsController < ApplicationController
       @@payment_amount = @post.price
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
+
     # @bet.select
     # if @bet.status == "Selected"
     #   flash[:notice] = "The bet has been selected."

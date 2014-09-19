@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
 
   def create_info_and_wallet
     UserInfo.create(user_id: self.id)
-    Wallet.create(user_id: self.id, amount: 0) 
+    Wallet.create(user_id: self.id, credits: 0, coupons: 0) 
   end
 
   def follow user
