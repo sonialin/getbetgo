@@ -79,12 +79,15 @@
 		            Kudo<br />
 	            <% end %>
 	            <span class="thumbnail-kudos-number"><%= @user.contributions.ceil %></span>&nbsp;
-	            <i class="fa fa-refresh"></i>&nbsp;
+	            <i class="fa fa-wifi"></i>&nbsp;
 	            <% if @user.contributions.ceil >1 %>
 		            Karmas<br />
 		            <% else %>
 		            Karma<br />
 	            <% end %>
+	            <span class="thumbnail-kudos-number"><%= @user.award_rate %></span>&nbsp;
+	            <i class="fa fa-bookmark-o"></i>&nbsp;
+		          Award Rate
 	          </span>
 		      </div>
 		      <div class="col-lg-12 user-show-follows">

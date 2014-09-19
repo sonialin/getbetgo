@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  include ActionView::Helpers::NumberHelper 
+
   acts_as_messageable
   acts_as_voter
 
@@ -73,11 +75,23 @@ class User < ActiveRecord::Base
   end
 
   def contributions
-    self.posts.joins("INNER JOIN bets ON bets.post_id = posts.id INNER JOIN bets_statuses ON bets_statuses.id = bets.status_id").where("bets_statuses.name IN ('Submitted', 'Credited', 'Funded')").sum(:price).to_f
+    self.posts.joins("INNER JOIN bets ON bets.post_id = posts.id INNER JOIN bets_statuses ON bets_statuses.id = bets.status_id").where("bets_statuses.name IN ('Selected', 'Submitted', 'Credited', 'Funded')").sum(:price).to_f
   end
 
   def credits
     self.bets.joins(:post).joins(:status).where("bets_statuses.name IN ('Submitted', 'Credited', 'Funded')").sum("posts.price").to_f
+  end
+
+  def applications_received
+    @funds_for_applications_received = (self.posts.inject(0) {|sum, post| sum + post.bets.count * post.price}).to_f
+  end
+
+  def award_rate
+    if self.applications_received == 0
+      return 0
+    else
+      number_to_percentage((self.contributions / self.applications_received) * 100, precision: 0)
+    end
   end
 
   def mailboxer_email(object)

@@ -5,33 +5,10 @@ class BetsController < ApplicationController
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
   before_filter :evaluate_if_current_user_mark_complete, only: [:mark_complete]
 
-  # GET /bets
-  # GET /bets.json
-  # def index
-  #   @bets = Bet.all
-  # end
-
-  # GET /bets/1
-  # GET /bets/1.json
-  # def show
-  #   if (current_user && current_user == @bet.user)
-  #     @current_user_bet = @bet.post.bets.where(:user_id => current_user.id)
-  #   else
-  #     redirect_to @bet.post
-  #   end
-  # end
-
-  # GET /bets/new
   def new
     @bet = Bet.new
   end
 
-  # GET /bets/1/edit
-  # def edit
-  # end
-
-  # POST /bets
-  # POST /bets.json
   def create
     @user = current_user
     @post = Post.friendly.find(params[:post_id])
@@ -66,20 +43,6 @@ class BetsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bets/1
-  # PATCH/PUT /bets/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @bet.update(bet_params)
-  #       format.html { redirect_to @bet, notice: 'Bet was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: 'edit' }
-  #       format.json { render json: @bet.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   def evaluate_if_selected_limit_reached
     post = Post.friendly.find(params[:post_id])
     selected_bets_count = post.bets_past_selection.count
@@ -88,16 +51,6 @@ class BetsController < ApplicationController
       redirect_to post
     end
   end
-
-  # DELETE /bets/1
-  # DELETE /bets/1.json
-  # def destroy
-  #   @bet.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to bets_url }
-  #     format.json { head :no_content }
-  #   end
-  # end
 
   def select
     if @post.bets_past_selection.pluck(:user_id).include?(@bet.user.id)
@@ -153,14 +106,6 @@ class BetsController < ApplicationController
       @@payment_amount = @post.price
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
-
-    # @bet.select
-    # if @bet.status == "Selected"
-    #   flash[:notice] = "The bet has been selected."
-    # else 
-    #   flash[:notice] = "Oops, something went wrong."
-    # end
-    # redirect_to @post
   end
 
   def mark_complete
