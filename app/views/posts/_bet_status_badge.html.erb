@@ -1,8 +1,12 @@
 <div class="timeline-badge">
   <% if bet.open? %>
-    <i class="fa fa-star-o"></i>
+    <i class="fa fa-paper-plane-o"></i>
   <% elsif bet.selected? %>
-    <i class="fa fa-star-half-o"></i>
+    <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
+      <i class="fa fa-star-half-empty"></i>
+    <% else %>
+      <i class="fa fa-star-o"></i>
+    <% end %>
   <% elsif bet.submitted? %>
     <i class="fa fa-star"></i>
   <% elsif bet.awaiting_modification? %>

@@ -4,4 +4,9 @@ class Wallet < ActiveRecord::Base
 	def amount
 		self.credits + self.coupons
 	end
+
+	def load_credits(credits)
+		self.credits += credits
+		self.save
+	end
 end

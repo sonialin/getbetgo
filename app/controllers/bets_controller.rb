@@ -167,13 +167,14 @@ class BetsController < ApplicationController
     @post = Post.friendly.find(params[:post_id])
     @bet = @post.bets.find_by_id(params[:id])
     @bet.status = "Submitted"
+
     if @bet.save
       @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
                           "#{@bet.user.name} completed the fund '#{@post.title}'", 
                           notified_object = @bet)
       redirect_to @post
       @bet.delay(run_at: 5.minutes.from_now).change_to_credited
-
+      current_user.wallet.delay(run_at: 5.minutes.from_now).load_credits(@post.price)
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'
       redirect_to @post
