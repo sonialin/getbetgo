@@ -120,10 +120,13 @@ gem 'delayed_job_active_record'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
 gem 'byebug', group: [:development, :test]
+
+gem 'resque', :require => 'resque/server' 
+gem 'resque-scheduler'

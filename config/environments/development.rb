@@ -44,4 +44,9 @@ Getbetgo::Application.configure do
 
   # let Paperclip know to look for the uploaded image file
   Paperclip.options[:command_path] = "/opt/ImageMagick/bin/" 
+
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get(
+    ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'INFO'
+  )
 end
