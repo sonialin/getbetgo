@@ -13,7 +13,7 @@ Getbetgo::Application.routes.draw do
 
   resources :user_infos
 
-  mount Resque::Server.new, :at => "/resque/:key", :constraints => {:key => ENV["RESQUE_KEY"]}
+  mount Resque::Server, :at => "/resque/:key", :constraints => {:key => ENV["RESQUE_KEY"]}
 
   get "about" => 'pages#about'
   get "giving" => 'pages#giving'
