@@ -1,0 +1,134 @@
+#mainvisual-v2 {
+	.carousel-inner .item {
+    width: 100%;
+    height: 350px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	}
+
+	.category-selection {
+		font-size: 1em;
+	}
+
+	#slide-1 {
+  	background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1411207530/mainvisual_v2_1_injdn2.jpg');
+    width: 100%;
+    height: 100%;
+    background-position: 0% 35%;
+    background-size: cover;
+	}
+
+	#caption-1 {
+		position: absolute;
+	  bottom: 50px;
+	  left: 30%;
+	  z-index: 10;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
+	  width: 300px;
+	  color: #fff;
+	  text-align: center;
+	}
+
+	#caption-1 h2, #caption-1 h4 {
+		text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	}
+
+	#slide-2 {
+  	background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1411206955/mainvisual_v2_2_cvmic8.jpg');
+    width: 100%;
+    height: 100%;
+    background-position: 0% 40%;
+    background-size: cover;
+	}
+
+	#caption-2 h2, #caption-2 h4 {
+		text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	}
+
+	#caption-2 {
+		position: absolute;
+	  bottom: 100px;
+	  left: 60%;
+	  z-index: 10;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
+	  width: 300px;
+	  color: #fff;
+	  text-align: center;
+	}
+
+	#slide-3 {
+  	background-image: url('http://res.cloudinary.com/dxytnnzk9/image/upload/v1411206868/mainvisual_v2_3_sidl2l.jpg');
+    width: 100%;
+    height: 100%;
+    background-position: 0% 0%;
+    background-size: cover;
+	}
+
+	#caption-3 {
+		position: absolute;
+	  bottom: 50px;
+	  left: 25%;
+	  z-index: 10;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
+	  width: 300px;
+	  color: #fff;
+	  text-align: center;
+	}
+
+	#caption-3 h2, #caption-3 h4 {
+		text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	}
+
+	@media (max-width: 1200px) {
+		#caption-1 {
+		  bottom: 50px;
+		  left: 25%;
+		}
+
+		#caption-2 {
+		  bottom: 50px;
+		  left: 55%;
+		}
+
+		#caption-3 {
+		  bottom: 50px;
+		  left: 25%;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.carousel-inner .item {
+	    width: 100%;
+	    height: 250px;
+		}
+
+		#slide-1 {
+			background-position: 30% 50%;
+		}
+
+		#caption-1 {
+		  bottom: 30px;
+		  left: 10%;
+		}
+
+		#caption-2 {
+		  bottom: 30px;
+		  left: 10%;
+		}
+
+		#caption-3 {
+		  bottom: 30px;
+		  left: 10%;
+		}
+
+		#caption-1 h2, #caption-2 h2, #caption-3 h2 {
+			font-size: 1.6em;
+			margin-bottom: -5px;
+		}
+	}
+}

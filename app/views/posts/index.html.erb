@@ -1,5 +1,5 @@
 <% if (((!current_user && !params[:tag]) && !params[:location]) && !params[:subcategory]) && !params[:search] %>
-  <%= render :partial => "posts/mainvisual_v1" %>
+  <%= render :partial => "posts/mainvisual_v2" %>
 <% end %>
 
 <% if current_user %>
@@ -102,7 +102,7 @@
 
 <script>
 
-  $(document).on('click', '#portfolio-filter .category-selection', function() {
+  $(document).on('click', '.category-selection', function() {
     $('#portfolio-filter .category-selection').removeClass('current');
     $('#portfolio-filter .category-selection').removeClass('active');
     $(this).addClass('current');

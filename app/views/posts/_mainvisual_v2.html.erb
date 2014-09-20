@@ -1,18 +1,50 @@
-<div class="jumbotron" id="home-v2">
-  <div class="container" id="home-content"> 
-    <div class="col-md-4 col-sm-4 col-md-offset-5">
-      <div class="col-md-12">
-        <h1>Derrick received $100</h1>
-        <h4>to start a business</h4>
+<div id="mainvisual-v2" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#mainvisual-v2" data-slide-to="0" class="active"></li>
+    <li data-target="#mainvisual-v2" data-slide-to="1"></li>
+    <li data-target="#mainvisual-v2" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <div id="slide-1"></div>
+      <div id="caption-1">
+        <h2>Anthony got a fund</h2>
+        <h4>for his web startup</h4>
+        <span type="button" class="btn btn-danger category-selection" id="Ideas" value="Ideas">
+          Find more funds for Ideas
+        </span>        
       </div>
-      <%= form_tag(posts_path, :method => "get", :class => "navbar-form v2-search-form") do %>
-        <div class="col-md-10 col-sm-10 col-xs-12">
-          <%= text_field_tag :search, params[:search], placeholder: "Search for funds", :class => "form-control" %>
-        </div>
-        <div class="col-md-2 col-sm-2 col-xs-12">
-          <%= submit_tag "Search", :name => nil, :class => "btn btn-default" %>
-        </div>
-      <% end %>
+    </div>
+    <div class="item">
+      <div id="slide-2"></div>
+      <div id="caption-2">
+        <h2>Ashley got a fund</h2>
+        <h4>to publish her debut novel</h4> 
+        <span type="button" class="btn btn-danger category-selection" id="Creative" value="Creative">
+          Find more funds for Creative
+        </span>
+      </div>
+    </div>
+    <div class="item">
+      <div id="slide-3"></div>
+      <div id="caption-3">
+        <h2>Eric got a fund</h2>
+        <h4>to learn Chinese</h4> 
+        <span type="button" class="btn btn-danger category-selection" id="Education" value="Education">
+          Find more funds for Education
+        </span>       
+      </div>
     </div>
   </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#mainvisual-v2" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#mainvisual-v2" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
 </div>
