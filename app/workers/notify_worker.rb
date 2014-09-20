@@ -1,3 +1,5 @@
+require 'heroku_resque_auto_scale.rb'
+
 class NotifyWorker
   extend HerokuResqueAutoScale
   @queue = :notify_reqeusts

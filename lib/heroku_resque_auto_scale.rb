@@ -1,9 +1,9 @@
-require 'heroku'
+require 'heroku-api'
  
 module HerokuResqueAutoScale
   module Scaler
     class << self
-      @@heroku = Heroku::Client.new(:api_key => ENV['HEROKU_API_KEY'])
+      @@heroku = Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'])
  
       def workers
         Resque.info[:working]
