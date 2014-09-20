@@ -361,11 +361,6 @@ a.user_name_link:hover {
     margin-top:30px;
 }
 
-.carousel {
-  position: relative;
-  line-height: 1;
-}
-
 #slide_left {
   position: absolute;
   top: 45%;
@@ -993,7 +988,8 @@ a .dismiss-tag {
 
 @media (max-width: 500px) {
   #category-selection-block {
-    width: 350px;
+    width: 100%;
+    margin-left: 15px;
   }
 
   #description_content .text_description_content {
