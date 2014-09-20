@@ -9,9 +9,10 @@ class FundTransfersController < ApplicationController
   	@post = Post.friendly.find(params[:post_id])
   	@fund.amount = @post.price
   	@fund.save
-    @fund.bet.user.notify("You got a fund from #{@post.user.name} on '#{@post.title}'",
-                          "You got a fund from #{@post.user.name} on '#{@post.title}'",
-                          notified_object = @fund)
+    Resque.enqueue(NotifyWorker, @fund.bet.user_id, 
+                                 "You got a fund from #{@post.user.name} on '#{@post.title}'",
+                                 "You got a fund from #{@post.user.name} on '#{@post.title}'",
+                                 "Fund", @fund.id)
   	redirect_to @post, notice: "Fund transfered!" 
   end
 

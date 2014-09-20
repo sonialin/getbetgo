@@ -128,5 +128,4 @@ gem 'unicorn'
 # Use debugger
 gem 'byebug', group: [:development, :test]
 
-gem 'resque', :require => 'resque/server' 
-gem 'resque-scheduler'
+gem 'resque', :require => 'resque/server'

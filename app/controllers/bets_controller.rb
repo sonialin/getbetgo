@@ -31,9 +31,10 @@ class BetsController < ApplicationController
             @bet.proofs.create(document: document)
           }
         end
-        @post.user.notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
-                          "#{@bet.user.name} applied to your fund '#{@post.title}'", 
-                          notified_object = @bet)
+        Resque.enqueue(NotifyWorker, @post.user_id,
+                                     "#{@bet.user.name} applied to your fund '#{@post.title}'",
+                                     "#{@bet.user.name} applied to your fund '#{@post.title}'", 
+                                     "Bet", @bet.id)
         format.html { redirect_to @post }
         #format.json { render action: 'show', status: :created, location: @bet }
       else
@@ -92,9 +93,11 @@ class BetsController < ApplicationController
         order.redeemed_coupons = redeemed_coupons
         order.save!
 
-        @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
-                      "#{@post.user.name} selected you on '#{@post.title}'", 
-                      notified_object = order)
+
+        Resque.enqueue(NotifyWorker, @bet.user_id, 
+                                     "#{@post.user.name} selected you on '#{@post.title}'",
+                                     "#{@post.user.name} selected you on '#{@post.title}'",
+                                     "Order", order.id)
 
         flash[:notice] = 'Payment made successfully with credits!'
         redirect_to @post
@@ -114,9 +117,10 @@ class BetsController < ApplicationController
     @bet.status = "Submitted"
 
     if @bet.save
-      @post.user.notify("#{@bet.user.name} completed the fund '#{@post.title}'",
-                          "#{@bet.user.name} completed the fund '#{@post.title}'", 
-                          notified_object = @bet)
+      Resque.enqueue(NotifyWorker, @bet.user_id,
+                                   "#{@bet.user.name} completed the fund '#{@post.title}'",
+                                   "#{@bet.user.name} completed the fund '#{@post.title}'",
+                                   "Bet", @bet.id)
       redirect_to @post
       @bet.delay(run_at: 5.minutes.from_now).change_to_credited
       current_user.wallet.delay(run_at: 5.minutes.from_now).load_credits(@post.price)

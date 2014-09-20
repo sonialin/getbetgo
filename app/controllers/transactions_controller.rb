@@ -18,9 +18,10 @@ class TransactionsController < ApplicationController
 	  wallet.coupons = 0
 	  wallet.save
 	  
-    @bet.user.notify("#{@post.user.name} selected you on '#{@post.title}'",
-                  		"#{@post.user.name} selected you on '#{@post.title}'", 
-                 			notified_object = @order)
+	  Resque.enqueue(NotifyWorker, @bet.user_id,
+    														 "#{@post.user.name} selected you on '#{@post.title}'",
+                  						 	 "#{@post.user.name} selected you on '#{@post.title}'", 
+                 			           "Order", @order.id)
 	  redirect_to @post, notice: "Order number #{@order.token} has been successfully processed."
 	end
 	

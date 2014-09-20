@@ -7,9 +7,10 @@ class RelationshipsController < ApplicationController
 		@relationship.follower = current_user
 
 		if @relationship.save
-    	@relationship.followed.notify("#{@relationship.follower.name} just followed you", 
-    																"#{@relationship.follower.name} just followed you",
-                          					notified_object = @relationship)
+			Resque.enqueue(NotifyWorker, @relationship.followed_id,
+																	 "#{@relationship.follower.name} just followed you",
+																	 "#{@relationship.follower.name} just followed you",
+																	 "Relationship", @relationship.id)
 			redirect_to :back
 		else
 			flash[:error] = "Oops, something went wrong."

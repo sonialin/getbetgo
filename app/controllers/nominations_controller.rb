@@ -14,9 +14,10 @@ class NominationsController < ApplicationController
 
     if @nomination.save
     	if @receiver != nil
-    		@nomination.receiver.notify("#{@nomination.sender_name} Nominated You for a Fund on FundWok",
-                          "#{@nomination.sender_name} nominated you for the fund '#{@nomination.post.title}'", 
-                          notified_object = @nomination)
+            Resque.enqueue(NotifyWorker, @nomination.receiver_id,
+                                         "#{@nomination.sender_name} Nominated You for a Fund on FundWok",
+                                         "#{@nomination.sender_name} nominated you for the fund '#{@nomination.post.title}'",
+                                         "Nomination", @nomiantion.id)
     	else
     		NominationMailer.send_nomination(@nomination, post_url(@nomination.post)).deliver
     	end

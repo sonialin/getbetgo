@@ -7,9 +7,10 @@ class ModificationRequestsController < ApplicationController
     @bet = @modification_request.reply.bet
 
     if @modification_request.save
-    	@bet.user.notify("#{@bet.post.user.name} requested a modification to your fund application",
-                        "#{@bet.post.user.name} requested a modification to your fund application '#{@bet.post.title}'", 
-                        notified_object = @bet)
+        Resque.enqueue(NotifyWorker, @bet.user_id,
+                                     "#{@bet.post.user.name} requested a modification to your fund application",
+                                     "#{@bet.post.user.name} requested a modification to your fund application '#{@bet.post.title}'",
+                                     "Bet", @bet.id)
     	redirect_to :back
     else
     	flash[:notice] = "Oops - something went wrong. Please try again."

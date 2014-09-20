@@ -10,34 +10,40 @@ class RepliesController < ApplicationController
     if @reply.save
       if @reply.bet.submitted?
         if @reply.user == @bet.user
-          @post.user.notify("#{@bet.user.name} commented on application to your fund",
-                        "#{@bet.user.name} commented on application to your fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @post.user_id,
+                                       "#{@bet.user.name} commented on application to your fund",
+                                       "#{@bet.user.name} commented on application to your fund '#{@bet.post.title}'",
+                                       "Reply", @reply.id)
         elsif @reply.user == @post.user
-          @bet.user.notify("#{@post.user.name} commented on your fund application",
-                        "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @bet.user_id,
+                                       "#{@post.user.name} commented on your fund application",
+                                       "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
         end
       elsif (@reply.bet.selected? or @reply.bet.modified?)
         if @reply.user == @bet.user
-          @post.user.notify("#{@bet.user.name} updated application to your fund",
-                        "#{@bet.user.name} updated application to your fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @post.user_id,
+                                       "#{@bet.user.name} updated application to your fund",
+                                       "#{@bet.user.name} updated application to your fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
         elsif @reply.user == @post.user
-          @bet.user.notify("#{@post.user.name} commented on your fund application",
-                        "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @bet.user_id,
+                                       "#{@post.user.name} commented on your fund application",
+                                       "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
         end      
       elsif @reply.bet.awaiting_modification?
         if @reply.user == @bet.user
           @reply.change_bet_status
-          @post.user.notify("#{@bet.user.name} updated application to your fund",
-                        "#{@bet.user.name} updated application to your fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @post.user_id,
+                                       "#{@bet.user.name} updated application to your fund",
+                                       "#{@bet.user.name} updated application to your fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
         else
-          @bet.user.notify("#{@post.user.name} commented on your fund application",
-                        "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
-                        notified_object = @reply)
+          Resque.enqueue(NotifyWorker, @bet.user_id,
+                                       "#{@post.user.name} commented on your fund application",
+                                       "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
         end
       end
 
