@@ -20,10 +20,12 @@ module HerokuResqueAutoScale
   end
  
   def after_perform_scale_down(*args)
+    return if !Rails.env.staging? && !Rails.env.production?
     Scaler.workers = 0 if Scaler.job_count.zero?
   end
  
   def after_enqueue_scale_up(*args)
+    return if (!Rails.env.staging? && !Rails.env.production?)
     [
       {
         :workers => 1,
