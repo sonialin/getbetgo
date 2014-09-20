@@ -30,20 +30,104 @@ module PostsHelper
 		end			
 	end
 
-  def post_placeholder_image(category)
-    if category.name == 'Business'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231761/stsf_background_rba10x.jpg"
+  def post_placeholder_image(category, subcategory)
+    if category.name == 'Animals'
+      if subcategory.name == 'Petcare'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411229753/animals_petcare_jl0emn.jpg"
+      elsif subcategory.name == 'Pet Hotels'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411229750/animals_hotel_gnznpo.jpg"
+      elsif subcategory.name == 'Pet Giveaways'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411229742/animals_giveaways_ebfhye.jpg"
+      elsif subcategory.name == 'Help Someone Obtain a Pet'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411229747/animals_help_obtain_pet_swn08t.jpg"
+      end 
+    elsif category.name == 'Business'
+      if subcategory.name == 'Miscellaneous'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230246/business_misc_n8y54w.jpg"
+      elsif subcategory.name == 'Marketing/ PR'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230256/business_PR_fgj4hh.jpg"
+      elsif subcategory.name == 'Technology'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230262/business_technology_nq2bzc.jpg"
+      elsif subcategory.name == 'Graphic Design'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230235/business_design_juycmw.jpg"
+      elsif subcategory.name == 'Sales'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230259/business_sales_v5ek7b.jpg"
+      elsif subcategory.name == 'Customer Service'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230232/business_customer_vftrzo.jpg"
+      elsif subcategory.name == 'Administration'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411229755/business_admin_zfd3a0.jpg"
+      elsif subcategory.name == 'Finance'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230239/business_finance_fryykr.jpg"
+      end
     elsif category.name == 'Creative'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231755/IMG_1280_copy_mptqt5.jpg"
-    elsif category.name == 'Animals'
-      "http://www.freeallimages.com/wp-content/uploads/2014/09/grumpy-cat-no-3.jpg"
+      if subcategory.name == 'Art'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232274/creative_art_y1a9wz.jpg"
+      elsif subcategory.name == 'Films'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232281/creative_films_jsaevi.jpg"
+      elsif subcategory.name == 'Writing'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232291/creative_writing_wja4of.jpg"
+      elsif subcategory.name == 'Music'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232291/creative_music_nibbax.jpg"
+      elsif subcategory.name == 'Dance'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232277/creative_dance_lkdwzh.jpg"
+      elsif subcategory.name == 'Photography'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232291/creative_photography_dw9tv6.jpg"
+      elsif subcategory.name == 'Miscellaneous'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232290/creative_misc_lroifk.jpg"
+      end
+    elsif category.name == 'Education'
+      if subcategory.name == 'School'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232689/education_school_foocoh.jpg"
+      elsif subcategory.name == 'Online Courses'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232682/education_onlinecourses_awnzrz.jpg"
+      elsif subcategory.name == 'Private Lessons'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232689/education_privatelessons_dmxqq5.jpg"
+      end
+    elsif category.name == 'Gifts'
+      if subcategory.name == 'Special Occasion'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232792/gifts_specialoccasion_kq8z3f.jpg"
+      elsif subcategory.name == 'Surprise'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232792/gifts_surprise_yv4cb2.jpg"
+      elsif subcategory.name == 'Thank You'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411232793/gifts_thankyou_s3i7l7.jpg"
+      end
+    elsif category.name == 'Ideas'
+      if subcategory.name == 'Startups'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233077/ideas_startups_tkiw0v.jpg"
+      elsif subcategory.name == 'Challenge'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233077/ideas_challenge_eiu1nl.jpg"
+      elsif subcategory.name == 'Community'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233078/ideas_community_vjjuii.jpg"
+      elsif subcategory.name == 'Research'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233077/ideas_research_yi3rjg.jpg"
+      elsif subcategory.name == 'Bucket List'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233077/ideas_bucketlist_rdgj5e.jpg"
+      end
     elsif category.name == 'Lifestyle'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231793/imagebase11_29_qjvqae.jpg"
-    elsif category.name == 'Technology'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409239784/ehh-630-woman-laptop-coffee-istock-630w_tb64i9.jpg"
-    elsif category.name == 'Other'
-      "http://res.cloudinary.com/dxytnnzk9/image/upload/v1409231743/3814721488_c344952c7b_avvg9g.jpg"
-    end     
+      if subcategory.name == 'Fun/ Leisure'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233253/lifestyle_fun_ffwput.jpg"
+      elsif subcategory.name == 'Deals/ Bargains'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233253/lifestyle_deals_dhq6lq.jpg"
+      elsif subcategory.name == 'Health/ Diet'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233253/lifestyle_health_zsofbw.jpg"
+      elsif subcategory.name == 'Fitness/ Exercise'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233252/lifestyle_fitness_yilrgl.jpg"
+      elsif subcategory.name == 'Family/ Parenting'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233253/lifestyle_parenting_bcporc.jpg"
+      elsif subcategory.name == 'Dating/ Romance'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233252/lifestyle_dating_cidnxc.jpg"
+      end
+    elsif category.name == 'Travel'
+      if subcategory.name == 'Travel Suggestions'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233580/travel_suggestions_dkws5z.jpg"
+      elsif subcategory.name == 'Vacation Planning'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233581/travel_planning_pn3pdw.jpg"
+      elsif subcategory.name == 'Postcards'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233580/travel_postcard_e9bywc.jpg"
+      elsif subcategory.name == 'Places to Stay'
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411233580/travel_placetostay_borbi1.jpg"
+      end
+    end 
   end
 
 	def fetch_page_posts(posts, page)

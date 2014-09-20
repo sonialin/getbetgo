@@ -18,7 +18,7 @@
         <% if post.image_file_size != '' && post.image_file_size != nil %>              
           <%= link_to (image_tag(post.image.url(:medium), :class => "thumbnail-size")), post %>
         <% else %>
-          <%= link_to (image_tag(post_placeholder_image(post.category), :class => "thumbnail-size")), post %>
+          <%= link_to (image_tag(post_placeholder_image(post.category, post.subcategory), :class => "thumbnail-size")), post %>
         <% end %>
         <div class="big-tag-outer">
           <span class="big-tag pull-right">
