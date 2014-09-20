@@ -1,4 +1,5 @@
 class NotifyWorker
+  extend HerokuResqueAutoScale
   @queue = :notify_reqeusts
 
   def self.perform(*args)
