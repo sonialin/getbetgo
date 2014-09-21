@@ -101,4 +101,8 @@ Getbetgo::Application.configure do
     :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+
+  config.after_initialize do 
+    Delayed::Job.scaler = :heroku_cedar
+  end
 end

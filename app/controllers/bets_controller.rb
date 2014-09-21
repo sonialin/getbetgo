@@ -31,10 +31,13 @@ class BetsController < ApplicationController
             @bet.proofs.create(document: document)
           }
         end
-        Resque.enqueue(NotifyWorker, @post.user_id,
-                                     "#{@bet.user.name} applied to your fund '#{@post.title}'",
+        @post.user.delay(run_at: 5.minutes.from_now).notify("#{@bet.user.name} applied to your fund '#{@post.title}'",
                                      "#{@bet.user.name} applied to your fund '#{@post.title}'", 
-                                     "Bet", @bet.id)
+                                    @bet)
+        #Resque.enqueue(NotifyWorker, @post.user_id,
+        #                             "#{@bet.user.name} applied to your fund '#{@post.title}'",
+        #                             "#{@bet.user.name} applied to your fund '#{@post.title}'", 
+        #                             "Bet", @bet.id)
         format.html { redirect_to @post }
         #format.json { render action: 'show', status: :created, location: @bet }
       else
