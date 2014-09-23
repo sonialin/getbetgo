@@ -1,4 +1,4 @@
-<% if ((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted? %>
+<% if (((bet.selected? or bet.awaiting_modification?) or bet.modified?) or bet.submitted?) or bet.open? %>
   <% if (bet.user == current_user) or (bet.post.user == current_user) %>               
     <% if ((!bet.submitted?) && (!bet.awaiting_modification?)) or bet.selected? %>
       <hr class="reply-divider">

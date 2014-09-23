@@ -8,7 +8,19 @@ class RepliesController < ApplicationController
     @bet = @reply.bet
 
     if @reply.save
-      if @reply.bet.submitted?
+      if @reply.bet.open?
+        if @reply.user == @bet.user
+          Resque.enqueue(NotifyWorker, @post.user_id,
+                                       "#{@bet.user.name} commented on application to your fund",
+                                       "#{@bet.user.name} commented on application to your fund '#{@bet.post.title}'",
+                                       "Reply", @reply.id)
+        elsif @reply.user == @post.user
+          Resque.enqueue(NotifyWorker, @bet.user_id,
+                                       "#{@post.user.name} commented on your fund application",
+                                       "#{@post.user.name} commented on your application to the fund '#{@bet.post.title}'", 
+                                       "Reply", @reply.id)
+        end
+      elsif @reply.bet.submitted?
         if @reply.user == @bet.user
           Resque.enqueue(NotifyWorker, @post.user_id,
                                        "#{@bet.user.name} commented on application to your fund",
