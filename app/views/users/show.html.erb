@@ -235,6 +235,9 @@
 	function fix_overflow_of_biography(){
 	    var user_edit_width = $('.user-edit-block').width();
 	    var selector = ($('#user-info-biography')[0]) ? $('#user-info-biography') : $('#user-info-biography-em')
+	    if(!selector.data('bip-original-content')) {
+	    	return ;
+	    }
 	    var biography_html = selector.data('bip-original-content').replace(/ +(?= )/g,'').replace( /\n/g, ' ' );
 	    var texts = biography_html.split(' ');
 	    biography_html = "";
@@ -309,7 +312,6 @@
 		      prePopulate: $.parseJSON($('#edit-location-input').attr('data-load')),
 		      noResultsText: "No such place",
 		      onAdd: function(item) {
-		      	location_editing = false;
 		      	$('#location-span').html(item.name);
 		      	$('#edit-location').show();
 		    	$('#location-span').show();
@@ -319,6 +321,15 @@
 			      type: 'PUT',
 			      dataType: "json",
 			      data: ({ user_info: { location: item.name } })
+			    });
+		      },
+		      onDelete: function(item) {
+		      	$('#location-span').html("");
+			    $.ajax({
+			      url: "/user_infos/"+user_id,
+			      type: 'PUT',
+			      dataType: "json",
+			      data: ({ user_info: { location: "" } })
 			    });
 		      }
 		    });
@@ -331,7 +342,6 @@
 		    });
 
 		    $('#edit-location').click(function() {
-		    	location_editing = true;
 		    	$('#edit-location').hide();
 		    	$('#location-span').hide();
 		    	$('.token-input-list-facebook').show();
