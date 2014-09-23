@@ -130,3 +130,5 @@ gem 'byebug', group: [:development, :test]
 
 gem 'resque', :require => 'resque/server'
 gem 'heroku-api'
+
+gem 'workless'

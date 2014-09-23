@@ -6,6 +6,7 @@ class UserInfo < ActiveRecord::Base
 										:default_url => "http://res.cloudinary.com/dxytnnzk9/image/upload/v1408186172/fw-avatar-grey_hx1dgp.png"
 
   def location_tokenize
+    return [] if self.location.nil? or self.location == ""
     [{:id => self.location, :name => self.location}]
   end
 end
