@@ -122,8 +122,8 @@ class BetsController < ApplicationController
                                    "#{@bet.user.name} completed the fund '#{@post.title}'",
                                    "Bet", @bet.id)
       redirect_to @post
-      @bet.delay(run_at: 5.minutes.from_now).change_to_credited
-      current_user.wallet.delay(run_at: 5.minutes.from_now).load_credits(@post.price)
+      @bet.delay(run_at: 2.days.from_now).change_to_credited
+      current_user.wallet.delay(run_at: 2.days.from_now).load_credits(@post.price)
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'
       redirect_to @post

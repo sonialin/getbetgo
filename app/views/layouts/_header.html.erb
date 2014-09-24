@@ -14,7 +14,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <div class="col-sm-3 col-md-3">
+      <div class="col-sm-3 col-md-3" style="border-bottom: 3px solid #fff;">
         <%= form_tag(posts_path, :method => "get", :class => "navbar-form") do %>
           <div class="input-group">
             <%= text_field_tag :search, params[:search], placeholder: "Search for funds", :class => "form-control" %>
@@ -26,7 +26,9 @@
       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="<%= 'active' if current_page?(howitworks_path) %>"><%= link_to "ABOUT US", aboutfundwok_path %></li>
+        <li class="<%= 'active' if (((current_page?(aboutfundwok_path) or current_page?(startafund_path))) or current_page?(applyforafund_path)) or current_page?(receiveafund_path) %>">
+          <%= link_to "ABOUT US", aboutfundwok_path %>
+        </li>
         <% if user_signed_in? %>        
       		<li class="<%= 'active' if current_page?(new_post_path) %>">
             <%= link_to 'NEW FUND', new_post_path %>
