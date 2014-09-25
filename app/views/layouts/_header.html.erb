@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse navbar-right">
       <ul class="nav navbar-nav text-center">
         <li class="<%= 'active' if (((current_page?(aboutfundwok_path) or current_page?(startafund_path))) or current_page?(applyforafund_path)) or current_page?(receiveafund_path) %>">
-          <%= link_to "ABOUT US", aboutfundwok_path %>
+          <%= link_to "ABOUT US", aboutfundwok_path, :id => 'about-us-link' %>
         </li>
         <% if user_signed_in? %>
           <li class="<%= 'active' if controller.controller_name == 'notifications' %>">

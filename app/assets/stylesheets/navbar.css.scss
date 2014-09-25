@@ -3,6 +3,21 @@
 }
 
 /* navbar */
+
+/* make up for offset for border bottom */
+#about-us-link {
+  border-bottom: 3px solid #fff;
+}
+
+#about-us-link:hover {
+  border-bottom: 3px solid #99b709;
+}
+
+.active #about-us-link {
+  border-bottom: 3px solid #99b709;
+}
+/* ends offset for border bottom */
+
 .navbar-default {
   background-color: #fff;
   border-bottom: none;
