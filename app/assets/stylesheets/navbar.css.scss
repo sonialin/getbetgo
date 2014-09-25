@@ -95,30 +95,35 @@
   padding: 5px 10px;
   position: relative;
   top: 10px;
-  color: #fff; 
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  color: #99b709; 
+  background-color: #fff;
+  border-color: #99b709;
 }
 
 #new-fund-btn:hover, #new-fund-btn:focus {
-  color: #fff;
-  background-color: #d2322d;
-  border-bottom: 1px solid #ac2925;
+  color: #99b709;
+  background-color: #eee;
+  border-bottom: 1px solid #99b709;
 }
 
 .active #new-fund-btn {
-  color: #fff;
-  background-color: #d2322d;
-  border-bottom: 1px solid #ac2925;
+  background-color: #eee;
+  border-bottom: 1px solid #99b709;
 }
 
 @media (max-width: 767px) {
   #new-fund-btn-block-2 {
     display: block;
+    border: 1px solid #99b709;
   }
 
   #new-fund-btn-2 {
     border-radius: 0;
+  }
+
+  #new-fund-btn-2:hover {
+    color: #99b709;
+    background-color: #eee;
   }
 
   #new-fund-btn-block {

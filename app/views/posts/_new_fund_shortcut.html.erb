@@ -1,7 +1,7 @@
 <% if current_user %>
   <section id="new-fund-btn-block-2">
-    <%= link_to '#', :class => 'btn btn-danger btn-block', :id => 'new-fund-btn-2' do %>
-      <i class="fa fa-lightbulb-o"></i>&nbsp;ADD FUND
+    <%= link_to '#', :class => 'btn btn-block', :id => 'new-fund-btn-2' do %>
+      <i class="fa fa-angle-double-down"></i>&nbsp;ADD FUND
     <% end %>
   </section>
   <section id="homepage-new-fund">
@@ -50,6 +50,14 @@
 
   $('#new-fund-btn-2').click(function() {
     $('#homepage-new-fund').slideToggle("fast");
+
+    var s = "fa-angle-double-down";
+    var r = $(this).html();
+    if (r.indexOf(s) > -1 ) {
+      $(this).html('<i class="fa fa-angle-double-up"></i>&nbsp;ADD FUND');
+    } else {
+      $(this).html('<i class="fa fa-angle-double-down"></i>&nbsp;ADD FUND');
+    }
   });
 
   /* validation for post price */
