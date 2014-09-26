@@ -5,10 +5,10 @@
     <% end %>
     <div id="<%= dom_id(reply) %>">
       <div class="timeline-heading row">
-        <div class="col-md-3">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
           <%= link_to image_tag(reply.user.user_info.avatar.url(:thumb), size: "50x50", :class => "img-circle author-thumbnail pull-left"), reply.user, :class => "media-object" %>
         </div>
-        <div class="col-md-9">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9">
           <h4 class="timeline-title"><%= link_to reply.user.name, reply.user %></h4>
           <small class="text-muted pull-right"><i class="fa fa-time"></i><%= reformatted_post_datetime(reply.created_at) %></small>
         </div>
