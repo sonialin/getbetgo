@@ -596,7 +596,7 @@ a.user_name_link:hover {
 .circle-icon {
   height: 40px;
   width: 40px;
-  background: #99b709;
+  background: #fff;
   -moz-border-radius: 40px;
   -webkit-border-radius: 40px;
   border-radius: 40px;
@@ -606,9 +606,9 @@ a.user_name_link:hover {
 
 .icon-font {
   position: relative;
-  top: 10px;
-  color: #fff;
-  font-size: 1.4em;
+  top: 6px;
+  color: #a1a1a1;
+  font-size: 1.8em;
 }
 
 .subscribe-block {
@@ -920,6 +920,23 @@ a .dismiss-tag {
 
   #title-section .title-content h1 {
     margin-top: 0;
+    font-size: 1.7em;
+  }
+
+  .icon-font {
+    top: 15px;
+  }
+
+  #show-funding-metrics {
+    font-size: 0.9em;
+  }
+
+  .subscribe-block {
+    margin-top: 0;
+  }
+
+  #funder-profile {
+    margin-top: -30px;
   }
 
   .tag-display {

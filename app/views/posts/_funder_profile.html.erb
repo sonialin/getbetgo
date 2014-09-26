@@ -30,10 +30,10 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item">
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-4">
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-3">
           <%= link_to image_tag(@post.user.user_info.avatar.url(:thumb), size: "70x70", :class => "img-circle author-thumbnail"), @post.user, :class => "media-object" %>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-7 col-xs-8 funder-name-and-social">
+        <div class="col-lg-8 col-md-8 col-sm-7 col-xs-9 funder-name-and-social">
           <h4 class="funder-name"><%= link_to @post.user.name.upcase, @post.user %></h4>
           <% if @post.user.user_info %>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 funder-profile-item funder-social-icon">
