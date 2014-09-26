@@ -117,7 +117,7 @@ class BetsController < ApplicationController
     @bet.status = "Submitted"
 
     if @bet.save
-      Resque.enqueue(NotifyWorker, @bet.user_id,
+      Resque.enqueue(NotifyWorker, @post.user_id,
                                    "#{@bet.user.name} completed the fund '#{@post.title}'",
                                    "#{@bet.user.name} completed the fund '#{@post.title}'",
                                    "Bet", @bet.id)
