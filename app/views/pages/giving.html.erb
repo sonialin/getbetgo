@@ -50,10 +50,10 @@
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 					  			<% else %>
-						  			<tr data-link="<%= post_path(order.bet.post) %>" class="clickable-row">
+						  			<tr data-link="<%= order_path(order) %>" class="clickable-row">
 						  				<td><%= order.token %></td>
 											<td><%= order.bet.status %></td>
-										  <td><%= link_to order.bet.post.title, order.bet.post %></td>
+										  <td><%= order.bet.post.title %></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 									<% end %>

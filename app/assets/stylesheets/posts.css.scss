@@ -134,14 +134,22 @@
   max-width: 210px;
 }
 
-.folder h4 a, .table a{
+.folder h4 a {
     text-decoration: none;
     color: #4d4d4d;
 }
 
-.folder h4 a:hover, .table a:hover {
-    text-decoration: none;
-    color: #4d4d4d;
+.folder h4 a:hover {
+  text-decoration: none;
+  color: #4d4d4d;
+}
+
+.table a {
+  color: #4d4d4d;
+}
+
+.table a:hover {
+  color: #4d4d4d;
 }
 
 .proj_name {

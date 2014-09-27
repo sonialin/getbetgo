@@ -7,4 +7,19 @@ namespace :orders do
     	end
     end
   end
+
+  desc "set redeemed values to 0 if nil"
+  task :populate_redeemed_values => :environment do
+  	Order.all.each do |order|
+    	if order.redeemed_credits == nil or order.redeemed_coupons == nil
+    		if order.redeemed_credits == nil
+    			order.redeemed_credits = 0
+    		end
+    		if order.redeemed_coupons == nil
+    			order.redeemed_coupons = 0
+    		end
+    		order.save
+    	end
+    end
+  end
 end

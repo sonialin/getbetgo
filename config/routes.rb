@@ -11,6 +11,8 @@ Getbetgo::Application.routes.draw do
 
   resources :replies
 
+  resources :orders, :only => [:show]
+
   resources :user_infos
 
   mount Resque::Server, :at => "/resque/:key", :constraints => {:key => ENV["RESQUE_KEY"]}

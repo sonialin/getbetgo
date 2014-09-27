@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :bets, :dependent => :destroy
+  has_many :orders
   has_many :nominations
   belongs_to :subcategory
   belongs_to :status, :class_name => "::Posts::Status"

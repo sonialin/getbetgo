@@ -102,11 +102,11 @@ class BetsController < ApplicationController
         flash[:notice] = 'Payment made successfully with credits.'
         redirect_to @post
       elsif wallet.amount < @post.price
-        @@payment_amount = @post.price - wallet.amount
+        @@payment_amount = @post.price.to_f - wallet.amount
         redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
       end
     else
-      @@payment_amount = @post.price
+      @@payment_amount = @post.price.to_f
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
   end
@@ -132,9 +132,13 @@ class BetsController < ApplicationController
 
   def payment
     @payment_amount = @@payment_amount
+    @handling_fee = @payment_amount * 0.1
+    @@total_payment_w_discount = @payment_amount + @handling_fee
+    @total_payment_w_discount = @@total_payment_w_discount
   end
 
   def pay_process
+    @total_payment_w_discount = @@total_payment_w_discount
     @payment_amount = @@payment_amount
     if params[:gateway] != "paypal"
       flash[:notice] = 'Please select payment gateway.'
