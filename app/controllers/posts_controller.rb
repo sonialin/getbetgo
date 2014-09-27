@@ -16,18 +16,18 @@ class PostsController < ApplicationController
     else
       @posts = Post.filter(params)
     end
-      @tag = params[:tag]
-      @category = params[:category]
-      @location = params[:location]
-      @subcategory = params[:subcategory]
-      page = params[:page] || 1
-      @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
 
-      respond_to do |format|
-        format.html
-        format.js { render 'index.js.erb' }
-      end
-    
+    @tag = params[:tag]
+    @category = params[:category]
+    @location = params[:location]
+    @subcategory = params[:subcategory]
+    page = params[:page] || 1
+    @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
+
+    respond_to do |format|
+      format.html
+      format.js { render 'index.js.erb' }
+    end
   end
 
   # GET /posts/1
@@ -59,13 +59,13 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @title = "Create a New Fund"
+    @title = "New Fund"
     @post = current_user.posts.new(:price => params[:price], :quantity => params[:quantity], :criteria => params[:criteria])
   end
 
   # GET /posts/1/edit
   def edit
-    @title = "Edit Your Fund"
+    @title = "Edit Fund"
   end
 
   # POST /posts

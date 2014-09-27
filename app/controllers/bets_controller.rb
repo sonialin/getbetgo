@@ -48,7 +48,7 @@ class BetsController < ApplicationController
     post = Post.friendly.find(params[:post_id])
     selected_bets_count = post.bets_past_selection.count
     if post.quantity <= selected_bets_count
-      flash[:notice] = "Limit reached"
+      flash[:notice] = "All spots have been taken."
       redirect_to post
     end
   end
@@ -99,7 +99,7 @@ class BetsController < ApplicationController
                                      "#{@post.user.name} selected you on '#{@post.title}'",
                                      "Order", order.id)
 
-        flash[:notice] = 'Payment made successfully with credits!'
+        flash[:notice] = 'Payment made successfully with credits.'
         redirect_to @post
       elsif wallet.amount < @post.price
         @@payment_amount = @post.price - wallet.amount
@@ -122,8 +122,8 @@ class BetsController < ApplicationController
                                    "#{@bet.user.name} completed the fund '#{@post.title}'",
                                    "Bet", @bet.id)
       redirect_to @post
-      @bet.delay(run_at: 2.days.from_now).change_to_credited
-      current_user.wallet.delay(run_at: 2.days.from_now).load_credits(@post.price)
+      @bet.delay(run_at: 3.days.from_now).change_to_credited
+      current_user.wallet.delay(run_at: 3.days.from_now).load_credits(@post.price)
     else
       flash[:notice] = 'Oops, something went wrong. Please try again.'
       redirect_to @post
@@ -144,7 +144,7 @@ class BetsController < ApplicationController
 
   def evaluate_if_current_user_mark_complete
     if @bet.user != current_user
-      flash[:notice] = "You cannot mark complete others' fund."
+      flash[:notice] = "You cannot mark others' fund complete."
       redirect_to post
     end
   end

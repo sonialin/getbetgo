@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   end
 
   def giving
-    @title = 'Finances'
+    @title = 'My Funds'
     @user = current_user
     @orders = current_user.orders.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
     @contributions_sum = @user.contributions
@@ -17,7 +17,7 @@ class PagesController < ApplicationController
   end
 
   def receiving
-    @title = 'Finances'
+    @title = 'My Funds'
     @user = current_user
     @bets = @user.bets.paginate(page: params[:page], per_page: 10).order('updated_at DESC')
     @contributions_sum = @user.contributions
@@ -39,18 +39,23 @@ class PagesController < ApplicationController
   end
 
   def faq
+    @title = 'FAQ'
   end
 
   def aboutfundwok
+    @title = 'About FundWok'
   end
 
   def startafund
+    @title = 'Start a Fund'
   end
 
   def applyforafund
+    @title = 'Apply for a Fund'
   end
 
   def receiveafund
+    @title = 'Receive a Fund'
   end
 
   def directory
