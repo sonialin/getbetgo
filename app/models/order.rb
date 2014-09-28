@@ -15,4 +15,8 @@ class Order < ActiveRecord::Base
 	def token_with_prefix
 		"FW" + self.token
 	end
+
+	def to_param 
+    token
+  end
 end

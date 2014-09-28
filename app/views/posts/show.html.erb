@@ -188,7 +188,10 @@
           <hr class="post-content-divider clear">
 
           <div class="title-content pull-left">
-            <h1>I am offering $<%= number_with_precision(@post.price, :precision => 2) %> to <%= @post.quantity %> people who want to <%= @post.criteria %></h1>
+            <h1>I am offering $<%= number_with_precision(@post.price, :precision => 2) %> to 
+              <%= pluralize(@post.quantity, 'person') %>
+              who want to <%= @post.criteria %>
+            </h1>
             <div id="title-info">
               <%= link_to upvote_post_path(@post), :method => :post do %>
                 <span class="pull-left btn btn-default" id="like-post">

@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
   is_impressionable
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :custom_slug_name, use: :slugged
 
 	has_attached_file :image, :styles => { :big => '600', :medium => "200x150#", :thumb => "100x100#" }
 
@@ -121,11 +121,8 @@ class Post < ActiveRecord::Base
     return Post.where(:id => [])
   end
 
-  def slug_candidates
-    [
-      [:service, :category, :tag_list],
-      [:service, :category, :tag_list, :location]
-    ]
+  def custom_slug_name
+    "#{self.criteria} #{self.subcategory.name}"
   end
 
   def available_quantity

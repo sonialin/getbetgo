@@ -11,8 +11,6 @@ Getbetgo::Application.routes.draw do
 
   resources :replies
 
-  resources :orders, :only => [:show]
-
   resources :user_infos
 
   mount Resque::Server, :at => "/resque/:key", :constraints => {:key => ENV["RESQUE_KEY"]}
@@ -56,7 +54,8 @@ Getbetgo::Application.routes.draw do
   get 'transactions/:bet_id/success' => 'transactions#success'
   get 'transactions/:bet_id/failed' => 'transactions#failed'
   get 'tag/prediction' => 'tags#prediction'  
-  get 'place/prediction' => 'places#prediction'   
+  get 'place/prediction' => 'places#prediction'  
+  get 'orders/:token' => 'orders#show', as: :order 
 
   post 'getposts' => 'posts#index'
   post 'getuserposts' => 'users#show'
