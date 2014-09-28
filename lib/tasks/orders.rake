@@ -22,4 +22,14 @@ namespace :orders do
     	end
     end
   end
+
+  desc "set token if nil"
+  task :populate_tokens => :environment do
+    Order.all.each do |order|
+      if order.token == nil
+        order.token = SecureRandom.hex(4).upcase
+        order.save
+      end
+    end
+  end
 end

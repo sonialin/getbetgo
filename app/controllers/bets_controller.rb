@@ -93,7 +93,6 @@ class BetsController < ApplicationController
         order.redeemed_coupons = redeemed_coupons
         order.save!
 
-
         Resque.enqueue(NotifyWorker, @bet.user_id, 
                                      "#{@post.user.name} selected you on '#{@post.title}'",
                                      "#{@post.user.name} selected you on '#{@post.title}'",
