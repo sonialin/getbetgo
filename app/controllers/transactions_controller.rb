@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
     														 "#{@post.user.name} selected you on '#{@post.title}'",
                   						 	 "#{@post.user.name} selected you on '#{@post.title}'", 
                  			           "Order", @order.id)
-	  redirect_to @post, notice: "Order number #{@order.token} has been successfully processed."
+	  redirect_to @post, notice: "Order ##{@order.token_with_prefix} has been successfully processed."
 	end
 	
 	def failed

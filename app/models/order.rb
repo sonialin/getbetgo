@@ -11,4 +11,8 @@ class Order < ActiveRecord::Base
 		self.bet.status = "Selected"
 		self.bet.save
 	end
+
+	def token_with_prefix
+		"FW" + self.token
+	end
 end

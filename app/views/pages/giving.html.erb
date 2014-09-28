@@ -37,21 +37,21 @@
 					  		<% @orders.each do |order| %>
 					  			<% if !Bet.exists?(:id => order.bet_id) %>
 					  				<tr>
-						  				<td><%= order.token %></td>
+						  				<td><%= order.token_with_prefix %></td>
 											<td><span style="color: #ccc;">n/a</span></td>
 										  <td><span style="color: #ccc;">n/a</span></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 									<% elsif !Post.exists?(:id => order.post_id) %>
 										<tr>
-						  				<td><%= order.token %></td>
+						  				<td><%= order.token_with_prefix %></td>
 											<td><span style="color: #ccc;">n/a</span></td>
 										  <td><span style="color: #ccc;">n/a</span></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>
 										</tr>
 					  			<% else %>
 						  			<tr data-link="<%= order_path(order) %>" class="clickable-row">
-						  				<td><%= order.token %></td>
+						  				<td><%= order.token_with_prefix %></td>
 											<td><%= order.bet.status %></td>
 										  <td><%= order.bet.post.title %></td>
 										  <td><%= reformatted_post_datetime(order.created_at) %></td>

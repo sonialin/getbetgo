@@ -102,11 +102,11 @@ class BetsController < ApplicationController
         flash[:notice] = 'Payment made successfully with credits.'
         redirect_to @post
       elsif wallet.amount < @post.price
-        @@payment_amount = @post.price.to_f - wallet.amount
+        @@payment_amount = @post.price - wallet.amount.to_f
         redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
       end
     else
-      @@payment_amount = @post.price.to_f
+      @@payment_amount = @post.price
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
   end
