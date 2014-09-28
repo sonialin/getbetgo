@@ -95,10 +95,10 @@
 							<%= link_to user_path(@user, anchor: "user-funds"), :class => "btn btn-default" do %>
 						  	<span class="follow-number"><%= @user.posts.count %></span><br /><small><% if @user.posts.count == 1 %>Fund<% else %>Funds<% end %></small>
 						  <% end %>
-						  <%= link_to followers_user_path(@user), :class => "btn btn-default" do %>
+						  <%= link_to followers_path(@user), :class => "btn btn-default" do %>
 						  	<span class="follow-number"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
 						  <% end %>
-						  <%= link_to followings_user_path(@user), :class => "btn btn-default" do %>
+						  <%= link_to followings_path(@user), :class => "btn btn-default" do %>
 						  	<span class="follow-number"><%= @user.followeds.count %></span><br /><small>Following</small>
 						  <% end %>
 						</div>

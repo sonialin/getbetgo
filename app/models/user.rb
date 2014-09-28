@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   include ActionView::Helpers::NumberHelper 
+  include Identifiable
 
   acts_as_messageable
   acts_as_voter
@@ -55,6 +56,10 @@ class User < ActiveRecord::Base
       end 
        
     end
+  end
+
+  def to_param 
+    identifier
   end
 
   def following? user

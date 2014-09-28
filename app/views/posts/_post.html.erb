@@ -6,7 +6,7 @@
         <div class="post-source-nearby-outer">
           <span class="post-source-nearby pull-right">nearby</span>
         </div>
-        <% if (current_user && current_user == post.user) && current_page?(user_path(:id => post.user.id)) %>
+        <% if (current_user && current_user == post.user) && current_page?(user_path(post.user)) %>
           <div class="index-edit-post-hover-outer">
             <span class="index-edit-post-hover">
               <%= link_to edit_post_path(post), :class => "btn btn-default" do %>
