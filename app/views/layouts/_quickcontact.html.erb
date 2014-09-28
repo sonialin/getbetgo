@@ -21,6 +21,7 @@
                 <%= f.label :name %><br />
                 <% if current_user %>
                   <div class="contact-form-text"><%= current_user.name %></div>
+                  <%= f.hidden_field :name, value: current_user.name %>
                 <% else %>
                   <%= f.text_field :name, :class => "form-control form-group" %>
                 <% end %>
@@ -29,6 +30,7 @@
                 <%= f.label :email %><br />
                 <% if current_user %>
                   <div class="contact-form-text"><%= current_user.email %></div>
+                  <%= f.hidden_field :email, value: current_user.email %>
                 <% else %>
                   <%= f.text_field :email, :class => "form-control form-group" %>
                 <% end %>
