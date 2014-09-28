@@ -122,7 +122,7 @@ class Post < ActiveRecord::Base
   end
 
   def custom_slug_name
-    "#{self.criteria} #{self.subcategory.name}"
+    "#{self.user.identifier} #{self.subcategory.name} #{self.criteria}"
   end
 
   def available_quantity
