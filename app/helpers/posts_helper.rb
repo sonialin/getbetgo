@@ -131,8 +131,8 @@ module PostsHelper
   end
 
 	def fetch_page_posts(posts, page)
-    city = request.location.city
-    country = request.location.country
+    city = request.location.city rescue ""
+    country = request.location.country rescue ""
 		per_page = POSTS_PER_PAGE
 		followed_ids = current_user.followeds.pluck(:id) if current_user
 
