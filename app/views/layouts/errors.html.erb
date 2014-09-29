@@ -27,11 +27,27 @@
 		
     <div id="main-wrapper">
 
-      <div id="main-body" class="theme-background">
+      <div id="main-header">
+        <%= render "layouts/header" %>
+      </div>
+
+      <div id="main-body">
       	<%= yield %>
       </div>
 
+      <div id="main-footer">
+        <%= render "layouts/footer" %>
+      </div>
+
     </div>
+
+    <%= link_to "#quick-contact", :data => {:toggle=>"modal"} do %>
+      <div id="contact-tab" class="btn">
+        <span id="contact-tab-text">
+          <i class="fa fa-bell-o fa-2x"></i>
+        </span>
+      </div>
+    <% end %>
 
     <script>
       $('.user-info-hover').popover({trigger: 'hover'});

@@ -1,28 +1,19 @@
 <div id="contact-response">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="well well-sm">
-        <fieldset disabled>
-          <legend class="text-center">Thank You for Dropping the Line!</legend>
-          <div class="row">
-            <div class="col-md-3">Name</div>
-            <div class="col-md-9">
-              <%= params[:contact][:name] %>
-            </div>
+  <div class="page-top-offset">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-md-offset-3">
+        <div class="thumbnail">
+          <img src="http://i.guim.co.uk/static/w-620/h--/q-95/sys-images/Guardian/About/General/2012/5/22/1337705595744/mad-men-008.jpg" class="response-image">
+          <span class="small pull-right link-source"><a href="http://i.guim.co.uk/static/w-620/h--/q-95/sys-images/Guardian/About/General/2012/5/22/1337705595744/mad-men-008.jpg" target="_blank">i.guim.co.uk</a></span>
+          <div class="caption text-center">
+            <h3>Thanks for the tip.</h3>
+            <p>I'll take care of it.</p>
+            <p><a href="/" class="btn btn-fw btn-outline-rounded">Look for the next great fund<i style="margin-left:10px;" class="fa fa-search"></i></a></p>
+            <span><%= link_to "Back", :back %></span>
           </div>
-          <div class="row">
-            <div class="col-md-3">Email</div>
-            <div class="col-md-9">
-              <%= params[:contact][:email] %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">Message</div>
-            <div class="col-md-9">
-              <%= params[:contact][:message] %>
-            </div>
-          </div>
-      </fieldset>
+        </div>
       </div>
     </div>
   </div>
