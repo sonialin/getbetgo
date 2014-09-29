@@ -12,6 +12,7 @@
 //
 //= require jquery_ujs
 //= require bootsy
+//= require jquery.tipsy
 //= require best_in_place
 //= require underscore
 //= require judge

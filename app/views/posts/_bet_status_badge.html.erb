@@ -1,19 +1,37 @@
-<div class="timeline-badge">
-  <% if bet.open? %>
+<% if bet.open? %>
+  <div class="timeline-badge" rel='tipsy' title='Open'>
     <i class="fa fa-paper-plane-o"></i>
-  <% elsif bet.selected? %>
-    <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
+  </div>
+<% elsif bet.selected? %>
+  <% if bet.replies.any? { |r| r[:user_id] == bet.user.id } %>
+    <div class="timeline-badge" rel='tipsy' title='Almost There'>
       <i class="fa fa-star-half-empty"></i>
-    <% else %>
+    </div>
+  <% else %>
+    <div class="timeline-badge" rel='tipsy' title='Selected'>
       <i class="fa fa-star-o"></i>
-    <% end %>
-  <% elsif bet.submitted? %>
-    <i class="fa fa-star"></i>
-  <% elsif bet.awaiting_modification? %>
-    <i class="fa fa-star-half-o"></i>
-  <% elsif bet.modified? %>
-    <i class="fa fa-star-half-o"></i>
-  <% elsif bet.funded? or bet.credited? %>
-    <i class="fa fa-star"></i> 
+    </div>
   <% end %>
-</div>
+<% elsif bet.submitted? %>
+  <div class="timeline-badge" rel='tipsy' title='Complete'>
+    <i class="fa fa-star"></i>
+  </div>
+<% elsif bet.awaiting_modification? %>
+  <div class="timeline-badge" rel='tipsy' title='Almost There'>
+    <i class="fa fa-star-half-o"></i>
+  </div>
+<% elsif bet.modified? %>
+  <div class="timeline-badge" rel='tipsy' title='Almost There'>
+    <i class="fa fa-star-half-o"></i>
+  </div>
+<% elsif bet.funded? or bet.credited? %>
+  <div class="timeline-badge" rel='tipsy' title='Complete'>
+    <i class="fa fa-star"></i> 
+  </div>
+<% end %>
+
+<script>
+  $(function() {
+   $('.timeline-badge').tipsy({gravity: $.fn.tipsy.autoNS});
+ });
+</script>

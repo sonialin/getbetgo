@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require bootsy
+ *= require tipsy
  *= require_tree .
  */
 
