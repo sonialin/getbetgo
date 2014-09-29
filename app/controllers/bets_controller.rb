@@ -98,14 +98,14 @@ class BetsController < ApplicationController
                                      "#{@post.user.name} selected you on '#{@post.title}'",
                                      "Order", order.id)
 
-        flash[:notice] = 'Payment made successfully with credits.'
+        flash[:notice] = 'Order ##{order.token_with_prefix} processed successfully with credits.'
         redirect_to @post
       elsif wallet.amount < @post.price
-        @@payment_amount = @post.price - wallet.amount.to_f
+        session[:subtotal] = @post.price - wallet.amount.to_f
         redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
       end
     else
-      @@payment_amount = @post.price
+      session[:subtotal] = @post.price
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
   end
@@ -130,15 +130,14 @@ class BetsController < ApplicationController
   end
 
   def payment
-    @payment_amount = @@payment_amount
-    @handling_fee = @payment_amount * 0.1
-    @@total_payment_w_discount = @payment_amount + @handling_fee
-    @total_payment_w_discount = @@total_payment_w_discount
+    @subtotal = session[:subtotal]
+    @handling_fee = @subtotal * 0.1
+    @final_payment = @subtotal * 1.1
   end
 
   def pay_process
-    @total_payment_w_discount = @@total_payment_w_discount
-    @payment_amount = @@payment_amount
+    @subtotal = session[:subtotal]
+    @final_payment = @subtotal * 1.1
     if params[:gateway] != "paypal"
       flash[:notice] = 'Please select payment gateway.'
       redirect_to :controller => :bets, :id => @bet.id, :post_id => @post.id, :action => :payment

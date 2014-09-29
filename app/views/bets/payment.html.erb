@@ -62,7 +62,7 @@
 	            	</td>
 	              <td class="text-center">
 		              <p>
-		                <strong>$<%= number_with_precision(@payment_amount, :precision => 2) %></strong>
+		                <strong>$<%= number_with_precision(@subtotal, :precision => 2) %></strong>
 		              </p>
 		              
 		            </td>
@@ -86,7 +86,7 @@
 	              	<input type="radio" name="gateway" value="paypal" checked="checked">&nbsp;<img src="https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif" style="margin-right:7px;"><span style="font-size:11px; font-family: Arial, Verdana;">The safer, easier way to pay.</span>
 	              </td>
 	              <td class="text-right"><h4><strong>Total: </strong></h4></td>
-	              <td class="text-center text-danger"><h4><strong>$<%= number_with_precision(@total_payment_w_discount, :precision => 2) %></strong></h4></td>
+	              <td class="text-center text-danger"><h4><strong>$<%= number_with_precision(@final_payment, :precision => 2) %></strong></h4></td>
 	            </tr>
 	          </tbody>
 	        </table>
