@@ -39,9 +39,9 @@
 						  			<td>
 						  				<% if bet.post %>
 								  			<% if bet.awaiting_modification? or bet.modified? %>
-								  				<span class="fw-main-color"><%= bet.post.price %></span>
+								  				<span class="fw-main-color">$<%= number_with_precision(bet.post.price, :precision => 2) %></span>
 								  			<% else %>
-								  				<%= bet.post.price %>
+								  				$<%= number_with_precision(bet.post.price, :precision => 2) %>
 								  			<% end %>
 								  		<% else %>
 								  			<span style="color: #ccc;">n/a</span>
@@ -62,15 +62,15 @@
 							  			<% if bet.open? %>
 							  				Submitted
 							  			<% elsif bet.selected? %>
-							  				Selected
+							  				Pending Your Action
 							  			<% elsif bet.awaiting_modification? %>
-							  				<span class="fw-main-color">Awaiting Your Modification</span>
+							  				<span class="fw-main-color">Pending Your Action</span>
 							  			<% elsif bet.modified? %>
-							  				<span class="fw-main-color">Awaiting Your Check of Completion</span>
+							  				<span class="fw-main-color">Pending Your Action</span>
 							  			<% elsif bet.submitted? %>
-							  				Pending credits
+							  				Pending Credits
 							  			<% elsif bet.credited? %>
-							  				Credits loaded
+							  				Credits Loaded
 							  			<% elsif bet.funded? %>
 							  				Funded
 							  			<% else %>
