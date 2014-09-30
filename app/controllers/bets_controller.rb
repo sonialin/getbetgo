@@ -4,6 +4,7 @@ class BetsController < ApplicationController
   before_action :set_post, only: [:select, :payment, :pay_process]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
   before_filter :evaluate_if_current_user_mark_complete, only: [:mark_complete]
+  before_filter :check_user, only: [:payment, :pay_process]
 
   def new
     @bet = Bet.new
@@ -170,5 +171,11 @@ class BetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
       params.require(:bet).permit(:post_id, :user_id, :body)
+    end
+
+    def check_user
+      unless (current_user.posts.where(:id => @post.id).first && @post.bets.where(:id => @bet.id).first)
+        redirect_to @post
+      end
     end
 end
