@@ -101,11 +101,9 @@ class BetsController < ApplicationController
         flash[:notice] = 'Order ##{order.token_with_prefix} processed successfully with credits.'
         redirect_to @post
       elsif wallet.amount < @post.price
-        session[:subtotal] = @post.price - wallet.amount.to_f
         redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
       end
     else
-      session[:subtotal] = @post.price
       redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id
     end
   end
@@ -130,17 +128,25 @@ class BetsController < ApplicationController
   end
 
   def payment
-    @subtotal = session[:subtotal]
-    @handling_fee = @subtotal * 0.1
-    @final_payment = @subtotal * 1.1
+    if Order.where(:post_id => @post.id, :bet_id => @bet.id).first
+      redirect_to @post
+    else
+      @subtotal = @post.price - current_user.wallet.amount.to_f
+      @handling_fee = @subtotal * 0.1
+      @final_payment = @subtotal * 1.1
+    end
   end
 
   def pay_process
-    @subtotal = session[:subtotal]
-    @final_payment = @subtotal * 1.1
-    if params[:gateway] != "paypal"
-      flash[:notice] = 'Please select payment gateway.'
-      redirect_to :controller => :bets, :id => @bet.id, :post_id => @post.id, :action => :payment
+    if Order.where(:post_id => @post.id, :bet_id => @bet.id).first
+      redirect_to @post
+    else
+      @subtotal = @post.price - current_user.wallet.amount.to_f
+      @final_payment = @subtotal * 1.1
+      if params[:gateway] != "paypal"
+        flash[:notice] = 'Please select payment gateway.'
+        redirect_to :controller => :bets, :id => @bet.id, :post_id => @post.id, :action => :payment
+      end
     end
   end
 
