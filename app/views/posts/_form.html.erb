@@ -98,8 +98,13 @@
       <div class="form-group">
         <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12" for="location">Location</label>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <%= f.fields_for :place, f.object.place || f.object.build_place do |place| %>
-            <%= place.text_field :google_api_place_id, :class=> "form-control", :validate => true, :data => { :load => place.object.tokenize } %>
+          <%= f.fields_for :city, f.object.city || f.object.build_city do |city| %>
+            <%= city.text_field :full_name, :class=> "form-control", :validate => true, :data => { :load => city.object.tokenize } %>
+            <%= city.hidden_field :name %>
+            <%= city.hidden_field :latitude %>
+            <%= city.hidden_field :longitude %>
+            <%= city.hidden_field :region_name %>
+            <%= city.hidden_field :country_name %>
           <% end %>
         </div>
       </div>
@@ -258,13 +263,38 @@
       }
     });
 
-    var place_prediction_url = "/place/prediction";
-    $('#post_place_attributes_google_api_place_id').tokenInput(place_prediction_url, {
+    var city_prediction_url = "http://gd.geobytes.com/AutoCompleteCity";
+    $('#post_city_attributes_full_name').tokenInput(city_prediction_url, {
       preventDuplicates: true,
       theme: "facebook",
       tokenLimit: 1,
-      noResultsText: "No such place",
-      prePopulate: $.parseJSON($('#post_place_attributes_google_api_place_id').attr('data-load')),
+      noResultsText: "No such location",
+      prePopulate: $.parseJSON($('#post_city_attributes_full_name').attr('data-load')),
+      onResult: function (results) {
+        debugger
+        suggestions = [];
+        for(var i in results) {
+          if (results[i].length == 0) {
+            continue;
+          }
+          result = new Object();
+          result['id'] = result['name'] = results[i];
+          suggestions.push(result);
+        }
+        return suggestions;
+      },
+      onAdd: function (item) {
+         jQuery.getJSON(
+             "http://gd.geobytes.com/GetCityDetails?callback=?&fqcn="+item.name,
+             function (data) {
+             jQuery("#post_city_attributes_country_name").val(data.geobytescountry);
+             jQuery("#post_city_attributes_region_name").val(data.geobytesregion);
+             jQuery("#post_city_attributes_name").val(data.geobytescity);
+             jQuery("#post_city_attributes_latitude").val(data.geobyteslatitude);
+             jQuery("#post_city_attributes_longitude").val(data.geobyteslongitude);
+           }
+         );
+      }
     });
   })
 

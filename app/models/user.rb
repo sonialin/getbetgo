@@ -32,6 +32,12 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true
 
+  after_save :update_es_posts
+
+  def update_es_posts
+    self.posts.each {|post| Resque.enqueue(ElasticsearchApiWorker, post.id) }
+  end
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
@@ -101,5 +107,27 @@ class User < ActiveRecord::Base
 
   def mailboxer_email(object)
     return email
+  end
+
+  def self.get_coordinates_from_ip(ip)
+    ip = "103.226.207.46"
+    return Rails.cache.read("ip_#{ip}") if Rails.cache.exist?("ip_#{ip}")
+    ret = nil
+    begin
+      url = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress=#{ip}"
+      uri = URI.parse(URI.encode(url))
+      http = Net::HTTP.new(uri.host,uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      require 'nokogiri'
+      doc = Nokogiri::HTML(http.request(request).body)
+      lat = doc.xpath("//meta[@name='latitude']/@content").first.value.to_f
+      long = doc.xpath("//meta[@name='longitude']/@content").first.value.to_f
+      if (lat && long && lat != 0 && long != 0)
+        ret = [lat,long]
+      end
+    rescue
+    end
+    Rails.cache.write("ip_#{ip}", ret)
+    return ret
   end
 end

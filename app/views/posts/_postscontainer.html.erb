@@ -1,25 +1,19 @@
 <div id="posts-container<% if user_posts %><%= "-user" %><% end %>" >
   <div class="row text-center" id="<% if user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts">
-		<% @posts.each_with_index do |post,index| %>
-		  <% if @post_type %>
-				<% if @post_type[index] == 'r' %>
-			    <%= content_tag(:div, :class => "portfolio-listing all nearby") do %>
-						<%= render :partial => "posts/post", :locals => {:post => post} %>
-					<% end %>
-				<% elsif @post_type[index] == 'f' %>
-			    <%= content_tag(:div, :class => "portfolio-listing all followed") do %>
-						<%= render :partial => "posts/post", :locals => {:post => post} %>
-			    <% end %> 
-				<% else%>
-			    <%= content_tag(:div, :class => "portfolio-listing all") do %>
-						<%= render :partial => "posts/post", :locals => {:post => post} %>
-			    <% end %>
+		<% @posts.each do |post| %>
+			<% if post["followed_post"] == false %>
+		    <%= content_tag(:div, :class => "portfolio-listing all nearby") do %>
+					<%= render :partial => "posts/post", :locals => {:post => post} %>
 				<% end %>
-		  <% else %>
-	 			<%= content_tag(:div, :class => "portfolio-listing all") do %>
-	 		    <%= render :partial => "posts/post", :locals => {:post => post} %>
-				<% end %>
-		  <% end %>
+			<% elsif post["followed_post"] == true %>
+		    <%= content_tag(:div, :class => "portfolio-listing all followed") do %>
+					<%= render :partial => "posts/post", :locals => {:post => post} %>
+		    <% end %> 
+			<% else%>
+		    <%= content_tag(:div, :class => "portfolio-listing all") do %>
+					<%= render :partial => "posts/post", :locals => {:post => post} %>
+		    <% end %>
+			<% end %>
 	 	<% end %>
 	</div>
  
@@ -36,7 +30,7 @@
 
 <script>
   var loading_posts = true;
-  var category,subcategory,page,tag,locationn,user_id,page;
+  var category,subcategory,page,tag,locationn,user_identifier,page,search;
   page = 1;
 
   <% unless @category.nil? %>
@@ -57,8 +51,12 @@
     tag = "<%= @tag %>";
   <% end %>
 
+  <% unless @search.nil? %>
+    search = "<%= @search %>";
+  <% end %>
+
   <% unless @user.nil? %>
-	user_id = <%= @user.id %>
+	user_identifier = "<%= @user.identifier %>";
   <% end %>
 
   $(document).ready(function() {
@@ -73,9 +71,10 @@
 	    var data = "page="+(page+1);
 	    if(category) data += "&category="+category;
 	    if(subcategory) data += "&subcategory="+subcategory;
-	    if(user_id) data += "&id="+user_id;
+	    if(user_identifier) data += "&identifier="+user_identifier;
 	    if(tag) data += "&tag="+tag;
 	    if(locationn) data += "&location="+locationn;
+      if(search) data += "&search="+search;
 
 	    $.ajax({
 				url: "<%= url_to_get_posts %>",

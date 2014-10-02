@@ -35,6 +35,12 @@ class Bet < ActiveRecord::Base
   #   self.save!
   # end
 
+  after_save :update_es_post
+
+  def update_es_post
+    Resque.enqueue(ElasticsearchApiWorker, self.post_id)
+  end
+
   def status
     ::Bets::Status.find(self.status_id).name rescue nil
   end

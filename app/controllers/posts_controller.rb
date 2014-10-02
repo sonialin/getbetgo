@@ -11,18 +11,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    if params[:search]
-      @posts = Post.search(params[:search]).order("created_at DESC")
-    else
-      @posts = Post.filter(params)
-    end
-
+    es_query = Posts::ElasticsearchApi.new.build_es_query(params, true)
     @tag = params[:tag]
     @category = params[:category]
     @location = params[:location]
     @subcategory = params[:subcategory]
+    @search = params[:search]
     page = params[:page] || 1
-    @posts, @post_type, @next_page = fetch_page_posts(@posts,page.to_i)
+    @posts, @next_page = fetch_page_posts(es_query, page.to_i)
 
     respond_to do |format|
       format.html
@@ -128,6 +124,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :subcategory_id, :service, :criteria, :place_attributes => [:google_api_place_id])
+      params.require(:post).permit(:title, :description, :image, :price, :quantity, :tag_list, :subcategory_id, :service, :criteria, :city_attributes => [:name, :latitude, :longitude, :full_name, :region_name, :country_name])
     end
 end

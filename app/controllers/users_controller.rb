@@ -5,8 +5,12 @@ class UsersController < ApplicationController
 
   def show
     @title = @user.name
-    @posts = @user.posts.paginate(page: params[:page], per_page: POSTS_PER_PAGE).order("updated_at desc")
-    @page = 1
+    es_api = Posts::ElasticsearchApi.new
+    es_query = es_api.build_es_query({funder_id: @user.id})
+    page = (params[:page] || 1).to_i
+    es_query = es_api.add_from_or_size(es_query, (page-1)*POSTS_PER_PAGE, POSTS_PER_PAGE)
+    @posts = es_api.search(es_query)
+    @next_page = es_api.get_count(es_query) > page*POSTS_PER_PAGE
     @user_posts = true
     @user_info = @user.user_info
     

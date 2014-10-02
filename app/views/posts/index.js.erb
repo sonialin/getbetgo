@@ -2,22 +2,14 @@
   $('#category-loader').before('<%= j render :partial => "posts/categories" %>');
 <% end %>
 
-<% @posts.each_with_index do |post,index| %>
-    <% if @post_type %>
-	<% if @post_type[index] == 'r' %>
+<% @posts.each do |post| %>
+	<% if post["followed_post"] == false %>
 	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all nearby"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
-	<% elsif @post_type[index] == 'f' %>
+	<% elsif post["followed_post"] == true %>
 	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all followed"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
 	<% else%>
 	    $('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
 	<% end %>
-    <% else %>
-	$('#<% if @user_posts %><%= "user" %><% else %><%= "my" %><% end %>-posts').append('<div class="portfolio-listing all"><%= j render :partial => "posts/post", :locals => {:post => post} %></div>');
-    <% end %>
-<% end %>
-
-<% if @next_page.nil? %>
-    <% @next_page = @posts.next_page %>
 <% end %>
 
 <% if @next_page == true %>

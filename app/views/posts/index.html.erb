@@ -51,7 +51,7 @@
       <% else %>
         <%= render 'categories' %>
       <% end %>
-
+      
       <div id="category-loader">
         <img src="/assets/ajax-loader.gif" alt="Loading..." title="Loading..." />&nbsp;&nbsp;Fetching funds
       </div>
@@ -77,11 +77,12 @@
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "category="+category+"&type=1&offset=0",
+      data: "category="+category+"&page=1",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       },
       success: function() {
+        page=1;
         $('#category-loader').hide();
         window.history.pushState({},'', "/category/"+category);
       }
@@ -94,6 +95,7 @@
     tag = null;
     locationn = null;
     subcategory = null;
+    search = null;
     $('#filter-display').hide();
     $('#my-posts').html('');
     $('#load_more_posts').hide();
@@ -102,7 +104,7 @@
     $.ajax({
       url: '/getposts',
       type: 'POST',
-      data: "type=1&offset=0&filterclose=1",
+      data: "page=1&filterclose=1",
       beforeSend: function(xhr, settings) {
         xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
       },

@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   has_many :nominations
   belongs_to :subcategory
   belongs_to :status, :class_name => "::Posts::Status"
-  belongs_to :place, :autosave => true
+  belongs_to :city, :autosave => true
 
   before_save :set_title
 
@@ -26,22 +26,47 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 5.00}
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
   validates :criteria, presence: true
-  accepts_nested_attributes_for :place
+  accepts_nested_attributes_for :city
 
-  def autosave_associated_records_for_place
-    if existing_place = Place.where(:google_api_place_id => place.google_api_place_id).first
-      self.place = existing_place
+  after_save :update_es_post
+  before_destroy :delete_es_post
+
+  def update_es_post
+    Resque.enqueue(ElasticsearchApiWorker, self.id)
+  end
+
+  def delete_es_post
+    Posts::ElasticsearchApi.new.delete_post(self.id)
+  end
+
+  def autosave_associated_records_for_city
+    if city.name.blank? or city.full_name.blank? or city.latitude.blank? or city.longitude.blank?
+      self.errors.add(:base, "Location can't be blank")
+      return false
     else
-      place_info = Place.get_place_details(place.google_api_place_id)
-      if place_info
-        Place.create_entries(place_info)
-        self.place = Place.where(:google_api_place_id => place.google_api_place_id).first
+      if existing_city = City.find_by_full_name(city.full_name)
+        self.city = existing_city
       else
-        self.errors.add(:base, "Location can't be blank")
-        return false
+        self.city.save!
+        self.city_id = self.city.id
       end
     end
   end
+
+  #def autosave_associated_records_for_place
+  #  if existing_place = Place.where(:google_api_place_id => place.google_api_place_id).first
+  #    self.place = existing_place
+  #  else
+  #    place_info = Place.get_place_details(place.google_api_place_id)
+  #    if place_info
+  #      Place.create_entries(place_info)
+  #      self.place = Place.where(:google_api_place_id => place.google_api_place_id).first
+  #    else
+  #      self.errors.add(:base, "Location can't be blank")
+  #      return false
+  #    end
+  #  end
+  #end
 
   # after_initialize :default_values
   attr_reader :available_quantity
@@ -51,7 +76,7 @@ class Post < ActiveRecord::Base
   end
 
   def location
-    self.place.name rescue nil
+    self.city.full_name rescue nil
   end
 
   def status

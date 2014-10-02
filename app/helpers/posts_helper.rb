@@ -130,55 +130,37 @@ module PostsHelper
     end 
   end
 
-	def fetch_page_posts(posts, page)
-    city = request.location.city rescue ""
-    country = request.location.country rescue ""
+	def fetch_page_posts(query, page)
+    lat_long = User.get_coordinates_from_ip(request.ip) rescue nil
+    followed_ids = current_user.followeds.pluck(:id) rescue []
 		per_page = POSTS_PER_PAGE
-		followed_ids = current_user.followeds.pluck(:id) if current_user
+    api = Posts::ElasticsearchApi.new
 
-    nearby_posts = Post.where(:id => [])
-    locality = Locality.where("lower(name) = ?",city.downcase).first
-    nearby_posts = locality.posts if locality
-    country = Country.where("lower(name) = ?",country.downcase).first
-    nearby_posts = country.posts if (country && nearby_posts.count == 0)
-    
-    rec_or_fol_posts = posts.where("posts.user_id IN (?) OR posts.id IN (?)", followed_ids,nearby_posts.select("id")).order("posts.id desc")
-    rec_or_fol_posts_ids = rec_or_fol_posts.pluck("posts.id")
-    rec_or_fol_posts_count = rec_or_fol_posts_ids.count
-    other_posts = posts.order("updated_at desc")
-    other_posts = posts.where("posts.id NOT IN (?)",rec_or_fol_posts_ids) if rec_or_fol_posts_count > 0
-    rec_or_fol_posts = rec_or_fol_posts.limit(per_page).offset((page-1)*per_page)
-    rem_count = page * per_page - rec_or_fol_posts_count
+    nearby_or_fol_posts_query = query.deep_dup
+    nearby_or_fol_posts_query = api.add_or_filters_block(nearby_or_fol_posts_query)
+    nearby_or_fol_posts_query = api.add_lat_long_filter(nearby_or_fol_posts_query, lat_long) if lat_long
+    nearby_or_fol_posts_query = api.add_followed_ids_filter(nearby_or_fol_posts_query, followed_ids)
+    nearby_or_fol_posts_count = api.get_count(nearby_or_fol_posts_query) 
+    nearby_or_fol_posts_query = api.add_from_or_size(nearby_or_fol_posts_query, (page-1)*per_page, per_page)
+    nearby_or_fol_posts = api.search(nearby_or_fol_posts_query)
+    nearby_or_fol_posts.each { |post| post["followed_post"] = followed_ids.include?(post["funder_id"]) }
 
+    other_posts_query = query.deep_dup
+    other_posts_query = api.add_not_lat_long_filter(other_posts_query, lat_long) if lat_long
+    other_posts_query = api.add_not_followed_ids_filter(other_posts_query, followed_ids)
+    other_posts = []
+
+    rem_count = page * per_page - nearby_or_fol_posts_count
     if rem_count > 0
       other_posts_offset = (rem_count > per_page) ? rem_count - per_page : 0
       other_posts_limit = (rem_count > per_page) ? per_page : rem_count
-      other_posts = other_posts.limit(other_posts_limit).offset(other_posts_offset)
-    else
-      other_posts = []
+      other_posts_query = api.add_from_or_size(other_posts_query, other_posts_offset, other_posts_limit)
+      other_posts = api.search(other_posts_query)
     end
 
-    if posts.count > page * per_page
-      next_page = true 
-    else 
-      next_page = false
-    end
+    next_page = (api.get_count(query) > page * per_page)
+    posts = nearby_or_fol_posts + other_posts
 
-    posts = rec_or_fol_posts + other_posts
-    post_type = []
-
-    rec_or_fol_posts.each do |post|
-      if nearby_posts.where(:id => post.id).first
-        post_type << 'r'
-      else
-        post_type << 'f'
-      end
-    end
-
-    other_posts.each do |post|
-      post_type << 'o'
-    end
-
-    return posts,post_type,next_page
+    return posts, next_page
 	end
 end
