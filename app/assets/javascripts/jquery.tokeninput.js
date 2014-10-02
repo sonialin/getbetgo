@@ -705,7 +705,11 @@ $.TokenList = function (input, url_or_data, settings) {
                 dropdown_ul.show();
             }
         } else {
-            if(settings.noResultsText) {
+            if (query.length < 3) {
+                dropdown.html("<p>Type at least 3 characters</p>");
+                show_dropdown();
+            }
+            else if(settings.noResultsText) {
                 dropdown.html("<p>"+settings.noResultsText+"</p>");
                 show_dropdown();
             }
