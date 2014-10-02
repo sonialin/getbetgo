@@ -92,6 +92,7 @@ GEM
     coffee-script-source (1.8.0)
     columnize (0.8.9)
     configatron (3.0.2)
+    dalli (2.7.2)
     debugger-linecache (1.2.0)
     delayed_job (4.0.4)
       activesupport (>= 3.0, < 4.2)
@@ -181,6 +182,7 @@ GEM
       actionpack
       activesupport
       mandrill-api (~> 1.0.9)
+    memcachier (0.0.2)
     mime-types (1.25.1)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
@@ -347,6 +349,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.0.0)
   configatron (~> 3.0.1)
+  dalli
   delayed_job_active_record
   devise (~> 3.2.4)
   elasticsearch
@@ -364,6 +367,7 @@ DEPENDENCIES
   mail_form
   mailboxer (~> 0.12.1)
   mandrill_mailer
+  memcachier
   newrelic_rpm
   omniauth
   omniauth-facebook

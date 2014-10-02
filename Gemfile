@@ -135,3 +135,6 @@ gem 'workless'
 
 gem 'elasticsearch'
 gem 'squeel'
+
+gem 'dalli'
+gem 'memcachier'
