@@ -29,7 +29,7 @@
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">
-            <%= link_to sanitize(post["criteria"].truncate(65).capitalize), post_path(id: post["id"]), :class => "post-listing-title" %>
+            <%= link_to sanitize(post["criteria"].truncate(65).capitalize), post_path(id: post["slug"]), :class => "post-listing-title" %>
           </h4>
         </div>
 
@@ -42,7 +42,7 @@
           </div>
           <div class="media-body align-left">
             <div class="media-heading brief-desc-text">
-              <%= link_to strip_tags(sanitize(post["description"])).truncate(95), post, :class => "desc-link" %>
+              <%= link_to strip_tags(sanitize(post["description"])).truncate(95), post_path(id: post["slug"]), :class => "desc-link" %>
             </div>
           </div>
           
