@@ -110,7 +110,6 @@ class User < ActiveRecord::Base
   end
 
   def self.get_coordinates_from_ip(ip)
-    ip = "103.226.207.46"
     return Rails.cache.read("ip_#{ip}") if Rails.cache.exist?("ip_#{ip}")
     ret = nil
     begin
