@@ -222,7 +222,12 @@ class Posts::ElasticsearchApi < ::Post
   def create_client
     host = Figaro.env["ES_HOST"]
     port = Figaro.env["ES_PORT"]
-    Elasticsearch::Client.new(host: host,port: port)
+
+    if Rails.env.production? or Rails.env.staging?
+      Elasticsearch::Client.new url: ENV['BONSAI_URL']
+    else
+      return Elasticsearch::Client.new(host: host,port: port)
+    end
   end
 
   def get_count(query)
