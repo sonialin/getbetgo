@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails'
 
 group :development, :test do
 	gem 'sqlite3'
@@ -47,7 +47,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 
 # Use Paperclip for user image upload
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 
 # Use Amazon S3 for photo storage on production
 gem 'aws-sdk'
