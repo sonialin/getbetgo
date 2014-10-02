@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   belongs_to :city, :autosave => true
 
   before_save :set_title
+  before_create :default_published
 
   acts_as_taggable
   acts_as_votable
@@ -27,6 +28,8 @@ class Post < ActiveRecord::Base
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
   validates :criteria, presence: true
   accepts_nested_attributes_for :city
+
+  scope :published, -> { where(published: true) }
 
   after_save :update_es_post
   before_destroy :delete_es_post
@@ -232,5 +235,9 @@ class Post < ActiveRecord::Base
 
     def set_title
       self.title = 'I am offering $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who want to ' + self.criteria
+    end
+
+    def default_published
+      self.published = true
     end
 end

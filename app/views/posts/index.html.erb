@@ -29,14 +29,14 @@
           </span>
         </div>
       <% elsif params[:subcategory] %>
-        <div id="filter-display" class="tag-display">
-          <span class="search-text">Search results of subcategory:</span>
-          <span class="search-tag">
-            <a class="location-tag-filter">
-              <i class="fa fa-times dismiss-tag"></i>
-            </a>&nbsp;
+        <div id="post-categorization-filter">
+          <%= link_to category_path(Subcategory.find_by_name(params[:subcategory]).category.name) do %>
+            <%= Subcategory.find_by_name(params[:subcategory]).category.name %>
+          <% end %>  
+          >
+          <%= link_to subcategory_path(params[:subcategory]) do %>
             <%= params[:subcategory] %>
-          </span>
+          <% end %>
         </div>
       <% elsif params[:search] %>
         <div id="filter-display" class="tag-display">

@@ -14,18 +14,45 @@
         </div>
       </div>
       <div>
-        <%= reply.body %><br />
-        <% if reply.proofs.any? %>
-          <% reply.proofs.each do |proof| %>
-            <% if @post.user == current_user or bet.user == current_user %>
-              <%= link_to proof.document.url do %>
-                <small>
-                  <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
-                </small>
-              <% end %>
+        <% if reply.private == true %>
+          <% if current_user && (current_user == reply.bet.user or current_user == reply.bet.post.user) %>
+            <% if current_user == reply.bet.user %>
+              <span class="show-hidden-reply" rel='tipsy' title='This message is only visible between you and the funder.'><%= reply.body %></span><br />
             <% else %>
-              <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
-                <i class="fa fa-paperclip"></i>
+              <span class="show-hidden-reply" rel='tipsy' title='This message is only visible between you and the applicant.'><%= reply.body %></span><br />
+            <% end %>
+            <% if reply.proofs.any? %>
+              <% reply.proofs.each do |proof| %>
+                <% if @post.user == current_user or bet.user == current_user %>
+                  <%= link_to proof.document.url do %>
+                    <small>
+                      <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                    </small>
+                  <% end %>
+                <% else %>
+                  <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                    <i class="fa fa-paperclip"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <span class="bet-reply-hidden" rel='tipsy' title='This message is only visible between the funder and the applicant.'>This is a hidden message.</span>
+          <% end %>
+        <% else %>
+          <%= reply.body %><br />
+          <% if reply.proofs.any? %>
+            <% reply.proofs.each do |proof| %>
+              <% if @post.user == current_user or bet.user == current_user %>
+                <%= link_to proof.document.url do %>
+                  <small>
+                    <i class="fa fa-paperclip"></i>&nbsp;<%= proof.document_file_name %>
+                  </small>
+                <% end %>
+              <% else %>
+                <%= link_to '#', :class => "hidden-attachment", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>Only the funder and the applicant can see the attachment.</span>"} do %>
+                  <i class="fa fa-paperclip"></i>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
@@ -44,3 +71,10 @@
     </div>
   <% end %>
 <% end %><!-- reply loop ends -->
+
+<script>
+  $(function() {
+    $('.show-hidden-reply').tipsy({gravity: $.fn.tipsy.autoNS});
+    $('.bet-reply-hidden').tipsy({gravity: $.fn.tipsy.autoNS});
+  });
+</script>
