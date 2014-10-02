@@ -24,4 +24,14 @@ namespace :posts do
       end
     end
   end
+
+  desc "populate publisehd value"
+  task :populate_published => :environment do
+    Post.all.each do |post|
+      if post.published == nil
+        post.published = true
+        post.save
+      end
+    end
+  end
 end

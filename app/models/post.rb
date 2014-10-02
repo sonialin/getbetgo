@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   belongs_to :place, :autosave => true
 
   before_save :set_title
+  before_create :default_published
 
   acts_as_taggable
   acts_as_votable
@@ -27,6 +28,8 @@ class Post < ActiveRecord::Base
   validates :quantity, numericality: {:greater_than_or_equal_to => 1, :only_integer => true}
   validates :criteria, presence: true
   accepts_nested_attributes_for :place
+
+  scope :published, -> { where(published: true) }
 
   def autosave_associated_records_for_place
     if existing_place = Place.where(:google_api_place_id => place.google_api_place_id).first
@@ -207,5 +210,9 @@ class Post < ActiveRecord::Base
 
     def set_title
       self.title = 'I am offering $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who want to ' + self.criteria
+    end
+
+    def default_published
+      self.published = true
     end
 end
