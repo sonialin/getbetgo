@@ -126,6 +126,7 @@ class User < ActiveRecord::Base
       end
     rescue
     end
+    Rails.logger.info("ip_#{ip}")
     Rails.cache.write("ip_#{ip}", ret)
     return ret
   end
