@@ -59,7 +59,7 @@ gem 'acts-as-taggable-on'
 gem 'configatron', '~> 3.0.1'
 
 # Use figaro to set local environment variables
-gem 'figaro'
+gem 'figaro', '0.7.0'
 
 # Use ExecJS to allow js execution in rails
 gem 'execjs'
@@ -132,3 +132,6 @@ gem 'resque', :require => 'resque/server'
 gem 'heroku-api'
 
 gem 'workless'
+
+gem 'elasticsearch'
+gem 'squeel'
