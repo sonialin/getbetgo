@@ -212,6 +212,7 @@
 
 .listing-big {
   margin: -5px -10px 0 -5px;
+  max-height: 397px;
 }
 
 .align-left {
@@ -911,6 +912,10 @@ a .dismiss-tag {
 }
 
 @media (max-width: 766px) {
+  .listing-big {
+    max-height: none;
+  }
+
   #category-selection-block {
     margin-left: 30px
   }
