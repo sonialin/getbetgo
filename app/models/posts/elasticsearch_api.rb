@@ -366,7 +366,7 @@ class Posts::ElasticsearchApi < ::Post
 
   def add_sort_by_created_at(query)
     query["sort"] = {
-      "created_at"=> "asc"
+      "created_at"=> "desc"
     }
     return query
   end
