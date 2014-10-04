@@ -1032,3 +1032,25 @@ a .dismiss-tag {
     margin: 0px;
   }
 }
+
+.post-image-light {
+  position: relative;
+}
+
+.unavailable, .unpublished {
+  top: 40%;
+  position: absolute;
+  color: #B43104;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 25px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.unpublished {
+  color: #808080;
+}
+.post-image-light a {
+  opacity: 0.3;
+}

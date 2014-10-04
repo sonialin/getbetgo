@@ -110,6 +110,13 @@
       </div>
 
       <div class="form-group">
+        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="published">Published</label>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <%= f.check_box :published %>
+        </div>
+      </div>
+
+      <div class="form-group">
         <div class="col-md-12">
           <%= f.submit "Submit", :class => "btn btn-fw btn-lg pull-right" %>      
         </div>
@@ -271,7 +278,6 @@
       noResultsText: "No such location",
       prePopulate: $.parseJSON($('#post_city_attributes_full_name').attr('data-load')),
       onResult: function (results) {
-        debugger
         suggestions = [];
         for(var i in results) {
           if (results[i].length == 0) {

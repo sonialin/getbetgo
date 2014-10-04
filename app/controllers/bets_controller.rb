@@ -99,7 +99,7 @@ class BetsController < ApplicationController
                                      "#{@post.user.name} selected you on '#{@post.title}'",
                                      "Order", order.id)
 
-        flash[:notice] = 'Order ##{order.token_with_prefix} processed successfully with credits.'
+        flash[:notice] = "Order ##{order.token_with_prefix} processed successfully with credits."
         redirect_to @post
       elsif wallet.amount < @post.price
         redirect_to :controller => :bets, :action=> :payment, :id => @bet.id, :post_id => @post.id

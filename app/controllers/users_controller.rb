@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def show
     @title = @user.name
     es_api = Posts::ElasticsearchApi.new
-    es_query = es_api.build_es_query({funder_id: @user.id})
+    to_add_published_filter = (current_user == @user) ? false : true
+    es_query = es_api.build_es_query({funder_id: @user.id}, to_add_published_filter)
     page = (params[:page] || 1).to_i
     es_query = es_api.add_from_or_size(es_query, (page-1)*POSTS_PER_PAGE, POSTS_PER_PAGE)
     @posts = es_api.search(es_query)

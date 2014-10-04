@@ -14,18 +14,33 @@
               <% end %>
             </span>
           </div>  
-        <% end %>         
-        <%= link_to (image_tag(post["medium_image_url"], :class => "thumbnail-size")), post_path(id: post["slug"]) %>
-        <div class="big-tag-outer">
-          <span class="big-tag pull-right">
-            <span class="big-tag-price">
-              $<%= number_with_precision(post["price"], :precision => 0) %>
-            </span><br />
-            <span class="big-tag-number-available">
-              <%= post["quantity_left"] %> available
-            </span>
-          </span>
+        <% end %> 
+ 
+        <% if post["published"] == false %>
+        <div class="post-image-light">
+          <span class="unpublished">unpublished</span> 
+        <% elsif post["quantity_left"] == 0  %>
+        <div class="post-image-light">
+          <span class="unavailable">unavailable</span> 
+        <% else %>
+        <div class="post-image">
+        <% end %>
+          <%= link_to (image_tag(post["medium_image_url"], :class => "thumbnail-size")), post_path(id: post["slug"]) %>
         </div>
+
+        <% if post["quantity_left"] > 0 %>
+          <div class="big-tag-outer">
+            <span class="big-tag pull-right">
+              <span class="big-tag-price">
+                $<%= number_with_precision(post["price"], :precision => 0) %>
+              </span><br />
+              <span class="big-tag-number-available">
+                <%= post["quantity_left"] %> available
+              </span>
+            </span>
+          </div>
+        <% end %>
+
         <hr class="reduced-margin-top">
         <div class="folder">
           <h4 class="text-center">
