@@ -110,9 +110,13 @@
       </div>
 
       <div class="form-group">
-        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="published">Published</label>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <%= f.check_box :published %>
+        <div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
+          <label class="btn btn-default active">
+            <%= f.radio_button :published, true, :checked => true %> Publish
+          </label>
+          <label class="btn btn-default">
+            <%= f.radio_button :published, false %> Draft
+          </label>
         </div>
       </div>
 
@@ -242,6 +246,11 @@
     $('#post-quantity-ok').hide();
     $('#post-quantity-nogood').hide();
   });
+
+  $('#post_quantity').on('focus', function() {
+    $('#post-quantity-ok').hide();
+    $('#post-quantity-nogood').hide();
+  });  
 
   $(document).ready(function() {
     var tag_prediction_url = "/tag/prediction";

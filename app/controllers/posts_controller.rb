@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :upvote]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :payment, :pay_process, :upvote, :publish]
   # before_action :set_gateway
   before_filter :authenticate_user!, except: [:index, :show, :getbets]
   before_action :check_user, only: [:update, :destroy, :edit]
@@ -84,7 +84,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @post }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -109,6 +109,11 @@ class PostsController < ApplicationController
     else 
       current_user.likes @post
     end 
+    redirect_to @post
+  end
+
+  def publish
+    @post.change_to_published
     redirect_to @post
   end
 

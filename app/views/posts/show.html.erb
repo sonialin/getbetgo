@@ -1,151 +1,170 @@
-<% if current_user %>
-  <% if @post.user == current_user %>
-    <% if @post.bets.count == 0 %>
-      <%= render :partial => "posts/nomination_for_my_fund" %>
-    <% elsif @post.bets.count > 0 %>
-      <% if @post.bets_past_selection.count == 0 %>
-        <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <div class="container">
-            <% if @post.bets.count == 1 %>
-              <a href="#bet_<%= @post.bets.first.id %>">
-                <%= @post.bets.first.user.name %>'s application is waiting on your review – Let's get rolling!
-                <i class="fa fa-futbol-o"></i>
-              </a>
-            <% elsif @post.bets.count == 2 %>
-              <a href="#bet_<%= @post.bets.first.id %>">
-                <%= @post.bets.first.user.name %>'s and <%= @post.bets.last.user.name %>'s applications are waiting on your review – Let's get rolling!
-                <i class="fa fa-futbol-o"></i>
-              </a>
-            <% elsif @post.bets.count > 2 %>
-              <a href="#bet_<%= @post.bets.first.id %>">
-                <%= @post.bets.first.user.name %>'s and others' applications are waiting on your review – Let's get rolling!
-                <i class="fa fa-futbol-o"></i>
-              </a>
-            <% end %>
+<% if @post.published == true %>
+  <% if current_user %>
+    <% if @post.user == current_user %>
+      <% if @post.bets.count == 0 %>
+        <%= render :partial => "posts/nomination_for_my_fund" %>
+      <% elsif @post.bets.count > 0 %>
+        <% if @post.bets_past_selection.count == 0 %>
+          <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <div class="container">
+              <% if @post.bets.count == 1 %>
+                <a href="#bet_<%= @post.bets.first.id %>">
+                  <%= @post.bets.first.user.name %>'s application is waiting on your review – Let's get rolling!
+                  <i class="fa fa-futbol-o"></i>
+                </a>
+              <% elsif @post.bets.count == 2 %>
+                <a href="#bet_<%= @post.bets.first.id %>">
+                  <%= @post.bets.first.user.name %>'s and <%= @post.bets.last.user.name %>'s applications are waiting on your review – Let's get rolling!
+                  <i class="fa fa-futbol-o"></i>
+                </a>
+              <% elsif @post.bets.count > 2 %>
+                <a href="#bet_<%= @post.bets.first.id %>">
+                  <%= @post.bets.first.user.name %>'s and others' applications are waiting on your review – Let's get rolling!
+                  <i class="fa fa-futbol-o"></i>
+                </a>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% elsif @post.available_quantity > 0 %>
-        <%= render :partial => "posts/call_for_action_to_funder_v" + rand(1..2).to_s %>
-      <% else %>
-        <div class="alert alert-info fund-application-prompt" style="margin-bottom: -5px;">
+        <% elsif @post.available_quantity > 0 %>
+          <%= render :partial => "posts/call_for_action_to_funder_v" + rand(1..2).to_s %>
+        <% else %>
+          <div class="alert alert-info fund-application-prompt" style="margin-bottom: -5px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  You have given out $<%= number_with_precision(@post.given_out_fund, :precision => 0) %> – Share your good vibes!
+                  <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
+                  <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
+                  <a href="http://twitter.com/share?url=<%= request.original_url %>&text=I have given out <%= number_with_precision(@post.given_out_fund, :precision => 0) %> on FundWok. Woot! " target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
+                  <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% elsif @post.bets_past_selection.find_by_user_id(current_user.id) %>        
+      <% if @current_user_bet.selected? %>
+        <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <div class="container">
             <div class="row">
               <div class="col-md-10 col-md-offset-1">
-                You have given out $<%= number_with_precision(@post.given_out_fund, :precision => 0) %> – Share your good vibes!
-                <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
-                <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
-                <a href="http://twitter.com/share?url=<%= request.original_url %>&text=I have given out <%= number_with_precision(@post.given_out_fund, :precision => 0) %> on FundWok. Woot! " target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
-                <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  You've been selected for the fund – Let's get rolling!
+                  <i class="fa fa-futbol-o"></i>
+                </a>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
+      <% elsif @current_user_bet.submitted? %>
+        <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  You have marked your application complete. Good job!
+                  <i class="fa fa-beer"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif @current_user_bet.awaiting_modification? %>
+        <div class="alert alert-warning fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  Your application is pending your modification – You'll get there!
+                  <i class="fa fa-eraser"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif @current_user_bet.modified? %>
+        <div class="alert alert-warning fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  You have updated your application. Ready to mark it complete this time?
+                  <i class="fa fa-beer"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif @current_user_bet.credited? %>
+        <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  You have obtained <%= @post.price %> credits from the fund. Share your good vibes!
+                  <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
+                  <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
+                  <a href="http://twitter.com/share?url=<%= request.original_url %>&text=Woot! I got a fund from <%= @post.user.name %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
+                  <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif @current_user_bet.funded? %>
+        <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <a href="#bet_<%= @current_user_bet.id %>">
+                  You have obtained $<%= @post.price %> from this fund. Share your good vibes!
+                  <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
+                  <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
+                  <a href="http://twitter.com/share?url=<%= request.original_url %>&text=Woot! I got a fund from <%= @post.user.name %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
+                  <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %> 
+    <% elsif @current_user_bet %>
+      <div class="alert fund-application-open" style="margin-bottom: -5px;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <a href="#bet_<%= @current_user_bet.id %>">
+                You have submitted your application. Good for you!
+                <i class="fa fa-beer"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  <% elsif @post.bets_past_selection.find_by_user_id(current_user.id) %>        
-    <% if @current_user_bet.selected? %>
-      <div class="alert alert-info fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                You've been selected for the fund – Let's get rolling!
-                <i class="fa fa-futbol-o"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% elsif @current_user_bet.submitted? %>
-      <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                You have marked your application complete. Good job!
-                <i class="fa fa-beer"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% elsif @current_user_bet.awaiting_modification? %>
-      <div class="alert alert-warning fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                Your application is pending your modification – You'll get there!
-                <i class="fa fa-eraser"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% elsif @current_user_bet.modified? %>
-      <div class="alert alert-warning fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                You have updated your application. Ready to mark it complete this time?
-                <i class="fa fa-beer"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% elsif @current_user_bet.credited? %>
-      <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                You have obtained <%= @post.price %> credits from the fund. Share your good vibes!
-                <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
-                <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
-                <a href="http://twitter.com/share?url=<%= request.original_url %>&text=Woot! I got a fund from <%= @post.user.name %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
-                <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% elsif @current_user_bet.funded? %>
-      <div class="alert alert-success fund-application-prompt fund-application-action-needed" style="margin-bottom: -5px;">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <a href="#bet_<%= @current_user_bet.id %>">
-                You have obtained $<%= @post.price %> from this fund. Share your good vibes!
-                <a href="http://www.facebook.com/sharer.php?u=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_face.png" %></a>
-                <a href="https://plus.google.com/share?url=<%= request.original_url %>" target="_blank"><%= image_tag "social/icon_header_g.png" %></a>
-                <a href="http://twitter.com/share?url=<%= request.original_url %>&text=Woot! I got a fund from <%= @post.user.name %> on FundWok." target="_blank"><%= image_tag "social/icon_header_tw.png" %></a>
-                <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><%= image_tag "social/icon_header_p.png" %></a>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %> 
-  <% elsif @current_user_bet %>
+  <% end %>
+<% else %>
+  <% if current_user && current_user == @post.user %>
     <div class="alert fund-application-open" style="margin-bottom: -5px;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
-            <a href="#bet_<%= @current_user_bet.id %>">
-              You have submitted your application. Good for you!
-              <i class="fa fa-beer"></i>
-            </a>
+            This is an unpublished fund. Ready to make it public?
+            &nbsp;
+            <%= link_to publish_post_path(@post), :method => :post, :class => 'btn btn-default' do %>
+              <i class="fa fa-upload"></i>&nbsp;Publish
+            <% end %>
           </div>
         </div>
       </div>

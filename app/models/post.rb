@@ -8,7 +8,6 @@ class Post < ActiveRecord::Base
   belongs_to :city, :autosave => true
 
   before_save :set_title
-  before_create :default_published
 
   acts_as_taggable
   acts_as_votable
@@ -197,6 +196,11 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def change_to_published
+    self.published = true
+    self.save
+  end
+
   def self.filter_by_subcategory_ids(subcategory_ids)
     where(:subcategory_id => subcategory_ids)
   end
@@ -235,9 +239,5 @@ class Post < ActiveRecord::Base
 
     def set_title
       self.title = 'I am offering $' + self.price.to_s + ' to ' + self.quantity.to_s + ' people who want to ' + self.criteria
-    end
-
-    def default_published
-      self.published = true
     end
 end

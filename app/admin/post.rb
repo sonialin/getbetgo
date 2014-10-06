@@ -14,7 +14,7 @@ ActiveAdmin.register Post do
   #  permitted
   # end
 
-  permit_params :subcategory_id
+  permit_params :subcategory_id, :user_id, :status_id, :city_id, :title, :description, :price, :quantity, :image_file_name, :image_content_type, :image_file_size, :image_updated_at, :slug, :service, :criteria, :published 
 
   controller do
     def find_resource
