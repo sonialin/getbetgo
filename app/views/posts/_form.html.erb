@@ -111,16 +111,25 @@
 
       <div class="form-group">
         <div class="btn-group col-lg-4 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
-          <label class="btn btn-default active">
-            <%= f.radio_button :published, true, :checked => true %> Publish
-          </label>
-          <label class="btn btn-default">
-            <%= f.radio_button :published, false %> Draft
-          </label>
+          <% if f.object.published %>
+            <label class="btn btn-default active">
+              <%= f.radio_button :published, true %> Publish
+            </label>
+            <label class="btn btn-default">
+              <%= f.radio_button :published, false %> Draft
+            </label>
+          <% else %>
+            <label class="btn btn-default">
+              <%= f.radio_button :published, true %> Publish
+            </label>
+            <label class="btn btn-default active">
+              <%= f.radio_button :published, false %> Draft
+            </label>
+          <% end %>
         </div>
         <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
           <div class="keep-fund-open">
-            <%= f.check_box :keep_open, :checked => true %>
+            <%= f.check_box :keep_open %>
             Keep the fund open for applications when the spots are filled
           </div>
         </div>

@@ -156,6 +156,9 @@ class Posts::ElasticsearchApi < ::Post
                                   },
                                   published: {
                                     type: 'boolean'
+                                  },
+                                  available_for_application: {
+                                    type: 'boolean'
                                   }
                                 }
                               }
@@ -206,7 +209,8 @@ class Posts::ElasticsearchApi < ::Post
                     funder_posts_count: post.user.posts.count,
                     funder_contributions: post.user.contributions.ceil,
                     funder_identifier: post.user.identifier,
-                    published: post.published
+                    published: post.published,
+                    available_for_application: post.available_for_application?
                   }
   end
 

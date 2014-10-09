@@ -19,7 +19,7 @@
         <% if post["published"] == false %>
         <div class="post-image-light">
           <span class="unpublished">unpublished</span> 
-        <% elsif post["quantity_left"] == 0  %>
+        <% elsif post["available_for_application"] == false  %>
         <div class="post-image-light">
           <span class="unavailable">unavailable</span> 
         <% else %>

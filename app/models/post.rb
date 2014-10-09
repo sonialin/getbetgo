@@ -153,7 +153,7 @@ class Post < ActiveRecord::Base
   end
 
   def available_quantity
-  	self.quantity - self.bets.all.count
+  	self.quantity - self.bets_past_selection.count
   end
 
   # def bets_limit_reached?
