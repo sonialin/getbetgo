@@ -777,6 +777,21 @@ a .dismiss-tag {
   display:inline-block;
 }
 
+.category-scroll-reminder {
+  position: absolute;
+  top: -25px;
+  right: 100px;
+  font-family: 'Handlee', cursive;
+  font-size: 1.2em;
+  color: #aaa;
+  .arrow-right {
+    font-size: 1.3em;
+    position: relative;
+    top: 2px;
+  }
+  display: none;
+}
+
 .category-selection:hover {
   cursor: pointer;
 }
@@ -912,6 +927,10 @@ a .dismiss-tag {
 }
 
 @media (max-width: 766px) {
+  .category-scroll-reminder {
+    display: block;
+  }
+
   .listing-big {
     max-height: none;
   }
