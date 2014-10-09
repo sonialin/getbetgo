@@ -21,7 +21,7 @@
             <%= f.check_box :private %> Make this comment private
             <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any follow-up news for the applicant? Share it here!" %><br />
           <% elsif bet.open? %>
-            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any update or question for the funder? Submit it here!" %><br />
+            <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any  question or update for the applicant? Submit it here!" %><br />
           <% else %>
             <%= f.check_box :private %> Make this comment private
             <%= f.text_area :body, :class => 'form-control reply-animation', :rows => "3", :placeholder => "Any instructions for the applicant? Submit it here!" %><br />

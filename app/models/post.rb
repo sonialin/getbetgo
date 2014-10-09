@@ -201,6 +201,16 @@ class Post < ActiveRecord::Base
     self.save
   end
 
+  def available_for_application?
+    if self.keep_open == true
+      return true
+    elsif self.available_quantity > 0
+      return true
+    else
+      return false
+    end
+  end
+
   def self.filter_by_subcategory_ids(subcategory_ids)
     where(:subcategory_id => subcategory_ids)
   end

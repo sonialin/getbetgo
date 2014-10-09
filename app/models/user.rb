@@ -97,11 +97,19 @@ class User < ActiveRecord::Base
     @funds_for_applications_received = (self.posts.inject(0) {|sum, post| sum + post.bets.count * post.price}).to_f
   end
 
+  def intended_contributions
+    @intended_contributions = (self.posts.inject(0) {|sum, post| sum + post.quantity * post.price}).to_f
+  end
+
   def award_rate
-    if self.applications_received == 0
+    if applications_received == 0
       return 0
-    else
-      number_to_percentage((self.contributions / self.applications_received) * 100, precision: 0)
+    else 
+      if self.applications_received > self.intended_contributions
+        return number_to_percentage((self.contributions / self.intended_contributions) * 100, precision: 0)
+      else
+        return number_to_percentage((self.contributions / self.applications_received) * 100, precision: 0)
+      end
     end
   end
 

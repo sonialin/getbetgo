@@ -1,7 +1,8 @@
 class BetsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_bet, only: [:select, :show, :edit, :update, :destroy, :payment, :pay_process, :mark_complete, :evaluate_if_current_user_mark_complete]
-  before_action :set_post, only: [:select, :payment, :pay_process]
+  before_action :set_post, only: [:create, :select, :payment, :pay_process, :evaluate_if_available_for_application, :evaluate_if_current_user_mark_complete]
+  before_filter :evaluate_if_available_for_application, only: [:create]
   before_filter :evaluate_if_selected_limit_reached, only: [:select]
   before_filter :evaluate_if_current_user_mark_complete, only: [:mark_complete]
   before_filter :check_user, only: [:payment, :pay_process]
@@ -12,7 +13,6 @@ class BetsController < ApplicationController
 
   def create
     @user = current_user
-    @post = Post.friendly.find(params[:post_id])
     if @post.user == @user
       redirect_to @post, alert: "You cannot claim your own fund."
       return
@@ -154,7 +154,7 @@ class BetsController < ApplicationController
   def evaluate_if_current_user_mark_complete
     if @bet.user != current_user
       flash[:notice] = "You cannot mark others' fund complete."
-      redirect_to post
+      redirect_to @post
     end
   end
 
@@ -175,6 +175,13 @@ class BetsController < ApplicationController
 
     def check_user
       unless (current_user.posts.where(:id => @post.id).first && @post.bets.where(:id => @bet.id).first)
+        redirect_to @post
+      end
+    end
+
+    def evaluate_if_available_for_application
+      if !@post.available_for_application?
+        flash[:notice] = "This fund is not open for application anymore."
         redirect_to @post
       end
     end

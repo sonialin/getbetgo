@@ -110,13 +110,19 @@
       </div>
 
       <div class="form-group">
-        <div class="btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
+        <div class="btn-group col-lg-4 col-md-12 col-sm-12 col-xs-12" data-toggle="buttons">
           <label class="btn btn-default active">
             <%= f.radio_button :published, true, :checked => true %> Publish
           </label>
           <label class="btn btn-default">
             <%= f.radio_button :published, false %> Draft
           </label>
+        </div>
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+          <div class="keep-fund-open">
+            <%= f.check_box :keep_open, :checked => true %>
+            Keep the fund open for applications when the spots are filled
+          </div>
         </div>
       </div>
 
