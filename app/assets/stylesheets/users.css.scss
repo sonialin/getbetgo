@@ -57,6 +57,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
+  left: -15px;
 }
 
 .user-profile-spacing-offset {
@@ -101,7 +102,7 @@
   margin-right: auto;
   color: #fff;
   line-height: 1.2em;
-  margin-top: 20px;
+  margin-top: 10px;
   padding-bottom: 40px;
 }
 
@@ -160,7 +161,7 @@
   z-index: 210;
   padding: 10px;
   top: 30px;
-  left: 70px;
+  left: 57px;
 }
 
 #user-profile-avatar-preview {
@@ -173,7 +174,7 @@
   position: absolute;
   z-index: 200;
   top: 5px;
-  left: 55px;
+  left: 42px;
 }
 
 #user-profile-avatar-edit-panel {
@@ -407,6 +408,10 @@
 
   .user-profile-pushdown {
     height: 0;
+  }
+
+  #user-avatar-upload {
+    left: 0px;
   }
 }
 
