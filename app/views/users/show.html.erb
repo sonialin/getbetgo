@@ -1,186 +1,14 @@
 <div class="jumbotron" id="user-cover">
-	<% if @user == current_user %>
-		<div class="pull-right" id="user-cover-upload-block">
-			<span id="user-cover-upload-switch" class="btn btn-default pull-right">
-				<i class="fa fa-plus"></i>&nbsp;Change cover
-			</span>
-			<div id="user-cover-upload-slide">
-				<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
-	        <div class="fileinput fileinput-new" data-provides="fileinput">
-	          <div class="fileinput-new thumbnail pull-right" id="user-cover-image-upload" style="width: 160px; height: 120px;">
-	            <img data-src="holder.js/100%x100%" alt="<% if @user.user_info.cover_photo_file_size == nil %>Preview<% end %>">
-	          </div>
-	          <div class="fileinput-preview fileinput-exists thumbnail pull-right" style="max-width: 200px; max-height: 150px;"></div>
-	          <div>
-	          <span class="btn btn-default btn-file">
-	            <span class="fileinput-new">Browse image</span>
-	            <span class="fileinput-exists">Change</span>
-	            <%= f.file_field :cover_photo %>
-	          </span>
-	          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-	          <%= f.submit "Submit", :class => "btn btn-danger"%> 
-	          </div>
-	        </div>   
-	      <% end %>
-    	</div>
+	<div id="<% if @user.user_info.cover_photo_file_size != nil %>user-cover-filter<% end %>">
+		<%= render :partial => "users/edit_cover_photo" %>
+		<div id="user-profile-main-visual">
+			<%= render :partial => "users/user_metrics_line" %>
+			<%= render :partial => "users/name_and_location" %>
+			<%= render :partial => "users/bio" %>
+			<%= render :partial => "users/follow_panel" %>
+			<%= render :partial => "users/social_media_panel" %>
 		</div>
-	<% end %>
-</div>
-
-<div class="container" id="user-profile-main">
-	<div class="col-lg-8 col-md-6 col-sm-6 cl-xs-8 col-md-offset-2">
-  	<div class="row" id="user-profile-container"> 
-      <div class="col-lg-4 text-center">
-
-      	<% if @user == current_user %>
-	      	<div class="col-lg-12">
-		      	<span id="user-avatar-upload-switch" class="btn btn-default">
-							<i class="fa fa-plus"></i>&nbsp;Change Avatar
-						</span>
-					</div>
-	      	<%= form_for @user_info, html: { multipart: true, :class => "form-horizontal" } do |f| %>
-		        <div class="fileinput fileinput-new col-lg-12" data-provides="fileinput">
-		        	<div class="col-lg-12">
-		          <div class="fileinput-new img-circle" id="user-avatar-upload" style="width: 160px; height: 160px;">
-		            <img data-src="holder.js/100%x100%">
-		          </div>
-		          <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-		        	</div>
-		          <div id="user-avatar-upload-slide" class="col-lg-12">
-			          <span class="btn btn-default btn-file btn-xs">
-			            <span class="fileinput-new">Browse image</span>
-			            <span class="fileinput-exists">Change</span>
-			            <%= f.file_field :avatar %>
-			          </span>
-			          <a href="#" class="btn btn-default fileinput-exists btn-xs" data-dismiss="fileinput">Remove</a>
-			          <%= f.submit "Submit", :class => "btn btn-danger btn-xs"%>
-		        	</div>    
-		        </div>   
-		      <% end %>
-	      <% else %>
-		      <div class="fileinput fileinput-new col-lg-12" data-provides="fileinput">
-	        	<div class="col-lg-12">
-	          <div class="fileinput-new pull-right img-circle" id="user-avatar-upload" style="width: 160px; height: 160px;">
-	            <img data-src="holder.js/100%x100%">
-	          </div>
-	          <div class="fileinput-preview fileinput-exists thumbnail pull-right" style="max-width: 200px; max-height: 150px;"></div>
-	        	</div>
-		      </div>   
-	      <% end %>
-
-	      <div class="user-show-stats">
-		      <div class="col-lg-12 user-show-kudos">
-		      	<span class="profile-contributions fw-main-color">
-	            <span class="thumbnail-kudos-number"><%= @user.kudos %></span>&nbsp;
-	            <i class="fa fa-thumbs-up"></i>&nbsp;
-	            <% if @user.kudos >1 %>
-		            Kudos<br />
-		            <% else %>
-		            Kudo<br />
-	            <% end %>
-	            <span class="thumbnail-kudos-number"><%= @user.contributions.ceil %></span>&nbsp;
-	            <i class="fa fa-wifi"></i>&nbsp;
-	            <% if @user.contributions.ceil >1 %>
-		            Karmas<br />
-		            <% else %>
-		            Karma<br />
-	            <% end %>
-	            <span class="thumbnail-kudos-number"><%= @user.award_rate %></span>&nbsp;
-	            <i class="fa fa-bookmark-o"></i>&nbsp;
-		          Award Rate
-	          </span>
-		      </div>
-		      <div class="col-lg-12 user-show-follows">
-						<div class="btn-group" id="user-follow-panel">
-							<%= link_to user_path(@user, anchor: "user-funds"), :class => "btn btn-default" do %>
-						  	<span class="follow-number"><%= @user.posts.count %></span><br /><small><% if @user.posts.count == 1 %>Fund<% else %>Funds<% end %></small>
-						  <% end %>
-						  <%= link_to followers_path(@user), :class => "btn btn-default" do %>
-						  	<span class="follow-number"><%= @user.followers.count %></span><br /><small><% if @user.followers.count == 1 %>Follower<% else %>Followers<% end %></small>
-						  <% end %>
-						  <%= link_to followings_path(@user), :class => "btn btn-default" do %>
-						  	<span class="follow-number"><%= @user.followeds.count %></span><br /><small>Following</small>
-						  <% end %>
-						</div>
-					</div>
-				</div>
-
-      </div>
-      <div class="col-lg-8">
-      	<div class="row">
-      		<div class="col-md-12 col-sm-12 col-xs-12">
-      			<div class="row">
-      				<div class="col-md-12 col-sm-12 col-xs-12">
-      					<h2 class="user-profile-name"><%= @user.name %></h2>
-      				</div>
-      			</div>
-      			<div class="row">
-      				<div class="col-md-12 col-sm-12 col-xs-12">
-		        		<div class="user-profile-location">
-		        			<span id="location-span"><%= @user.user_info.location %></span>
-		        			<% if @user == current_user %>
-		        				<input id="edit-location-input" type="text" style="display:none;" data-load="<%= @user.user_info.location_tokenize.to_json rescue [] %>" ></input>
-		        				<%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %>
-		        			<% end %>
-		        		</div>
-	        		</div>
-	        	</div>	
-      		</div>
-      	</div>
-      	<div class="row user-profile-block">
-      		<div class="user-edit-block">				
-						<p><% if current_user && @user == current_user %>About me: <br /> <% end %><em id="user-info-biography-em" data-bip-original-content="<%= @user.user_info.biography %>"><%= best_in_place_if (current_user && @user == current_user), @user.user_info, :biography, :type => :input, :activator => '#edit-biography', :type => :textarea, :id => "user-info-biography", :html_attrs => { :cols => '65%', :rows => '4' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><% end %></em></p>
-						<% if @user == current_user %>
-							<p><i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website', :html_attrs => { :style => 'width:250px;' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %></p>
-							<p><i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin', :html_attrs => { :style => 'width:250px;' } %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %></p>
-							<p><i class="fa fa-twitter-square"></i>&nbsp;Twitter: http://twitter.com/<%= best_in_place @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %><% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter', :class => 'fw-main-color' %><% end %></p>
-						<% else %>
-							<hr class="post-content-divider">
-							<div class="pull-left">
-								Find me at&nbsp;
-								<% if (@user.user_info.website != nil && @user.user_info.website != "") %>
-									<%= link_to "<i class='fa fa-home fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.website, :target => '_blank' %>
-								<% else %>
-									<i class='fa fa-home fa-lg disabled-icon'></i>	
-								<% end %>
-								<% if (@user.user_info.linkedin != nil && @user.user_info.linkedin != "") %>
-									<%= link_to "<i class='fa fa-linkedin-square fa-lg fw-main-color'></i>".html_safe, 'http://' + @user.user_info.linkedin, :target => '_blank' %>
-								<% else %>
-									<i class="fa fa-linkedin-square fa-lg disabled-icon"></i>	
-								<% end %>
-								<% if (@user.user_info.twitter != nil && @user.user_info.twitter != "") %>
-									<%= link_to "<i class='fa fa-twitter-square fa-lg fw-main-color'></i>".html_safe, 'http://twitter.com/' + @user.user_info.twitter, :target => '_blank' %>
-								<% else %>
-									<i class="fa fa-twitter-square fa-lg disabled-icon"></i>
-								<% end %>
-							</div>
-							<% if current_user && @user != current_user %>
-							  <% if current_user.following? @user %>
-						      <%= form_for @relationship, method: :delete do |f| %>
-						        <%= f.submit "Unfollow", :class => "btn-large pull-right btn-lg unfollow-user" %>
-						      <% end %>  
-							  <% else %>
-						      <%= form_for @relationship do |f| %>
-						        <%= f.hidden_field :followed_id, value: @user.id %>
-						        <%= f.submit "Follow", :class => "btn-danger pull-right btn-lg"%>
-						      <% end %>
-							  <% end %>
-							<% elsif !current_user %>
-						    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-danger pull-right btn-lg", :id => "user-profile-follow" do %>
-						      <div class="text-center">
-						        Sign in to Follow</small>
-						      </div>
-						    <% end %>
-							<% end %>
-						<% end %>
-					</div>
-      	</div>
-      </div>
-    </div>
 	</div>
-</div>
-
-<div class="user-profile-pushdown">
 </div>
 
 <div class="container">
@@ -218,6 +46,14 @@
 
 	#user-avatar-upload-slide {
 		display: none;
+	}
+
+	@media (max-width: 420px) {
+		<% if current_user && @user == current_user %>
+	  #user-avatar-upload {
+	    left: -70%;
+	  }
+	  <% end %>
 	}
 </style>
 
@@ -278,26 +114,10 @@
 	});
 
 	$('#user-cover-upload-switch').click(function() {
-		var s = "fa-plus";
-		var r = document.getElementById('user-cover-upload-switch').innerHTML;
-		if (r.indexOf(s) > -1 ) {
-        $(this).html('<i class="fa fa-minus"></i>&nbsp;Change cover');
-      } else {
-        $(this).html('<i class="fa fa-plus"></i>&nbsp;Change cover');
-      }
-		
 		$( "#user-cover-upload-slide" ).toggle();
 	});
 
 	$('#user-avatar-upload-switch').click(function() {
-		var s = "fa-plus";
-		var r = document.getElementById('user-avatar-upload-switch').innerHTML;
-		if (r.indexOf(s) > -1 ) {
-        $(this).html('<i class="fa fa-minus"></i>&nbsp;Change avatar');
-      } else {
-        $(this).html('<i class="fa fa-plus"></i>&nbsp;Change avatar');
-      }
-		
 		$( "#user-avatar-upload-slide" ).toggle();
 	});
 

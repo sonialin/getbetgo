@@ -1,0 +1,32 @@
+<div class="row">
+	<% if current_user && current_user == @user %>
+		<div id="user-profile-edit-social">
+			<div class="row">
+				<div class="col-md-4 col-sm-12 col-xs-12 text-center user-profile-edit-social-item">
+					<i class="fa fa-home"></i>&nbsp;Website: http://<%= best_in_place @user.user_info, :website, :type => :input, :activator => '#edit-website', :html_attrs => { :style => 'width:250px;' } %>
+					<% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-website', :class => 'fw-main-color' %><% end %>
+				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12 text-center user-profile-edit-social-item">
+					<i class="fa fa-linkedin-square"></i>&nbsp;LinkedIn: http://<%= best_in_place @user.user_info, :linkedin, :type => :input, :activator => '#edit-linkedin', :html_attrs => { :style => 'width:250px;' } %>
+					<% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-linkedin', :class => 'fw-main-color' %><% end %>
+				</div>
+				<div class="col-md-4 col-sm-12 col-xs-12 text-center user-profile-edit-social-item">
+					<i class="fa fa-twitter-square"></i>&nbsp;Twitter: http://twitter.com/<%= best_in_place @user.user_info, :twitter, :type => :input, :activator => '#edit-twitter' %>
+					<% if @user == current_user %><%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-twitter', :class => 'fw-main-color' %><% end %>
+				</div>
+			</div>
+		</div>
+	<% else %>
+		<div id="user-profile-find-me-at">
+			<% if (@user.user_info.website != nil && @user.user_info.website != "") %>
+				<%= link_to "<i class='fa fa-home fa-lg'></i>".html_safe, 'http://' + @user.user_info.website, :target => '_blank' %>	
+			<% end %>
+			<% if (@user.user_info.linkedin != nil && @user.user_info.linkedin != "") %>
+				<%= link_to "<i class='fa fa-linkedin-square fa-lg'></i>".html_safe, 'http://' + @user.user_info.linkedin, :target => '_blank' %>
+			<% end %>
+			<% if (@user.user_info.twitter != nil && @user.user_info.twitter != "") %>
+				<%= link_to "<i class='fa fa-twitter-square fa-lg'></i>".html_safe, 'http://twitter.com/' + @user.user_info.twitter, :target => '_blank' %>
+			<% end %>
+		</div>
+	<% end %>
+</div>

@@ -3,55 +3,216 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* pagination on the user show page */
+#user-profile-main-visual {
+  width: 80%;
+  position: relative;
+  left: 10%;
+  top: 50px;
+}
+
+#user-profile-name-and-location {
+  width: 60%;
+  position: relative;
+  left: 20%;
+  color: #fff;
+  line-height: 1.2em;
+  margin-bottom: 30px;
+}
+
+.user-profile-metrics-cell {
+  line-height: 1em;
+  color: #fff;
+}
+
+.user-profile-metrics-cell a {
+  color: #fff;
+}
+
+.award-rate-cell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.user-profile-divider {
+  height: 3px;
+  color: #fff;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 30px;
+}
+
+.user-metrics-number {
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+#user-avatar-upload {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border: 3px solid #fff;
+  z-index: 100;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.user-profile-spacing-offset {
+  height: 30px;
+}
+
+#user-profile-name {
+  font-size: 1.4em;
+}
+
+#user-profile-location {
+  position: relative;
+  top: 5px;
+  font-size: 0.8em;
+}
+
+#user-profile-bio {
+  width: 60%;
+  position: relative;
+  left: 20%;
+  font-size: 0.7em;
+  color: #fff;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  line-height: 1.2em;
+}
+
+#edit-biography {
+  margin-bottom: 0px;
+}
+
+#user-profile-bio-content {
+  height: 90px;
+  overflow-y: scroll;
+  margin-bottom: -10px;
+}
+
+#user-profile-follow {
+  width: 200px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+  line-height: 1.2em;
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+#user-profile-follow .btn {
+  color: #99b709;
+}
+
+#user-profile-find-me-at {
+  color: #fff;
+  margin-right: 10px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+
+#user-profile-find-me-at a {
+  color: #fff;
+}
+
+.user-profile-social-icon {
+  margin: 3px;
+  font-size: 1.2em;
+}
+
+#user-profile-edit-social {
+  position: relative;
+  bottom: 10px;
+  float-left: auto;
+  float-right: auto;
+  color: #fff;
+  font-size: 0.6em;
+  line-height: 1.2em;
+  a {
+    color: #99b709;
+  }
+}
+
+.user-profile-edit-social-item {
+  padding: 0;
+}
+
 #load_more_posts_user {
   display: none;
   margin-bottom: 10px;
 }
 
 #user-cover-upload-block {
-  position: relative;
-  top: -25px;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  z-index: 200;
+}
+
+#user-avatar-upload-slide {
+  position: absolute;
+  z-index: 210;
+  padding: 10px;
+  top: 30px;
+  left: 70px;
+}
+
+#user-profile-avatar-preview {
+  margin-left: -4px;
+  width: 150px;
+  height: 150px;
+}
+
+#user-avatar-upload-switch {
+  position: absolute;
+  z-index: 200;
+  top: 5px;
+  left: 55px;
+}
+
+#user-profile-avatar-edit-panel {
+  margin-top: -15px;
+  margin-bottom: -25px;
+}
+
+#user-profile-avatar-submit {
+  margin-top: -30px;
 }
 
 #user-cover {
-  height: 550px;
+  height: 450px;
   position: relative;
   top: -20px;
   margin-top: 20px;
   margin-bottom: 0px;
   padding-bottom: 0px;
+  padding: 0;
   background-size: cover;
-  background-position: 50% 80%;
+  background-position: 50% 70%;
   background-color: #99b709;
 }
 
-#user-profile-main {
-  margin-top: -500px;
-}
-
-#user-profile-container {
-  box-shadow: 1px 1px 10px #444;
-  border-radius: 3px;
-  padding: 15px;
-  background: rgb(255, 255, 255);
-  background: rgba(255, 255, 255, 0.85);
+#user-cover-filter {
+  height: 450px;
+  position: relative;
+  background-size: cover;
+  background-position: 50% 80%;
+  background:rgba(0,0,0,0.3);
 }
 
 #user-follow-panel {
   margin-top: 15px;
 }
 
-#user-follow-panel .follow-number {
-  color: #777777;
-}
-
 #user-follow-panel button {
   padding: 5px 10px;
   line-height: 15px;
-}
-
-.user-profile-name {
-  float: left;
 }
 
 .user-profile-location {
@@ -68,12 +229,7 @@
 }
 
 .disabled-icon {
-  color: #aaa;
-}
-
-.follow-number {
-  font-weight: 600;
-  font-size: 1.3em;
+  color: #bbb;
 }
 
 .unfollow-user {
@@ -205,7 +361,26 @@
   height: 130px;
 }
 
+@media (max-width: 1300px) {
+  #user-profile-edit-social {
+    bottom: 10px;
+  }
+}
+
 @media (max-width: 1200px) {
+  .user-profile-metrics-cell {
+    font-size: 0.9em;
+    padding: 0;
+  }
+
+  #user-profile-name-and-location {
+    margin-top: -10px;
+  }
+
+  #user-profile-bio {
+    margin-top: -10px;
+  }
+
   #user-profile-offset-space {
     height: 150px;
   }
@@ -218,6 +393,14 @@
     font-size: 1em;
   }
 
+  #user-profile-edit-social {
+    bottom: 30px;
+  }
+
+  #user-profile-find-me-at {
+    bottom: 25px;
+  }
+
   .follow-metrics-button .btn {
     right: -6px;
   }
@@ -228,10 +411,81 @@
 }
 
 @media (max-width: 900px) {
-  
+  #user-cover {
+    height: 500px;
+  }
+
+  #user-cover-filter {
+    height: 500px;
+  }
+
+  #user-profile-name-and-location {
+    margin-top: -10px;
+  }
+
+  #user-profile-bio {
+    width: 90%;
+    left: 5%;
+  }
+
+  #user-profile-find-me-at {
+    bottom: 10px;
+  }
+
+  #user-profile-edit-social {
+    bottom: 35px;
+  }
+
+  .user-profile-metrics-cell {
+    font-size: 0.8em;
+  }
+
+  .user-profile-metrics-column-left {
+    padding-right: 0;
+  }
+
+  .user-profile-metrics-column-right {
+    padding-left: 0;
+  }
+
+  #user-profile-main-visual {
+    width: 96%;
+    position: relative;
+    top: 60px;
+    left: 2%;
+  }
+
+  .user-profile-divider {
+    width: 96%;
+    height: 2px;
+    left: 2%;
+  }
+
+  #user-avatar-upload {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    border: 2px solid #fff;
+    top: 20px;
+    margin-bottom: 60px;
+  }
+
+  #user-avatar-upload-switch {
+    top: 25px;
+    left: 45px;
+  }
+
+  #user-avatar-upload-slide {
+    top: 50px;
+    left: 60px;
+  }
 }
 
 @media (max-width: 766px) {
+  .user-profile-metrics-cell {
+    font-size: 0.7em;
+  }
+
   .follow-metrics {
     left: -10px;
   }
@@ -242,6 +496,40 @@
 
   #user-profile-follow {
     font-size: 1.2em;
+    margin-top: 10px;
+  }
+
+  #user-profile-find-me-at {
+    bottom: -10px;
+  }
+
+  #user-avatar-upload {
+    left: -30%;
+  }
+
+  #user-avatar-upload-switch {
+    left: 19px;
+  }
+
+  #user-avatar-upload-slide {
+    left: 35px;
+  }
+}
+
+@media (max-width: 600px) {
+  #user-avatar-upload {
+    top: 30px;
+    left: -40%;
+  }
+
+  #user-avatar-upload-switch {
+    top: 35px;
+    left: 10px;
+  }
+
+  #user-avatar-upload-slide {
+    top: 58px;
+    left: 26px;
   }
 }
 
@@ -256,5 +544,16 @@
 
   .follow-metrics-button .btn {
     right: -14px;
+  }
+}
+
+@media (max-width: 420px) {
+  #user-avatar-upload-switch {
+    top: 35px;
+    left: -15px;
+  }
+
+  #user-avatar-upload-slide {
+    left: 0px;
   }
 }
