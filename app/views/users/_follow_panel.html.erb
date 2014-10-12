@@ -1,0 +1,22 @@
+<div class='row'>
+	<div id="user-profile-follow" class="text-center">
+		<% if current_user && @user != current_user %>
+		  <% if current_user.following? @user %>
+	      <%= form_for @relationship, method: :delete do |f| %>
+	        <%= f.submit "Unfollow", :class => "btn-large btn-lg unfollow-user" %>
+	      <% end %>  
+		  <% else %>
+	      <%= form_for @relationship do |f| %>
+	        <%= f.hidden_field :followed_id, value: @user.id %>
+	        <%= f.submit "Follow", :class => "btn btn-default btn-lg btn-block"%>
+	      <% end %>
+		  <% end %>
+		<% elsif !current_user %>
+	    <%= link_to "#myModal", :data => {:toggle=>"modal"}, :class => "btn btn-default btn-lg btn-block" do %>
+	      <div class="text-center">
+	        <small>Sign in to Follow</small>
+	      </div>
+	    <% end %>
+		<% end %>
+	</div>
+</div>

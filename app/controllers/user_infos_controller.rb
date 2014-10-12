@@ -23,7 +23,7 @@ class UserInfosController < ApplicationController
   	@user_info = current_user.user_info
     respond_to do |format|
       if @user_info.update(user_info_params)
-        format.html { redirect_to @user_info.user, notice: 'Your info was successfully updated!' }
+        format.html { redirect_to @user_info.user, notice: 'Your profile was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -15,19 +15,19 @@
   text-decoration: none;
   width: 50px;
   z-index: 2147483647;
-  background: #ffb914;
-  border: 2px solid #ddd;
+  background: #fff;
+  border: 2px solid #999;
 }
 
 #contact-tab-text {
 	display: block;
 	position: relative;
 	top: 8px;
-	color: #fff;
+	color: #aaa;
 }
 
 a:hover #contact-tab {
-	background: #FFA500;
+	background: #eee;
 }
 
 #quick-contact-header {
@@ -42,6 +42,7 @@ a:hover #contact-tab {
   -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
   filter: gray; /* IE */
   -webkit-filter: grayscale(1); /* Old WebKit */
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'saturate\' values=\'0\'/></filter></svg>#grayscale");
 }
 
 #quick-contact-header-text {
