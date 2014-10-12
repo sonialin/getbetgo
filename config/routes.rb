@@ -53,10 +53,12 @@ Getbetgo::Application.routes.draw do
   get 'bets/:id/payment' => 'bets#payment'
   get 'bets/:id/pay_process' => 'bets#pay_process'
   get 'transactions/:bet_id/success' => 'transactions#success'
+  post 'transactions/:bet_id/success' => 'transactions#success'
   get 'transactions/:bet_id/failed' => 'transactions#failed'
   get 'tag/prediction' => 'tags#prediction'  
   get 'place/prediction' => 'places#prediction'  
   get 'orders/:token' => 'orders#show', as: :order 
+  post 'paypal-ipn'  => 'transactions#paypal_ipn'
 
   post 'getposts' => 'posts#index'
   post 'getuserposts' => 'users#show'
