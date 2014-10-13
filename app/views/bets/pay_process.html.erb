@@ -1,10 +1,12 @@
 <% if params[:gateway] == "paypal" %>
 	<form name="frm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 		<input type="hidden" name="cmd" value="_xclick">
-		<input type="hidden" name="business" value="sonialin83-facilitator@gmail.com">
+		<input type="hidden" name="business" value="<%= Figaro.env["PAYPAL_USERNAME_DEV"] %>">
 		<input type="hidden" name="item_name" value="<%= @post.title %>">
+    <input type="hidden" name="item_number" value="<%= params[:id] %>">
 		<input type="hidden" name="return" value="<%= root_url %>transactions/<%= params[:id] %>/success">
 		<input type="hidden" name="cancel_return" value="<%= root_url %>transactions/<%= params[:id] %>/failed">
+    <input type="hidden" name="notify_url" value="<%= Figaro.env["PAYPAL_IPN_CALLBACK_URL"] %>">
 		<input type="hidden" name="currency_code" value="USD">
 		<input name="amount" type="hidden" value="<%= @final_payment %>">
 		<input name="quantity" type="hidden" value="1">
