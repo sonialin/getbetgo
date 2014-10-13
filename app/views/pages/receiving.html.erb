@@ -1,121 +1,115 @@
 <div class="container">
-<h1>My Funds</h1>
-	<!-- tabs -->
-	<div class="tabbable">
-	  <div id="tabs_pages">
-	    <ul class="tabs_pages_ul">
-	      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-	      	<a href="/giving">
-	      	<div class="finances-tab">
-			      <span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
-			      CONTRIBUTIONS
-	      	</div>
-	      	</a>
-	      </li>
-	      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
-	      	<a href="/receiving">
-	      		<div class="finances-tab">
-		      		<span class="finances-number">$<%= number_with_precision(@credits_sum, :precision => 2) %></span><br />
-		      		FUNDING	
-	      		</div>
-	      	</a>
-	      </li>
-	    </ul>
-	  </div>
-	  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	    <div class="tab-pane active" id="tab2">
-	      <div id="backers_content" class="table-responsive">
-	        <table class="table table-hover">
-						<thead>
-							<td>Amount</td>
-							<td>Fund Title</td>
-							<td>Status</td>
-							<td>Date</td>
-						</thead>
-				  	<tbody>
-				  		<% if @bets.count != 0 %>
-					  		<% @bets.each do |bet| %>
-						  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
-						  			<td>
-						  				<% if bet.post %>
-								  			<% if bet.awaiting_modification? or bet.modified? %>
-								  				<span class="fw-main-color">$<%= number_with_precision(bet.post.price, :precision => 2) %></span>
-								  			<% else %>
-								  				$<%= number_with_precision(bet.post.price, :precision => 2) %>
-								  			<% end %>
-								  		<% else %>
-								  			<span style="color: #ccc;">n/a</span>
-								  		<% end %>
-							  		</td>
-							  		<td>
-							  			<% if bet.post %>
-								  			<% if bet.awaiting_modification? or bet.modified? %>
-								  				<span class="fw-main-color"><%= bet.post.title %></span>
-								  			<% else %>
-								  				<%= bet.post.title %>
-								  			<% end %>
-								  		<% else %>
-								  			<span style="color: #ccc;">fund has been removed</span>
-								  		<% end %>
-							  		</td>
-							  		<td>
-							  			<% if bet.open? %>
-							  				Submitted
-							  			<% elsif bet.selected? %>
-							  				Pending Your Action
-							  			<% elsif bet.awaiting_modification? %>
-							  				<span class="fw-main-color">Pending Your Action</span>
-							  			<% elsif bet.modified? %>
-							  				<span class="fw-main-color">Pending Your Action</span>
-							  			<% elsif bet.submitted? %>
-							  				Pending Credits
-							  			<% elsif bet.credited? %>
-							  				Credits Loaded
-							  			<% elsif bet.funded? %>
-							  				Funded
-							  			<% else %>
-							  				Pending
-							  			<% end %>
-							  		</td>
-							  		<td>
-							  			<% if bet.awaiting_modification? or bet.modified? %>
-							  				<span class="fw-main-color"><%= reformatted_post_datetime(bet.created_at) %></span>
-							  			<% else %>
-							  				<%= reformatted_post_datetime(bet.created_at) %>
-							  			<% end %>
-							  		</td>
-						  		</tr>
-					  		<% end %>
-					  	<% else %>
-					  		<div class="row text-center">
-						  		<div class="col-md-8 col-md-offset-2">
-						  			You have not applied for any fund.<br /><br />
-						  			<a href="/" class="btn btn-fw btn-outline-rounded">Search for a Fund<i style="margin-left:10px;" class="fa fa-search"></i></a>
-						  		</div>
-					  		</div>
-					  	<% end %>
-				  	</tbody>
-					</table>
-					<div id="paginate-bets">
-					  <%= will_paginate @bets, renderer: BootstrapPagination::Rails %>
-					</div>
-	      </div><!-- end backer's content -->
-	    </div><!-- end tab2 -->
-	  </div><!-- end of tab content -->
-	</div><!-- end of tabbable -->
+	<div class="row">
+	  <div class="col-md-10 col-md-offset-1">
 
-	<h3>Account</h3>
-	<% if @user.paypal_recipient_account %>
-		<%= @user.paypal_recipient_account.email %>
-		<%= link_to 'Destroy', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
-	<% else %>
-		<%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
-			<div class="form-group">
-			  <%= f.text_area :email, :class => 'form-control' %><br />
-			  <%= f.submit :class => "btn btn-primary" %>
-			</div>
-		<% end %>
-	<% end %>
+			<h1>My Funds</h1>
+
+			<%= render :partial => "pages/wallet_and_paypal" %>
+
+			<!-- tabs -->
+			<div class="tabbable">
+			  <div id="tabs_pages">
+			    <ul class="tabs_pages_ul">
+			      <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+			      	<a href="/giving">
+			      	<div class="finances-tab">
+					      <span class="finances-number">$<%= number_with_precision(@contributions_sum, :precision => 2) %></span><br />
+					      CONTRIBUTIONS
+			      	</div>
+			      	</a>
+			      </li>
+			      <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6">
+			      	<a href="/receiving">
+			      		<div class="finances-tab">
+				      		<span class="finances-number">$<%= number_with_precision(@credits_sum, :precision => 2) %></span><br />
+				      		FUNDING	
+			      		</div>
+			      	</a>
+			      </li>
+			    </ul>
+			  </div>
+			  <div class="tab-content col-lg-12 col-md-12 col-sm-12 col-xs-12" id="receiving-table-outer">
+			    <div class="tab-pane active" id="tab2">
+			      <div class="table-responsive my-funds-table-wrapper">
+			        <table class="table table-hover" id="receiving-table">
+								<thead>
+									<td>Amount</td>
+									<td>Fund Title</td>
+									<td>Status</td>
+									<td>Date</td>
+								</thead>
+						  	<tbody style="padding-top: 40px;">
+						  		<% if @bets.count != 0 %>
+							  		<% @bets.each do |bet| %>
+								  		<tr data-link="<%= post_path(bet.post) %>" class="clickable-row">
+								  			<td>
+								  				<% if bet.post %>
+										  			<% if bet.awaiting_modification? or bet.modified? %>
+										  				<span class="fw-main-color">$<%= number_with_precision(bet.post.price, :precision => 2) %></span>
+										  			<% else %>
+										  				$<%= number_with_precision(bet.post.price, :precision => 2) %>
+										  			<% end %>
+										  		<% else %>
+										  			<span style="color: #ccc;">n/a</span>
+										  		<% end %>
+									  		</td>
+									  		<td>
+									  			<% if bet.post %>
+										  			<% if bet.awaiting_modification? or bet.modified? %>
+										  				<span class="fw-main-color"><%= bet.post.title %></span>
+										  			<% else %>
+										  				<%= bet.post.title %>
+										  			<% end %>
+										  		<% else %>
+										  			<span style="color: #ccc;">fund has been removed</span>
+										  		<% end %>
+									  		</td>
+									  		<td>
+									  			<% if bet.open? %>
+									  				Submitted
+									  			<% elsif bet.selected? %>
+									  				Pending Your Action
+									  			<% elsif bet.awaiting_modification? %>
+									  				<span class="fw-main-color">Pending Your Action</span>
+									  			<% elsif bet.modified? %>
+									  				<span class="fw-main-color">Pending Your Action</span>
+									  			<% elsif bet.submitted? %>
+									  				Pending Credits
+									  			<% elsif bet.credited? %>
+									  				Credits Loaded
+									  			<% elsif bet.funded? %>
+									  				Funded
+									  			<% else %>
+									  				Pending
+									  			<% end %>
+									  		</td>
+									  		<td>
+									  			<% if bet.awaiting_modification? or bet.modified? %>
+									  				<span class="fw-main-color"><%= reformatted_post_datetime(bet.created_at) %></span>
+									  			<% else %>
+									  				<%= reformatted_post_datetime(bet.created_at) %>
+									  			<% end %>
+									  		</td>
+								  		</tr>
+							  		<% end %>
+							  	<% else %>
+							  		<td colspan=4 class="text-center">
+							  			You have not applied for any fund.<br /><br />
+							  			<a href="/" class="btn btn-fw btn-outline-rounded" style="color: #fff;">Search for a Fund<i style="margin-left:10px;" class="fa fa-search"></i></a>
+							  		</td>
+							  	<% end %>
+						  	</tbody>
+							</table>
+							<div id="paginate-bets">
+							  <%= will_paginate @bets, renderer: BootstrapPagination::Rails %>
+							</div>
+			      </div><!-- end backer's content -->
+			    </div><!-- end tab2 -->
+			  </div><!-- end of tab content -->
+			</div><!-- end of tabbable -->
+
+		</div>
+	</div>
 </div>
 
 <script>

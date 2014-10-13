@@ -1,0 +1,79 @@
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          My Wallet: $<%= number_with_precision(@user.wallet.amount, :precision => 2) %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+    	<div class="panel-body" id="my-wallet-panel-body">
+	      <table class="table">
+			    <tr>
+			    	<td style="border-top: none;">Cash</td>
+			    	<td style="border-top: none;">$<%= number_with_precision(@user.wallet.credits, :precision => 2) %></td>
+			    </tr>
+			    <tr>
+			    	<td>Coupon</td>
+			    	<td>$<%= number_with_precision(@user.wallet.coupons, :precision => 2) %></td>
+			    </tr>
+			    <tr>
+			    	<td><strong>Total</strong></td>
+			    	<td><strong>$<%= number_with_precision(@user.wallet.amount, :precision => 2) %></strong></td>
+			  	</tr>
+			  </table>
+			</div>
+    </div>
+  </div>
+  <% if @user.bets.count > 0 %>
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+	          My Paypal
+	          <% if @user.paypal_recipient_account %>
+	          	: <%= @user.paypal_recipient_account.email %>
+	          <% else %>
+							: <span style="color: #ed1c24;">(+ Add account)</span>
+	          <% end %>
+	          <%= link_to '#', :class => "tip-paypal", data:{toggle: 'popover', container: 'body', html: 'true', content: "<span style='font-size: 0.8em;'>This is where your incoming funds will be sent to.</span>"} do %>
+              <i class="fa fa-lightbulb-o"></i>
+            <% end %>
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse">
+	      <% if @user.paypal_recipient_account %>
+				  <table class="table">
+				    <tr>
+				    	<td>
+				    		<div id="remove-paypal-account">
+				    			<span style="position: relative; top: 3px;"><%= @user.paypal_recipient_account.email %></span>
+				    			<%= link_to 'Remove', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default btn-sm' %>
+				    		</div>
+				    	</td>
+				  	</tr>
+				  </table>
+				<% else %>
+				  <div class="panel-body">
+				    <%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
+							<div class="form-group" id="add-paypal-account-form">
+								<div class="col-md-8">
+							  	<%= f.text_field :email, :class => 'form-control' %>
+								</div>
+								<div class="col-md-4">
+							  	<%= f.submit "Add Paypal Account", :class => "btn btn-primary", :id => "add-paypal-account-btn" %>
+								</div>
+							</div>
+						<% end %>
+				  </div>
+			  <% end %>
+	    </div>
+	  </div>
+  <% end %>
+</div>
+
+<script>
+	$('.tip-paypal').popover({trigger: 'hover'}); 
+</script>

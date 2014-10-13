@@ -1,0 +1,33 @@
+#add-paypal-account-form {
+	margin-top: -10px;
+}
+
+#my-wallet-panel-body {
+	margin-bottom: -15px;
+}
+
+#remove-paypal-account {
+	margin-top: 10px;
+	margin-bottom: -4px;
+}
+
+@media (max-width: 1000px) {
+	#add-paypal-account-btn {
+		margin-top: 5px;
+	}
+
+	#add-paypal-account-form {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+@media (max-width: 900px) {
+	#receiving-table-outer {
+		margin-bottom: 0;
+	}
+
+	.my-funds-table-wrapper {
+		border: none;
+	}
+}
