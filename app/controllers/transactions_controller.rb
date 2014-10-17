@@ -73,7 +73,7 @@ class TransactionsController < ApplicationController
       response = http.post(uri.request_uri, raw, 'Content-Length' => "#{raw.size}").body
       bet = Bet.find(params[:item_number])
       post = bet.post
-      if (response == "VERIFIED" && params[:receiver_email] == Figaro.env["PAYPAL_USERNAME_DEV"] &&  params[:payment_status] == "Completed" &&  params[:mc_currency] == "USD" &&  PaypalNotification.where(:txn_id => params[:txn_id]).where.not(:order_id => nil).count == 0)
+      if (response == "VERIFIED" && params[:receiver_email] == ENV["PAYPAL_USERNAME_DEV"] &&  params[:payment_status] == "Completed" &&  params[:mc_currency] == "USD" &&  PaypalNotification.where(:txn_id => params[:txn_id]).where.not(:order_id => nil).count == 0)
         return true if (((post.price - post.user.wallet.amount)*1.1).to_f == params[:mc_gross].to_f)
         wallet = post.user.wallet
         wallet.credits += (params[:mc_gross].to_f)/1.1
