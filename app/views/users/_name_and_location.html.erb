@@ -10,7 +10,7 @@
 				</span>
 				<% if current_user && @user == current_user %>
 					<input id="edit-location-input" type="text" style="display:none;" data-load="<%= @user.user_info.location_tokenize.to_json rescue [] %>" ></input>
-					<%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %>
+					<%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'user-profile-edit' %>
 				<% end %>
 			</div>
 		<% else %>

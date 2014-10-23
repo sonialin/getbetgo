@@ -4,7 +4,7 @@
 			<div class="user-edit-block">				
 				<div>
 					<% if current_user && @user == current_user %>
-						About me: <%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'fw-main-color' %><br /> 
+						About me: <%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit".html_safe, "#", :id => 'edit-biography', :class => 'user-profile-edit' %><br /> 
 					<% end %>
 					<div id="user-profile-bio-content">
 						<em id="user-info-biography-em" data-bip-original-content="<%= @user.user_info.biography %>">

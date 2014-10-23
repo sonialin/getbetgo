@@ -95,6 +95,14 @@
   margin-bottom: -10px;
 }
 
+.user-profile-edit {
+  color: #fff;
+}
+
+.user-profile-edit:hover {
+  color: #ffff33;
+}
+
 #user-profile-follow {
   width: 200px;
   position: relative;
@@ -135,9 +143,6 @@
   color: #fff;
   font-size: 0.6em;
   line-height: 1.2em;
-  a {
-    color: #99b709;
-  }
 }
 
 .user-profile-edit-social-item {
