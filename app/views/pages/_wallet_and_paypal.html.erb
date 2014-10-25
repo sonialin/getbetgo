@@ -3,6 +3,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          <i class="fa fa-caret-down"></i>
           My Wallet: $<%= number_with_precision(@user.wallet.amount, :precision => 2) %>
         </a>
       </h4>
@@ -31,6 +32,7 @@
 	    <div class="panel-heading">
 	      <h4 class="panel-title">
 	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+	        	<i class="fa fa-caret-down"></i>
 	          My Paypal
 	          <% if @user.paypal_recipient_account %>
 	          	: <%= @user.paypal_recipient_account.email %>
@@ -44,19 +46,19 @@
 	      </h4>
 	    </div>
 	    <div id="collapseTwo" class="panel-collapse collapse">
-	      <% if @user.paypal_recipient_account %>
-				  <table class="table">
-				    <tr>
-				    	<td>
-				    		<div id="remove-paypal-account">
-				    			<span style="position: relative; top: 3px;"><%= @user.paypal_recipient_account.email %></span>
-				    			<%= link_to 'Remove', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default btn-sm' %>
-				    		</div>
-				    	</td>
-				  	</tr>
-				  </table>
-				<% else %>
-				  <div class="panel-body">
+	    	<div class="panel-body">
+		      <% if @user.paypal_recipient_account %>
+					  <table class="table" id="remove-paypal-account-table">
+					    <tr>
+					    	<td id="remove-paypal-account-outer">
+					    		<div id="remove-paypal-account">
+					    			<span style="position: relative; top: 3px;"><%= @user.paypal_recipient_account.email %></span>
+					    			<%= link_to 'Remove', @user.paypal_recipient_account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default btn-sm' %>
+					    		</div>
+					    	</td>
+					  	</tr>
+					  </table>
+					<% else %>
 				    <%= form_for @paypal_recipient_account, :url => { :controller => "paypal_recipient_accounts", :action => "create" }, :html => {:method => :post} do |f| %>
 							<div class="form-group" id="add-paypal-account-form">
 								<div class="col-md-8">
@@ -67,13 +69,13 @@
 								</div>
 							</div>
 						<% end %>
-				  </div>
-			  <% end %>
+			  	<% end %>
+				</div>
 	    </div>
 	  </div>
   <% end %>
 </div>
 
 <script>
-	$('.tip-paypal').popover({trigger: 'hover'}); 
+	$('.tip-paypal').popover({trigger: 'hover'});
 </script>

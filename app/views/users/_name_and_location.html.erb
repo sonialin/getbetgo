@@ -6,6 +6,7 @@
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12 text-center" id="user-profile-location">
 				<span id="location-span">
+					<i class="fa fa-map-marker"></i>&nbsp;
 					<%= @user.user_info.location %>
 				</span>
 				<% if current_user && @user == current_user %>
@@ -20,10 +21,11 @@
 				</div>
 				<div class="col-lg-6 col-md-12 col-sm-12 text-center" id="user-profile-location">
 					<span id="location-span">
+						<i class="fa fa-map-marker"></i>&nbsp;
 						<%= @user.user_info.location %>
 					</span>
 					<input id="edit-location-input" type="text" style="display:none;" data-load="<%= @user.user_info.location_tokenize.to_json rescue [] %>" ></input>
-					<%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'fw-main-color' %>
+					<%= link_to "&nbsp;<i class='fa fa-pencil editable'></i>&nbsp;Edit Location".html_safe, "#", :id => 'edit-location', :class => 'user-profile-edit' %>
 				</div>
 			<% else %>
 				<div class="col-lg-12 col-md-12 col-sm-12 text-center" id="user-profile-name">

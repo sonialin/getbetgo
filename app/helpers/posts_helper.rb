@@ -43,7 +43,7 @@ module PostsHelper
       end 
     elsif category.name == 'Business'
       if subcategory.name == 'Miscellaneous'
-        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230246/business_misc_n8y54w.jpg"
+        "http://res.cloudinary.com/dxytnnzk9/image/upload/v1414211076/Comp_70909939_iikyz0.jpg"
       elsif subcategory.name == 'Marketing/ PR'
         "http://res.cloudinary.com/dxytnnzk9/image/upload/v1411230256/business_PR_fgj4hh.jpg"
       elsif subcategory.name == 'Technology'

@@ -163,7 +163,10 @@
             This is an unpublished fund. Ready to make it public?
             &nbsp;
             <%= link_to publish_post_path(@post), :method => :post, :class => 'btn btn-default' do %>
-              <i class="fa fa-upload"></i>&nbsp;Publish
+              <span id='publish-fund-text'>
+                <i class="fa fa-upload"></i>&nbsp;
+                Publish
+              </span>
             <% end %>
           </div>
         </div>
